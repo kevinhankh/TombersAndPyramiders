@@ -47,7 +47,7 @@ int BaseChestplate::absorbDamage(int damage)
 		return damage;
 	}
 
-	int absorbed = damage * m_absorptionPercent;
+	int absorbed = (int)(damage * m_absorptionPercent);
 	m_durability -= absorbed;
 
 	if (m_durability <= 0)

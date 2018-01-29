@@ -1,7 +1,7 @@
 /*===================================================================================*//**
-	BaseChestplate
+	BaseGreaves
 	
-	Abstract class for a base chestplate
+	Abstract class for a base pair of greaves (leg armor).
 
     @author Erick Fernandez de Arteaga
 	
@@ -15,16 +15,16 @@
 #include "BaseEquippableItem.h"
 
 /*========================================================================================
-	BaseChestplate	
+	BaseGreaves	
 ========================================================================================*/
-class BaseChestplate
+class BaseGreaves : public BaseEquippableItem
 {
     /*----------------------------------------------------------------------------------------
 		Resource Management
     ----------------------------------------------------------------------------------------*/
     public:
         /** Default constructor. */
-        explicit BaseChestplate() = default;
+        explicit BaseGreaves() = default;
 
 	/*----------------------------------------------------------------------------------------
 		Instance Methods

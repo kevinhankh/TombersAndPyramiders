@@ -153,6 +153,7 @@
     <ClCompile Include="Engine\Manager\InputManager.cpp" />
     <ClCompile Include="Engine\Manager\MessageManager.cpp" />
     <ClCompile Include="Game\ExternalClasses\BaseChestplate.cpp" />
+    <ClCompile Include="Game\ExternalClasses\BaseHelmet.cpp" />
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Engine\Component\Component.cpp" />
     <ClCompile Include="Engine\Component\GameObject.cpp" />
@@ -202,7 +203,7 @@
     <ClInclude Include="Game\ExternalClasses\BaseEquippableItem.h" />
     <ClInclude Include="Game\ExternalClasses\BaseHelmet.h" />
     <ClInclude Include="Game\ExternalClasses\BaseItem.h" />
-    <ClInclude Include="Game\ExternalClasses\BaseLegs.h" />
+    <ClInclude Include="Game\ExternalClasses\BaseGreaves.h" />
     <ClInclude Include="Game\ExternalClasses\BaseShield.h" />
     <ClInclude Include="Game\ExternalClasses\BaseWeapon.h" />
     <ClInclude Include="Game\ExternalClasses\UserDefinedRenderLayers.h" />

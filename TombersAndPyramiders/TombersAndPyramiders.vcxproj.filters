@@ -231,6 +231,9 @@
     <ClCompile Include="Game\ExternalClasses\BaseChestplate.cpp">
       <Filter>Source Files\Game\ExternalClasses</Filter>
     </ClCompile>
+    <ClCompile Include="Game\ExternalClasses\BaseHelmet.cpp">
+      <Filter>Source Files\Game\ExternalClasses</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -407,13 +410,13 @@
     <ClInclude Include="Game\ExternalClasses\BaseItem.h">
       <Filter>Source Files\Game\ExternalClasses</Filter>
     </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\BaseLegs.h">
-      <Filter>Source Files\Game\ExternalClasses</Filter>
-    </ClInclude>
     <ClInclude Include="Game\ExternalClasses\BaseShield.h">
       <Filter>Source Files\Game\ExternalClasses</Filter>
     </ClInclude>
     <ClInclude Include="Game\ExternalClasses\BaseWeapon.h">
+      <Filter>Source Files\Game\ExternalClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ExternalClasses\BaseGreaves.h">
       <Filter>Source Files\Game\ExternalClasses</Filter>
     </ClInclude>
   </ItemGroup>

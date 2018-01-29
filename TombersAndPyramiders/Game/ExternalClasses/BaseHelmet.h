@@ -24,14 +24,14 @@ class BaseHelmet : public BaseEquippableItem
     ----------------------------------------------------------------------------------------*/
     private:
 		int m_durability; /* TODO: Decide if this is a number of headshots or an amount of damage to absorb. */
-		int m_absorptionChance;
+		float m_absorptionChance;
 
     /*----------------------------------------------------------------------------------------
 		Resource Management
     ----------------------------------------------------------------------------------------*/
     public:
         /** Default constructor. */
-        explicit BaseHelmet() = default;
+        explicit BaseHelmet() = delete;
 
 		explicit BaseHelmet(int durability, float absorptionChance);
 
