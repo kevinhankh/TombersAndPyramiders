@@ -17,11 +17,11 @@
 	Resource Management
 ----------------------------------------------------------------------------------------*/
 BaseChestplate::BaseChestplate(int durability, float absorptionPercent) :
-	m_maxDurability{ durability }, m_durability{ durability }, m_absorptionPercent{ absorptionPercent }
+	m_durability{ durability }, m_absorptionPercent{ absorptionPercent }
 {
-	if (durability <= 0)
+	if (durability < 0)
 	{
-		throw std::invalid_argument("BaseChestplate::BaseChestplate: Durability must be a positive integer.");
+		throw std::invalid_argument("BaseChestplate::BaseChestplate: durability must be 0 or greater.");
 	}
 
 	if (absorptionPercent < 0 ||
@@ -38,7 +38,13 @@ int BaseChestplate::absorbDamage(int damage)
 {
 	if (damage < 0)
 	{
-		throw std::invalid_argument("BaseChestplate::AbsorbDamage: damage must be 0 or more.");
+		throw std::invalid_argument("BaseChestplate::AbsorbDamage: damage must be 0 or greater.");
+	}
+
+	/* No absorption if the chestplate is already broken. */
+	if (m_durability <= 0)
+	{
+		return damage;
 	}
 
 	int absorbed = damage * m_absorptionPercent;
@@ -54,5 +60,5 @@ int BaseChestplate::absorbDamage(int damage)
 
 void BaseChestplate::destroy()
 {
-
+	/* Nothing to do for now. */
 }
