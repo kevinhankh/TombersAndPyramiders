@@ -228,6 +228,9 @@
     <ClCompile Include="Engine\Manager\AudioManager.cpp">
       <Filter>Source Files\Engine\Manager</Filter>
     </ClCompile>
+    <ClCompile Include="Game\ExternalClasses\BaseChestplate.cpp">
+      <Filter>Source Files\Game\ExternalClasses</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -391,6 +394,27 @@
     </ClInclude>
     <ClInclude Include="Engine\External\ThreadQueue.h">
       <Filter>Source Files\Engine\External</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ExternalClasses\BaseChestplate.h">
+      <Filter>Source Files\Game\ExternalClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ExternalClasses\BaseEquippableItem.h">
+      <Filter>Source Files\Game\ExternalClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ExternalClasses\BaseHelmet.h">
+      <Filter>Source Files\Game\ExternalClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ExternalClasses\BaseItem.h">
+      <Filter>Source Files\Game\ExternalClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ExternalClasses\BaseLegs.h">
+      <Filter>Source Files\Game\ExternalClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ExternalClasses\BaseShield.h">
+      <Filter>Source Files\Game\ExternalClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ExternalClasses\BaseWeapon.h">
+      <Filter>Source Files\Game\ExternalClasses</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
