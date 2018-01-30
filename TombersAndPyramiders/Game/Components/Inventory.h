@@ -13,11 +13,13 @@
 	Dependencies
 ========================================================================================*/
 #include "Component.h"
-#include "BaseWeapon.h"
-#include "BaseShield.h"
-#include "BaseHelmet.h"
-#include "BaseChestplate.h"
-#include "BaseGreaves.h"
+
+class BaseItem;
+class BaseWeapon;
+class BaseShield;
+class BaseHelmet;
+class BaseChestplate;
+class BaseGreaves;
 
 /*========================================================================================
 	Inventory	
@@ -64,6 +66,17 @@ class Inventory : public Component
 		Instance Methods
 	----------------------------------------------------------------------------------------*/
     public:
+		/**
+			Adds an item to the inventory.
+			addItem() will resolve the item's type and add it appropriately.
+		*/
+		void addItem(BaseItem* item);
+		void addWeapon(BaseWeapon* weapon);
+		void addShield(BaseShield* shield);
+		void addHelmet(BaseHelmet* helmet);
+		void addChestplate(BaseChestplate* chestplate);
+		void addGreaves(BaseGreaves* greaves);
+
 		void onStart();
 		void onUpdate(int ticks);
 		void onEnd();

@@ -30,7 +30,8 @@ class BaseGreaves : public BaseEquippableItem
 		Instance Methods
 	----------------------------------------------------------------------------------------*/
     public:
-		virtual void OnStartUse() = 0;
-		virtual void OnUpdateUse() = 0;
-		virtual void OnEndUse() = 0;
+		void addToInventory(Inventory* inventory);
+		virtual void onStartUse() = 0;
+		virtual void onUpdateUse() = 0;
+		virtual void onEndUse() = 0;
 };

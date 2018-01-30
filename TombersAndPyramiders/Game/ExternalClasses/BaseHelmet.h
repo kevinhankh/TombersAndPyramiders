@@ -41,6 +41,8 @@ class BaseHelmet : public BaseEquippableItem
     public:
 		int absorbHeadshot(int damage);
 
+		void addToInventory(Inventory* inventory);
+
     private:
 		void destroy();
 };

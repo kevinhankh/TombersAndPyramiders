@@ -30,6 +30,7 @@ class BaseShield : public BaseEquippableItem
 		Instance Methods
 	----------------------------------------------------------------------------------------*/
     public:
+		void addToInventory(Inventory* inventory);
 		virtual void OnStartUse() = 0;
 		virtual void OnUpdateUse() = 0;
 		virtual void OnEndUse() = 0;

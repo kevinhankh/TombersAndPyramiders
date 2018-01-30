@@ -46,6 +46,11 @@ class BaseChestplate : public BaseEquippableItem
 		*/
 		int absorbDamage(int damage);
 
+		/**
+			Adds the chestplate to the given inventory.
+		*/
+		void addToInventory(Inventory* inventory);
+
 	private:
 		/**
 			Destroys the chestplate.

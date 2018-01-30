@@ -11,6 +11,7 @@
 	Dependencies
 ========================================================================================*/
 #include "Inventory.h"
+#include "BaseItem.h"
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
@@ -38,6 +39,41 @@ Inventory::Inventory(GameObject* gameobject, BaseWeapon* weapon, BaseShield* shi
 /*----------------------------------------------------------------------------------------
 	Instance Methods
 ----------------------------------------------------------------------------------------*/
+void Inventory::addItem(BaseItem* item)
+{
+	item->addToInventory(this);
+}
+
+void Inventory::addWeapon(BaseWeapon* weapon)
+{
+	delete m_weapon;
+	m_weapon = weapon;
+}
+
+void Inventory::addShield(BaseShield* shield)
+{
+	delete m_shield;
+	m_shield = shield;
+}
+
+void Inventory::addHelmet(BaseHelmet* helmet)
+{
+	delete m_helmet;
+	m_helmet = helmet;
+}
+
+void Inventory::addChestplate(BaseChestplate* chestplate)
+{
+	delete m_chestplate;
+	m_chestplate = chestplate;
+}
+
+void Inventory::addGreaves(BaseGreaves* greaves)
+{
+	delete m_greaves;
+	m_greaves = greaves;
+}
+
 void Inventory::onStart()
 {};
 

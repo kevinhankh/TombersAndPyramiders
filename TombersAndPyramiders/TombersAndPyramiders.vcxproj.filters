@@ -234,6 +234,21 @@
     <ClCompile Include="Game\ExternalClasses\BaseHelmet.cpp">
       <Filter>Source Files\Game\ExternalClasses</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Components\Inventory.cpp">
+      <Filter>Source Files\Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ExternalClasses\BaseItem.cpp">
+      <Filter>Source Files\Game\ExternalClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ExternalClasses\BaseGreaves.cpp">
+      <Filter>Source Files\Game\ExternalClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ExternalClasses\BaseShield.cpp">
+      <Filter>Source Files\Game\ExternalClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ExternalClasses\BaseWeapon.cpp">
+      <Filter>Source Files\Game\ExternalClasses</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -418,6 +433,9 @@
     </ClInclude>
     <ClInclude Include="Game\ExternalClasses\BaseGreaves.h">
       <Filter>Source Files\Game\ExternalClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Components\Inventory.h">
+      <Filter>Source Files\Game\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -58,6 +58,11 @@ int BaseChestplate::absorbDamage(int damage)
 	return (damage - absorbed);
 }
 
+void BaseChestplate::addToInventory(Inventory* inventory)
+{
+	inventory->addChestplate(this);
+}
+
 void BaseChestplate::destroy()
 {
 	/* Nothing to do for now. */
