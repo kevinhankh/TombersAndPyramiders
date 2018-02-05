@@ -1,7 +1,8 @@
 /*===================================================================================*//**
-	CharacterController
+	BasePilot
 	
-	Abstract class for a component that controls the behaviour of a player character.
+	Abstract class for an object that either generates or fetches input for a 
+	BaseController.
 
     @author Erick Fernandez de Arteaga
 	
@@ -12,29 +13,27 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "Component.h"
-class GameObject;
+#include "Updateable.h"
 
 /*========================================================================================
-	BaseController	
+	BasePilot	
 ========================================================================================*/
-class BaseController : Component
+class BasePilot : public Updateable
 {
     /*----------------------------------------------------------------------------------------
 		Resource Management
     ----------------------------------------------------------------------------------------*/
     public:
-        explicit BaseController() = delete;
+        /** Default constructor. */
+        explicit BasePilot() = default;
 
-		explicit BaseController(GameObject* gameObject);
-
-		virtual ~BaseController() {};
+		virtual ~BasePilot() {};
 
 	/*----------------------------------------------------------------------------------------
 		Instance Methods
 	----------------------------------------------------------------------------------------*/
-	public:
-		virtual void onStart();
-		virtual void onUpdate(int ticks);
-		virtual void onEnd();
+    public:
+		virtual void onStart() = 0;
+		virtual void onUpdate(int ticks) = 0;
+		virtual void onEnd() = 0;
 };

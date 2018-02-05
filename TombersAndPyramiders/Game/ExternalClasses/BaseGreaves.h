@@ -12,12 +12,14 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
+#include "Updateable.h"
 #include "BaseEquippableItem.h"
 
 /*========================================================================================
 	BaseGreaves	
 ========================================================================================*/
-class BaseGreaves : public BaseEquippableItem
+class BaseGreaves : public BaseEquippableItem, public Updateable
+
 {
     /*----------------------------------------------------------------------------------------
 		Resource Management
@@ -33,7 +35,7 @@ class BaseGreaves : public BaseEquippableItem
 	----------------------------------------------------------------------------------------*/
     public:
 		virtual void addToInventory(Inventory* inventory);
-		virtual void onStartUse() = 0;
-		virtual void onUpdateUse() = 0;
-		virtual void onEndUse() = 0;
+		virtual void onStart() = 0;
+		virtual void onUpdate(int ticks) = 0;
+		virtual void onEnd() = 0;
 };

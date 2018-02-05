@@ -1,7 +1,7 @@
 /*===================================================================================*//**
 	Inventory
 	
-	A component representing a collection of itemsx owned by a GameObject.
+	A component representing a collection of items owned by a GameObject.
 
     @author Erick Fernandez de Arteaga
 	

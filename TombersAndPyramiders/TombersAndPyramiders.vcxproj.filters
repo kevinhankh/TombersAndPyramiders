@@ -255,7 +255,10 @@
     <ClCompile Include="Game\ExternalClasses\Damageable.cpp">
       <Filter>Source Files\Game\ExternalClasses</Filter>
     </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\BaseController.cpp">
+    <ClCompile Include="Game\ExternalClasses\BasePilot.cpp">
+      <Filter>Source Files\Game\ExternalClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Components\BaseController.cpp">
       <Filter>Source Files\Game\Components</Filter>
     </ClCompile>
   </ItemGroup>
@@ -449,7 +452,10 @@
     <ClInclude Include="Game\ExternalClasses\Damageable.h">
       <Filter>Source Files\Game\ExternalClasses</Filter>
     </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\BaseController.h">
+    <ClInclude Include="Game\ExternalClasses\BasePilot.h">
+      <Filter>Source Files\Game\ExternalClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Components\BaseController.h">
       <Filter>Source Files\Game\Components</Filter>
     </ClInclude>
   </ItemGroup>

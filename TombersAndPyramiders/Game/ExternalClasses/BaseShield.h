@@ -12,12 +12,13 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
+#include "Updateable.h"
 #include "BaseEquippableItem.h"
 
 /*========================================================================================
 	BaseShield	
 ========================================================================================*/
-class BaseShield : public BaseEquippableItem
+class BaseShield : public BaseEquippableItem, public Updateable
 {
     /*----------------------------------------------------------------------------------------
 		Resource Management
@@ -33,7 +34,7 @@ class BaseShield : public BaseEquippableItem
 	----------------------------------------------------------------------------------------*/
     public:
 		virtual void addToInventory(Inventory* inventory);
-		virtual void OnStartUse() = 0;
-		virtual void OnUpdateUse() = 0;
-		virtual void OnEndUse() = 0;
+		virtual void onStart() = 0;
+		virtual void onUpdate(int ticks) = 0;
+		virtual void onEnd() = 0;
 };

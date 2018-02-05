@@ -1,7 +1,7 @@
 /*===================================================================================*//**
-	Damageable
+	BaseController
 	
-	Abstract class for something that has HP, can be damaged, and can "die".
+	Abstract class for a component that controls the actions of an agent.
 
     @author Erick Fernandez de Arteaga
 	
@@ -13,6 +13,7 @@
 	Dependencies
 ========================================================================================*/
 #include "BaseController.h"
+#include "BasePilot.h"
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
@@ -25,10 +26,16 @@ BaseController::BaseController(GameObject* gameObject) :
 	Instance Methods
 ----------------------------------------------------------------------------------------*/
 void BaseController::onStart()
-{}
+{
+	m_pilot.get()->onStart();
+}
 
 void BaseController::onUpdate(int ticks)
-{}
+{
+	m_pilot.get()->onUpdate(ticks);
+}
 
 void BaseController::onEnd()
-{}
+{
+	m_pilot.get()->onEnd();
+}
