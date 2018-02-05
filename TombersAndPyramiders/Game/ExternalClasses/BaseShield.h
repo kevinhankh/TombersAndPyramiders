@@ -26,11 +26,13 @@ class BaseShield : public BaseEquippableItem
         /** Default constructor. */
         explicit BaseShield() = default;
 
+		virtual ~BaseShield() {};
+
 	/*----------------------------------------------------------------------------------------
 		Instance Methods
 	----------------------------------------------------------------------------------------*/
     public:
-		void addToInventory(Inventory* inventory);
+		virtual void addToInventory(Inventory* inventory);
 		virtual void OnStartUse() = 0;
 		virtual void OnUpdateUse() = 0;
 		virtual void OnEndUse() = 0;

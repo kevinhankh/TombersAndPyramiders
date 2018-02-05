@@ -1,7 +1,7 @@
 /*===================================================================================*//**
-	BaseHelmet
+	Damageable
 	
-	Abstract class for a base helmet.
+	Abstract class for something that has HP, can be damaged, and can "die".
 
     @author Erick Fernandez de Arteaga
 	
@@ -12,39 +12,35 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "BaseEquippableItem.h"
+
 
 /*========================================================================================
-	BaseHelmet	
+	Damageable	
 ========================================================================================*/
-class BaseHelmet : public BaseEquippableItem
+class Damageable
 {
     /*----------------------------------------------------------------------------------------
 		Instance Fields
     ----------------------------------------------------------------------------------------*/
-    private:
-		int m_durability; /* TODO: Decide if this is a number of headshots or an amount of damage to absorb. */
-		float m_absorptionChance;
+	private:
+		int m_maxHealth;
+		int m_health;
 
     /*----------------------------------------------------------------------------------------
 		Resource Management
     ----------------------------------------------------------------------------------------*/
     public:
-        /** Default constructor. */
-        explicit BaseHelmet() = delete;
+        explicit Damageable() = delete;
 
-		explicit BaseHelmet(int durability, float absorptionChance);
+		explicit Damageable(int maxHealth);
 
-		virtual ~BaseHelmet() {};
+		virtual ~Damageable() {};
 
 	/*----------------------------------------------------------------------------------------
 		Instance Methods
 	----------------------------------------------------------------------------------------*/
     public:
-		virtual int absorbHeadshot(int damage);
-
-		virtual void addToInventory(Inventory* inventory);
-
-    private:
-		virtual void destroy();
+		int getHealth();
+		void setHealth(int health);
+		virtual void death() = 0;
 };

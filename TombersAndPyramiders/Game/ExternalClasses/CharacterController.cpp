@@ -1,51 +1,34 @@
 /*===================================================================================*//**
-	BaseHelmet
+	Damageable
 	
-	Abstract class for a base helmet.
+	Abstract class for something that has HP, can be damaged, and can "die".
 
     @author Erick Fernandez de Arteaga
 	
 *//*====================================================================================*/
 
+#pragma once
+
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include <stdexcept>
-#include "BaseHelmet.h"
-#include "Inventory.h"
+#include "BaseController.h"
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-BaseHelmet::BaseHelmet(int durability, float absorptionChance) :
-	m_durability{ durability }, m_absorptionChance{ absorptionChance }
-{
-	if (durability < 0)
-	{
-		throw std::invalid_argument("BaseHelmet::BaseHelmet: durability must 0 or greater.");
-	}
-
-	if (absorptionChance < 0 ||
-		absorptionChance > 1)
-	{
-		throw std::invalid_argument("BaseHelmet::BaseHelmet: absorptionChance must be in the range [0-1].");
-	}
-}
+BaseController::BaseController(GameObject* gameObject) :
+	Component(gameObject)
+{}
 
 /*----------------------------------------------------------------------------------------
 	Instance Methods
 ----------------------------------------------------------------------------------------*/
-int BaseHelmet::absorbHeadshot(int damage)
-{
-	return damage;
-}
+void BaseController::onStart()
+{}
 
-void BaseHelmet::addToInventory(Inventory* inventory)
-{
-	inventory->setHelmet(this);
-}
+void BaseController::onUpdate(int ticks)
+{}
 
-void BaseHelmet::destroy()
-{
-	/* Nothing to do for now. */
-}
+void BaseController::onEnd()
+{}

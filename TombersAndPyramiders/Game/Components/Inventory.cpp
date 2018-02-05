@@ -12,6 +12,11 @@
 ========================================================================================*/
 #include "Inventory.h"
 #include "BaseItem.h"
+#include "BaseWeapon.h"
+#include "BaseShield.h"
+#include "BaseHelmet.h"
+#include "BaseChestplate.h"
+#include "BaseGreaves.h"
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
@@ -22,19 +27,69 @@ Inventory::Inventory(GameObject* gameobject) :
 
 Inventory::Inventory(GameObject* gameobject, BaseWeapon* weapon, BaseShield* shield, BaseHelmet* helmet,
 	BaseChestplate* chestplate, BaseGreaves* greaves) :
-	Component(gameObject)
-
+	Component(gameObject),
+	m_weapon{ std::unique_ptr<BaseWeapon>(weapon) },
+	m_shield{ std::unique_ptr<BaseShield>(shield) },
+	m_helmet{ std::unique_ptr<BaseHelmet>(helmet) },
+	m_chestplate{ std::unique_ptr<BaseChestplate>(chestplate) },
+	m_greaves{ std::unique_ptr<BaseGreaves>(greaves) }
 {}
 
 /*----------------------------------------------------------------------------------------
 	Instance Getter Methods
 ----------------------------------------------------------------------------------------*/
+BaseWeapon& Inventory::getWeapon()
+{
+	return *m_weapon;
+}
 
+BaseShield& Inventory::getShield()
+{
+	return *m_shield;
+}
+
+BaseHelmet& Inventory::getHelmet()
+{
+	return *m_helmet;
+}
+
+BaseChestplate& Inventory::getChestplate()
+{
+	return *m_chestplate;
+}
+
+BaseGreaves& Inventory::getGreaves()
+{
+	return *m_greaves;
+}
 
 /*----------------------------------------------------------------------------------------
 	Instance Setter Methods
 ----------------------------------------------------------------------------------------*/
+void Inventory::setWeapon(BaseWeapon* weapon)
+{
+	m_weapon = std::unique_ptr<BaseWeapon>(weapon);
+}
 
+void Inventory::setShield(BaseShield* shield)
+{
+	m_shield = std::unique_ptr<BaseShield>(shield);
+}
+
+void Inventory::setHelmet(BaseHelmet* helmet)
+{
+	m_helmet = std::unique_ptr<BaseHelmet>(helmet);
+}
+
+void Inventory::setChestplate(BaseChestplate* chestplate)
+{
+	m_chestplate = std::unique_ptr<BaseChestplate>(chestplate);
+}
+
+void Inventory::setGreaves(BaseGreaves* greaves)
+{
+	m_greaves = std::unique_ptr<BaseGreaves>(greaves);
+}
 
 /*----------------------------------------------------------------------------------------
 	Instance Methods
@@ -44,35 +99,6 @@ void Inventory::addItem(BaseItem* item)
 	item->addToInventory(this);
 }
 
-void Inventory::addWeapon(BaseWeapon* weapon)
-{
-	delete m_weapon;
-	m_weapon = weapon;
-}
-
-void Inventory::addShield(BaseShield* shield)
-{
-	delete m_shield;
-	m_shield = shield;
-}
-
-void Inventory::addHelmet(BaseHelmet* helmet)
-{
-	delete m_helmet;
-	m_helmet = helmet;
-}
-
-void Inventory::addChestplate(BaseChestplate* chestplate)
-{
-	delete m_chestplate;
-	m_chestplate = chestplate;
-}
-
-void Inventory::addGreaves(BaseGreaves* greaves)
-{
-	delete m_greaves;
-	m_greaves = greaves;
-}
 
 void Inventory::onStart()
 {};

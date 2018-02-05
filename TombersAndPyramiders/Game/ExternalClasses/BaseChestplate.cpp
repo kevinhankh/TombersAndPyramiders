@@ -10,8 +10,9 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "BaseChestplate.h"
 #include <stdexcept>
+#include "BaseChestplate.h"
+#include "Inventory.h"
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
@@ -60,7 +61,7 @@ int BaseChestplate::absorbDamage(int damage)
 
 void BaseChestplate::addToInventory(Inventory* inventory)
 {
-	inventory->addChestplate(this);
+	inventory->setChestplate(this);
 }
 
 void BaseChestplate::destroy()

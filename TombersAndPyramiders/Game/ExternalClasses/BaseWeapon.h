@@ -26,11 +26,13 @@ class BaseWeapon : public BaseEquippableItem
         /** Default constructor. */
         explicit BaseWeapon() = default;
 
+		virtual ~BaseWeapon() {};
+
 	/*----------------------------------------------------------------------------------------
 		Instance Methods
 	----------------------------------------------------------------------------------------*/
     public:
-		void addToInventory(Inventory* inventory);
+		virtual void addToInventory(Inventory* inventory);
 		virtual void OnStartUse() = 0;
 		virtual void OnUpdateUse() = 0;
 		virtual void OnEndUse() = 0;

@@ -249,6 +249,15 @@
     <ClCompile Include="Game\ExternalClasses\BaseWeapon.cpp">
       <Filter>Source Files\Game\ExternalClasses</Filter>
     </ClCompile>
+    <ClCompile Include="Game\ExternalClasses\BaseEquippableItem.cpp">
+      <Filter>Source Files\Game\ExternalClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ExternalClasses\Damageable.cpp">
+      <Filter>Source Files\Game\ExternalClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ExternalClasses\BaseController.cpp">
+      <Filter>Source Files\Game\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -435,6 +444,12 @@
       <Filter>Source Files\Game\ExternalClasses</Filter>
     </ClInclude>
     <ClInclude Include="Game\Components\Inventory.h">
+      <Filter>Source Files\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ExternalClasses\Damageable.h">
+      <Filter>Source Files\Game\ExternalClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ExternalClasses\BaseController.h">
       <Filter>Source Files\Game\Components</Filter>
     </ClInclude>
   </ItemGroup>

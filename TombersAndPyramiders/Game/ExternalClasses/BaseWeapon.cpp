@@ -11,11 +11,12 @@
 	Dependencies
 ========================================================================================*/
 #include "BaseWeapon.h"
+#include "Inventory.h"
 
 /*----------------------------------------------------------------------------------------
 	Instance Methods
 ----------------------------------------------------------------------------------------*/
 void BaseWeapon::addToInventory(Inventory* inventory)
 {
-	inventory->addWeapon(this);
+	inventory->setWeapon(this);
 }

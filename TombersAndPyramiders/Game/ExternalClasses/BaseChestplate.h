@@ -34,6 +34,8 @@ class BaseChestplate : public BaseEquippableItem
 
 		explicit BaseChestplate(int durability, float absorptionPercent);
 
+		virtual ~BaseChestplate() {};
+
 	/*----------------------------------------------------------------------------------------
 		Instance Methods
 	----------------------------------------------------------------------------------------*/
@@ -44,16 +46,16 @@ class BaseChestplate : public BaseEquippableItem
 			
 			Destroys the chestplate if it has taken too much damage.
 		*/
-		int absorbDamage(int damage);
+		virtual int absorbDamage(int damage);
 
 		/**
 			Adds the chestplate to the given inventory.
 		*/
-		void addToInventory(Inventory* inventory);
+		virtual void addToInventory(Inventory* inventory);
 
 	private:
 		/**
 			Destroys the chestplate.
 		*/
-		void destroy();
+		virtual void destroy();
 };

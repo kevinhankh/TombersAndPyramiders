@@ -25,4 +25,6 @@ class BaseEquippableItem : public BaseItem
     public:
         /** Default constructor. */
         explicit BaseEquippableItem() = default;
+
+		virtual ~BaseEquippableItem() {};
 };

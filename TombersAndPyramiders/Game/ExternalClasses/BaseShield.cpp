@@ -11,11 +11,12 @@
 	Dependencies
 ========================================================================================*/
 #include "BaseShield.h"
+#include "Inventory.h"
 
 /*----------------------------------------------------------------------------------------
 	Instance Methods
 ----------------------------------------------------------------------------------------*/
 void BaseShield::addToInventory(Inventory* inventory)
 {
-	inventory->addShield(this);
+	inventory->setShield(this);
 }

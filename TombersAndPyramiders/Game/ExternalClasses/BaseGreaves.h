@@ -26,11 +26,13 @@ class BaseGreaves : public BaseEquippableItem
         /** Default constructor. */
         explicit BaseGreaves() = default;
 
+		virtual ~BaseGreaves() {};
+
 	/*----------------------------------------------------------------------------------------
 		Instance Methods
 	----------------------------------------------------------------------------------------*/
     public:
-		void addToInventory(Inventory* inventory);
+		virtual void addToInventory(Inventory* inventory);
 		virtual void onStartUse() = 0;
 		virtual void onUpdateUse() = 0;
 		virtual void onEndUse() = 0;

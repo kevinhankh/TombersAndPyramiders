@@ -11,11 +11,12 @@
 	Dependencies
 ========================================================================================*/
 #include "BaseGreaves.h"
+#include "Inventory.h"
 
 /*----------------------------------------------------------------------------------------
 	Instance Methods
 ----------------------------------------------------------------------------------------*/
 void BaseGreaves::addToInventory(Inventory* inventory)
 {
-	inventory->addGreaves(this);
+	inventory->setGreaves(this);
 }

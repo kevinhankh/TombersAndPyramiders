@@ -1,51 +1,51 @@
 /*===================================================================================*//**
-	BaseHelmet
+	Damageable
 	
-	Abstract class for a base helmet.
+	Abstract class for something that has HP, can be damaged, and can "die".
 
     @author Erick Fernandez de Arteaga
 	
 *//*====================================================================================*/
 
+#pragma once
+
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
 #include <stdexcept>
-#include "BaseHelmet.h"
-#include "Inventory.h"
+#include <algorithm>
+#include "Damageable.h"
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-BaseHelmet::BaseHelmet(int durability, float absorptionChance) :
-	m_durability{ durability }, m_absorptionChance{ absorptionChance }
+Damageable::Damageable(int maxHealth) :
+	m_maxHealth{ maxHealth }, m_health{ maxHealth }
 {
-	if (durability < 0)
+	if (maxHealth < 1)
 	{
-		throw std::invalid_argument("BaseHelmet::BaseHelmet: durability must 0 or greater.");
-	}
-
-	if (absorptionChance < 0 ||
-		absorptionChance > 1)
-	{
-		throw std::invalid_argument("BaseHelmet::BaseHelmet: absorptionChance must be in the range [0-1].");
+		throw std::invalid_argument("Damageable::Damageable: maxHealth must be greater than zero.");
 	}
 }
 
 /*----------------------------------------------------------------------------------------
-	Instance Methods
+	Instance Getter Methods
 ----------------------------------------------------------------------------------------*/
-int BaseHelmet::absorbHeadshot(int damage)
+int Damageable::getHealth()
 {
-	return damage;
+	return m_health;
 }
 
-void BaseHelmet::addToInventory(Inventory* inventory)
+/*----------------------------------------------------------------------------------------
+	Instance Setter Methods
+----------------------------------------------------------------------------------------*/
+void Damageable::setHealth(int health)
 {
-	inventory->setHelmet(this);
-}
+	/* Cap min = 0 and max = max health. */
+	m_health = std::min(std::max(health, 0), m_maxHealth);
 
-void BaseHelmet::destroy()
-{
-	/* Nothing to do for now. */
+	if (m_health <= 0)
+	{
+		death();
+	}
 }

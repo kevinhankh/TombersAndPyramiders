@@ -1,7 +1,7 @@
 /*===================================================================================*//**
-	BaseHelmet
+	BaseController
 	
-	Abstract class for a base helmet.
+	Abstract class for a component that controls the actions of an agent.
 
     @author Erick Fernandez de Arteaga
 	
@@ -12,39 +12,29 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "BaseEquippableItem.h"
+#include "Component.h"
+class GameObject;
 
 /*========================================================================================
-	BaseHelmet	
+	BaseController	
 ========================================================================================*/
-class BaseHelmet : public BaseEquippableItem
+class BaseController : Component
 {
-    /*----------------------------------------------------------------------------------------
-		Instance Fields
-    ----------------------------------------------------------------------------------------*/
-    private:
-		int m_durability; /* TODO: Decide if this is a number of headshots or an amount of damage to absorb. */
-		float m_absorptionChance;
-
     /*----------------------------------------------------------------------------------------
 		Resource Management
     ----------------------------------------------------------------------------------------*/
     public:
-        /** Default constructor. */
-        explicit BaseHelmet() = delete;
+        explicit BaseController() = delete;
 
-		explicit BaseHelmet(int durability, float absorptionChance);
+		explicit BaseController(GameObject* gameObject);
 
-		virtual ~BaseHelmet() {};
+		virtual ~BaseController() {};
 
 	/*----------------------------------------------------------------------------------------
 		Instance Methods
 	----------------------------------------------------------------------------------------*/
-    public:
-		virtual int absorbHeadshot(int damage);
-
-		virtual void addToInventory(Inventory* inventory);
-
-    private:
-		virtual void destroy();
+	public:
+		virtual void onStart();
+		virtual void onUpdate(int ticks);
+		virtual void onEnd();
 };
