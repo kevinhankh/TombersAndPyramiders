@@ -1,7 +1,7 @@
 /*===================================================================================*//**
-	BaseController
+	PlayerPilot
 	
-	Abstract class for a component that controls the actions of an agent.
+	A pilot that gets local keyboard input from the player.
 
     @author Erick Fernandez de Arteaga
 	
@@ -12,54 +12,47 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include <memory>
-#include "Component.h"
-class GameObject;
-class BasePilot;
+#include "BasePilot.h"
+class CharacterController;
 
 /*========================================================================================
-	BaseController	
+	PlayerPilot	
 ========================================================================================*/
-class BaseController : Component
+class PlayerPilot : public BasePilot
 {
     /*----------------------------------------------------------------------------------------
 		Instance Fields
     ----------------------------------------------------------------------------------------*/
-	private:
-		std::unique_ptr<BasePilot> m_pilot;
+	CharacterController* m_characterController; /* Note this is delibrately a raw pointer.
+													Pilots do not own their controllers and should not delete them. */
 
     /*----------------------------------------------------------------------------------------
 		Resource Management
     ----------------------------------------------------------------------------------------*/
     public:
-        explicit BaseController() = delete;
+        /** Default constructor. */
+        explicit PlayerPilot() = default;
 
-		explicit BaseController(GameObject* gameObject, BasePilot* pilot);
-
-		virtual ~BaseController() {};
-		
+	
 	/*----------------------------------------------------------------------------------------
 		Instance Setter Methods
 	----------------------------------------------------------------------------------------*/
 	public:
-		void setPilot(BasePilot* pilot);
+		/**
+			This method assumes that the controller being passed is a CharacterController.
+		*/
+		void setController(BaseController* controller);
 
 	/*----------------------------------------------------------------------------------------
 		Instance Methods
 	----------------------------------------------------------------------------------------*/
-	public:
-		/**
-			Forwards the onStart() call to the pilot.
-		*/
-		virtual void onStart();
+    public:
+		void onStart();
 
 		/**
-			Forwards the onUpdate() call to the pilot.
+			Reads player input and drives the pilot's controller accordingly.
 		*/
-		virtual void onUpdate(int ticks);
-
-		/**
-			Forwards the onEnd() call to the pilot.
-		*/
-		virtual void onEnd();
+		void onUpdate(int ticks);
+		
+		void onEnd();
 };

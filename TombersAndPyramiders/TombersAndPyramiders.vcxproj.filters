@@ -261,6 +261,12 @@
     <ClCompile Include="Game\Components\BaseController.cpp">
       <Filter>Source Files\Game\Components</Filter>
     </ClCompile>
+    <ClCompile Include="Game\ExternalClasses\PlayerPilot.cpp">
+      <Filter>Source Files\Game\ExternalClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Components\CharacterController.cpp">
+      <Filter>Source Files\Game\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -456,6 +462,12 @@
       <Filter>Source Files\Game\ExternalClasses</Filter>
     </ClInclude>
     <ClInclude Include="Game\Components\BaseController.h">
+      <Filter>Source Files\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ExternalClasses\PlayerPilot.h">
+      <Filter>Source Files\Game\ExternalClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Components\CharacterController.h">
       <Filter>Source Files\Game\Components</Filter>
     </ClInclude>
   </ItemGroup>

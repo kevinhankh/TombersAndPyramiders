@@ -1,22 +1,24 @@
 /*===================================================================================*//**
-	BasePilot
+	CharacterController
 	
-	Abstract class for an object that either generates or fetches input for a 
-	BaseController.
+	Abstract class for a component that controls the actions of an agent.
 
     @author Erick Fernandez de Arteaga
 	
 *//*====================================================================================*/
 
+#pragma once
+
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
+#include "CharacterController.h"
+#include "BaseController.h"
 #include "BasePilot.h"
 
 /*----------------------------------------------------------------------------------------
-	Instance Setter Methods
+	Resource Management
 ----------------------------------------------------------------------------------------*/
-void BasePilot::setController(BaseController* controller)
-{
-	m_controller = controller;
-}
+CharacterController::CharacterController(GameObject* gameObject, BasePilot* pilot, int maxHealth) :
+	BaseController(gameObject, pilot), Damageable(maxHealth)
+{}
