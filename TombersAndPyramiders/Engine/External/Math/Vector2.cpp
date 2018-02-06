@@ -1,5 +1,11 @@
 #include "Vector2.h"
 
+Vector2::Vector2()
+{
+	m_x = 0;
+	m_y = 0;
+}
+
 Vector2::Vector2(float x, float y) : m_x(x), m_y(y)
 {
 }
@@ -35,6 +41,34 @@ void Vector2::normalize()
 	getMagnitude();
 	m_x /= m_magnitude;
 	m_y /= m_magnitude;
+}
+
+void Vector2::translate(float xOffset, float yOffset)
+{
+	m_x += xOffset;
+	m_y += yOffset;
+}
+
+void Vector2::rotate(float angle)
+{
+	float radians;
+	float xTemp, yTemp;
+	radians = angle * -1 * (M_PI / 180);
+	xTemp = m_x;
+	yTemp = m_y;
+	m_x = xTemp * cos(radians) + yTemp * -sin(radians);
+	m_y = xTemp * sin(radians) + yTemp * cos(radians);
+}
+
+void Vector2::rotateFromOrigin(Vector2 origin, float angle)
+{
+	float xOffset;
+	float yOffset;
+	xOffset = -origin.getX();
+	yOffset = -origin.getY();
+	translate(xOffset, yOffset);
+	rotate(angle);
+	translate(origin.getX(), origin.getY());
 }
 
 

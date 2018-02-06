@@ -11,8 +11,12 @@ private:
 	float m_magnitude;
 	float m_rotation; //0 is right facing not implemented 
 public:
+	Vector2();
 	Vector2(float x, float y);
 	void normalize();
+	void translate(float xOffset, float yOffset);
+	void rotate(float angle);
+	void rotateFromOrigin(Vector2 origin, float angle);
 
 	//__declspec (property (get = getMagnitude)) float magnitude;
 	float getMagnitude();
