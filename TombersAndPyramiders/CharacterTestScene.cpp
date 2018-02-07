@@ -33,7 +33,7 @@ void CharacterTestScene::onStart()
 void CharacterTestScene::setCameraFollow(std::shared_ptr<GameObject> toFollow)
 {
 	Camera::getActiveCamera()->getComponent<CameraFollow*>()->setToFollow(toFollow);
-}
+}
 
 void CharacterTestScene::onPause()
 {
