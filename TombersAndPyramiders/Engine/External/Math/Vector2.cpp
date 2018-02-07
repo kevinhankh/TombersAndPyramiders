@@ -60,6 +60,24 @@ void Vector2::rotate(float angle)
 	m_y = xTemp * sin(radians) + yTemp * cos(radians);
 }
 
+float Vector2::checkAngle(float angle)
+{
+	float result;
+	result = angle;
+	if (result < 0 || result > 360)
+	{
+		while (result > 360)
+		{
+			result -= 360;
+		}
+		while (result < 0)
+		{
+			result += 360;
+		}
+	}
+	return result;
+}
+
 void Vector2::rotateFromOrigin(Vector2 origin, float angle)
 {
 	float xOffset;
@@ -71,6 +89,19 @@ void Vector2::rotateFromOrigin(Vector2 origin, float angle)
 	translate(origin.getX(), origin.getY());
 }
 
+Vector2* Vector2::convertAngleToVector(float angle)
+{
+	Vector2* result;
+	result->setX(0);
+	result->setY(1);
+	result->rotate(angle);
+	return result;
+}
+
+float Vector2::dotProduct(Vector2* a, Vector2* b)
+{
+	return a->getX() * b->getX() + a->getY() * b->getY();
+}
 
 //OPERATORS
 

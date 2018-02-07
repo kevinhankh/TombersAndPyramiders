@@ -17,6 +17,11 @@ float BoxCollider::getHeight()
 	return m_height;
 }
 
+Vector2* BoxCollider::getCorner(int index)
+{
+	return m_corners[index];
+}
+
 void BoxCollider::setWidth(float width)
 {
 	m_width = width;

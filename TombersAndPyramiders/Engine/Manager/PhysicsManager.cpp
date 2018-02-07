@@ -4,6 +4,7 @@
 #include <cmath>
 #include "SceneManager.h"
 #include <algorithm>
+#include "Vector2.h"
 
 PhysicsManager* PhysicsManager::s_instance;
 
@@ -105,6 +106,36 @@ bool PhysicsManager::checkCircleCollision(CircleCollider* c1, CircleCollider* c2
 bool PhysicsManager::checkBoxCollision(BoxCollider* c1, BoxCollider* c2)
 {
 	// check if there is a collision between a box and a box
+
+	// Update corners for each box collider
+	c1->updateCorners();
+	c2->updateCorners();
+
+	// Set the 2 axis for each box collider (4 axes in total)
+	axes[0]->vector = Vector2::convertAngleToVector(c1->getTransform()->getRotation());
+	axes[1]->vector = Vector2::convertAngleToVector(c1->getTransform()->getRotation() + 90);
+	axes[2]->vector = Vector2::convertAngleToVector(c2->getTransform()->getRotation());
+	axes[3]->vector = Vector2::convertAngleToVector(c2->getTransform()->getRotation() + 90);
+
+	// Project each corner onto all four axes
+	for (int i = 0; i < 4; ++i)
+	{
+		for (int j = 0; j < 4; ++j) // c1 corners projected onto Axes
+		{
+			scalar = Vector2::dotProduct(c1->getCorner(j), axes[i]->vector) / pow(axes[i]->vector->getMagnitude(), 2);
+			axes[i]->c1corners[j] = *(axes[i]->vector) * scalar;
+		}
+
+		for (int k = 0; k < 4; ++k) // c2 corners projected onto Axes
+		{
+			scalar = Vector2::dotProduct(c2->getCorner(k), axes[i]->vector) / pow(axes[i]->vector->getMagnitude(), 2);
+		}
+
+		// Find c1min, c1max, c2min, c2max
+
+		// Check if c1max < c2min & c2max < c1min
+
+	}
 
 	return false;
 }
