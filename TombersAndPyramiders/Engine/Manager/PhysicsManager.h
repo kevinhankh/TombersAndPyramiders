@@ -4,12 +4,13 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "Collider.h"
+#include <memory>
 
 class PhysicsManager : public Updateable 
 {
 private:
 	static PhysicsManager* s_instance;
-	std::map<int, GameObject*> m_sceneObjects;
+	std::map<int, std::shared_ptr<GameObject>> m_sceneObjects;
 	std::vector<Collider*> m_sceneColliders;
 	float checkCollision(Transform* obj1, Transform* obj2);
 public:
