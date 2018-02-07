@@ -12,6 +12,16 @@
 ========================================================================================*/
 #include "PlayerPilot.h"
 #include "CharacterController.h"
+#include "InputManager.h"
+#include "Vector2.h"
+
+/*----------------------------------------------------------------------------------------
+	Instance Setter Methods
+----------------------------------------------------------------------------------------*/
+const SDL_Keycode PlayerPilot::PLAYER_MOVE_UP_KEY = SDLK_w;
+const SDL_Keycode PlayerPilot::PLAYER_MOVE_DOWN_KEY = SDLK_s;
+const SDL_Keycode PlayerPilot::PLAYER_MOVE_LEFT_KEY = SDLK_a;
+const SDL_Keycode PlayerPilot::PLAYER_MOVE_RIGHT_KEY = SDLK_d;
 
 /*----------------------------------------------------------------------------------------
 	Instance Setter Methods
@@ -27,13 +37,22 @@ void PlayerPilot::setController(BaseController* controller)
 /*----------------------------------------------------------------------------------------
 	Instance Methods
 ----------------------------------------------------------------------------------------*/
-void PlayerPilot::onStart()
-{}
-
 void PlayerPilot::onUpdate(int ticks)
 {
-
+	if (m_characterController != nullptr)
+	{
+		m_characterController->move(getMovement());
+	}
 }
 
-void PlayerPilot::onEnd()
-{}
+Vector2 PlayerPilot::getMovement()
+{
+	Vector2 movement = Vector2(0, 0);
+
+	if (InputManager::getInstance()->onKey(PLAYER_MOVE_UP_KEY))
+	{
+
+	}
+
+	return movement;
+}

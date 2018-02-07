@@ -25,6 +25,13 @@ class CharacterController : public BaseController, public Damageable
 		Instance Fields
     ----------------------------------------------------------------------------------------*/
 	private:
+		bool m_wasUsingWeapon;
+		bool m_wasUsingShield;
+		bool m_wasUsingGreaves;
+
+		bool m_isUsingWeapon;
+		bool m_isUsingShield;
+		bool m_isUsingGreaves;
 
     /*----------------------------------------------------------------------------------------
 		Resource Management
@@ -34,38 +41,58 @@ class CharacterController : public BaseController, public Damageable
 
 		explicit CharacterController(GameObject* gameObject, BasePilot* pilot, int maxHealth);
 
+	
+    /*----------------------------------------------------------------------------------------
+		Instance Setter Methods
+    ----------------------------------------------------------------------------------------*/
+	public:
+		void setIsUsingWeapon(bool isUsingWeapon);
+		void setIsUsingShield(bool isUsingShield);
+		void setIsUsingGreaves(bool isUsingGreaves);
+
     /*----------------------------------------------------------------------------------------
 		Instance Methods
     ----------------------------------------------------------------------------------------*/
 	public:
 		/**
+			Forwards the onUpdate() call to the pilot.
+		*/
+		void onUpdate(int ticks);
+
+		/**
 			Moves this component's gameObject.
+
+			The Vector2 passed in should have values of 1, -1, or 0 for its x and y, to 
+			indicate positive, negative, or no movement along the x and y axes.
+
+			The CharacterController will handle determining the speed of movement.
 		*/
-		void move(Vector2 delta);
+		void move(Vector2 moveInput);
+	
+	private:
+		/**
+			Updates the player's weapon this tick.
+
+			This will either start, continue, or stop the use of the weapon, 
+			depending on what input was received in the past two frames.
+		*/
+		void updateWeapon(int ticks);
 
 		/**
-			Uses the player's weapon this tick.
+			Updates the player's shield this tick.
 
-			This will either start or continue the use of the weapon, 
-			depending on whether the weapon was in use in the last tick.
+			This will either start, continue, or stop the use of the shield, 
+			depending on what input was received in the past two frames.
 		*/
-		void useWeapon();
+		void updateShield(int ticks);
 
 		/**
-			Uses the player's shield this tick.
+			Updates the player's greaves this tick.
 
-			This will either start or continue the use of the shield, 
-			depending on whether the shield was in use in the last tick.
+			This will either start, continue, or stop the use of the greaves, 
+			depending on what input was received in the past two frames.
 		*/
-		void useShield();
-
-		/**
-			Uses the player's greaves this tick.
-
-			This will either start or continue the use of the greaves, 
-			depending on whether the greaves were in use in the last tick.
-		*/
-		void useGreaves();
+		void updateGreaves(int ticks);
 
 	protected:
 		/**

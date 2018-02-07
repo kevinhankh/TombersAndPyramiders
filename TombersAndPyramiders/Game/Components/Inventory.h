@@ -14,13 +14,11 @@
 ========================================================================================*/
 #include <memory>
 #include "Component.h"
-
-class BaseItem;
-class BaseWeapon;
-class BaseShield;
-class BaseHelmet;
-class BaseChestplate;
-class BaseGreaves;
+#include "BaseWeapon.h"
+#include "BaseShield.h"
+#include "BaseHelmet.h"
+#include "BaseChestplate.h"
+#include "BaseGreaves.h"
 
 /*========================================================================================
 	Inventory	
