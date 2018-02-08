@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
+#include <memory>
 
 class Scene : public Updateable
 {
@@ -8,7 +9,7 @@ private:
 	std::vector<int> m_idsToRemove;
 
 public:
-	std::map<int, GameObject*> sceneObjects;
+	std::map<int, std::shared_ptr<GameObject>> sceneObjects;
 
 	//Called on unpausing from the SceneManager's scene stack.
 	virtual void onResume() = 0;

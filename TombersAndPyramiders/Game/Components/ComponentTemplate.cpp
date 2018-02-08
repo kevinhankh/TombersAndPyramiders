@@ -9,7 +9,7 @@ ComponentTemplate::ComponentTemplate(GameObject* gameObject) : Component(gameObj
 //The destructor called when this component is deleted. Do any cleanup here
 ComponentTemplate::~ComponentTemplate()
 {
-	std::cout << "ComponentTempalte Destructor Invoked. Time To Cleanup" << std::endl;
+	std::cout << "ComponentTemplate Destructor Invoked. Time To Clean Up" << std::endl;
 }
 
 void ComponentTemplate::exampleMethod()

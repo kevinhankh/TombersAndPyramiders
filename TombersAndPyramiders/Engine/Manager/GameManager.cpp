@@ -10,6 +10,7 @@
 #include "PhysicsManager.h"
 #include "AudioManager.h"
 #include "GarbageCollection.h"
+#include <memory>
 
 GameManager* GameManager::s_instance;
 
@@ -82,8 +83,9 @@ void GameManager::onUpdate(int ticks)
 	SpriteRendererManager::getInstance()->onUpdate(ticks);
 	PhysicsManager::getInstance()->onUpdate(ticks);
 
-	for (std::map<int, GameObject*>::iterator it = m_globalGameObjects.begin(); it != m_globalGameObjects.end(); ++it)
+	for (std::map<int, std::shared_ptr<GameObject>>::iterator it = m_globalGameObjects.begin(); it != m_globalGameObjects.end(); ++it)
 	{
+		it->second->onComponentsUpdate(ticks);
 		it->second->onUpdate(ticks);
 	}
 
@@ -107,7 +109,7 @@ void GameManager::fpsThrottle(int ticks)
 
 void GameManager::addGameObject(int id, GameObject* obj)
 {
-	m_globalGameObjects[id] = obj;
+	m_globalGameObjects[id] = std::shared_ptr<GameObject>(obj);
 }
 
 void GameManager::removeGameObject(GameObject* objectToRemove)
