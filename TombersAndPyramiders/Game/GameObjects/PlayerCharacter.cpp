@@ -20,7 +20,7 @@
 	Resource Management
 ----------------------------------------------------------------------------------------*/
 PlayerCharacter::PlayerCharacter() :
-	GameObject(false)
+	SimpleSprite("IceTile.png", 0, 0)
 {
 	addComponent<CharacterController*>(new CharacterController(this));
 	addComponent<Inventory*>(new Inventory(this));

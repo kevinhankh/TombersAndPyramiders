@@ -70,13 +70,13 @@ Vector2 PlayerPilot::getMovement()
 	/* Move left. */
 	if (InputManager::getInstance()->onKey(SDLK_a))
 	{
-		movement.setY(movement.getY() - 1);
+		movement.setX(movement.getX() - 1);
 	}
 
 	/* Move right. */
 	if (InputManager::getInstance()->onKey(SDLK_d))
 	{
-		movement.setY(movement.getY() + 1);
+		movement.setX(movement.getX() + 1);
 	}
 
 	return movement;

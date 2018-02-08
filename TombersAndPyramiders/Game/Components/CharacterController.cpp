@@ -48,6 +48,7 @@ void CharacterController::setIsUsingWeapon(bool isUsingWeapon)
 {
 	m_wasUsingWeapon = m_isUsingWeapon;
 	m_isUsingWeapon = isUsingWeapon;
+
 }
 
 void CharacterController::setIsUsingShield(bool isUsingShield)

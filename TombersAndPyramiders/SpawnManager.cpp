@@ -34,3 +34,11 @@ std	::shared_ptr<MovingSquare> SpawnManager::generateMovingSquare(float x, float
 	movingSquares.push_back(movingSquare);
 	return movingSquare;
 }
+
+std::shared_ptr<PlayerCharacter> SpawnManager::generateSimpleCharacter(float x, float y)
+{
+	std::shared_ptr<PlayerCharacter> simpleCharacter = std::shared_ptr<PlayerCharacter>(new PlayerCharacter());
+	simpleCharacter->getTransform()->setPosition(x, y);
+	simpleCharacters.push_back(simpleCharacter);
+	return simpleCharacter;
+}

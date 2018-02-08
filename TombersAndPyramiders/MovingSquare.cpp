@@ -22,13 +22,16 @@ void MovingSquare::onUpdate(int ticks) {
 	if (InputManager::getInstance()->onKey(SDLK_a))
 	{
 		this->getTransform()->addX(-0.15f);
-	}	if (InputManager::getInstance()->onKey(SDLK_d))
+	}
+	if (InputManager::getInstance()->onKey(SDLK_d))
 	{
 		this->getTransform()->addX(0.15f);
-	}	if (InputManager::getInstance()->onKey(SDLK_w))
+	}
+	if (InputManager::getInstance()->onKey(SDLK_w))
 	{
 		this->getTransform()->addY(0.15f);
-	}	if (InputManager::getInstance()->onKey(SDLK_s))
+	}
+	if (InputManager::getInstance()->onKey(SDLK_s))
 	{
 		this->getTransform()->addY(-0.15f);
 	}
