@@ -91,7 +91,7 @@ void Vector2::rotateFromOrigin(Vector2 origin, float angle)
 
 Vector2* Vector2::convertAngleToVector(float angle)
 {
-	Vector2* result;
+	Vector2* result = new Vector2();
 	result->setX(0);
 	result->setY(1);
 	result->rotate(angle);

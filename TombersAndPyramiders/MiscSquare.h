@@ -1,10 +1,10 @@
 #pragma once
 
-#include "GameObject.h"
+#include "SimpleSprite.h"
 #include "ComponentTemplate.h"
 
 //Instance/MovableCharacter
-class GameObjectTemplate : public GameObject
+class MiscSquare : public SimpleSprite
 {
 private:
 	////Private Variables
@@ -16,14 +16,12 @@ public:
 
 	////Public Methods
 	//The constructor that is called on creation
-	GameObjectTemplate();
+	MiscSquare();
 	//The destructor that is called on deletion
-	~GameObjectTemplate();
-	//Any public methods you want other Components/GameObjects to have access too
-	void exampleMethod();
+	~MiscSquare();
 
 	void onStart() {};
-	void onUpdate(int ticks) {};
+	void onUpdate(int ticks) {}
 	void onEnd() {};
 
 };
