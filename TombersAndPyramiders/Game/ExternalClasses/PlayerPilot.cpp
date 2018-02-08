@@ -18,10 +18,10 @@
 /*----------------------------------------------------------------------------------------
 	Instance Setter Methods
 ----------------------------------------------------------------------------------------*/
-const SDL_Keycode PlayerPilot::PLAYER_MOVE_UP_KEY = SDLK_w;
-const SDL_Keycode PlayerPilot::PLAYER_MOVE_DOWN_KEY = SDLK_s;
-const SDL_Keycode PlayerPilot::PLAYER_MOVE_LEFT_KEY = SDLK_a;
-const SDL_Keycode PlayerPilot::PLAYER_MOVE_RIGHT_KEY = SDLK_d;
+//const SDL_Keycode PlayerPilot::PLAYER_MOVE_UP_KEY = SDLK_w;
+//const SDL_Keycode PlayerPilot::PLAYER_MOVE_DOWN_KEY = SDLK_s;
+//const SDL_Keycode PlayerPilot::PLAYER_MOVE_LEFT_KEY = SDLK_a;
+//const SDL_Keycode PlayerPilot::PLAYER_MOVE_RIGHT_KEY = SDLK_d;
 
 /*----------------------------------------------------------------------------------------
 	Instance Setter Methods
@@ -49,9 +49,28 @@ Vector2 PlayerPilot::getMovement()
 {
 	Vector2 movement = Vector2(0, 0);
 
-	if (InputManager::getInstance()->onKey(PLAYER_MOVE_UP_KEY))
+	/* Move up. */
+	if (InputManager::getInstance()->onKey(SDLK_w))
 	{
+		movement.setY(movement.getY() + 1);
+	}
 
+	/* Move down. */
+	if (InputManager::getInstance()->onKey(SDLK_s))
+	{
+		movement.setY(movement.getY() - 1);
+	}
+
+	/* Move left. */
+	if (InputManager::getInstance()->onKey(SDLK_a))
+	{
+		movement.setY(movement.getY() - 1);
+	}
+
+	/* Move right. */
+	if (InputManager::getInstance()->onKey(SDLK_d))
+	{
+		movement.setY(movement.getY() + 1);
 	}
 
 	return movement;

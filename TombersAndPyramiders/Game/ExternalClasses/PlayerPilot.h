@@ -25,10 +25,10 @@ class PlayerPilot : public BasePilot
 		Instance Fields
     ----------------------------------------------------------------------------------------*/
 	private:
-		static const SDL_Keycode PLAYER_MOVE_UP_KEY;
-		static const SDL_Keycode PLAYER_MOVE_DOWN_KEY;
-		static const SDL_Keycode PLAYER_MOVE_LEFT_KEY;
-		static const SDL_Keycode PLAYER_MOVE_RIGHT_KEY;
+		//static const SDL_Keycode PLAYER_MOVE_UP_KEY;
+		//static const SDL_Keycode PLAYER_MOVE_DOWN_KEY;
+		//static const SDL_Keycode PLAYER_MOVE_LEFT_KEY;
+		//static const SDL_Keycode PLAYER_MOVE_RIGHT_KEY;
 
 		CharacterController* m_characterController; /* Note this is delibrately a raw pointer.
 														Pilots do not own their controllers and should not delete them. */

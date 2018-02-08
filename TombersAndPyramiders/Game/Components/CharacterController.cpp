@@ -24,10 +24,17 @@
 #include "BaseGreaves.h"
 
 /*----------------------------------------------------------------------------------------
+	Static Fields
+----------------------------------------------------------------------------------------*/
+const Vector2 CharacterController::DEFAULT_PLAYER_MOVEMENT_SPEED = Vector2(1, 1);
+
+/*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-CharacterController::CharacterController(GameObject* gameObject, BasePilot* pilot, int maxHealth) :
+CharacterController::CharacterController(GameObject* gameObject, BasePilot* pilot, int maxHealth, 
+	Vector2 movementSpeed) :
 	BaseController(gameObject, pilot), Damageable(maxHealth), 
+	m_movementSpeed{ movementSpeed }, 
 	m_wasUsingWeapon{ false }, m_wasUsingShield{ false }, m_wasUsingGreaves{ false },
 	m_isUsingWeapon{ false }, m_isUsingShield{ false }, m_isUsingGreaves{ false }
 {}
@@ -68,8 +75,10 @@ void CharacterController::onUpdate(int ticks)
 
 void CharacterController::move(Vector2 delta)
 {
+	delta.setX(delta.getX() * m_movementSpeed.getX());
+	delta.setY(delta.getY() * m_movementSpeed.getY());
+
 	gameObject->getComponent<Transform*>()->addTranslation(delta.getX(), delta.getY());
-	todo
 }
 
 void CharacterController::updateWeapon(int ticks)
