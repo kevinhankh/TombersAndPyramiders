@@ -37,6 +37,9 @@ void PlayerPilot::setController(BaseController* controller)
 /*----------------------------------------------------------------------------------------
 	Instance Methods
 ----------------------------------------------------------------------------------------*/
+void PlayerPilot::onStart()
+{}
+
 void PlayerPilot::onUpdate(int ticks)
 {
 	if (m_characterController != nullptr)
@@ -44,6 +47,9 @@ void PlayerPilot::onUpdate(int ticks)
 		m_characterController->move(getMovement());
 	}
 }
+
+void PlayerPilot::onEnd()
+{}
 
 Vector2 PlayerPilot::getMovement()
 {

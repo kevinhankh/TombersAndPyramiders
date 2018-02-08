@@ -15,6 +15,7 @@
 #include "BaseController.h"
 #include "Damageable.h"
 #include "Vector2.h"
+#include "PlayerPilot.h"
 
 /*========================================================================================
 	CharacterController	
@@ -25,6 +26,7 @@ class CharacterController : public BaseController, public Damageable
 		Instance Fields
     ----------------------------------------------------------------------------------------*/
 	public:
+		static const int DEFAULT_PLAYER_MAX_HP;
 		static const Vector2 DEFAULT_PLAYER_MOVEMENT_SPEED;
 
 	private:
@@ -44,8 +46,8 @@ class CharacterController : public BaseController, public Damageable
     public:
         explicit CharacterController() = delete;
 
-		explicit CharacterController(GameObject* gameObject, BasePilot* pilot, int maxHealth, 
-			Vector2 movementSpeed = DEFAULT_PLAYER_MOVEMENT_SPEED);
+		explicit CharacterController(GameObject* gameObject, BasePilot* pilot = new PlayerPilot(), 
+			int maxHealth = DEFAULT_PLAYER_MAX_HP, Vector2 movementSpeed = DEFAULT_PLAYER_MOVEMENT_SPEED);
 
 	
     /*----------------------------------------------------------------------------------------
