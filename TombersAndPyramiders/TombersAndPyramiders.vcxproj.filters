@@ -73,6 +73,9 @@
     <Filter Include="Source Files\Engine\Component\AI">
       <UniqueIdentifier>{35a34bfc-1b5c-4cb4-8531-9d0015b2f05d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game\ExternalClasses\Items">
+      <UniqueIdentifier>{609bb4e8-7259-48d7-bb47-14bfe7920735}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -228,29 +231,8 @@
     <ClCompile Include="Engine\Manager\AudioManager.cpp">
       <Filter>Source Files\Engine\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\BaseChestplate.cpp">
-      <Filter>Source Files\Game\ExternalClasses</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\BaseHelmet.cpp">
-      <Filter>Source Files\Game\ExternalClasses</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Components\Inventory.cpp">
       <Filter>Source Files\Game\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\BaseItem.cpp">
-      <Filter>Source Files\Game\ExternalClasses</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\BaseGreaves.cpp">
-      <Filter>Source Files\Game\ExternalClasses</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\BaseShield.cpp">
-      <Filter>Source Files\Game\ExternalClasses</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\BaseWeapon.cpp">
-      <Filter>Source Files\Game\ExternalClasses</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\BaseEquippableItem.cpp">
-      <Filter>Source Files\Game\ExternalClasses</Filter>
     </ClCompile>
     <ClCompile Include="Game\ExternalClasses\Damageable.cpp">
       <Filter>Source Files\Game\ExternalClasses</Filter>
@@ -287,6 +269,27 @@
     </ClCompile>
     <ClCompile Include="SpawnManager.cpp">
       <Filter>Source Files\Game\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ExternalClasses\BaseChestplate.cpp">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ExternalClasses\BaseEquippableItem.cpp">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ExternalClasses\BaseGreaves.cpp">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ExternalClasses\BaseHelmet.cpp">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ExternalClasses\BaseItem.cpp">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ExternalClasses\BaseShield.cpp">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ExternalClasses\BaseWeapon.cpp">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -452,27 +455,6 @@
     <ClInclude Include="Engine\External\ThreadQueue.h">
       <Filter>Source Files\Engine\External</Filter>
     </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\BaseChestplate.h">
-      <Filter>Source Files\Game\ExternalClasses</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\BaseEquippableItem.h">
-      <Filter>Source Files\Game\ExternalClasses</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\BaseHelmet.h">
-      <Filter>Source Files\Game\ExternalClasses</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\BaseItem.h">
-      <Filter>Source Files\Game\ExternalClasses</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\BaseShield.h">
-      <Filter>Source Files\Game\ExternalClasses</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\BaseWeapon.h">
-      <Filter>Source Files\Game\ExternalClasses</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\BaseGreaves.h">
-      <Filter>Source Files\Game\ExternalClasses</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Components\Inventory.h">
       <Filter>Source Files\Game\Components</Filter>
     </ClInclude>
@@ -511,6 +493,27 @@
     </ClInclude>
     <ClInclude Include="SpawnManager.h">
       <Filter>Source Files\Game\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ExternalClasses\BaseChestplate.h">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ExternalClasses\BaseEquippableItem.h">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ExternalClasses\BaseGreaves.h">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ExternalClasses\BaseHelmet.h">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ExternalClasses\BaseItem.h">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ExternalClasses\BaseShield.h">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ExternalClasses\BaseWeapon.h">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
