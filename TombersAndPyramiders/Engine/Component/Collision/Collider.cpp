@@ -3,7 +3,7 @@
 #include <math.h>
 #include "PhysicsManager.h"
 
-Collider::Collider(GameObject* gameObject, float radius) : Component(gameObject), m_radius(radius)
+Collider::Collider(GameObject* gameObject/*, float radius*/) : Component(gameObject)/*, m_radius(radius)*/
 {
 	m_collision = false;
 	//add to physics manager;
@@ -71,16 +71,16 @@ void Collider::addCollision(GameObject* collider)
 	m_colliders.push_back(collider);
 }
 
-float Collider::getRadius()
-{
-	return m_radius;
-}
-
+//float Collider::getRadius()
+//{
+//	return m_radius;
+//}
+/*
 void Collider::setRadius(float radius)
 {
 	m_radius = radius;
 }
-
+*/
 Transform * Collider::getTransform()
 {
 	return m_transform;
