@@ -1,9 +1,12 @@
 /*===================================================================================*//**
-	BaseWeapon
+	DamagingRegion
 	
-	Abstract class for a base weapon.
-
-    @author Erick Fernandez de Arteaga
+	Prefab class for a GameObject that causes damage to damageable objects when it 
+	collides with them.
+    
+    Copyright 2017 Erick Fernandez de Arteaga. All rights reserved.
+        https://www.linkedin.com/in/erick-fda
+        https://bitbucket.org/erick-fda
 	
 *//*====================================================================================*/
 
@@ -12,35 +15,44 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "Updateable.h"
-#include "BaseEquippableItem.h"
-#include "DamagingRegion.h"
+#include "GameObject.h"
 
 /*========================================================================================
-	BaseWeapon	
+	DamagingRegion	
 ========================================================================================*/
-class BaseWeapon : public BaseEquippableItem, public Updateable
+class DamagingRegion : public GameObject
 {
     /*----------------------------------------------------------------------------------------
 		Instance Fields
     ----------------------------------------------------------------------------------------*/
-	DamagingRegion _damagingRegion;
+    private:
+
 
     /*----------------------------------------------------------------------------------------
 		Resource Management
     ----------------------------------------------------------------------------------------*/
     public:
         /** Default constructor. */
-        explicit BaseWeapon(float colliderWidth, float colliderHeight);
+        explicit DamagingRegion(float colliderWidth, float colliderHeight);
 
-		virtual ~BaseWeapon() {};
+	/*----------------------------------------------------------------------------------------
+		Instance Getter Methods
+    ----------------------------------------------------------------------------------------*/
+    public:
+        
+    
+	/*----------------------------------------------------------------------------------------
+		Instance Setter Methods
+	----------------------------------------------------------------------------------------*/
+    public:
+
 
 	/*----------------------------------------------------------------------------------------
 		Instance Methods
 	----------------------------------------------------------------------------------------*/
     public:
-		virtual void addToInventory(Inventory* inventory);
-		virtual void onStart() = 0;
-		virtual void onUpdate(int ticks) = 0;
-		virtual void onEnd() = 0;
+
+
+    private:
+
 };

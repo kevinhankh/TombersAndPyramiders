@@ -27,6 +27,8 @@ class BaseEquippableItem : public BaseItem
         explicit BaseEquippableItem() = default;
 
 		virtual ~BaseEquippableItem() {};
-
-
+		
+    /*----------------------------------------------------------------------------------------
+		Instance Methods
+    ----------------------------------------------------------------------------------------*/
 };

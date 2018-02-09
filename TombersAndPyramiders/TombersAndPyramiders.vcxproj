@@ -184,6 +184,7 @@
     <ClCompile Include="Engine\Manager\GameManager.cpp" />
     <ClCompile Include="Engine\Manager\SpriteRendererManager.cpp" />
     <ClCompile Include="Game\Components\ComponentTemplate.cpp" />
+    <ClCompile Include="Game\GameObjects\DamagingRegion.cpp" />
     <ClCompile Include="Game\GameObjects\GameObjectTemplate.cpp" />
     <ClCompile Include="Game\GameObjects\PlayerCharacter.cpp" />
     <ClCompile Include="Game\Scenes\SceneTemplate.cpp" />
@@ -256,6 +257,7 @@
     <ClInclude Include="Engine\Manager\InputManager.h" />
     <ClInclude Include="Engine\Manager\SpriteRendererManager.h" />
     <ClInclude Include="Game\Components\ComponentTemplate.h" />
+    <ClInclude Include="Game\GameObjects\DamagingRegion.h" />
     <ClInclude Include="Game\GameObjects\GameObjectTemplate.h" />
     <ClInclude Include="Game\GameObjects\PlayerCharacter.h" />
     <ClInclude Include="Game\Scenes\SceneTemplate.h" />

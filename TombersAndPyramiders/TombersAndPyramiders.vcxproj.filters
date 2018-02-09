@@ -300,6 +300,9 @@
     <ClCompile Include="Game\ExternalClasses\BaseWeapon.cpp">
       <Filter>Source Files\Game\ExternalClasses\Items</Filter>
     </ClCompile>
+    <ClCompile Include="Game\GameObjects\DamagingRegion.cpp">
+      <Filter>Source Files\Game\GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -532,6 +535,9 @@
     </ClInclude>
     <ClInclude Include="Game\ExternalClasses\BaseWeapon.h">
       <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObjects\DamagingRegion.h">
+      <Filter>Source Files\Game\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
