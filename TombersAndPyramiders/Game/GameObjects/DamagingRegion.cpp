@@ -20,9 +20,15 @@
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-DamagingRegion::DamagingRegion(float colliderWidth, float colliderHeight) :
-	GameObject(false)
+DamagingRegion::DamagingRegion(BaseWeapon* weapon, float colliderWidth, float colliderHeight) :
+	GameObject(false), 
+	_weapon{ weapon }
 {
+	if (_weapon == nullptr)
+	{
+		throw std::invalid_argument("DamagingRegion::DamagingRegion(): _weapon cannot be null.");
+	}
+
 	if (colliderWidth <= 0)
 	{
 		throw std::invalid_argument("DamagingRegion::DamagingRegion(): colliderWidth must be greater than zero.");

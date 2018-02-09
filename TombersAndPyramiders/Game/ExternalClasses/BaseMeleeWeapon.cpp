@@ -1,7 +1,7 @@
 /*===================================================================================*//**
-	BaseWeapon
-	
-	Abstract class for a base weapon.
+	BaseMeleeWeapon
+
+	Abstract class for a base melee weapon.
 
     @author Erick Fernandez de Arteaga
 	
@@ -10,20 +10,11 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "BaseWeapon.h"
-#include "Inventory.h"
+#include "BaseMeleeWeapon.h"
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-BaseWeapon::BaseWeapon(float colliderWidth, float colliderHeight) :
-	_damagingRegion{ DamagingRegion(this, colliderWidth, colliderHeight) }
+BaseMeleeWeapon::BaseMeleeWeapon(float colliderWidth, float colliderHeight) :
+	BaseWeapon{colliderWidth, colliderHeight}
 {}
-
-/*----------------------------------------------------------------------------------------
-	Instance Methods
-----------------------------------------------------------------------------------------*/
-void BaseWeapon::addToInventory(Inventory* inventory)
-{
-	inventory->setWeapon(this);
-}

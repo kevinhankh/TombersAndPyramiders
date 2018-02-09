@@ -166,8 +166,10 @@
     <ClCompile Include="Game\ExternalClasses\BaseGreaves.cpp" />
     <ClCompile Include="Game\ExternalClasses\BaseHelmet.cpp" />
     <ClCompile Include="Game\ExternalClasses\BaseItem.cpp" />
+    <ClCompile Include="Game\ExternalClasses\BaseMeleeWeapon.cpp" />
     <ClCompile Include="Game\ExternalClasses\BasePilot.cpp" />
     <ClCompile Include="Game\ExternalClasses\BaseShield.cpp" />
+    <ClCompile Include="Game\ExternalClasses\BaseShortsword.cpp" />
     <ClCompile Include="Game\ExternalClasses\BaseWeapon.cpp" />
     <ClCompile Include="Game\ExternalClasses\Damageable.cpp" />
     <ClCompile Include="Game\ExternalClasses\PlayerPilot.cpp" />
@@ -235,8 +237,10 @@
     <ClInclude Include="Game\ExternalClasses\BaseHelmet.h" />
     <ClInclude Include="Game\ExternalClasses\BaseItem.h" />
     <ClInclude Include="Game\ExternalClasses\BaseGreaves.h" />
+    <ClInclude Include="Game\ExternalClasses\BaseMeleeWeapon.h" />
     <ClInclude Include="Game\ExternalClasses\BasePilot.h" />
     <ClInclude Include="Game\ExternalClasses\BaseShield.h" />
+    <ClInclude Include="Game\ExternalClasses\BaseShortsword.h" />
     <ClInclude Include="Game\ExternalClasses\BaseWeapon.h" />
     <ClInclude Include="Game\ExternalClasses\Damageable.h" />
     <ClInclude Include="Game\ExternalClasses\PlayerPilot.h" />

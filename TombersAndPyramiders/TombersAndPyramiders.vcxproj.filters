@@ -303,6 +303,12 @@
     <ClCompile Include="Game\GameObjects\DamagingRegion.cpp">
       <Filter>Source Files\Game\GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="Game\ExternalClasses\BaseMeleeWeapon.cpp">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ExternalClasses\BaseShortsword.cpp">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -538,6 +544,12 @@
     </ClInclude>
     <ClInclude Include="Game\GameObjects\DamagingRegion.h">
       <Filter>Source Files\Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ExternalClasses\BaseMeleeWeapon.h">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ExternalClasses\BaseShortsword.h">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

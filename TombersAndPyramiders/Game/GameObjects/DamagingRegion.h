@@ -16,6 +16,7 @@
 	Dependencies
 ========================================================================================*/
 #include "GameObject.h"
+class BaseWeapon;
 
 /*========================================================================================
 	DamagingRegion	
@@ -26,14 +27,14 @@ class DamagingRegion : public GameObject
 		Instance Fields
     ----------------------------------------------------------------------------------------*/
     private:
-
+		BaseWeapon* _weapon;
 
     /*----------------------------------------------------------------------------------------
 		Resource Management
     ----------------------------------------------------------------------------------------*/
     public:
         /** Default constructor. */
-        explicit DamagingRegion(float colliderWidth, float colliderHeight);
+        explicit DamagingRegion(BaseWeapon* weapon, float colliderWidth, float colliderHeight);
 
 	/*----------------------------------------------------------------------------------------
 		Instance Getter Methods
