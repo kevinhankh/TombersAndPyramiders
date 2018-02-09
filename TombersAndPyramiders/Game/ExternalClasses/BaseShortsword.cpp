@@ -24,3 +24,15 @@ const float BaseShortsword::SHORTSWORD_COLLIDER_HEIGHT = 1;
 BaseShortsword::BaseShortsword() :
 	BaseMeleeWeapon{ SHORTSWORD_COLLIDER_WIDTH, SHORTSWORD_COLLIDER_HEIGHT }
 {}
+
+/*----------------------------------------------------------------------------------------
+	Instance Methods
+----------------------------------------------------------------------------------------*/
+void BaseShortsword::onStart()
+{}
+
+void BaseShortsword::onUpdate(int ticks)
+{}
+
+void BaseShortsword::onEnd()
+{}

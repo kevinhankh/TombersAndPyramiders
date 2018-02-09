@@ -27,7 +27,7 @@ void CharacterTestScene::onStart()
 		}
 	}
 
-	setCameraFollow(SpawnManager::getInstance()->generateSimpleCharacter(15, 5));
+	setCameraFollow(SpawnManager::getInstance()->generateSimpleCharacter(0, 0));
 }
 
 void CharacterTestScene::setCameraFollow(std::shared_ptr<GameObject> toFollow)

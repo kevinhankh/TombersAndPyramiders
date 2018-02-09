@@ -21,7 +21,7 @@
 	Resource Management
 ----------------------------------------------------------------------------------------*/
 DamagingRegion::DamagingRegion(BaseWeapon* weapon, float colliderWidth, float colliderHeight) :
-	GameObject(false), 
+	SimpleSprite{ "IceTile.png", 0, 0, 0, 0.5 },
 	_weapon{ weapon }
 {
 	if (_weapon == nullptr)
@@ -39,7 +39,8 @@ DamagingRegion::DamagingRegion(BaseWeapon* weapon, float colliderWidth, float co
 		throw std::invalid_argument("DamagingRegion::DamagingRegion(): colliderHeight must be greater than zero.");
 	}
 
-	addComponent<BoxCollider*>(new BoxCollider(this, colliderWidth, colliderHeight));
+	// TODO: Add this line back in once Michael fixes BoxCollider.
+	//addComponent<BoxCollider*>(new BoxCollider(this, colliderWidth, colliderHeight));
 }
 
 /*----------------------------------------------------------------------------------------

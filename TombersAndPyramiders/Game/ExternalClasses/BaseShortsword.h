@@ -33,4 +33,12 @@ class BaseShortsword : public BaseMeleeWeapon
         explicit BaseShortsword();
 
 		virtual ~BaseShortsword() {};
+	
+    /*----------------------------------------------------------------------------------------
+		Instance Methods
+    ----------------------------------------------------------------------------------------*/
+	public:
+		void onStart();
+		void onUpdate(int ticks);
+		void onEnd();
 };
