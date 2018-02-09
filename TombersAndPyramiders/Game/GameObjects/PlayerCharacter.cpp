@@ -20,7 +20,7 @@
 	Resource Management
 ----------------------------------------------------------------------------------------*/
 PlayerCharacter::PlayerCharacter() :
-	SimpleSprite("IceTile.png", 0, 0)
+	ComplexSprite(generateComplexSpriteInfo(), 0, 0)
 {
 	addComponent<CharacterController*>(new CharacterController(this));
 	addComponent<Inventory*>(new Inventory(this));
@@ -39,4 +39,15 @@ PlayerCharacter::PlayerCharacter() :
 /*----------------------------------------------------------------------------------------
 	Instance Methods
 ----------------------------------------------------------------------------------------*/
+// Private generation logic for describing the sprite sheet relationships for this player
+std::shared_ptr<ComplexSpriteinfo> PlayerCharacter::generateComplexSpriteInfo()
+{
+	std::shared_ptr<ComplexSpriteinfo> spriteInfo = std::make_shared<ComplexSpriteinfo>(new ComplexSpriteinfo());
 
+	spriteInfo->addInfo("squareIdle.png", 8, 1);
+	spriteInfo->addInfo("squareRun.png", 8, 1);
+	spriteInfo->addInfo("squareRedAttack.png", 8, 1);
+	spriteInfo->addInfo("squareWhiteAttack.png", 8, 1);
+
+	return spriteInfo;
+}

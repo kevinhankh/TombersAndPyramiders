@@ -14,12 +14,12 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "SimpleSprite.h"
+#include "ComplexSprite.h"
 
 /*========================================================================================
 	PlayerCharacter	
 ========================================================================================*/
-class PlayerCharacter : public SimpleSprite
+class PlayerCharacter : public ComplexSprite
 {
     /*----------------------------------------------------------------------------------------
 		Instance Fields
@@ -53,5 +53,12 @@ class PlayerCharacter : public SimpleSprite
 
 
     private:
-
+		/*--------------------
+		Player Animation Logic
+		--------------------*/
+		std::shared_ptr<ComplexSpriteinfo> generateComplexSpriteInfo();
+		void playRunAnimation();
+		void endRunAnimation();
+		void playMeleeAttackAnimation();
+		void playRangeAttackAnimation();
 };

@@ -5,7 +5,7 @@
 #include "Shader.h"
 #include "HelperFunctions.h"
 
-ComplexSprite::ComplexSprite(ComplexSpriteinfo* info, float x, float y, float z, float scale, Shader* nonDefaultShader, int framesPerSecond) : GameObject(false)
+ComplexSprite::ComplexSprite(std::shared_ptr<ComplexSpriteinfo> info, float x, float y, float z, float scale, Shader* nonDefaultShader, int framesPerSecond) : GameObject(false)
 {
 	SpriteRenderer* spriteRenderer = new SpriteRenderer(this);
 	spriteRenderer->setActiveShader(Shader::getShader(SHADER_SPRITESHEET));
@@ -16,7 +16,7 @@ ComplexSprite::ComplexSprite(ComplexSpriteinfo* info, float x, float y, float z,
 		GLuint texture = SpriteRendererManager::getInstance()->generateTexture(BuildPath((char*)totalPath.c_str()));
 		int columns = info->getColumnCount(i);
 		int rows = info->getRowCount(i);
-		m_sprites.push_back(new SpriteSheet(texture, columns, rows));
+		m_sprites.push_back(std::make_shared<SpriteSheet>(new SpriteSheet(texture, columns, rows)));
 	}
 
 	if (nonDefaultShader != nullptr)
@@ -35,16 +35,6 @@ ComplexSprite::ComplexSprite(ComplexSpriteinfo* info, float x, float y, float z,
 	m_framesTilReturn = -1;
 	this->m_framesPerSecond = framesPerSecond;
 
-}
-
-ComplexSprite::~ComplexSprite()
-{
-	for (int i = 0; i < m_sprites.size(); i++)
-	{
-		delete(m_sprites[i]);
-		m_sprites[i] = NULL;
-	}
-	m_sprites.clear();
 }
 
 void ComplexSprite::setFPS(int fps)

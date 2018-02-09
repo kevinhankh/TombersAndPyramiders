@@ -9,7 +9,7 @@ SimpleSprite::SimpleSprite(std::string path, float x, float y, float z, float sc
 {
 	std::string totalPath("Game/Assets/Sprites/" + path);
 	GLuint titleTexture = SpriteRendererManager::getInstance()->generateTexture(BuildPath((char*)totalPath.c_str()));
-	m_sprite = new Sprite(titleTexture);
+	m_sprite = std::make_shared<Sprite>(new Sprite(titleTexture));
 	SpriteRenderer* spriteRenderer = new SpriteRenderer(this);
 	Transform* transform = getTransform();
 	if (nonDefaultShader != nullptr)

@@ -395,7 +395,7 @@ void SpriteRendererManager::renderShadowPass(float xSourceDirection, float ySour
 
 			if (rg.shaderID == SHADER_SPRITESHEET)
 			{
-				SpriteSheet spriteSheet = *((SpriteSheet *)ro.sprite);
+				SpriteSheet spriteSheet = *((SpriteSheet *)ro.sprite.get());
 				if (spriteSheet.getColumnCount() > 1000)
 				{
 					int hit = 0;
@@ -464,12 +464,16 @@ void SpriteRendererManager::renderPass(int layerToRender, bool clearFirst)
 
 			if (rg.shaderID == SHADER_SPRITESHEET)
 			{
-				SpriteSheet spriteSheet = *((SpriteSheet *)ro.sprite);
-				if (spriteSheet.getColumnCount() > 1000)
+				ISprite* iSprite = ro.sprite.get();
+				SpriteSheet* spriteSheet = (SpriteSheet*)iSprite;
+				if (spriteSheet != nullptr)
 				{
-					int hit = 0;
+					if (spriteSheet->getColumnCount() > 1000)
+					{
+						int hit = 0;
+					}
+					glUniform3i(spriteSheetLocation, spriteSheet->getColumnCount(), spriteSheet->getRowCount(), spriteSheet->getCurrentIndex());
 				}
-				glUniform3i(spriteSheetLocation, spriteSheet.getColumnCount(), spriteSheet.getRowCount(), spriteSheet.getCurrentIndex());
 			}
 
 			//Draw
