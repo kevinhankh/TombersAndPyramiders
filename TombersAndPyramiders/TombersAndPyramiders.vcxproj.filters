@@ -309,6 +309,9 @@
     <ClCompile Include="Game\ExternalClasses\BaseShortsword.cpp">
       <Filter>Source Files\Game\ExternalClasses\Items</Filter>
     </ClCompile>
+    <ClCompile Include="Game\ExternalClasses\WoodenShortsword.cpp">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -549,6 +552,9 @@
       <Filter>Source Files\Game\ExternalClasses\Items</Filter>
     </ClInclude>
     <ClInclude Include="Game\ExternalClasses\BaseShortsword.h">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ExternalClasses\WoodenShortsword.h">
       <Filter>Source Files\Game\ExternalClasses\Items</Filter>
     </ClInclude>
   </ItemGroup>

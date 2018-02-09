@@ -1,5 +1,5 @@
 /*===================================================================================*//**
-	BaseShortsword
+	WoodenShortsword
 
 	Abstract class for a base shortsword.
 
@@ -10,17 +10,10 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "BaseShortsword.h"
-
-/*----------------------------------------------------------------------------------------
-	Static Fields
-----------------------------------------------------------------------------------------*/
-const float BaseShortsword::SHORTSWORD_COLLIDER_WIDTH = 1;
-const float BaseShortsword::SHORTSWORD_COLLIDER_HEIGHT = 1;
+#include "WoodenShortsword.h"
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-BaseShortsword::BaseShortsword() :
-	BaseMeleeWeapon{ SHORTSWORD_COLLIDER_WIDTH, SHORTSWORD_COLLIDER_HEIGHT }
+WoodenShortsword::WoodenShortsword()
 {}

@@ -1,7 +1,7 @@
 /*===================================================================================*//**
-	BaseShortsword
+	WoodenShortsword
 	
-	Abstract class for a base shortsword.
+	A weak wooden shortsword.
 
     @author Erick Fernandez de Arteaga
 	
@@ -12,25 +12,17 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "BaseMeleeWeapon.h"
+#include "BaseShortsword.h"
 
 /*========================================================================================
 	BaseWeapon	
 ========================================================================================*/
-class BaseShortsword : public BaseMeleeWeapon
+class WoodenShortsword : public BaseShortsword
 {
-    /*----------------------------------------------------------------------------------------
-		Static Fields
-    ----------------------------------------------------------------------------------------*/
-	static const float SHORTSWORD_COLLIDER_WIDTH;
-	static const float SHORTSWORD_COLLIDER_HEIGHT;
-
     /*----------------------------------------------------------------------------------------
 		Resource Management
     ----------------------------------------------------------------------------------------*/
     public:
         /** Default constructor. */
-        explicit BaseShortsword();
-
-		virtual ~BaseShortsword() {};
+        explicit WoodenShortsword();
 };
