@@ -53,7 +53,7 @@ class DamagingRegion : public SimpleSprite
 		Instance Methods
 	----------------------------------------------------------------------------------------*/
     public:
-
+		void onUpdate(int ticks);
 
     private:
 

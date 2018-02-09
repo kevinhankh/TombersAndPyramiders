@@ -18,5 +18,6 @@
 ----------------------------------------------------------------------------------------*/
 void BaseShield::addToInventory(Inventory* inventory)
 {
+	BaseItem::addToInventory(inventory);
 	inventory->setShield(this);
 }

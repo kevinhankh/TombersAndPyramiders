@@ -42,6 +42,7 @@ int BaseHelmet::absorbHeadshot(int damage)
 
 void BaseHelmet::addToInventory(Inventory* inventory)
 {
+	BaseItem::addToInventory(inventory);
 	inventory->setHelmet(this);
 }
 

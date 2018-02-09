@@ -1,7 +1,7 @@
 /*===================================================================================*//**
 	BaseItem
 	
-	Abstract class for an item.
+	Abstract class for an item that can be carried in an Inventory.
 
     @author Erick Fernandez de Arteaga
 	
@@ -13,12 +13,19 @@
 	Dependencies	
 ========================================================================================*/
 class Inventory;
+class GameObject;
 
 /*========================================================================================
 	BaseItem	
 ========================================================================================*/
 class BaseItem
 {
+	/*----------------------------------------------------------------------------------------
+		Instance Fields
+	----------------------------------------------------------------------------------------*/
+	private:
+		Inventory* m_inventory;
+
     /*----------------------------------------------------------------------------------------
 		Resource Management
     ----------------------------------------------------------------------------------------*/
@@ -32,5 +39,14 @@ class BaseItem
 		Instance Methods
     ----------------------------------------------------------------------------------------*/
 	public:
-		virtual void addToInventory(Inventory* inventory) = 0;
+		/**
+			Adds this item to the given inventory.
+		*/
+		virtual void addToInventory(Inventory* inventory);
+
+		/**
+			Returns a reference to the GameObject that owns the Inventory component this 
+			item is held by.
+		*/
+		virtual GameObject* owner();
 };

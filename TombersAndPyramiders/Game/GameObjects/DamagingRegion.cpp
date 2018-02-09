@@ -56,4 +56,7 @@ DamagingRegion::DamagingRegion(BaseWeapon* weapon, float colliderWidth, float co
 /*----------------------------------------------------------------------------------------
 	Instance Methods
 ----------------------------------------------------------------------------------------*/
+void DamagingRegion::onUpdate(int ticks)
+{
 
+}

@@ -18,5 +18,6 @@
 ----------------------------------------------------------------------------------------*/
 void BaseGreaves::addToInventory(Inventory* inventory)
 {
+	BaseItem::addToInventory(inventory);
 	inventory->setGreaves(this);
 }

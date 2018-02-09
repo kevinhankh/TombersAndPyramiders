@@ -25,5 +25,6 @@ BaseWeapon::BaseWeapon(float colliderWidth, float colliderHeight) :
 ----------------------------------------------------------------------------------------*/
 void BaseWeapon::addToInventory(Inventory* inventory)
 {
+	BaseItem::addToInventory(inventory);
 	inventory->setWeapon(this);
 }
