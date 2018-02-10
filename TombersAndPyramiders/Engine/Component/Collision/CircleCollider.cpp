@@ -1,6 +1,6 @@
 #include "CircleCollider.h"
 
-CircleCollider::CircleCollider(float radius) : Collider(GameObject* gameObject)
+CircleCollider::CircleCollider(float radius) : Collider(gameObject)
 {
 	m_radius = radius;
 }

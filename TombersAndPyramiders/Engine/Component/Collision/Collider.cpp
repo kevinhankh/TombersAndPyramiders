@@ -71,11 +71,11 @@ void Collider::addCollision(GameObject* collider)
 	m_colliders.push_back(collider);
 }
 
-float Collider::getRadius()
+/*float Collider::getRadius()
 {
 	return m_radius;
 }
-/*
+
 void Collider::setRadius(float radius)
 {
 	m_radius = radius;

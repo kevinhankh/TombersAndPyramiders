@@ -228,6 +228,12 @@
     <ClCompile Include="Engine\Manager\AudioManager.cpp">
       <Filter>Source Files\Engine\Manager</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Component\Collision\BoxCollider.cpp">
+      <Filter>Source Files\Engine\Component\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Component\Collision\CircleCollider.cpp">
+      <Filter>Source Files\Engine\Component\Collision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -391,6 +397,12 @@
     </ClInclude>
     <ClInclude Include="Engine\External\ThreadQueue.h">
       <Filter>Source Files\Engine\External</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Component\Collision\BoxCollider.h">
+      <Filter>Source Files\Engine\Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Component\Collision\CircleCollider.h">
+      <Filter>Source Files\Engine\Component\Collision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
