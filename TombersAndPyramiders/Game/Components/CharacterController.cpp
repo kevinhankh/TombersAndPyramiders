@@ -87,7 +87,7 @@ void CharacterController::move(Vector2 delta)
 	delta.setX(delta.getX() * m_movementSpeed.getX());
 	delta.setY(delta.getY() * m_movementSpeed.getY());
 
-	if (delta.getMagnitude() != 0)
+	if (delta.getMagnitude() == 0)
 	{
 		m_playerCharacter->playRunAnimation();
 	} else 
