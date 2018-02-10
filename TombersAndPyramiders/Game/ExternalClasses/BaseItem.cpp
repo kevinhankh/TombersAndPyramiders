@@ -19,6 +19,11 @@
 void BaseItem::addToInventory(Inventory* inventory)
 {
 	m_inventory = inventory;
+
+	if (m_inventory != nullptr)
+	{
+		addSubclassToInventory();
+	}
 }
 
 GameObject* BaseItem::owner()

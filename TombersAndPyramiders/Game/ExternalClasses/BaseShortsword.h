@@ -41,6 +41,8 @@ class BaseShortsword : public BaseMeleeWeapon
 		Instance Methods
     ----------------------------------------------------------------------------------------*/
 	public:
+		virtual void use();
+
 		void onStart();
 		void onUpdate(int ticks);
 		void onEnd();

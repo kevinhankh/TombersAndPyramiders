@@ -16,8 +16,7 @@
 /*----------------------------------------------------------------------------------------
 	Instance Methods
 ----------------------------------------------------------------------------------------*/
-void BaseWeapon::addToInventory(Inventory* inventory)
+void BaseWeapon::addSubclassToInventory()
 {
-	BaseItem::addToInventory(inventory);
-	inventory->setWeapon(this);
+	m_inventory->setWeapon(this);
 }
