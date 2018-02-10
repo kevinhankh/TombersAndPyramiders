@@ -14,13 +14,6 @@
 #include "Inventory.h"
 
 /*----------------------------------------------------------------------------------------
-	Resource Management
-----------------------------------------------------------------------------------------*/
-BaseWeapon::BaseWeapon(float colliderWidth, float colliderHeight) :
-	_damagingRegion{ DamagingRegion(this, colliderWidth, colliderHeight) }
-{}
-
-/*----------------------------------------------------------------------------------------
 	Instance Methods
 ----------------------------------------------------------------------------------------*/
 void BaseWeapon::addToInventory(Inventory* inventory)

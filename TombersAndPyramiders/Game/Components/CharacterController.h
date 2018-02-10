@@ -16,6 +16,7 @@
 #include "Damageable.h"
 #include "Vector2.h"
 #include "PlayerPilot.h"
+class Inventory;
 
 /*========================================================================================
 	CharacterController	
@@ -30,6 +31,7 @@ class CharacterController : public BaseController, public Damageable
 		static const Vector2 DEFAULT_PLAYER_MOVEMENT_SPEED;
 
 	private:
+		Inventory* m_inventory;
 		Vector2 m_movementSpeed;
 
 		bool m_wasUsingWeapon;
@@ -46,8 +48,9 @@ class CharacterController : public BaseController, public Damageable
     public:
         explicit CharacterController() = delete;
 
-		explicit CharacterController(GameObject* gameObject, BasePilot* pilot = new PlayerPilot(), 
-			int maxHealth = DEFAULT_PLAYER_MAX_HP, Vector2 movementSpeed = DEFAULT_PLAYER_MOVEMENT_SPEED);
+		explicit CharacterController(GameObject* gameObject, Inventory* inventory, BasePilot* 
+			pilot = new PlayerPilot(), int maxHealth = DEFAULT_PLAYER_MAX_HP, 
+			Vector2 movementSpeed = DEFAULT_PLAYER_MOVEMENT_SPEED);
 
 	
     /*----------------------------------------------------------------------------------------

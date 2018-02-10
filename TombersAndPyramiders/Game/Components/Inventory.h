@@ -53,11 +53,11 @@ class Inventory : public Component
 		Instance Getter Methods
     ----------------------------------------------------------------------------------------*/
     public:
-        BaseWeapon& getWeapon();
-		BaseShield& getShield();
-		BaseHelmet& getHelmet();
-		BaseChestplate& getChestplate();
-		BaseGreaves& getGreaves();
+        BaseWeapon* getWeapon();
+		BaseShield* getShield();
+		BaseHelmet* getHelmet();
+		BaseChestplate* getChestplate();
+		BaseGreaves* getGreaves();
     
 	/*----------------------------------------------------------------------------------------
 		Instance Setter Methods

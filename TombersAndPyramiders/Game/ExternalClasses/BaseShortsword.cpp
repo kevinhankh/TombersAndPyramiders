@@ -17,12 +17,15 @@
 ----------------------------------------------------------------------------------------*/
 const float BaseShortsword::SHORTSWORD_COLLIDER_WIDTH = 1;
 const float BaseShortsword::SHORTSWORD_COLLIDER_HEIGHT = 1;
+const float BaseShortsword::SHORTSWORD_X_OFFSET_FROM_HOLDER = 1;
+const float BaseShortsword::SHORTSWORD_Y_OFFSET_FROM_HOLDER = 1;
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
 BaseShortsword::BaseShortsword() :
-	BaseMeleeWeapon{ SHORTSWORD_COLLIDER_WIDTH, SHORTSWORD_COLLIDER_HEIGHT }
+	BaseMeleeWeapon{ SHORTSWORD_COLLIDER_WIDTH, SHORTSWORD_COLLIDER_HEIGHT, 
+	SHORTSWORD_X_OFFSET_FROM_HOLDER, SHORTSWORD_Y_OFFSET_FROM_HOLDER }
 {}
 
 /*----------------------------------------------------------------------------------------

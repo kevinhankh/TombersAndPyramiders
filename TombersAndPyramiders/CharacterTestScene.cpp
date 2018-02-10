@@ -19,13 +19,14 @@ void CharacterTestScene::onStart()
 	CameraFollow* cameraFollow = new CameraFollow(Camera::getActiveCamera());
 	Camera::getActiveCamera()->addComponent(cameraFollow);
 
-	for (int x = -5; x < 5; x++)
-	{
-		for (int y = -5; y < 5; y++)
-		{
-			SpawnManager::getInstance()->generateMiscSquare(x * 5, y * 5, 5);
-		}
-	}
+	////
+	//for (int x = -5; x < 5; x++)
+	//{
+	//	for (int y = -5; y < 5; y++)
+	//	{
+	//		SpawnManager::getInstance()->generateMiscSquare(x * 5, y * 5, 5);
+	//	}
+	//}
 
 	setCameraFollow(SpawnManager::getInstance()->generateSimpleCharacter(0, 0));
 }

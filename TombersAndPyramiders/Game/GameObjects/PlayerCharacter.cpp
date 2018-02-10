@@ -22,8 +22,8 @@
 PlayerCharacter::PlayerCharacter() :
 	SimpleSprite("IceTile.png", 0, 0)
 {
-	addComponent<CharacterController*>(new CharacterController(this));
 	addComponent<Inventory*>(new Inventory(this));
+	addComponent<CharacterController*>(new CharacterController(this, getComponent<Inventory*>()));
 }
 
 /*----------------------------------------------------------------------------------------

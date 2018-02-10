@@ -11,10 +11,20 @@
 	Dependencies
 ========================================================================================*/
 #include "BaseMeleeWeapon.h"
+#include "DamagingRegion.h"
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-BaseMeleeWeapon::BaseMeleeWeapon(float colliderWidth, float colliderHeight) :
-	BaseWeapon{colliderWidth, colliderHeight}
+BaseMeleeWeapon::BaseMeleeWeapon(float colliderWidth, float colliderHeight, 
+	float xOffsetFromHolder, float yOffsetFromHolder) :
+	m_damagingRegion{ this, colliderWidth, colliderHeight }
 {}
+
+/*----------------------------------------------------------------------------------------
+	Instance Methods
+----------------------------------------------------------------------------------------*/
+void BaseMeleeWeapon::onUpdate(int ticks)
+{
+
+}

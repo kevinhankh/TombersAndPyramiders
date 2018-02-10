@@ -14,7 +14,6 @@
 ========================================================================================*/
 #include "Updateable.h"
 #include "BaseEquippableItem.h"
-#include "DamagingRegion.h"
 
 /*========================================================================================
 	BaseWeapon	
@@ -22,16 +21,11 @@
 class BaseWeapon : public BaseEquippableItem, public Updateable
 {
     /*----------------------------------------------------------------------------------------
-		Instance Fields
-    ----------------------------------------------------------------------------------------*/
-	DamagingRegion _damagingRegion;
-
-    /*----------------------------------------------------------------------------------------
 		Resource Management
     ----------------------------------------------------------------------------------------*/
     public:
         /** Default constructor. */
-        explicit BaseWeapon(float colliderWidth, float colliderHeight);
+        explicit BaseWeapon() = default;
 
 		virtual ~BaseWeapon() {};
 

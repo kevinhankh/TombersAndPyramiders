@@ -13,6 +13,7 @@
 	Dependencies
 ========================================================================================*/
 #include "BaseWeapon.h"
+#include "DamagingRegion.h"
 
 /*========================================================================================
 	BaseWeapon	
@@ -20,11 +21,24 @@
 class BaseMeleeWeapon : public BaseWeapon
 {
     /*----------------------------------------------------------------------------------------
+		Instance Fields
+    ----------------------------------------------------------------------------------------*/
+	DamagingRegion m_damagingRegion;
+
+    /*----------------------------------------------------------------------------------------
 		Resource Management
     ----------------------------------------------------------------------------------------*/
     public:
         /** Default constructor. */
-        explicit BaseMeleeWeapon(float colliderWidth, float colliderHeight);
+        explicit BaseMeleeWeapon(float colliderWidth, float colliderHeight, 
+			float xOffsetFromHolder, float yOffsetFromHolder);
 
 		virtual ~BaseMeleeWeapon() {};
+
+	
+    /*----------------------------------------------------------------------------------------
+		Instance Methods
+    ----------------------------------------------------------------------------------------*/
+	public:
+		void onUpdate(int ticks);
 };

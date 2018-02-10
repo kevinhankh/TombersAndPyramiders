@@ -38,29 +38,29 @@ Inventory::Inventory(GameObject* gameobject, BaseWeapon* weapon, BaseShield* shi
 /*----------------------------------------------------------------------------------------
 	Instance Getter Methods
 ----------------------------------------------------------------------------------------*/
-BaseWeapon& Inventory::getWeapon()
+BaseWeapon* Inventory::getWeapon()
 {
-	return *m_weapon;
+	return &(*m_weapon);
 }
 
-BaseShield& Inventory::getShield()
+BaseShield* Inventory::getShield()
 {
-	return *m_shield;
+	return &(*m_shield);
 }
 
-BaseHelmet& Inventory::getHelmet()
+BaseHelmet* Inventory::getHelmet()
 {
-	return *m_helmet;
+	return &(*m_helmet);
 }
 
-BaseChestplate& Inventory::getChestplate()
+BaseChestplate* Inventory::getChestplate()
 {
-	return *m_chestplate;
+	return &(*m_chestplate);
 }
 
-BaseGreaves& Inventory::getGreaves()
+BaseGreaves* Inventory::getGreaves()
 {
-	return *m_greaves;
+	return &(*m_greaves);
 }
 
 /*----------------------------------------------------------------------------------------

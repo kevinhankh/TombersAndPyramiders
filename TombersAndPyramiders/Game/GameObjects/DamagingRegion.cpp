@@ -29,15 +29,17 @@ DamagingRegion::DamagingRegion(BaseWeapon* weapon, float colliderWidth, float co
 		throw std::invalid_argument("DamagingRegion::DamagingRegion(): _weapon cannot be null.");
 	}
 
-	if (colliderWidth <= 0)
+	if (colliderWidth < 0)
 	{
-		throw std::invalid_argument("DamagingRegion::DamagingRegion(): colliderWidth must be greater than zero.");
+		throw std::invalid_argument("DamagingRegion::DamagingRegion(): colliderWidth must be non-negative.");
 	}
 
-	if (colliderHeight <= 0)
+	if (colliderHeight < 0)
 	{
-		throw std::invalid_argument("DamagingRegion::DamagingRegion(): colliderHeight must be greater than zero.");
+		throw std::invalid_argument("DamagingRegion::DamagingRegion(): colliderHeight must be non-negative.");
 	}
+
+
 
 	// TODO: Add this line back in once Michael fixes BoxCollider.
 	//addComponent<BoxCollider*>(new BoxCollider(this, colliderWidth, colliderHeight));
