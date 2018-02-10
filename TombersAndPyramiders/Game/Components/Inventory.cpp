@@ -21,13 +21,13 @@
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-Inventory::Inventory(GameObject* gameobject) :
-	Inventory(gameObject, nullptr, nullptr, nullptr, nullptr, nullptr)
+Inventory::Inventory(GameObject* parentGameobject) :
+	Inventory(parentGameobject, nullptr, nullptr, nullptr, nullptr, nullptr)
 {}
 
-Inventory::Inventory(GameObject* gameobject, BaseWeapon* weapon, BaseShield* shield, BaseHelmet* helmet,
+Inventory::Inventory(GameObject* parentGameobject, BaseWeapon* weapon, BaseShield* shield, BaseHelmet* helmet,
 	BaseChestplate* chestplate, BaseGreaves* greaves) :
-	Component(gameObject),
+	Component(parentGameobject),
 	m_weapon{ std::unique_ptr<BaseWeapon>(weapon) },
 	m_shield{ std::unique_ptr<BaseShield>(shield) },
 	m_helmet{ std::unique_ptr<BaseHelmet>(helmet) },

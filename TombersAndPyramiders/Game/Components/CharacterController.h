@@ -48,7 +48,7 @@ class CharacterController : public BaseController, public Damageable
     public:
         explicit CharacterController() = delete;
 
-		explicit CharacterController(GameObject* gameObject, Inventory* inventory, BasePilot* 
+		explicit CharacterController(GameObject* parentGameobject, Inventory* inventory, BasePilot*
 			pilot = new PlayerPilot(), int maxHealth = DEFAULT_PLAYER_MAX_HP, 
 			Vector2 movementSpeed = DEFAULT_PLAYER_MOVEMENT_SPEED);
 

@@ -44,9 +44,9 @@ class Inventory : public Component
 		/**
 			Initializes inventory with nullptr equipment.
 		*/
-		explicit Inventory(GameObject* gameobject);
+		explicit Inventory(GameObject* parentGameobject);
 
-		explicit Inventory(GameObject* gameobject, BaseWeapon* weapon, BaseShield* shield, BaseHelmet* helmet,
+		explicit Inventory(GameObject* parentGameobject, BaseWeapon* weapon, BaseShield* shield, BaseHelmet* helmet,
 			BaseChestplate* chestplate, BaseGreaves* greaves);
 
 	/*----------------------------------------------------------------------------------------
@@ -63,6 +63,10 @@ class Inventory : public Component
 		Instance Setter Methods
 	----------------------------------------------------------------------------------------*/
     public:
+		/**
+			DO NOT CALL THESE METHODS.
+			CALL INVENTORY.ADDITEM() INSTEAD.
+		*/
 		void setWeapon(BaseWeapon* weapon);
 		void setShield(BaseShield* shield);
 		void setHelmet(BaseHelmet* helmet);

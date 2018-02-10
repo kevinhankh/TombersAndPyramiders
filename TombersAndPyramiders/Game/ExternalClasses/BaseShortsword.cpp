@@ -35,7 +35,9 @@ void BaseShortsword::onStart()
 {}
 
 void BaseShortsword::onUpdate(int ticks)
-{}
+{
+	BaseMeleeWeapon::updatePosition();
+}
 
 void BaseShortsword::onEnd()
 {}

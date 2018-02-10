@@ -32,9 +32,9 @@ const Vector2 CharacterController::DEFAULT_PLAYER_MOVEMENT_SPEED = Vector2(1, 1)
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-CharacterController::CharacterController(GameObject* gameObject, Inventory* inventory, 
+CharacterController::CharacterController(GameObject* parentGameobject, Inventory* inventory,
 	BasePilot* pilot, int maxHealth, Vector2 movementSpeed) :
-	BaseController(gameObject, pilot), Damageable(maxHealth), 
+	BaseController(parentGameobject, pilot), Damageable(maxHealth),
 	m_inventory{ inventory },
 	m_movementSpeed{ movementSpeed }, 
 	m_wasUsingWeapon{ false }, m_wasUsingShield{ false }, m_wasUsingGreaves{ false },

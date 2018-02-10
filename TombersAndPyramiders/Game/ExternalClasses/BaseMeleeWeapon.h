@@ -14,6 +14,7 @@
 ========================================================================================*/
 #include "BaseWeapon.h"
 #include "DamagingRegion.h"
+#include "Vector2.h"
 
 /*========================================================================================
 	BaseWeapon	
@@ -23,7 +24,9 @@ class BaseMeleeWeapon : public BaseWeapon
     /*----------------------------------------------------------------------------------------
 		Instance Fields
     ----------------------------------------------------------------------------------------*/
-	DamagingRegion m_damagingRegion;
+	private:
+		DamagingRegion m_damagingRegion;
+		Vector2 m_offsetFromHolder;
 
     /*----------------------------------------------------------------------------------------
 		Resource Management
@@ -40,5 +43,5 @@ class BaseMeleeWeapon : public BaseWeapon
 		Instance Methods
     ----------------------------------------------------------------------------------------*/
 	public:
-		void onUpdate(int ticks);
+		void updatePosition();
 };
