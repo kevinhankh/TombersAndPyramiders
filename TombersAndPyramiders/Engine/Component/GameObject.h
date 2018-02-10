@@ -34,13 +34,14 @@ public:
 	template <typename T>
 	T getComponent()
 	{
-		if (hasComponent<T>())
+		std::string componentName = getClassName<T>();
+		if (hasComponent(componentName))
 		{
-			return (T)m_components[getClassName<T>()].front();
+			return (T)m_components[componentName].front();
 		}
 		else
 		{
-			std::cout << "ERROR::FAILED TO FIND COMPONENT " << getClassName<T>() << "  FOR OBJECT " << m_id << std::endl;
+			std::cout << "ERROR::FAILED TO FIND COMPONENT " << componentName << "  FOR OBJECT " << m_id << std::endl;
 			return NULL;
 		}
 	}
@@ -97,6 +98,10 @@ public:
 	bool hasComponent()
 	{
 		return m_components.find(getClassName<T>()) != m_components.end();
+	}
+	bool hasComponent(std::string componentName)
+	{
+		return m_components.find(componentName) != m_components.end();
 	}
 
 	void onStart() {};
