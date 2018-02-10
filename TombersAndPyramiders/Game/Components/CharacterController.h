@@ -39,6 +39,7 @@ class CharacterController : public BaseController, public Damageable
 		bool m_isUsingWeapon;
 		bool m_isUsingShield;
 		bool m_isUsingGreaves;
+		std::shared_ptr<PlayerCharacter> m_playerCharacter;
 
     /*----------------------------------------------------------------------------------------
 		Resource Management

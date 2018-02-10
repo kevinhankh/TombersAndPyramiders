@@ -16,7 +16,7 @@ ComplexSprite::ComplexSprite(std::shared_ptr<ComplexSpriteinfo> info, float x, f
 		GLuint texture = SpriteRendererManager::getInstance()->generateTexture(BuildPath((char*)totalPath.c_str()));
 		int columns = info->getColumnCount(i);
 		int rows = info->getRowCount(i);
-		m_sprites.push_back(std::make_shared<SpriteSheet>(new SpriteSheet(texture, columns, rows)));
+		m_sprites.push_back(std::make_shared<SpriteSheet>(texture, columns, rows));
 	}
 
 	if (nonDefaultShader != nullptr)

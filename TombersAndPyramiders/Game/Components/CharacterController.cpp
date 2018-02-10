@@ -22,6 +22,7 @@
 #include "BaseWeapon.h"
 #include "BaseShield.h"
 #include "BaseGreaves.h"
+#include "PlayerCharacter.h"
 
 /*----------------------------------------------------------------------------------------
 	Static Fields
@@ -38,7 +39,13 @@ CharacterController::CharacterController(GameObject* gameObject, BasePilot* pilo
 	m_movementSpeed{ movementSpeed }, 
 	m_wasUsingWeapon{ false }, m_wasUsingShield{ false }, m_wasUsingGreaves{ false },
 	m_isUsingWeapon{ false }, m_isUsingShield{ false }, m_isUsingGreaves{ false }
-{}
+{
+	PlayerCharacter* player = dynamic_cast<PlayerCharacter*>(gameObject);
+	if (player != nullptr) 
+	{
+		m_playerCharacter = std::shared_ptr<PlayerCharacter>(player);
+	}
+}
 
 
 /*----------------------------------------------------------------------------------------
@@ -79,6 +86,14 @@ void CharacterController::move(Vector2 delta)
 {
 	delta.setX(delta.getX() * m_movementSpeed.getX());
 	delta.setY(delta.getY() * m_movementSpeed.getY());
+
+	if (delta.getMagnitude() != 0)
+	{
+		m_playerCharacter->playRunAnimation();
+	} else 
+	{
+		m_playerCharacter->endRunAnimation();
+	}
 
 	gameObject->getComponent<Transform*>()->addTranslation(delta.getX(), delta.getY());
 }

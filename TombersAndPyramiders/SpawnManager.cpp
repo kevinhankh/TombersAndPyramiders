@@ -20,7 +20,7 @@ SpawnManager::~SpawnManager()
 
 std::shared_ptr<MiscSquare> SpawnManager::generateMiscSquare(float x, float y, float scale)
 {
-	std::shared_ptr<MiscSquare> miscSquare = std::shared_ptr<MiscSquare>(new MiscSquare());
+	std::shared_ptr<MiscSquare> miscSquare = std::make_shared<MiscSquare>();
 	miscSquare->getTransform()->setPosition(x, y);
 	miscSquare->getTransform()->setScale(scale);
 	miscSquares.push_back(miscSquare);
@@ -29,7 +29,7 @@ std::shared_ptr<MiscSquare> SpawnManager::generateMiscSquare(float x, float y, f
 
 std	::shared_ptr<MovingSquare> SpawnManager::generateMovingSquare(float x, float y)
 {
-	std::shared_ptr<MovingSquare> movingSquare = std::shared_ptr<MovingSquare>(new MovingSquare());
+	std::shared_ptr<MovingSquare> movingSquare = std::make_shared<MovingSquare>();
 	movingSquare->getTransform()->setPosition(x, y);
 	movingSquares.push_back(movingSquare);
 	return movingSquare;
@@ -37,7 +37,7 @@ std	::shared_ptr<MovingSquare> SpawnManager::generateMovingSquare(float x, float
 
 std::shared_ptr<PlayerCharacter> SpawnManager::generateSimpleCharacter(float x, float y)
 {
-	std::shared_ptr<PlayerCharacter> simpleCharacter = std::shared_ptr<PlayerCharacter>(new PlayerCharacter());
+	std::shared_ptr<PlayerCharacter> simpleCharacter = std::make_shared<PlayerCharacter>();
 	simpleCharacter->getTransform()->setPosition(x, y);
 	simpleCharacters.push_back(simpleCharacter);
 	return simpleCharacter;

@@ -464,8 +464,7 @@ void SpriteRendererManager::renderPass(int layerToRender, bool clearFirst)
 
 			if (rg.shaderID == SHADER_SPRITESHEET)
 			{
-				ISprite* iSprite = ro.sprite.get();
-				SpriteSheet* spriteSheet = (SpriteSheet*)iSprite;
+				SpriteSheet* spriteSheet = ((SpriteSheet *)ro.sprite.get());
 				if (spriteSheet != nullptr)
 				{
 					if (spriteSheet->getColumnCount() > 1000)

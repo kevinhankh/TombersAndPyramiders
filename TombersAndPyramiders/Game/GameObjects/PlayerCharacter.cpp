@@ -39,10 +39,15 @@ PlayerCharacter::PlayerCharacter() :
 /*----------------------------------------------------------------------------------------
 	Instance Methods
 ----------------------------------------------------------------------------------------*/
+void PlayerCharacter::onUpdate(int ticks)
+{
+	nextFrame();
+}
+
 // Private generation logic for describing the sprite sheet relationships for this player
 std::shared_ptr<ComplexSpriteinfo> PlayerCharacter::generateComplexSpriteInfo()
 {
-	std::shared_ptr<ComplexSpriteinfo> spriteInfo = std::make_shared<ComplexSpriteinfo>(new ComplexSpriteinfo());
+	std::shared_ptr<ComplexSpriteinfo> spriteInfo = std::make_shared<ComplexSpriteinfo>();
 
 	spriteInfo->addInfo("squareIdle.png", 8, 1);
 	spriteInfo->addInfo("squareRun.png", 8, 1);
@@ -50,4 +55,24 @@ std::shared_ptr<ComplexSpriteinfo> PlayerCharacter::generateComplexSpriteInfo()
 	spriteInfo->addInfo("squareWhiteAttack.png", 8, 1);
 
 	return spriteInfo;
+}
+
+void PlayerCharacter::playRunAnimation()
+{
+	changeSprite(ANIMATION_RUN);
+}
+
+void PlayerCharacter::endRunAnimation()
+{
+	changeSprite(ANIMATION_IDLE);
+}
+
+void PlayerCharacter::playMeleeAttackAnimation()
+{
+	changeSprite(ANIMATION_ATTACK_MELEE, ANIMATION_IDLE);
+}
+
+void PlayerCharacter::playRangeAttackAnimation()
+{
+	changeSprite(ANIMATION_ATTACK_RANGE, ANIMATION_IDLE);
 }
