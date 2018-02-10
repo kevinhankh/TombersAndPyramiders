@@ -83,6 +83,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)TombersAndPyramiders;$(SolutionDir)TombersAndPyramiders\Game\Managers;$(SolutionDir)TombersAndPyramiders\Game\GameObjects;$(SolutionDir)TombersAndPyramiders\Game\ExternalClasses;$(SolutionDir)TombersAndPyramiders\Game\Scenes;$(SolutionDir)TombersAndPyramiders\Game\Scenes\MenuScenes;$(SolutionDir)TombersAndPyramiders\Game\Scenes\GameScenes;$(SolutionDir)TombersAndPyramiders\Game\Components;$(SolutionDir)TombersAndPyramiders\Game\GameObjects\Projectile;$(SolutionDir)TombersAndPyramiders\Game;$(SolutionDir)TombersAndPyramiders\Engine\Component\Collision;$(SolutionDir)TombersAndPyramiders\Engine\Component\Networking;$(SolutionDir)TombersAndPyramiders\Engine\Component\Transform;$(SolutionDir)TombersAndPyramiders\Engine\Component\Physics;$(SolutionDir)TombersAndPyramiders\Engine\Component\Render;$(SolutionDir)TombersAndPyramiders\Engine\External\Render;$(SolutionDir)TombersAndPyramiders\Engine\External\Math;$(SolutionDir)TombersAndPyramiders\Engine\External;$(SolutionDir)TombersAndPyramiders\Engine\Component;$(SolutionDir)TombersAndPyramiders\Engine\GameObjects;$(SolutionDir)TombersAndPyramiders\Engine\Manager;$(SolutionDir)TombersAndPyramiders\Engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <Link>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32.lib;glew32s.lib;freeglut.lib;SDL2_image.lib;SDL2_net.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -132,6 +133,9 @@
     <ClCompile Include="AILearning.cpp" />
     <ClCompile Include="Engine\Component\Collision\BoxCollider.cpp" />
     <ClCompile Include="Engine\Component\Collision\CircleCollider.cpp" />
+    <ClCompile Include="CameraFollow.cpp" />
+    <ClCompile Include="CameraTestScene.cpp" />
+    <ClCompile Include="CharacterTestScene.cpp" />
     <ClCompile Include="Engine\Component\Collision\Collider.cpp" />
     <ClCompile Include="Engine\Component\Networking\Receiver.cpp" />
     <ClCompile Include="Engine\Component\Networking\Sender.cpp" />
@@ -153,6 +157,19 @@
     <ClCompile Include="Engine\Component\Render\Renderer.cpp" />
     <ClCompile Include="Engine\Manager\InputManager.cpp" />
     <ClCompile Include="Engine\Manager\MessageManager.cpp" />
+    <ClCompile Include="Game\Components\BaseController.cpp" />
+    <ClCompile Include="Game\Components\CharacterController.cpp" />
+    <ClCompile Include="Game\Components\Inventory.cpp" />
+    <ClCompile Include="Game\ExternalClasses\BaseChestplate.cpp" />
+    <ClCompile Include="Game\ExternalClasses\BaseEquippableItem.cpp" />
+    <ClCompile Include="Game\ExternalClasses\BaseGreaves.cpp" />
+    <ClCompile Include="Game\ExternalClasses\BaseHelmet.cpp" />
+    <ClCompile Include="Game\ExternalClasses\BaseItem.cpp" />
+    <ClCompile Include="Game\ExternalClasses\BasePilot.cpp" />
+    <ClCompile Include="Game\ExternalClasses\BaseShield.cpp" />
+    <ClCompile Include="Game\ExternalClasses\BaseWeapon.cpp" />
+    <ClCompile Include="Game\ExternalClasses\Damageable.cpp" />
+    <ClCompile Include="Game\ExternalClasses\PlayerPilot.cpp" />
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Engine\Component\Component.cpp" />
     <ClCompile Include="Engine\Component\GameObject.cpp" />
@@ -166,18 +183,27 @@
     <ClCompile Include="Engine\Manager\GameManager.cpp" />
     <ClCompile Include="Engine\Manager\SpriteRendererManager.cpp" />
     <ClCompile Include="Game\Components\ComponentTemplate.cpp" />
+    <ClCompile Include="Game\GameObjects\DummyPlayerCharacter.cpp" />
     <ClCompile Include="Game\GameObjects\GameObjectTemplate.cpp" />
+    <ClCompile Include="Game\GameObjects\PlayerCharacter.cpp" />
+    <ClCompile Include="Game\GameObjects\Wall.cpp" />
     <ClCompile Include="Game\Scenes\SceneTemplate.cpp" />
     <ClCompile Include="GarbageCollection.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MiscSquare.cpp" />
+    <ClCompile Include="MovingSquare.cpp" />
     <ClCompile Include="NeuralNet.cpp" />
     <ClCompile Include="Neuron.cpp" />
+    <ClCompile Include="SpawnManager.cpp" />
     <ClCompile Include="TrainingData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AILearning.h" />
     <ClInclude Include="Engine\Component\Collision\BoxCollider.h" />
     <ClInclude Include="Engine\Component\Collision\CircleCollider.h" />
+    <ClInclude Include="CameraFollow.h" />
+    <ClInclude Include="CameraTestScene.h" />
+    <ClInclude Include="CharacterTestScene.h" />
     <ClInclude Include="Engine\Component\Collision\Collider.h" />
     <ClInclude Include="Engine\Component\Networking\Receiver.h" />
     <ClInclude Include="Engine\Component\Networking\Sender.h" />
@@ -200,6 +226,19 @@
     <ClInclude Include="Engine\Scene.h" />
     <ClInclude Include="Engine\Updateable.h" />
     <ClInclude Include="Game\Components\AI.h" />
+    <ClInclude Include="Game\Components\BaseController.h" />
+    <ClInclude Include="Game\Components\CharacterController.h" />
+    <ClInclude Include="Game\Components\Inventory.h" />
+    <ClInclude Include="Game\ExternalClasses\BaseChestplate.h" />
+    <ClInclude Include="Game\ExternalClasses\BaseEquippableItem.h" />
+    <ClInclude Include="Game\ExternalClasses\BaseHelmet.h" />
+    <ClInclude Include="Game\ExternalClasses\BaseItem.h" />
+    <ClInclude Include="Game\ExternalClasses\BaseGreaves.h" />
+    <ClInclude Include="Game\ExternalClasses\BasePilot.h" />
+    <ClInclude Include="Game\ExternalClasses\BaseShield.h" />
+    <ClInclude Include="Game\ExternalClasses\BaseWeapon.h" />
+    <ClInclude Include="Game\ExternalClasses\Damageable.h" />
+    <ClInclude Include="Game\ExternalClasses\PlayerPilot.h" />
     <ClInclude Include="Game\ExternalClasses\UserDefinedRenderLayers.h" />
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="Engine\Component\Component.h" />
@@ -217,11 +256,17 @@
     <ClInclude Include="Engine\Manager\InputManager.h" />
     <ClInclude Include="Engine\Manager\SpriteRendererManager.h" />
     <ClInclude Include="Game\Components\ComponentTemplate.h" />
+    <ClInclude Include="Game\GameObjects\DummyPlayerCharacter.h" />
     <ClInclude Include="Game\GameObjects\GameObjectTemplate.h" />
+    <ClInclude Include="Game\GameObjects\PlayerCharacter.h" />
+    <ClInclude Include="Game\GameObjects\Wall.h" />
     <ClInclude Include="Game\Scenes\SceneTemplate.h" />
     <ClInclude Include="GarbageCollection.h" />
+    <ClInclude Include="MiscSquare.h" />
+    <ClInclude Include="MovingSquare.h" />
     <ClInclude Include="NeuralNet.h" />
     <ClInclude Include="Neuron.h" />
+    <ClInclude Include="SpawnManager.h" />
     <ClInclude Include="TrainingData.h" />
   </ItemGroup>
   <ItemGroup>

@@ -237,6 +237,7 @@ GLuint SpriteRendererManager::generateTexture(std::string textureFileName)
 		std::cout << "ERROR::SPRITERENDERERMANAGER::FAILED TO READ FILE IN GENERATETEXTURE\n GLError: " << errors << " \nSDLErrors: " << sdlErrors << std::endl;
 		return 0;
 	}
+	//If it crashes, make sure the .png is 32bit not 24bit so it supports RGBA not RGB
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, temp->w, temp->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, temp->pixels);
 	glGenerateMipmap(GL_TEXTURE_2D);
 

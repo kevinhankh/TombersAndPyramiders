@@ -4,9 +4,13 @@
 #include "SpriteRendererManager.h"
 #include "PhysicsManager.h"
 
+
 void Scene::addGameObject(int id, GameObject* obj)
 {
-	sceneObjects[id] = obj;
+	if (obj != nullptr)
+	{
+		sceneObjects[id] = std::shared_ptr<GameObject>(obj);
+	}
 }
 
 void Scene::removeGameObject(int id)
@@ -21,7 +25,7 @@ void Scene::onObjectsUpdate(int ticks)
 		sceneObjects.erase(m_idsToRemove[i]);
 	}
 	m_idsToRemove.clear();
-	for (std::map<int, GameObject*>::iterator it = sceneObjects.begin(); it != sceneObjects.end(); it++)
+	for (std::map<int, std::shared_ptr<GameObject>>::iterator it = sceneObjects.begin(); it != sceneObjects.end(); it++)
 	{
 		if (it->second != nullptr && it->second != NULL)
 		{
@@ -38,8 +42,5 @@ void Scene::onObjectsUpdate(int ticks)
 
 void Scene::purge()
 {
-	for (std::map<int, GameObject*>::iterator it = sceneObjects.begin(); it != sceneObjects.end(); ++it)
-	{
-		it->second->destroy(it->second);
-	}
+	sceneObjects.clear();
 }

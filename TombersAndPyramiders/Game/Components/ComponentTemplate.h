@@ -20,7 +20,7 @@ public:
 	ComponentTemplate(GameObject* gameObject);
 	//The destructor that is called on deletion
 	~ComponentTemplate();
-	//Any public methods you want other Components/GameObjects to have access too
+	//Any public methods you want other Components/GameObjects to have access to
 	void exampleMethod();
 
 	void onStart() {};

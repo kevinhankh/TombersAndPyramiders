@@ -13,9 +13,14 @@ private:
 public:
 	Vector2();
 	Vector2(float x, float y);
+
+	static Vector2* convertAngleToVector(float angle);
+	static float dotProduct(Vector2* a, Vector2* b);
+
 	void normalize();
 	void translate(float xOffset, float yOffset);
 	void rotate(float angle);
+	float checkAngle(float angle);
 	void rotateFromOrigin(Vector2 origin, float angle);
 
 	//__declspec (property (get = getMagnitude)) float magnitude;

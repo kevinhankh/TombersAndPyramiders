@@ -23,12 +23,11 @@ public:
 
 private:
 	std::vector<GameObject*> m_gameObjectsToRemove;
-	std::map<int, GameObject*> m_globalGameObjects;
+	std::map<int, std::shared_ptr<GameObject>> m_globalGameObjects;
 	static GameManager* s_instance;
 	bool m_breakLoop = false;
 	int m_lastTime = 0;
 	//game instance.
 	Game* m_game;
-
 	void fpsThrottle(int ticks);
 };
