@@ -6,7 +6,6 @@
 #include <iostream>
 #include "MessageManager.h"
 #include "NetworkingManager.h"
-#include "SceneManager.h"
 #include "PhysicsManager.h"
 #include "AudioManager.h"
 #include "GarbageCollection.h"
@@ -107,9 +106,9 @@ void GameManager::fpsThrottle(int ticks)
 		SDL_Delay(delay);
 }
 
-void GameManager::addGameObject(int id, GameObject* obj)
+void GameManager::addGameObject(int id, std::shared_ptr<GameObject> obj)
 {
-	m_globalGameObjects[id] = std::shared_ptr<GameObject>(obj);
+	m_globalGameObjects[id] = obj;
 }
 
 void GameManager::removeGameObject(GameObject* objectToRemove)
@@ -130,7 +129,7 @@ void GameManager::clearObjectsToRemove()
 			continue;
 		m_globalGameObjects.erase(object->getId());
 		SceneManager::getInstance()->getCurrentScene()->removeGameObject(object->getId());
-		delete(object);
+		//delete(object);
 	}
 	m_gameObjectsToRemove.clear();
 }

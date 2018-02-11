@@ -257,6 +257,7 @@ GLuint SpriteRendererManager::generateTexture(std::string textureFileName)
 	return texture;
 }
 
+
 bool sortByZ(SpriteRenderer *lhs, SpriteRenderer *rhs)
 {
 	return lhs->getGameObject()->getTransform()->getZ() < rhs->getGameObject()->getTransform()->getZ();

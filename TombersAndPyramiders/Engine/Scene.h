@@ -21,7 +21,7 @@ public:
 	virtual void onPause() = 0;
 
 	//Add a game object that belongs to this scene. Global objects will not be here, but in Game Manager.
-	void addGameObject(int id, GameObject* obj);
+	void addGameObject(int id, std::shared_ptr<GameObject> obj);
 
 	//Remove a game object from the scene
 	void removeGameObject(int id);

@@ -6,12 +6,12 @@
 
 GameObject::GameObject(bool g)
 {
-	m_id = rand() + rand();
-	m_isGlobal = g;
-	if (m_isGlobal)
-		GameManager::getInstance()->addGameObject(m_id, this);
-	if (SceneManager::getInstance()->hasScene())
-		SceneManager::getInstance()->getCurrentScene()->addGameObject(m_id, this);
+	//m_id = rand() + rand();
+	//m_isGlobal = g;
+	//if (m_isGlobal)
+	//	GameManager::getInstance()->addGameObject(m_id, this);
+	//if (SceneManager::getInstance()->hasScene())
+	//	SceneManager::getInstance()->getCurrentScene()->addGameObject(m_id, this);
 	m_transform = new Transform(this);
 	addComponent<Transform*>(m_transform);
 }

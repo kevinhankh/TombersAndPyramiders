@@ -13,9 +13,6 @@ private:
 
 	SpawnManager();
 	~SpawnManager();
-	std::vector<std::shared_ptr<MiscSquare>> miscSquares;
-	std::vector<std::shared_ptr<MovingSquare>> movingSquares;
-	std::vector<std::shared_ptr<PlayerCharacter>> simpleCharacters;
 
 public:
 	std::shared_ptr<MiscSquare> generateMiscSquare(float x, float y, float scale);

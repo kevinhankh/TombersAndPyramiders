@@ -30,6 +30,17 @@ public:
 	{
 		return m_id;
 	}
+	void setId(int id)
+	{
+		if (m_id == 0)
+		{
+			m_id = id;
+		}
+		else
+		{
+			throw "ID already set for GameObject";
+		}
+	}
 
 	template <typename T>
 	T getComponent()
