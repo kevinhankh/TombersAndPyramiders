@@ -15,14 +15,4 @@
 /*----------------------------------------------------------------------------------------
 	Instance Methods
 ----------------------------------------------------------------------------------------*/
-void WoodenLongbow::use()
-{}
 
-void WoodenLongbow::onStart()
-{}
-
-void WoodenLongbow::onUpdate(int ticks)
-{}
-
-void WoodenLongbow::onEnd()
-{}

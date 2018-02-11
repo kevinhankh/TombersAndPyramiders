@@ -19,7 +19,7 @@ const float BaseShortsword::SHORTSWORD_COLLIDER_WIDTH = 1;
 const float BaseShortsword::SHORTSWORD_COLLIDER_HEIGHT = 1;
 const float BaseShortsword::SHORTSWORD_X_OFFSET_FROM_HOLDER = 1;
 const float BaseShortsword::SHORTSWORD_Y_OFFSET_FROM_HOLDER = 0;
-const float BaseShortsword::SHORTSWORD_ATTACK_COOLDOWN_TIME = 1;
+const float BaseShortsword::SHORTSWORD_ATTACK_COOLDOWN_TIME = 5;
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
@@ -45,7 +45,7 @@ void BaseShortsword::use()
 void BaseShortsword::onStart()
 {
 	m_isAttacking = true;
-	m_timeLeftInAttack = SHORTSWORD_ATTACK_COOLDOWN_TIME;
+	m_timeUntilNextAttack = SHORTSWORD_ATTACK_COOLDOWN_TIME;
 	m_damagingRegion.getTransform()->setScale(1);
 }
 
@@ -65,11 +65,11 @@ void BaseShortsword::updateAttack(int ticks)
 {
 	if (m_isAttacking)
 	{
-		m_timeLeftInAttack -= ticks / TICKS_PER_SECOND;
-	}
+		m_timeUntilNextAttack -= ticks / TICKS_PER_SECOND;
 
-	if (m_timeLeftInAttack <= 0)
-	{
-		onEnd();
+		if (m_timeUntilNextAttack <= 0)
+		{
+			onEnd();
+		}
 	}
 }

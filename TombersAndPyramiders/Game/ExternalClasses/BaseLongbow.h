@@ -20,6 +20,12 @@
 class BaseLongbow : public BaseProjectileWeapon
 {
     /*----------------------------------------------------------------------------------------
+		Static Fields
+    ----------------------------------------------------------------------------------------*/
+	protected:
+		static const float LONGBOW_ATTACK_COOLDOWN_TIME;
+
+    /*----------------------------------------------------------------------------------------
 		Resource Management
     ----------------------------------------------------------------------------------------*/
     public:
@@ -27,4 +33,17 @@ class BaseLongbow : public BaseProjectileWeapon
         explicit BaseLongbow() = default;
 
 		virtual ~BaseLongbow() {};
+		
+    /*----------------------------------------------------------------------------------------
+		Instance Methods
+    ----------------------------------------------------------------------------------------*/
+	public:
+		void use();
+
+		void onStart();
+		void onUpdate(int ticks);
+		void onEnd();
+
+	protected:
+		void updateAttack(int ticks);
 };

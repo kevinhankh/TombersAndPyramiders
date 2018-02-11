@@ -29,8 +29,6 @@ class BaseShortsword : public BaseMeleeWeapon
 		static const float SHORTSWORD_Y_OFFSET_FROM_HOLDER;
 		static const float SHORTSWORD_ATTACK_COOLDOWN_TIME;
 
-		float m_timeLeftInAttack;
-
     /*----------------------------------------------------------------------------------------
 		Resource Management
     ----------------------------------------------------------------------------------------*/

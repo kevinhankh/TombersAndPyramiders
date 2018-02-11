@@ -30,9 +30,4 @@ class WoodenLongbow : public BaseLongbow
     /*----------------------------------------------------------------------------------------
 		Instance Methods
     ----------------------------------------------------------------------------------------*/
-	public:
-		void use();
-		void onStart();
-		void onUpdate(int ticks);
-		void onEnd();
 };
