@@ -93,9 +93,10 @@ void CharacterController::move(Vector2 delta)
 	} else 
 	{
 		m_playerCharacter->playRunAnimation();
+		gameObject->getTransform()->setRotation(delta.getRotationInDegrees());
 	}
 
-	gameObject->getComponent<Transform*>()->addTranslation(delta.getX(), delta.getY());
+	gameObject->getTransform()->addTranslation(delta.getX(), delta.getY());
 }
 
 void CharacterController::updateWeapon(int ticks)
