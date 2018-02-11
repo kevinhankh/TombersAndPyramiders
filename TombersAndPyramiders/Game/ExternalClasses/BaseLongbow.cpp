@@ -21,6 +21,9 @@ const float BaseLongbow::LONGBOW_PROJECTILE_COLLIDER_HEIGHT = 0.5;
 const float BaseLongbow::LONGBOW_PROJECTILE_SPRITE_SCALE = 0.5;
 const float BaseLongbow::LONGBOW_PROJECTILE_SPAWN_X_OFFSET_FROM_HOLDER = 1;
 const float BaseLongbow::LONGBOW_PROJECTILE_SPAWN_Y_OFFSET_FROM_HOLDER = 0;
+const float BaseLongbow::LONGBOW_PROJECTILE_LIFESPAN = 20;
+const float BaseLongbow::LONGBOW_PROJECTILE_X_VELOCITY = 1;
+const float BaseLongbow::LONGBOW_PROJECTILE_Y_VELOCITY = 0;
 const float BaseLongbow::LONGBOW_ATTACK_COOLDOWN_TIME = 5;
 
 /*----------------------------------------------------------------------------------------
@@ -47,12 +50,14 @@ void BaseLongbow::onStart()
 	m_timeUntilNextAttack = LONGBOW_ATTACK_COOLDOWN_TIME;
 
 	new Projectile(
-		this, m_projectileImageName, 
-		LONGBOW_PROJECTILE_COLLIDER_WIDTH, LONGBOW_PROJECTILE_COLLIDER_HEIGHT,  
-		owner()->getTransform()->getX() + LONGBOW_PROJECTILE_SPAWN_X_OFFSET_FROM_HOLDER, 
-		owner()->getTransform()->getY() + LONGBOW_PROJECTILE_SPAWN_Y_OFFSET_FROM_HOLDER, 
-		LONGBOW_PROJECTILE_SPRITE_SCALE, 
-		5
+		this, m_projectileImageName,
+		LONGBOW_PROJECTILE_COLLIDER_WIDTH, LONGBOW_PROJECTILE_COLLIDER_HEIGHT,
+		owner()->getTransform()->getX() + LONGBOW_PROJECTILE_SPAWN_X_OFFSET_FROM_HOLDER,
+		owner()->getTransform()->getY() + LONGBOW_PROJECTILE_SPAWN_Y_OFFSET_FROM_HOLDER,
+		LONGBOW_PROJECTILE_SPRITE_SCALE,
+		LONGBOW_PROJECTILE_X_VELOCITY, 
+		LONGBOW_PROJECTILE_Y_VELOCITY,
+		LONGBOW_PROJECTILE_LIFESPAN
 	);
 }
 

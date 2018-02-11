@@ -29,6 +29,9 @@ class BaseLongbow : public BaseProjectileWeapon
 		static const float LONGBOW_PROJECTILE_SPRITE_SCALE;
 		static const float LONGBOW_PROJECTILE_SPAWN_X_OFFSET_FROM_HOLDER;
 		static const float LONGBOW_PROJECTILE_SPAWN_Y_OFFSET_FROM_HOLDER;
+		static const float LONGBOW_PROJECTILE_LIFESPAN;
+		static const float LONGBOW_PROJECTILE_X_VELOCITY;
+		static const float LONGBOW_PROJECTILE_Y_VELOCITY;
 		static const float LONGBOW_ATTACK_COOLDOWN_TIME;
 
     /*----------------------------------------------------------------------------------------

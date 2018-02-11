@@ -24,6 +24,7 @@ class Projectile : public DamagingRegion
 		Instance Fields
 	----------------------------------------------------------------------------------------*/
 	private:
+		Vector2 m_velocity;
 		float m_lifespan;
 
 	/*----------------------------------------------------------------------------------------
@@ -34,6 +35,7 @@ class Projectile : public DamagingRegion
 
 		explicit Projectile(BaseWeapon* weapon, string imageName, float colliderWidth, float colliderHeight, 
 			float spawnXPosition, float spawnYPosition, float spriteScale, 
+			float xVelocity, float yVelocity, 
 			float lifespan);
 
 		virtual ~Projectile();
@@ -46,5 +48,6 @@ class Projectile : public DamagingRegion
 		void onUpdate(int ticks);
 
 	private:
+		void updatePosition(int ticks);
 		void updateLifespan(int ticks);
 };
