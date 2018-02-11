@@ -23,10 +23,11 @@ class Projectile : public DamagingRegion
 	/*----------------------------------------------------------------------------------------
 		Resource Management
 	----------------------------------------------------------------------------------------*/
-	explicit Projectile() = delete;
+	public:
+		explicit Projectile() = delete;
 
-	explicit Projectile(BaseWeapon* weapon, string imageName, float width, float height, 
-		float spawnXPosition, float spawnYPosition, float scale);
+		explicit Projectile(BaseWeapon* weapon, string imageName, float colliderWidth, float colliderHeight, 
+			float spawnXPosition, float spawnYPosition, float spriteScale);
 
-	virtual ~Projectile();
+		virtual ~Projectile();
 };

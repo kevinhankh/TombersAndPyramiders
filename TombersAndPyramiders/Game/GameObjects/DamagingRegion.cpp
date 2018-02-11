@@ -18,9 +18,9 @@
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-DamagingRegion::DamagingRegion(BaseWeapon* weapon, string imageName, float width, 
-	float height, float xPosition, float yPosition, float scale) :
-	SimpleSprite{ imageName, xPosition, yPosition, 0, scale },
+DamagingRegion::DamagingRegion(BaseWeapon* weapon, string imageName, float colliderWidth, 
+	float colliderHeight, float xPosition, float yPosition, float spriteScale) :
+	SimpleSprite{ imageName, xPosition, yPosition, 0, spriteScale },
 	_weapon{ weapon }
 {
 	if (_weapon == nullptr)
@@ -28,17 +28,15 @@ DamagingRegion::DamagingRegion(BaseWeapon* weapon, string imageName, float width
 		throw std::invalid_argument("DamagingRegion::DamagingRegion(): _weapon cannot be null.");
 	}
 
-	if (width < 0)
+	if (colliderWidth < 0)
 	{
 		throw std::invalid_argument("DamagingRegion::DamagingRegion(): colliderWidth must be non-negative.");
 	}
 
-	if (height < 0)
+	if (colliderHeight < 0)
 	{
 		throw std::invalid_argument("DamagingRegion::DamagingRegion(): colliderHeight must be non-negative.");
 	}
-
-
 
 	// TODO: Add this line back in once Michael fixes BoxCollider.
 	//addComponent<BoxCollider*>(new BoxCollider(this, colliderWidth, colliderHeight));

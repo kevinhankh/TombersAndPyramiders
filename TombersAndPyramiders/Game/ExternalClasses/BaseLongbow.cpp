@@ -11,6 +11,7 @@
 	Dependencies
 ========================================================================================*/
 #include "BaseLongbow.h"
+#include "Projectile.h"
 
 /*----------------------------------------------------------------------------------------
 	Static Fields
@@ -32,6 +33,13 @@ void BaseLongbow::onStart()
 {
 	m_isAttacking = true;
 	m_timeUntilNextAttack = LONGBOW_ATTACK_COOLDOWN_TIME;
+
+	new Projectile(
+		this, "IceTile.png", 0.5, 0.5, 
+		owner()->getTransform()->getX(), 
+		owner()->getTransform()->getY(), 
+		0.5
+	);
 }
 
 void BaseLongbow::onUpdate(int ticks)
