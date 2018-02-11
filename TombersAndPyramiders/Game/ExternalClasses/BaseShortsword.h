@@ -27,6 +27,9 @@ class BaseShortsword : public BaseMeleeWeapon
 		static const float SHORTSWORD_COLLIDER_HEIGHT;
 		static const float SHORTSWORD_X_OFFSET_FROM_HOLDER;
 		static const float SHORTSWORD_Y_OFFSET_FROM_HOLDER;
+		static const float SHORTSWORD_ATTACK_DURATION;
+
+		float m_timeLeftInAttack;
 
     /*----------------------------------------------------------------------------------------
 		Resource Management
@@ -46,4 +49,7 @@ class BaseShortsword : public BaseMeleeWeapon
 		void onStart();
 		void onUpdate(int ticks);
 		void onEnd();
+
+	private:
+		void updateAttack(int ticks);
 };

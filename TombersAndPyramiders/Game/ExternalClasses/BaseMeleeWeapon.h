@@ -24,7 +24,7 @@ class BaseMeleeWeapon : public BaseWeapon
     /*----------------------------------------------------------------------------------------
 		Instance Fields
     ----------------------------------------------------------------------------------------*/
-	private:
+	protected:
 		DamagingRegion m_damagingRegion;
 		Vector2 m_offsetFromHolder;
 

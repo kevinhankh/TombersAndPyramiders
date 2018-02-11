@@ -36,37 +36,12 @@ CharacterController::CharacterController(GameObject* parentGameobject, Inventory
 	BasePilot* pilot, int maxHealth, Vector2 movementSpeed) :
 	BaseController(parentGameobject, pilot), Damageable(maxHealth),
 	m_inventory{ inventory },
-	m_movementSpeed{ movementSpeed }, 
-	m_wasUsingWeapon{ false }, m_wasUsingShield{ false }, m_wasUsingGreaves{ false },
-	m_isUsingWeapon{ false }, m_isUsingShield{ false }, m_isUsingGreaves{ false }
+	m_movementSpeed{ movementSpeed }
 {
 	if (m_inventory == nullptr)
 	{
 		throw std::invalid_argument("CharacterController::CharacterController(): m_inventory cannot be null.");
 	}
-}
-
-
-/*----------------------------------------------------------------------------------------
-	Instance Setter Methods
-----------------------------------------------------------------------------------------*/
-void CharacterController::setIsUsingWeapon(bool isUsingWeapon)
-{
-	m_wasUsingWeapon = m_isUsingWeapon;
-	m_isUsingWeapon = isUsingWeapon;
-
-}
-
-void CharacterController::setIsUsingShield(bool isUsingShield)
-{
-	m_wasUsingShield = m_isUsingShield;
-	m_isUsingShield = isUsingShield;
-}
-
-void CharacterController::setIsUsingGreaves(bool isUsingGreaves)
-{
-	m_wasUsingGreaves = m_isUsingGreaves;
-	m_isUsingGreaves = isUsingGreaves;
 }
 
 /*----------------------------------------------------------------------------------------
@@ -89,6 +64,14 @@ void CharacterController::move(Vector2 delta)
 	gameObject->getComponent<Transform*>()->addTranslation(delta.getX(), delta.getY());
 }
 
+void CharacterController::useWeapon()
+{
+	if (m_inventory->getWeapon() != nullptr)
+	{
+		m_inventory->getWeapon()->use();
+	}
+}
+
 void CharacterController::updateWeapon(int ticks)
 {
 	if (m_inventory->getWeapon() != nullptr)
@@ -99,12 +82,18 @@ void CharacterController::updateWeapon(int ticks)
 
 void CharacterController::updateShield(int ticks)
 {
-
+	if (m_inventory->getShield() != nullptr)
+	{
+		m_inventory->getShield()->onUpdate(ticks);
+	}
 }
 
 void CharacterController::updateGreaves(int ticks)
 {
-
+	if (m_inventory->getGreaves() != nullptr)
+	{
+		m_inventory->getGreaves()->onUpdate(ticks);
+	}
 }
 
 void CharacterController::death()

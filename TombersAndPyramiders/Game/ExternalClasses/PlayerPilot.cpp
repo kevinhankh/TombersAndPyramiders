@@ -46,6 +46,11 @@ void PlayerPilot::onUpdate(int ticks)
 	{
 		m_characterController->move(getMovement());
 	}
+
+	if (getWeaponInput())
+	{
+		m_characterController->useWeapon();
+	}
 }
 
 void PlayerPilot::onEnd()
@@ -80,4 +85,9 @@ Vector2 PlayerPilot::getMovement()
 	}
 
 	return movement;
+}
+
+bool PlayerPilot::getWeaponInput()
+{
+	return InputManager::getInstance()->onKey(SDLK_i);
 }

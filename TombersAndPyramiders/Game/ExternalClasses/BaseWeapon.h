@@ -21,11 +21,17 @@
 class BaseWeapon : public BaseEquippableItem, public Updateable
 {
     /*----------------------------------------------------------------------------------------
+		Instance Fields
+    ----------------------------------------------------------------------------------------*/
+	protected:
+		bool m_isAttacking;
+
+    /*----------------------------------------------------------------------------------------
 		Resource Management
     ----------------------------------------------------------------------------------------*/
     public:
         /** Default constructor. */
-        explicit BaseWeapon() = default;
+        explicit BaseWeapon();
 
 		virtual ~BaseWeapon() {};
 
@@ -35,7 +41,7 @@ class BaseWeapon : public BaseEquippableItem, public Updateable
     public:
 		/**
 			Uses the weapon.
-			This should be called every frame that the weapon is in use.
+			This should be called every update that the controller gets input to use the weapon.
 
 			Weapon classes that implement this will treat this either as a "trigger", 
 			starting the use of the weapon and ignoring subsequent calls until the weapon 
@@ -45,8 +51,19 @@ class BaseWeapon : public BaseEquippableItem, public Updateable
 		*/
 		virtual void use() = 0;
 
+		/**
+			Called by the use() method on the update that the weapon begins attacking.
+		*/
 		virtual void onStart() = 0;
+		
+		/**
+			Called every update regardless of onStart() and onEnd() calls.
+		*/
 		virtual void onUpdate(int ticks) = 0;
+		
+		/**
+			Called by the weapon on the update that the weapon stops attacking.
+		*/
 		virtual void onEnd() = 0;
 
 	protected:
