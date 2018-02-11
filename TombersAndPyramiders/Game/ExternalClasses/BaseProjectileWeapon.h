@@ -1,7 +1,7 @@
 /*===================================================================================*//**
-	BaseMeleeWeapon
+	BaseProjectileWeapon
 	
-	Abstract class for a base melee weapon.
+	Abstract class for a base projectile weapon.
 
     @author Erick Fernandez de Arteaga
 	
@@ -13,35 +13,18 @@
 	Dependencies
 ========================================================================================*/
 #include "BaseWeapon.h"
-#include "DamagingRegion.h"
-#include "Vector2.h"
 
 /*========================================================================================
-	BaseMeleeWeapon	
+	BaseProjectileWeapon	
 ========================================================================================*/
-class BaseMeleeWeapon : public BaseWeapon
+class BaseProjectileWeapon : public BaseWeapon
 {
-    /*----------------------------------------------------------------------------------------
-		Instance Fields
-    ----------------------------------------------------------------------------------------*/
-	protected:
-		DamagingRegion m_damagingRegion;
-		Vector2 m_offsetFromHolder;
-
     /*----------------------------------------------------------------------------------------
 		Resource Management
     ----------------------------------------------------------------------------------------*/
     public:
         /** Default constructor. */
-        explicit BaseMeleeWeapon(float colliderWidth, float colliderHeight, 
-			float xOffsetFromHolder, float yOffsetFromHolder);
+        explicit BaseProjectileWeapon() = default;
 
-		virtual ~BaseMeleeWeapon() {};
-
-	
-    /*----------------------------------------------------------------------------------------
-		Instance Methods
-    ----------------------------------------------------------------------------------------*/
-	public:
-		void updatePosition();
+		virtual ~BaseProjectileWeapon() {};
 };

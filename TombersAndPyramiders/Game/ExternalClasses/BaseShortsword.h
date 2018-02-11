@@ -27,7 +27,7 @@ class BaseShortsword : public BaseMeleeWeapon
 		static const float SHORTSWORD_COLLIDER_HEIGHT;
 		static const float SHORTSWORD_X_OFFSET_FROM_HOLDER;
 		static const float SHORTSWORD_Y_OFFSET_FROM_HOLDER;
-		static const float SHORTSWORD_ATTACK_DURATION;
+		static const float SHORTSWORD_ATTACK_COOLDOWN;
 
 		float m_timeLeftInAttack;
 

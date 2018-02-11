@@ -19,7 +19,7 @@ const float BaseShortsword::SHORTSWORD_COLLIDER_WIDTH = 1;
 const float BaseShortsword::SHORTSWORD_COLLIDER_HEIGHT = 1;
 const float BaseShortsword::SHORTSWORD_X_OFFSET_FROM_HOLDER = 1;
 const float BaseShortsword::SHORTSWORD_Y_OFFSET_FROM_HOLDER = 0;
-const float BaseShortsword::SHORTSWORD_ATTACK_DURATION = 1;
+const float BaseShortsword::SHORTSWORD_ATTACK_COOLDOWN = 1;
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
