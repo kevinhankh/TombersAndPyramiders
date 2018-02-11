@@ -1,12 +1,10 @@
 /*===================================================================================*//**
-	DamagingRegion
+	Projectile
 	
-	Prefab class for a GameObject that causes damage to damageable objects when it 
-	collides with them.
+	A Damaging region that is fired by a projectile weapon, moves, and destroys itself 
+	after a set duration or after hitting something.
     
-    Copyright 2017 Erick Fernandez de Arteaga. All rights reserved.
-        https://www.linkedin.com/in/erick-fda
-        https://bitbucket.org/erick-fda
+    @author Erick Fernandez de Arteaga
 	
 *//*====================================================================================*/
 
@@ -15,47 +13,19 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "GameObject.h"
-#include "SimpleSprite.h"
-#include "Vector2.h"
-class BaseWeapon;
+#include "DamagingRegion.h"
 
 /*========================================================================================
-	DamagingRegion	
+	Projectile	
 ========================================================================================*/
-class DamagingRegion : public SimpleSprite
+class Projectile : public DamagingRegion
 {
-    /*----------------------------------------------------------------------------------------
-		Instance Fields
-    ----------------------------------------------------------------------------------------*/
-    private:
-		BaseWeapon* _weapon;
-
-    /*----------------------------------------------------------------------------------------
+	/*----------------------------------------------------------------------------------------
 		Resource Management
-    ----------------------------------------------------------------------------------------*/
-    public:
-        /** Default constructor. */
-        explicit DamagingRegion(BaseWeapon* weapon, float colliderWidth, float colliderHeight);
-
-	/*----------------------------------------------------------------------------------------
-		Instance Getter Methods
-    ----------------------------------------------------------------------------------------*/
-    public:
-        
-    
-	/*----------------------------------------------------------------------------------------
-		Instance Setter Methods
 	----------------------------------------------------------------------------------------*/
-    public:
+	explicit Projectile() = delete;
 
+	explicit Projectile(BaseWeapon* weapon, string imageName, float colliderWidth, float colliderHeight);
 
-	/*----------------------------------------------------------------------------------------
-		Instance Methods
-	----------------------------------------------------------------------------------------*/
-    public:
-		void onUpdate(int ticks);
-
-    private:
-
+	virtual ~Projectile();
 };

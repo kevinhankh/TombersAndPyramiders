@@ -4,9 +4,7 @@
 	Prefab class for a GameObject that causes damage to damageable objects when it 
 	collides with them.
     
-    Copyright 2017 Erick Fernandez de Arteaga. All rights reserved.
-        https://www.linkedin.com/in/erick-fda
-        https://bitbucket.org/erick-fda
+    @author Erick Fernandez de Arteaga
 	
 *//*====================================================================================*/
 
@@ -36,7 +34,11 @@ class DamagingRegion : public SimpleSprite
     ----------------------------------------------------------------------------------------*/
     public:
         /** Default constructor. */
-        explicit DamagingRegion(BaseWeapon* weapon, float colliderWidth, float colliderHeight);
+		explicit DamagingRegion() = delete;
+
+        explicit DamagingRegion(BaseWeapon* weapon, string imageName, float colliderWidth, float colliderHeight);
+
+		virtual ~DamagingRegion();
 
 	/*----------------------------------------------------------------------------------------
 		Instance Getter Methods

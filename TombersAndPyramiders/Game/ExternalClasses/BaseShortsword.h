@@ -34,7 +34,9 @@ class BaseShortsword : public BaseMeleeWeapon
     ----------------------------------------------------------------------------------------*/
     public:
         /** Default constructor. */
-        explicit BaseShortsword();
+        explicit BaseShortsword() = delete;
+
+		explicit BaseShortsword(string imageName);
 
 		virtual ~BaseShortsword() {};
 	

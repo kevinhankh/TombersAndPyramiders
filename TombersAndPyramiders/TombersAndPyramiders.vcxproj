@@ -193,6 +193,7 @@
     <ClCompile Include="Game\GameObjects\DamagingRegion.cpp" />
     <ClCompile Include="Game\GameObjects\GameObjectTemplate.cpp" />
     <ClCompile Include="Game\GameObjects\PlayerCharacter.cpp" />
+    <ClCompile Include="Game\GameObjects\Projectile.cpp" />
     <ClCompile Include="Game\Scenes\SceneTemplate.cpp" />
     <ClCompile Include="GarbageCollection.cpp" />
     <ClCompile Include="main.cpp" />
@@ -272,6 +273,7 @@
     <ClInclude Include="Game\GameObjects\DamagingRegion.h" />
     <ClInclude Include="Game\GameObjects\GameObjectTemplate.h" />
     <ClInclude Include="Game\GameObjects\PlayerCharacter.h" />
+    <ClInclude Include="Game\GameObjects\Projectile.h" />
     <ClInclude Include="Game\Scenes\SceneTemplate.h" />
     <ClInclude Include="GarbageCollection.h" />
     <ClInclude Include="MiscSquare.h" />

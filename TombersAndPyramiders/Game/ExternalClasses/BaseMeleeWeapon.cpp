@@ -17,9 +17,9 @@
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-BaseMeleeWeapon::BaseMeleeWeapon(float colliderWidth, float colliderHeight, 
+BaseMeleeWeapon::BaseMeleeWeapon(string imageName, float colliderWidth, float colliderHeight, 
 	float xOffsetFromHolder, float yOffsetFromHolder) :
-	m_damagingRegion{ this, colliderWidth, colliderHeight }
+	m_damagingRegion{ this, imageName, colliderWidth, colliderHeight }
 {
 	m_offsetFromHolder = Vector2(xOffsetFromHolder, yOffsetFromHolder);
 }

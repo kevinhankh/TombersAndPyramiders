@@ -24,8 +24,8 @@ const float BaseShortsword::SHORTSWORD_ATTACK_COOLDOWN_TIME = 5;
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-BaseShortsword::BaseShortsword() :
-	BaseMeleeWeapon{ SHORTSWORD_COLLIDER_WIDTH, SHORTSWORD_COLLIDER_HEIGHT, 
+BaseShortsword::BaseShortsword(string imageName) :
+	BaseMeleeWeapon{ imageName, SHORTSWORD_COLLIDER_WIDTH, SHORTSWORD_COLLIDER_HEIGHT, 
 	SHORTSWORD_X_OFFSET_FROM_HOLDER, SHORTSWORD_Y_OFFSET_FROM_HOLDER }
 {
 	m_damagingRegion.getTransform()->setScale(0);

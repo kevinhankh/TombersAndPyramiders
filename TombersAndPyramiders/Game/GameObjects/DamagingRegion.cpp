@@ -4,9 +4,7 @@
 	Prefab class for a GameObject that causes damage to damageable objects when it 
 	collides with them.
     
-    Copyright 2017 Erick Fernandez de Arteaga. All rights reserved.
-        https://www.linkedin.com/in/erick-fda
-        https://bitbucket.org/erick-fda
+    @author Erick Fernandez de Arteaga
 	
 *//*====================================================================================*/
 
@@ -20,8 +18,8 @@
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-DamagingRegion::DamagingRegion(BaseWeapon* weapon, float colliderWidth, float colliderHeight) :
-	SimpleSprite{ "IceTile.png", 0, 0, 0, 0.5 },
+DamagingRegion::DamagingRegion(BaseWeapon* weapon, string imageName, float colliderWidth, float colliderHeight) :
+	SimpleSprite{ imageName, 0, 0, 0, 0.5 },
 	_weapon{ weapon }
 {
 	if (_weapon == nullptr)
@@ -44,6 +42,9 @@ DamagingRegion::DamagingRegion(BaseWeapon* weapon, float colliderWidth, float co
 	// TODO: Add this line back in once Michael fixes BoxCollider.
 	//addComponent<BoxCollider*>(new BoxCollider(this, colliderWidth, colliderHeight));
 }
+
+DamagingRegion::~DamagingRegion()
+{}
 
 /*----------------------------------------------------------------------------------------
 	Instance Getter Methods

@@ -13,7 +13,13 @@
 #include "WoodenShortsword.h"
 
 /*----------------------------------------------------------------------------------------
+	Static Fields
+----------------------------------------------------------------------------------------*/
+const string WoodenShortsword::WOODEN_SHORTSWORD_IMAGE_NAME = "IceTile.png";
+
+/*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-WoodenShortsword::WoodenShortsword()
+WoodenShortsword::WoodenShortsword() :
+	BaseShortsword{ WOODEN_SHORTSWORD_IMAGE_NAME }
 {}

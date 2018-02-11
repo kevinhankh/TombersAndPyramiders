@@ -33,7 +33,7 @@ class BaseMeleeWeapon : public BaseWeapon
     ----------------------------------------------------------------------------------------*/
     public:
         /** Default constructor. */
-        explicit BaseMeleeWeapon(float colliderWidth, float colliderHeight, 
+        explicit BaseMeleeWeapon(string imageName, float colliderWidth, float colliderHeight, 
 			float xOffsetFromHolder, float yOffsetFromHolder);
 
 		virtual ~BaseMeleeWeapon() {};
