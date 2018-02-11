@@ -89,10 +89,10 @@ void CharacterController::move(Vector2 delta)
 
 	if (delta.getMagnitude() == 0)
 	{
-		m_playerCharacter->playRunAnimation();
+		m_playerCharacter->endRunAnimation();
 	} else 
 	{
-		m_playerCharacter->endRunAnimation();
+		m_playerCharacter->playRunAnimation();
 	}
 
 	gameObject->getComponent<Transform*>()->addTranslation(delta.getX(), delta.getY());

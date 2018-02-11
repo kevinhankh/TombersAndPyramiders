@@ -22,6 +22,7 @@
 PlayerCharacter::PlayerCharacter() :
 	ComplexSprite(generateComplexSpriteInfo(), 0, 0)
 {
+	setFPS(12);
 	addComponent<CharacterController*>(new CharacterController(this));
 	addComponent<Inventory*>(new Inventory(this));
 }
@@ -41,7 +42,7 @@ PlayerCharacter::PlayerCharacter() :
 ----------------------------------------------------------------------------------------*/
 void PlayerCharacter::onUpdate(int ticks)
 {
-	nextFrame();
+	updateFrames(ticks);
 }
 
 // Private generation logic for describing the sprite sheet relationships for this player
@@ -57,21 +58,28 @@ std::shared_ptr<ComplexSpriteinfo> PlayerCharacter::generateComplexSpriteInfo()
 	return spriteInfo;
 }
 
+// Changes the sprite animation to running
 void PlayerCharacter::playRunAnimation()
 {
 	changeSprite(ANIMATION_RUN);
-}
+}
 
+
+// Changes the sprite animation to idling
 void PlayerCharacter::endRunAnimation()
 {
 	changeSprite(ANIMATION_IDLE);
-}
+}
 
+
+// Changes the sprite animation to the melee attack for one animation then returns back to idle
 void PlayerCharacter::playMeleeAttackAnimation()
 {
 	changeSprite(ANIMATION_ATTACK_MELEE, ANIMATION_IDLE);
-}
+}
 
+
+// Changes the sprite animation to the range attack for one animation then returns back to idle
 void PlayerCharacter::playRangeAttackAnimation()
 {
 	changeSprite(ANIMATION_ATTACK_RANGE, ANIMATION_IDLE);
