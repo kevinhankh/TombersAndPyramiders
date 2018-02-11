@@ -18,8 +18,9 @@
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-DamagingRegion::DamagingRegion(BaseWeapon* weapon, string imageName, float colliderWidth, float colliderHeight) :
-	SimpleSprite{ imageName, 0, 0, 0, 0.5 },
+DamagingRegion::DamagingRegion(BaseWeapon* weapon, string imageName, float width, 
+	float height, float xPosition, float yPosition, float scale) :
+	SimpleSprite{ imageName, xPosition, yPosition, 0, scale },
 	_weapon{ weapon }
 {
 	if (_weapon == nullptr)
@@ -27,12 +28,12 @@ DamagingRegion::DamagingRegion(BaseWeapon* weapon, string imageName, float colli
 		throw std::invalid_argument("DamagingRegion::DamagingRegion(): _weapon cannot be null.");
 	}
 
-	if (colliderWidth < 0)
+	if (width < 0)
 	{
 		throw std::invalid_argument("DamagingRegion::DamagingRegion(): colliderWidth must be non-negative.");
 	}
 
-	if (colliderHeight < 0)
+	if (height < 0)
 	{
 		throw std::invalid_argument("DamagingRegion::DamagingRegion(): colliderHeight must be non-negative.");
 	}

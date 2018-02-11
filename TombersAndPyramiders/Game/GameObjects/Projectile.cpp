@@ -16,8 +16,9 @@
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-Projectile::Projectile(BaseWeapon* weapon, string imageName, float colliderWidth, float colliderHeight) :
-	DamagingRegion{ weapon, imageName, colliderWidth, colliderHeight }
+Projectile::Projectile(BaseWeapon* weapon, string imageName, float width, float height, 
+	float spawnXPosition, float spawnYPosition, float scale) :
+	DamagingRegion{ weapon, imageName, width, height, spawnXPosition, spawnYPosition, scale }
 {}
 
 Projectile::~Projectile()

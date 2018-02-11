@@ -25,6 +25,7 @@ class BaseShortsword : public BaseMeleeWeapon
 	protected:
 		static const float SHORTSWORD_COLLIDER_WIDTH;
 		static const float SHORTSWORD_COLLIDER_HEIGHT;
+		static const float SHORTSWORD_COLLIDER_SCALE;
 		static const float SHORTSWORD_X_OFFSET_FROM_HOLDER;
 		static const float SHORTSWORD_Y_OFFSET_FROM_HOLDER;
 		static const float SHORTSWORD_ATTACK_COOLDOWN_TIME;

@@ -36,7 +36,8 @@ class DamagingRegion : public SimpleSprite
         /** Default constructor. */
 		explicit DamagingRegion() = delete;
 
-        explicit DamagingRegion(BaseWeapon* weapon, string imageName, float colliderWidth, float colliderHeight);
+		explicit DamagingRegion(BaseWeapon* weapon, string imageName, float width,
+			float height, float xPosition = 0, float yPosition = 0, float scale = 1);
 
 		virtual ~DamagingRegion();
 

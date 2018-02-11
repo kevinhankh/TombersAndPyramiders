@@ -25,7 +25,8 @@ class Projectile : public DamagingRegion
 	----------------------------------------------------------------------------------------*/
 	explicit Projectile() = delete;
 
-	explicit Projectile(BaseWeapon* weapon, string imageName, float colliderWidth, float colliderHeight);
+	explicit Projectile(BaseWeapon* weapon, string imageName, float width, float height, 
+		float spawnXPosition, float spawnYPosition, float scale);
 
 	virtual ~Projectile();
 };
