@@ -13,6 +13,13 @@
 #include "WoodenLongbow.h"
 
 /*----------------------------------------------------------------------------------------
-	Instance Methods
+	Static Fields
 ----------------------------------------------------------------------------------------*/
+const std::string WoodenLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME = "IceTile.png";
 
+/*----------------------------------------------------------------------------------------
+	Resource Management
+----------------------------------------------------------------------------------------*/
+WoodenLongbow::WoodenLongbow() :
+	BaseLongbow{ WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME }
+{}

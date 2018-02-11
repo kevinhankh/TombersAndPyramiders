@@ -24,6 +24,11 @@ class BaseLongbow : public BaseProjectileWeapon
 		Static Fields
     ----------------------------------------------------------------------------------------*/
 	protected:
+		static const float LONGBOW_PROJECTILE_COLLIDER_WIDTH;
+		static const float LONGBOW_PROJECTILE_COLLIDER_HEIGHT;
+		static const float LONGBOW_PROJECTILE_SPRITE_SCALE;
+		static const float LONGBOW_PROJECTILE_SPAWN_X_OFFSET_FROM_HOLDER;
+		static const float LONGBOW_PROJECTILE_SPAWN_Y_OFFSET_FROM_HOLDER;
 		static const float LONGBOW_ATTACK_COOLDOWN_TIME;
 
     /*----------------------------------------------------------------------------------------
@@ -31,7 +36,9 @@ class BaseLongbow : public BaseProjectileWeapon
     ----------------------------------------------------------------------------------------*/
     public:
         /** Default constructor. */
-        explicit BaseLongbow() = default;
+        explicit BaseLongbow() = delete;
+
+		explicit BaseLongbow(std::string projectileImageName);
 
 		virtual ~BaseLongbow() {};
 		

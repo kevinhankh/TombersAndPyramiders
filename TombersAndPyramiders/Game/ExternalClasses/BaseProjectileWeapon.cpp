@@ -11,3 +11,10 @@
 	Dependencies
 ========================================================================================*/
 #include "BaseProjectileWeapon.h"
+
+/*----------------------------------------------------------------------------------------
+	Resource Management
+----------------------------------------------------------------------------------------*/
+BaseProjectileWeapon::BaseProjectileWeapon(std::string projectileImageName) :
+	m_projectileImageName{ projectileImageName }
+{}
