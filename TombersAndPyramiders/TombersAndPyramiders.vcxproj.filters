@@ -318,6 +318,9 @@
     <ClCompile Include="Game\ExternalClasses\BaseLongbow.cpp">
       <Filter>Source Files\Game\ExternalClasses\Items</Filter>
     </ClCompile>
+    <ClCompile Include="Game\ExternalClasses\WoodenLongbow.cpp">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -567,6 +570,9 @@
       <Filter>Source Files\Game\ExternalClasses\Items</Filter>
     </ClInclude>
     <ClInclude Include="Game\ExternalClasses\BaseLongbow.h">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ExternalClasses\WoodenLongbow.h">
       <Filter>Source Files\Game\ExternalClasses\Items</Filter>
     </ClInclude>
   </ItemGroup>
