@@ -41,24 +41,3 @@ DamagingRegion::DamagingRegion(BaseWeapon* weapon, string imageName, float colli
 	// TODO: Add this line back in once Michael fixes BoxCollider.
 	//addComponent<BoxCollider*>(new BoxCollider(this, colliderWidth, colliderHeight));
 }
-
-DamagingRegion::~DamagingRegion()
-{}
-
-/*----------------------------------------------------------------------------------------
-	Instance Getter Methods
-----------------------------------------------------------------------------------------*/
-
-
-/*----------------------------------------------------------------------------------------
-	Instance Setter Methods
-----------------------------------------------------------------------------------------*/
-
-
-/*----------------------------------------------------------------------------------------
-	Instance Methods
-----------------------------------------------------------------------------------------*/
-void DamagingRegion::onUpdate(int ticks)
-{
-
-}

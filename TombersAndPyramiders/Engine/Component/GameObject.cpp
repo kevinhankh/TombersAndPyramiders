@@ -37,7 +37,6 @@ Transform* GameObject::getTransform()
 	return m_transform;
 }
 
-
 void GameObject::destroy(GameObject* gameObject)
 {
 	GameManager::getInstance()->removeGameObject(gameObject);

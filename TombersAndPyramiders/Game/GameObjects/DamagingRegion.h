@@ -39,26 +39,5 @@ class DamagingRegion : public SimpleSprite
 		explicit DamagingRegion(BaseWeapon* weapon, string imageName, float colliderWidth,
 			float colliderHeight, float xPosition = 0, float yPosition = 0, float spriteScale = 1);
 
-		virtual ~DamagingRegion();
-
-	/*----------------------------------------------------------------------------------------
-		Instance Getter Methods
-    ----------------------------------------------------------------------------------------*/
-    public:
-        
-    
-	/*----------------------------------------------------------------------------------------
-		Instance Setter Methods
-	----------------------------------------------------------------------------------------*/
-    public:
-
-
-	/*----------------------------------------------------------------------------------------
-		Instance Methods
-	----------------------------------------------------------------------------------------*/
-    public:
-		void onUpdate(int ticks);
-
-    private:
-
+		virtual ~DamagingRegion() {};
 };

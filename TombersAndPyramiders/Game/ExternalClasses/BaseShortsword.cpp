@@ -66,7 +66,7 @@ void BaseShortsword::updateAttack(int ticks)
 {
 	if (m_isAttacking)
 	{
-		m_timeUntilNextAttack -= ticks / TICKS_PER_SECOND;
+		m_timeUntilNextAttack -= ticks / BaseItem::TICKS_PER_SECOND;
 
 		if (m_timeUntilNextAttack <= 0)
 		{
