@@ -6,7 +6,7 @@
 NetworkCharacter::NetworkCharacter() :
 	SimpleSprite("IceTile.png", 0, 0)
 {
-	//addComponent<CharacterController*>(new CharacterController(this));
+	addComponent<CharacterController*>(new CharacterController(this));
 	addComponent<Inventory*>(new Inventory(this));
 	addComponent<Receiver*>(new Receiver(this, std::to_string(this->getId())));
 }

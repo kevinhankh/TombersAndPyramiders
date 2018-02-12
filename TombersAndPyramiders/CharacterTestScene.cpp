@@ -9,6 +9,8 @@
 #include "MiscSquare.h"
 #include <vector>
 #include "SpawnManager.h"
+#include "InputManager.h"
+#include "NetworkingManager.h"
 
 CharacterTestScene::CharacterTestScene()
 {
@@ -29,7 +31,7 @@ void CharacterTestScene::onStart()
 
 	//if(host)
 	setCameraFollow(SpawnManager::getInstance()->generateSimpleCharacter(15, 5));
-	SpawnManager::getInstance()->generateNetworkCharacter(25, 10);
+	
 	/*
 	else
 	{
@@ -55,4 +57,14 @@ void CharacterTestScene::onEnd()
 
 void CharacterTestScene::onUpdate(int ticks)
 {
+	if (InputManager::getInstance()->onKey(SDLK_j))
+	{
+		SpawnManager::getInstance()->generateNetworkCharacter(25, 10);
+		NetworkingManager::getInstance()->createClient();
+	}
+	if (InputManager::getInstance()->onKey(SDLK_h))
+	{
+		SpawnManager::getInstance()->generateNetworkCharacter(25, 10);
+		NetworkingManager::getInstance()->createHost();
+	}
 }
