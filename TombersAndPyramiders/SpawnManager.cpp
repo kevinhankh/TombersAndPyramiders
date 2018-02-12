@@ -5,6 +5,7 @@
 #include "WoodenShortsword.h"
 #include "WoodenLongbow.h"
 #include "PlayerPilot.h"
+#include "Receiver.h"
 
 SpawnManager* SpawnManager::s_instance;
 
@@ -45,7 +46,19 @@ std::shared_ptr<Character> SpawnManager::generatePlayerCharacter(float x, float 
 	std::shared_ptr<Character> simpleCharacter = GameManager::getInstance()->createGameObject<Character>(false, new PlayerPilot());
 	simpleCharacter->getComponent<Inventory>()->addItem(new WoodenLongbow());
 	simpleCharacter->getTransform()->setPosition(x, y);
-	
+
+	return simpleCharacter;
+}
+
+std::shared_ptr<Character> SpawnManager::generateNetworkCharacter(Uint32 ip, float x, float y)
+{
+	int id = ip + rand();
+	std::shared_ptr<Character> simpleCharacter = GameManager::getInstance()->createGameObject<Character>(false, id, new PlayerPilot());
+	simpleCharacter->getComponent<Inventory>()->addItem(new WoodenLongbow());
+	simpleCharacter->getTransform()->setPosition(x, y);
+	;
+	simpleCharacter->addComponent<Receiver>(*(new Receiver(simpleCharacter.get(), std::to_string(id))));
+
 	return simpleCharacter;
 }
 /*

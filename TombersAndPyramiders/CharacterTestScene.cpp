@@ -52,17 +52,18 @@ void CharacterTestScene::onEnd()
 int counter = 0;
 void CharacterTestScene::onUpdate(int ticks)
 {
-	/*
+	
 	if (InputManager::getInstance()->onKeyReleased(SDLK_j))
 	{
-		SpawnManager::getInstance()->generateNetworkCharacter(25, 10);
 		NetworkingManager::getInstance()->createClient();
+		//SpawnManager::getInstance()->generateNetworkCharacter(25, 10);
 	}
 	if (InputManager::getInstance()->onKeyReleased(SDLK_h))
 	{
-		SpawnManager::getInstance()->generateNetworkCharacter(25, 10);
 		NetworkingManager::getInstance()->createHost();
-	*/
+		//SpawnManager::getInstance()->generateNetworkCharacter(25, 10);
+	}
+
 	if (counter++ == 60)
 	{
 		player->destroy(player);
