@@ -5,7 +5,7 @@
 #include <map>
 #include "Updateable.h"
 
-extern class GameObject;
+class GameObject;
 
 class Scene : public Updateable
 {

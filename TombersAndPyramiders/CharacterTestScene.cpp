@@ -10,7 +10,7 @@
 #include <vector>
 #include "SpawnManager.h"
 
-std::shared_ptr<PlayerCharacter> player = nullptr;
+std::shared_ptr<Character> player = nullptr;
 
 CharacterTestScene::CharacterTestScene()
 {
@@ -20,15 +20,15 @@ void CharacterTestScene::onStart()
 {
 	Camera::getActiveCamera()->addComponent<CameraFollow>(Camera::getActiveCamera().get());
 
-	for (int x = -50; x < 50; x++)
+	for (int x = -5; x < 5; x++)
 	{
-		for (int y = -50; y < 50; y++)
+		for (int y = -5; y < 5; y++)
 		{
-			SpawnManager::getInstance()->generateMiscSquare(x, y, 1);
+			SpawnManager::getInstance()->generateMiscSquare(x * 5, y * 5, 5);
 		}
 	}
 
-	player = SpawnManager::getInstance()->generateSimpleCharacter(15, 5);
+	player = SpawnManager::getInstance()->generatePlayerCharacter(15, 5);
 
 	setCameraFollow(player);
 }
@@ -57,7 +57,7 @@ void CharacterTestScene::onUpdate(int ticks)
 	}
 	if (counter == 120)
 	{
-		player = SpawnManager::getInstance()->generateSimpleCharacter(-10, 5);
+		player = SpawnManager::getInstance()->generatePlayerCharacter(-10, 5);
 		setCameraFollow(player);
 	}
 }
