@@ -52,15 +52,15 @@ void BaseLongbow::onStart()
 {
 	m_isAttacking = true;
 	m_timeUntilNextAttack = LONGBOW_ATTACK_COOLDOWN_TIME;
+	Vector2 spawnPoint = getProjectileSpawnPoint();
+	Vector2 velocity = getProjectileVelocity();
 	GameManager::getInstance()->createGameObject<Projectile>(false, 
 															 this, 
 															 m_projectileImageName,
 															 LONGBOW_PROJECTILE_COLLIDER_WIDTH, LONGBOW_PROJECTILE_COLLIDER_HEIGHT,
-															 owner()->getTransform()->getX() + LONGBOW_PROJECTILE_SPAWN_X_OFFSET_FROM_HOLDER,
-															 owner()->getTransform()->getY() + LONGBOW_PROJECTILE_SPAWN_Y_OFFSET_FROM_HOLDER,
+															 spawnPoint.getX(), spawnPoint.getY(),
 															 LONGBOW_PROJECTILE_SPRITE_SCALE,
-															 LONGBOW_PROJECTILE_X_VELOCITY,
-															 LONGBOW_PROJECTILE_Y_VELOCITY,
+															 velocity.getX(), velocity.getY(),
 															 LONGBOW_PROJECTILE_LIFESPAN);
 }
 
@@ -85,4 +85,30 @@ void BaseLongbow::updateAttack(int ticks)
 			onEnd();
 		}
 	}
+}
+
+Vector2 BaseLongbow::getProjectileSpawnPoint()
+{
+	Vector2 spawnPoint = Vector2(
+		owner()->getTransform()->getX() + m_projectileSpawnOffsetFromHolder.getX(),
+		owner()->getTransform()->getY() + m_projectileSpawnOffsetFromHolder.getY()
+	);
+
+	spawnPoint.rotateFromOrigin(
+		Vector2(owner()->getTransform()->getX(), owner()->getTransform()->getY()), 
+		owner()->getTransform()->getRotation()
+	);
+
+	return spawnPoint;
+}
+
+Vector2 BaseLongbow::getProjectileVelocity()
+{
+	Vector2 velocity = Vector2(
+		m_projectileVelocity.getX(), m_projectileVelocity.getY()
+	);
+	
+	velocity.rotate( owner()->getTransform()->getRotation() );
+
+	return velocity;
 }
