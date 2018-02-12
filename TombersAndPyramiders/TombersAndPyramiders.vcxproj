@@ -27,7 +27,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -190,9 +190,9 @@
     <ClCompile Include="Engine\Manager\GameManager.cpp" />
     <ClCompile Include="Engine\Manager\SpriteRendererManager.cpp" />
     <ClCompile Include="Game\Components\ComponentTemplate.cpp" />
+    <ClCompile Include="Game\GameObjects\Character.cpp" />
     <ClCompile Include="Game\GameObjects\DamagingRegion.cpp" />
     <ClCompile Include="Game\GameObjects\GameObjectTemplate.cpp" />
-    <ClCompile Include="Game\GameObjects\Character.cpp" />
     <ClCompile Include="Game\GameObjects\Projectile.cpp" />
     <ClCompile Include="Game\Scenes\SceneTemplate.cpp" />
     <ClCompile Include="GarbageCollection.cpp" />
@@ -270,9 +270,9 @@
     <ClInclude Include="Engine\Manager\InputManager.h" />
     <ClInclude Include="Engine\Manager\SpriteRendererManager.h" />
     <ClInclude Include="Game\Components\ComponentTemplate.h" />
+    <ClInclude Include="Game\GameObjects\Character.h" />
     <ClInclude Include="Game\GameObjects\DamagingRegion.h" />
     <ClInclude Include="Game\GameObjects\GameObjectTemplate.h" />
-    <ClInclude Include="Game\GameObjects\Character.h" />
     <ClInclude Include="Game\GameObjects\Projectile.h" />
     <ClInclude Include="Game\Scenes\SceneTemplate.h" />
     <ClInclude Include="GarbageCollection.h" />

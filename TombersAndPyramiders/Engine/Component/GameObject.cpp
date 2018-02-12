@@ -6,8 +6,7 @@
 
 GameObject::GameObject()
 {
-	m_transform = std::make_shared<Transform>(this);
-	addComponent<Component>(m_transform);
+	m_transform = addComponent<Transform>(this);
 }
 
 void GameObject::onComponentsUpdate(int ticks)
@@ -46,5 +45,10 @@ Transform* GameObject::getTransform()
 
 void GameObject::destroy(std::shared_ptr<GameObject> gameObject)
 {
-	GameManager::getInstance()->removeGameObject(gameObject);
+	destroy(gameObject->getId());
+}
+
+void GameObject::destroy(int gameObjectid)
+{
+	GameManager::getInstance()->removeGameObject(gameObjectid);
 }

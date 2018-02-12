@@ -15,6 +15,7 @@
 	Dependencies
 ========================================================================================*/
 #include "ComplexSprite.h"
+#include "BasePilot.h"
 
 /*========================================================================================
 	Player Animation Defines
@@ -40,7 +41,7 @@ class Character : public ComplexSprite
     ----------------------------------------------------------------------------------------*/
     public:
         /** Default constructor. */
-        explicit Character();
+        explicit Character(BasePilot* basePilot);
 
 	/*----------------------------------------------------------------------------------------
 		Instance Getter Methods

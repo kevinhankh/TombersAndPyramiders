@@ -20,4 +20,7 @@ public:
 
 	static void setActiveCamera(std::shared_ptr<Camera> camera);
 	static std::shared_ptr<Camera> getActiveCamera();
+
+	bool isOnScreen(Transform* transform);
+	bool isOnScreen(float transformX, float transformY, float transformScale);
 };

@@ -258,9 +258,6 @@
     <ClCompile Include="Game\Components\CharacterController.cpp">
       <Filter>Source Files\Game\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameObjects\Character.cpp">
-      <Filter>Source Files\Game\GameObjects</Filter>
-    </ClCompile>
     <ClCompile Include="CameraTestScene.cpp">
       <Filter>Source Files\Game\Scenes</Filter>
     </ClCompile>
@@ -322,6 +319,9 @@
       <Filter>Source Files\Game\ExternalClasses\Items</Filter>
     </ClCompile>
     <ClCompile Include="Game\GameObjects\Projectile.cpp">
+      <Filter>Source Files\Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObjects\Character.cpp">
       <Filter>Source Files\Game\GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -515,9 +515,6 @@
     <ClInclude Include="Game\Components\CharacterController.h">
       <Filter>Source Files\Game\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameObjects\Character.h">
-      <Filter>Source Files\Game\GameObjects</Filter>
-    </ClInclude>
     <ClInclude Include="CameraTestScene.h">
       <Filter>Source Files\Game\Scenes</Filter>
     </ClInclude>
@@ -579,6 +576,9 @@
       <Filter>Source Files\Game\ExternalClasses\Items</Filter>
     </ClInclude>
     <ClInclude Include="Game\GameObjects\Projectile.h">
+      <Filter>Source Files\Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObjects\Character.h">
       <Filter>Source Files\Game\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>

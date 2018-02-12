@@ -285,11 +285,13 @@ void SpriteRendererManager::prepareRenderingThread()
 	}
 	else
 	{
+		std::shared_ptr<Camera> camera = Camera::getActiveCamera();
 		for (size_t i = 0; i < m_activeSprites.size(); i++)
 		{
 			SpriteRenderer *spriteRenderer = m_activeSprites[i];
-
-			if (isRenderingLayerEnabled(spriteRenderer->getLayer()))
+			Transform* transform = spriteRenderer->getGameObject()->getTransform();
+			
+			if (camera->isOnScreen(transform)) 
 			{
 				RenderingObject ro;
 
@@ -318,7 +320,7 @@ void SpriteRendererManager::prepareRenderingThread()
 				}
 
 				//Pass in transform
-				ro.transform = spriteRenderer->getGameObject()->getTransform();
+				ro.transform = transform;
 
 				ro.spriteRenderer = spriteRenderer;
 
@@ -327,6 +329,10 @@ void SpriteRendererManager::prepareRenderingThread()
 					rg.children.push_back(ro);
 				}
 			}
+			//if (isRenderingLayerEnabled(spriteRenderer->getLayer()))
+			//{
+				
+			//}
 		}
 		m_renderingGroups.push_back(rg);
 	}

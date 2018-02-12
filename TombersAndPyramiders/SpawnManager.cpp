@@ -4,6 +4,7 @@
 #include "Inventory.h"
 #include "WoodenShortsword.h"
 #include "WoodenLongbow.h"
+#include "PlayerPilot.h"
 
 SpawnManager* SpawnManager::s_instance;
 
@@ -39,10 +40,11 @@ std	::shared_ptr<MovingSquare> SpawnManager::generateMovingSquare(float x, float
 	return movingSquare;
 }
 
-std::shared_ptr<Character> SpawnManager::generateSimpleCharacter(float x, float y)
+std::shared_ptr<Character> SpawnManager::generatePlayerCharacter(float x, float y)
 {
-	std::shared_ptr<Character> simpleCharacter = GameManager::getInstance()->createGameObject<Character>(false);
+	std::shared_ptr<Character> simpleCharacter = GameManager::getInstance()->createGameObject<Character>(false, new PlayerPilot());
 	simpleCharacter->getComponent<Inventory>()->addItem(new WoodenLongbow());
 	simpleCharacter->getTransform()->setPosition(x, y);
+	
 	return simpleCharacter;
 }

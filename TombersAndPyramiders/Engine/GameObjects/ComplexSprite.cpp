@@ -7,7 +7,7 @@
 
 ComplexSprite::ComplexSprite(std::shared_ptr<ComplexSpriteinfo> info, float x, float y, float z, float scale, Shader* nonDefaultShader, int framesPerSecond) : GameObject()
 {
-	std::shared_ptr<SpriteRenderer> spriteRenderer = std::make_shared<SpriteRenderer>(this);
+	std::shared_ptr<SpriteRenderer> spriteRenderer = addComponent<SpriteRenderer>(this);
 	spriteRenderer->setActiveShader(Shader::getShader(SHADER_SPRITESHEET));
 
 	for (int i = 0; i != info->getSpriteCount(); i++)
@@ -31,7 +31,7 @@ ComplexSprite::ComplexSprite(std::shared_ptr<ComplexSpriteinfo> info, float x, f
 	Transform* transform = getTransform();
 	transform->setPosition(x, y, z);
 	transform->setScale(scale);
-	addComponent<SpriteRenderer>(spriteRenderer);
+
 	m_framesTilReturn = -1;
 	this->m_framesPerSecond = framesPerSecond;
 

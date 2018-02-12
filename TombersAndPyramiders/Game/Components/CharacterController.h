@@ -15,6 +15,7 @@
 #include "BaseController.h"
 #include "Damageable.h"
 #include "Vector2.h"
+#include "BasePilot.h"
 class Inventory;
 
 /*========================================================================================

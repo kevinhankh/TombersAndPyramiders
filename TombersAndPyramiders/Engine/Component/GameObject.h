@@ -58,9 +58,10 @@ public:
 		return (T)m_components[getClassName<T>()];
 	}
 
-	template <typename T>
-	void addComponent(std::shared_ptr<T> component)
+	template <typename T, class... _Types>
+	std::shared_ptr<T> addComponent(_Types&&... args)
 	{
+		std::shared_ptr<T> component = std::make_shared<T>(args...);
 		std::string id = getClassName<T>();
 		if (!hasComponent<T>())
 		{
@@ -72,6 +73,7 @@ public:
 		{
 			m_components[id].push_back(component);
 		}
+		return component;
 	}
 
 	template <typename T>
@@ -116,6 +118,7 @@ public:
 	Transform* getTransform();
 
 	void destroy(std::shared_ptr<GameObject> gameObject);
+	void destroy(int gameObjectId);
 
 	virtual ~GameObject();
 };

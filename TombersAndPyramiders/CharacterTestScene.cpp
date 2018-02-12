@@ -18,7 +18,7 @@ CharacterTestScene::CharacterTestScene()
 
 void CharacterTestScene::onStart()
 {
-	Camera::getActiveCamera()->addComponent(std::make_shared<CameraFollow>(Camera::getActiveCamera().get()));
+	Camera::getActiveCamera()->addComponent<CameraFollow>(Camera::getActiveCamera().get());
 
 	for (int x = -5; x < 5; x++)
 	{
@@ -28,7 +28,8 @@ void CharacterTestScene::onStart()
 		}
 	}
 
-	player = SpawnManager::getInstance()->generateSimpleCharacter(15, 5);
+	player = SpawnManager::getInstance()->generatePlayerCharacter(15, 5);
+
 	setCameraFollow(player);
 }
 
@@ -56,7 +57,7 @@ void CharacterTestScene::onUpdate(int ticks)
 	}
 	if (counter == 120)
 	{
-		player = SpawnManager::getInstance()->generateSimpleCharacter(-10, 5);
+		player = SpawnManager::getInstance()->generatePlayerCharacter(-10, 5);
 		setCameraFollow(player);
 	}
 }
