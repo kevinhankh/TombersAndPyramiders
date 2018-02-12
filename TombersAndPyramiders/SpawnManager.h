@@ -3,8 +3,8 @@
 #include <memory>
 #include "MiscSquare.h"
 #include "MovingSquare.h"
-#include "PlayerCharacter.h"
 #include "NetworkCharacter.h"
+#include "Character.h"
 
 class SpawnManager
 {
@@ -14,9 +14,6 @@ private:
 
 	SpawnManager();
 	~SpawnManager();
-	std::vector<std::shared_ptr<MiscSquare>> miscSquares;
-	std::vector<std::shared_ptr<MovingSquare>> movingSquares;
-	std::vector<std::shared_ptr<PlayerCharacter>> simpleCharacters;
 
 	//Networking test
 	std::vector<std::shared_ptr<NetworkCharacter>> networkCharacters;
@@ -24,10 +21,11 @@ private:
 public:
 	std::shared_ptr<MiscSquare> generateMiscSquare(float x, float y, float scale);
 	std::shared_ptr<MovingSquare> generateMovingSquare(float x, float y);
-	std::shared_ptr<PlayerCharacter> generateSimpleCharacter(float x, float y);
 
 	//Networking test
 	std::shared_ptr<NetworkCharacter> generateNetworkCharacter(float x, float y);
+
+	std::shared_ptr<Character> generatePlayerCharacter(float x, float y);
 
 	static SpawnManager* getInstance();
 };

@@ -14,9 +14,6 @@ NetworkingManager::NetworkingManager()
 {
 	SDLNet_Init();
 	m_messageQueue = new ThreadQueue<std::string>();
-
-	for (int i = 0; i < 16; ++i)
-		m_players[i] = NULL;
 }
 
 bool NetworkingManager::createHost()
@@ -36,7 +33,9 @@ bool NetworkingManager::isConnected()
 
 bool NetworkingManager::isHost()
 {
-	return m_client != NULL;
+	IPaddress ip;
+	SDLNet_ResolveHost(&ip, NULL, m_port);
+	return m_clients[ip.host] != NULL;
 }
 
 bool NetworkingManager::host()
@@ -70,7 +69,7 @@ bool NetworkingManager::host()
 		return false;
 	}
 	
-	//addPlayer(ip.host);
+	addPlayer(ip.host, m_socket);
 	channel = SDLNet_UDP_Bind(m_udpSocket, DEFAULT_CHANNEL, &ip);
 
 	bool result = false;
@@ -78,13 +77,12 @@ bool NetworkingManager::host()
 	if (result)
 	{
 		std::cout << "Connection established." << std::endl;
-		pollMessages();
 		return true;
 	}
 	else
 	{
 		std::cout << "No peer found, destroying server." << std::endl;
-		close();
+		close(ip.host);
 		return false;
 	}
 }
@@ -104,7 +102,7 @@ bool NetworkingManager::join()
 	if (!m_socket)
 	{
 		printf("SDLNet_TCP_Open: %s\n", SDLNet_GetError());
-		close();
+		close(ip.host);
 		return false;
 	}
 	
@@ -118,29 +116,35 @@ bool NetworkingManager::join()
 	
 	channel = SDLNet_UDP_Bind(m_udpSocket, DEFAULT_CHANNEL, &ip);
 
+	addPlayer(ip.host, m_socket);
+
 	std::cout << "SDLNet_TCP_Open:A>A>A WE DID IT JOIN" << std::endl;
-	pollMessages();
+	pollMessages(ip.host);
+	//pollMessagesUDP(ip.host);
 	return true;
 }
 
 bool NetworkingManager::accept()
 {
-	m_client = SDLNet_TCP_Accept(m_socket);
+	TCPsocket m_client = SDLNet_TCP_Accept(m_socket);
 	if (!m_client)
 	{
 		return false;
 	}
+	IPaddress *ip = SDLNet_TCP_GetPeerAddress(m_client);
+	addPlayer(ip->host, m_client);
+	pollMessages(ip->host);
 	// communicate over new_tcpsock
 	std::cout << "SDLNet_TCP_Accept:A>A>A WE DID IT ACCETP" << std::endl;
 	return true;
 }
 
-bool NetworkingManager::close()
+bool NetworkingManager::close(Uint32 ip)
 {
-	if (m_client != NULL)
+	if (m_clients.find(ip) != m_clients.end())
 	{
-		SDLNet_TCP_Close(m_client);
-		m_client = NULL;
+		SDLNet_TCP_Close(m_clients[ip]);
+		m_clients[ip] = NULL;
 	}
 	if (m_socket != NULL)
 	{
@@ -166,15 +170,15 @@ bool NetworkingManager::closeUDP()
 }
 
 //Host->Sending Messages->Client Exits->Host Crashes on line SDLNet_TCP_Send
-void NetworkingManager::send(std::string *msg)
+void NetworkingManager::send(Uint32 ip, std::string *msg)
 {
 	// send a hello over sock
 	//TCPsocket sock;
 	int result, len;
 	len = msg->length() + 1;
 
-	if (m_client != NULL)
-		result = SDLNet_TCP_Send(m_client, msg->c_str(), len);
+	if (m_clients.find(ip) != m_clients.end())
+		result = SDLNet_TCP_Send(m_clients[ip], msg->c_str(), len);
 	else if (m_socket != NULL)
 		result = SDLNet_TCP_Send(m_socket, msg->c_str(), len);
 
@@ -208,14 +212,14 @@ void NetworkingManager::sendUDP(std::string *msg)
 		std::cout << "SDLNET_UDP_SEND failed: " << SDLNet_GetError() << "\n";
 }
 
-void NetworkingManager::pollMessages()
+void NetworkingManager::pollMessages(Uint32 ip)
 {
 	m_messagesToSend.clear();
-	m_receiverThread = std::thread(&NetworkingManager::pollMessagesThread, this);
+	m_receiverThread = std::thread(&NetworkingManager::pollMessagesThread, this, ip);
 	m_receiverThread.detach();
 }
 
-void NetworkingManager::pollMessagesThread()
+void NetworkingManager::pollMessagesThread(Uint32 ip)
 {
 #define MAXLEN 16384
 	int result;
@@ -224,19 +228,19 @@ void NetworkingManager::pollMessagesThread()
 	while (m_socket != NULL)
 	{ //replace with on connection lost
 
-		if (m_client != NULL)
-			result = SDLNet_TCP_Recv(m_client, msg, MAXLEN);
+		if (m_clients.find(ip) != m_clients.end())
+			result = SDLNet_TCP_Recv(m_clients[ip], msg, MAXLEN);
 		else if (m_socket != NULL)
 			result = SDLNet_TCP_Recv(m_socket, msg, MAXLEN);
 		if (result <= 0)
 		{
-			close();
+			close(ip);
 			continue;
 		}
 		std::string newMsg = msg;
 		m_messageQueue->push(newMsg);
 	}
-	close();
+	close(ip);
 }
 
 void NetworkingManager::pollMessagesUDP()
@@ -300,8 +304,9 @@ void NetworkingManager::sendQueuedEvents()
 	//Submit it
 	m_messagesToSend.clear();
 
-	//std::cout << "SENDING PACKET: " << packet << std::endl;
-	send(new std::string(packet));
+	for (auto it = m_clients.begin(); it != m_clients.end(); it++) {
+		send(it->first, new std::string(packet));
+	}
 }
 
 void NetworkingManager::sendEventToReceiver(std::map<std::string, void*> data)
@@ -366,7 +371,6 @@ void NetworkingManager::handleParsingEvents(std::string packet)
 
 //TODO: Deserialize this:
 //Example: {key : Player|UPDATE,rotation : 37.000000,scale : 1.000000,x : 1.000000,y : 0.000000}
-
 std::map<std::string, void*> NetworkingManager::deserializeMessage(std::string message)
 {
 	std::map<std::string, void*> data;
@@ -429,34 +433,25 @@ void NetworkingManager::setIP(char *ip, int p)
 	m_port = p;
 }
 
-int NetworkingManager::addPlayer(UINT32 ip)
+int NetworkingManager::addPlayer(Uint32 ip, TCPsocket sock)
 {
-	int playerId;
-
-	for (int i = 0; i < 16; ++i)
+	if (m_clients.size() > 16)
 	{
-		if (m_players[i] != NULL)
-		{
-			m_players[i] = ip;
-			playerId = i;
-		}
+		return 0;
 	}
-
-	return playerId;
+	m_clients.insert(std::pair<Uint32, TCPsocket>(ip, sock));
+	return 1;
 }
 
-int NetworkingManager::removePlayer(UINT32 ip)
+int NetworkingManager::removePlayer(Uint32 ip)
 {
-	int playerId;
-
-	for (int i = 0; i < 16; ++i)
+	for (auto it = m_clients.begin(); it != m_clients.end(); it++)
 	{
-		if (m_players[i] == ip)
+		if (it->first == ip) 
 		{
-			m_players[i] = NULL;
-			playerId = i;
+			m_clients.erase(it);
+			return 1;
 		}
 	}
-
-	return playerId;
+	return 0;
 }

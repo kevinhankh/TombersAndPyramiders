@@ -15,6 +15,7 @@ public:
 	Vector2(float x, float y);
 
 	static Vector2* convertAngleToVector(float angle);
+
 	static float dotProduct(Vector2* a, Vector2* b);
 
 	void normalize();

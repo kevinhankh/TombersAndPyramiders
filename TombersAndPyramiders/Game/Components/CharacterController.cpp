@@ -22,45 +22,33 @@
 #include "BaseWeapon.h"
 #include "BaseShield.h"
 #include "BaseGreaves.h"
+#include "Character.h"
 
 /*----------------------------------------------------------------------------------------
 	Static Fields
 ----------------------------------------------------------------------------------------*/
-const int CharacterController::DEFAULT_PLAYER_MAX_HP = 100;
-const Vector2 CharacterController::DEFAULT_PLAYER_MOVEMENT_SPEED = Vector2(1, 1);
+const int CharacterController::DEFAULT_CHARACTER_MAX_HP = 100;
+const Vector2 CharacterController::DEFAULT_CHARACTER_MOVEMENT_SPEED = Vector2(1, 1);
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-CharacterController::CharacterController(GameObject* gameObject, BasePilot* pilot, int maxHealth, 
-	Vector2 movementSpeed) :
-	BaseController(gameObject, pilot), Damageable(maxHealth), 
-	m_movementSpeed{ movementSpeed }, 
-	m_wasUsingWeapon{ false }, m_wasUsingShield{ false }, m_wasUsingGreaves{ false },
-	m_isUsingWeapon{ false }, m_isUsingShield{ false }, m_isUsingGreaves{ false }
-{}
-
-
-/*----------------------------------------------------------------------------------------
-	Instance Setter Methods
-----------------------------------------------------------------------------------------*/
-void CharacterController::setIsUsingWeapon(bool isUsingWeapon)
+CharacterController::CharacterController(GameObject* parentGameobject, Inventory* inventory,
+										 BasePilot* pilot, int maxHealth, Vector2 movementSpeed) :
+	BaseController(parentGameobject, pilot), Damageable(maxHealth),
+	m_inventory{ inventory },
+	m_movementSpeed{ movementSpeed }
 {
-	m_wasUsingWeapon = m_isUsingWeapon;
-	m_isUsingWeapon = isUsingWeapon;
+	if (m_inventory == nullptr)
+	{
+		throw std::invalid_argument("CharacterController::CharacterController(): m_inventory cannot be null.");
+	}
 
-}
-
-void CharacterController::setIsUsingShield(bool isUsingShield)
-{
-	m_wasUsingShield = m_isUsingShield;
-	m_isUsingShield = isUsingShield;
-}
-
-void CharacterController::setIsUsingGreaves(bool isUsingGreaves)
-{
-	m_wasUsingGreaves = m_isUsingGreaves;
-	m_isUsingGreaves = isUsingGreaves;
+	Character* character = dynamic_cast<Character*>(gameObject);
+	if (character != nullptr)
+	{
+		m_character = std::shared_ptr<Character>(character);
+	}
 }
 
 /*----------------------------------------------------------------------------------------
@@ -80,87 +68,47 @@ void CharacterController::move(Vector2 delta)
 	delta.setX(delta.getX() * m_movementSpeed.getX());
 	delta.setY(delta.getY() * m_movementSpeed.getY());
 
-	gameObject->getComponent<Transform*>()->addTranslation(delta.getX(), delta.getY());
+	if (delta.getMagnitude() == 0)
+	{
+		m_character->endRunAnimation();
+	} else 
+	{
+		m_character->playRunAnimation();
+		gameObject->getTransform()->setRotation(delta.getRotationInDegrees());
+	}
+
+	gameObject->getTransform()->addTranslation(delta.getX(), delta.getY());
+}
+
+void CharacterController::useWeapon()
+{
+	if (m_inventory->getWeapon() != nullptr)
+	{
+		m_inventory->getWeapon()->use();
+	}
 }
 
 void CharacterController::updateWeapon(int ticks)
-{	
-	/* If the weapon was in use last frame... */
-	if (m_wasUsingWeapon)
+{
+	if (m_inventory->getWeapon() != nullptr)
 	{
-		/* ...and it is still in use, update use. */
-		if (m_isUsingWeapon)
-		{
-			gameObject->getComponent<Inventory*>()->getWeapon().onUpdate(ticks);
-		}
-		/* ...and it is no longer in use, end use. */
-		else
-		{
-			gameObject->getComponent<Inventory*>()->getWeapon().onEnd();
-		}
-	}
-	/* If the weapon was not in use last frame... */
-	else
-	{
-		/* ...and it is in use this frame, start use. */
-		if (m_isUsingWeapon)
-		{
-			gameObject->getComponent<Inventory*>()->getWeapon().onStart();
-		}
+		m_inventory->getWeapon()->onUpdate(ticks);
 	}
 }
 
 void CharacterController::updateShield(int ticks)
 {
-	/* If the shield was in use last frame... */
-	if (m_wasUsingShield)
+	if (m_inventory->getShield() != nullptr)
 	{
-		/* ...and it is still in use, update use. */
-		if (m_isUsingShield)
-		{
-			gameObject->getComponent<Inventory*>()->getShield().onUpdate(ticks);
-		}
-		/* ...and it is no longer in use, end use. */
-		else
-		{
-			gameObject->getComponent<Inventory*>()->getShield().onEnd();
-		}
-	}
-	/* If the shield was not in use last frame... */
-	else
-	{
-		/* ...and it is in use this frame, start use. */
-		if (m_isUsingShield)
-		{
-			gameObject->getComponent<Inventory*>()->getShield().onStart();
-		}
+		m_inventory->getShield()->onUpdate(ticks);
 	}
 }
 
 void CharacterController::updateGreaves(int ticks)
 {
-	/* If the greaves were in use last frame... */
-	if (m_wasUsingWeapon)
+	if (m_inventory->getGreaves() != nullptr)
 	{
-		/* ...and they are still in use, update use. */
-		if (m_isUsingWeapon)
-		{
-			gameObject->getComponent<Inventory*>()->getWeapon().onUpdate(ticks);
-		}
-		/* ...and they are no longer in use, end use. */
-		else
-		{
-			gameObject->getComponent<Inventory*>()->getWeapon().onEnd();
-		}
-	}
-	/* If the greaves were not in use last frame... */
-	else
-	{
-		/* ...and they are in use this frame, start use. */
-		if (m_isUsingWeapon)
-		{
-			gameObject->getComponent<Inventory*>()->getWeapon().onStart();
-		}
+		m_inventory->getGreaves()->onUpdate(ticks);
 	}
 }
 

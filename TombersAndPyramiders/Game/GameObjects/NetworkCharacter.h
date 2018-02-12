@@ -1,14 +1,15 @@
+
+
 #pragma once
+#include "ComplexSprite.h"
+#include "BasePilot.h"
 
-/*========================================================================================
-Dependencies
-========================================================================================*/
-#include "SimpleSprite.h"
+#define ANIMATION_IDLE 0
+#define ANIMATION_RUN 1
+#define ANIMATION_ATTACK_MELEE 2
+#define ANIMATION_ATTACK_RANGE 2
 
-/*========================================================================================
-PlayerCharacter
-========================================================================================*/
-class NetworkCharacter : public SimpleSprite
+class NetworkCharacter : public ComplexSprite
 {
 	/*----------------------------------------------------------------------------------------
 	Instance Fields
@@ -21,7 +22,7 @@ private:
 	----------------------------------------------------------------------------------------*/
 public:
 	/** Default constructor. */
-	explicit NetworkCharacter();
+	explicit NetworkCharacter(BasePilot* basePilot);
 
 	/*----------------------------------------------------------------------------------------
 	Instance Getter Methods
@@ -39,8 +40,15 @@ public:
 	Instance Methods
 	----------------------------------------------------------------------------------------*/
 public:
-
+	void onUpdate(int ticks);
+	void playRunAnimation();
+	void endRunAnimation();
+	void playMeleeAttackAnimation();
+	void playRangeAttackAnimation();
 
 private:
-
+	/*--------------------
+	Player Animation Logic
+	--------------------*/
+	std::shared_ptr<ComplexSpriteinfo> generateComplexSpriteInfo();
 };

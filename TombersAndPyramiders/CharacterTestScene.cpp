@@ -12,14 +12,15 @@
 #include "InputManager.h"
 #include "NetworkingManager.h"
 
+std::shared_ptr<Character> player = nullptr;
+
 CharacterTestScene::CharacterTestScene()
 {
 }
 
 void CharacterTestScene::onStart()
 {
-	CameraFollow* cameraFollow = new CameraFollow(Camera::getActiveCamera());
-	Camera::getActiveCamera()->addComponent(cameraFollow);
+	Camera::getActiveCamera()->addComponent<CameraFollow>(Camera::getActiveCamera().get());
 
 	for (int x = -5; x < 5; x++)
 	{
@@ -29,21 +30,14 @@ void CharacterTestScene::onStart()
 		}
 	}
 
-	//if(host)
-	setCameraFollow(SpawnManager::getInstance()->generateSimpleCharacter(15, 5));
-	
-	/*
-	else
-	{
-		setCameraFollow(SpawnManager::getInstance()->generateSimpleCharacter(25, 10));
-		SpawnManager::getInstance()->generateNetworkCharacter(15, 5);
-	}
-	*/
+	player = SpawnManager::getInstance()->generatePlayerCharacter(15, 5);
+
+	setCameraFollow(player);
 }
 
 void CharacterTestScene::setCameraFollow(std::shared_ptr<GameObject> toFollow)
 {
-	Camera::getActiveCamera()->getComponent<CameraFollow*>()->setToFollow(toFollow);
+	Camera::getActiveCamera()->getComponent<CameraFollow>()->setToFollow(toFollow);
 }
 
 void CharacterTestScene::onPause()
@@ -55,8 +49,10 @@ void CharacterTestScene::onEnd()
 
 }
 
+int counter = 0;
 void CharacterTestScene::onUpdate(int ticks)
 {
+	/*
 	if (InputManager::getInstance()->onKeyReleased(SDLK_j))
 	{
 		SpawnManager::getInstance()->generateNetworkCharacter(25, 10);
@@ -66,5 +62,15 @@ void CharacterTestScene::onUpdate(int ticks)
 	{
 		SpawnManager::getInstance()->generateNetworkCharacter(25, 10);
 		NetworkingManager::getInstance()->createHost();
+	*/
+	if (counter++ == 60)
+	{
+		player->destroy(player);
+		player = nullptr;
+	}
+	if (counter == 120)
+	{
+		player = SpawnManager::getInstance()->generatePlayerCharacter(-10, 5);
+		setCameraFollow(player);
 	}
 }

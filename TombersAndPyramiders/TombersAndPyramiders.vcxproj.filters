@@ -261,9 +261,6 @@
     <ClCompile Include="Game\Components\CharacterController.cpp">
       <Filter>Source Files\Game\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameObjects\PlayerCharacter.cpp">
-      <Filter>Source Files\Game\GameObjects</Filter>
-    </ClCompile>
     <ClCompile Include="CameraTestScene.cpp">
       <Filter>Source Files\Game\Scenes</Filter>
     </ClCompile>
@@ -304,6 +301,33 @@
       <Filter>Source Files\Game\ExternalClasses\Items</Filter>
     </ClCompile>
     <ClCompile Include="Game\GameObjects\NetworkCharacter.cpp">
+      <Filter>Source Files\Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObjects\DamagingRegion.cpp">
+      <Filter>Source Files\Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ExternalClasses\BaseMeleeWeapon.cpp">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ExternalClasses\BaseShortsword.cpp">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ExternalClasses\WoodenShortsword.cpp">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ExternalClasses\BaseProjectileWeapon.cpp">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ExternalClasses\BaseLongbow.cpp">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ExternalClasses\WoodenLongbow.cpp">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObjects\Projectile.cpp">
+      <Filter>Source Files\Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObjects\Character.cpp">
       <Filter>Source Files\Game\GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -497,9 +521,6 @@
     <ClInclude Include="Game\Components\CharacterController.h">
       <Filter>Source Files\Game\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameObjects\PlayerCharacter.h">
-      <Filter>Source Files\Game\GameObjects</Filter>
-    </ClInclude>
     <ClInclude Include="CameraTestScene.h">
       <Filter>Source Files\Game\Scenes</Filter>
     </ClInclude>
@@ -541,6 +562,36 @@
     </ClInclude>
     <ClInclude Include="Game\GameObjects\NetworkCharacter.h">
       <Filter>Source Files\Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObjects\DamagingRegion.h">
+      <Filter>Source Files\Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ExternalClasses\BaseMeleeWeapon.h">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ExternalClasses\BaseShortsword.h">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ExternalClasses\WoodenShortsword.h">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ExternalClasses\BaseProjectileWeapon.h">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ExternalClasses\BaseLongbow.h">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ExternalClasses\WoodenLongbow.h">
+      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObjects\Projectile.h">
+      <Filter>Source Files\Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObjects\Character.h">
+      <Filter>Source Files\Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObjects\PlayerCharacter.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

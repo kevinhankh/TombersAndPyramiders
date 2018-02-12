@@ -26,19 +26,18 @@ private:
 	char *IP = DEFAULT_IP;
 	int m_port = DEFAULT_PORT;
 
-	std::map<int, UINT32> m_players;
+	std::map<Uint32, TCPsocket> m_clients;
 
 	UDPpacket *m_udpPacket;
 	UDPpacket m_udpReceivedPacket;
 	UDPsocket m_udpSocket = NULL;
 	UDPsocket m_udpClient = NULL;
 	TCPsocket m_socket = NULL;
-	TCPsocket m_client = NULL;
 	bool accept();
 	bool host();
 	bool join();
-	void pollMessages();
-	void pollMessagesThread();
+	void pollMessages(Uint32 ip);
+	void pollMessagesThread(Uint32 ip);
 	void pollMessagesUDP();
 	void pollMessagesThreadUDP();
 	std::string serializeMessage(Message message);
@@ -46,13 +45,13 @@ private:
 	void sendEventToReceiver(std::map<std::string, void*> data);
 
 public:
-	bool close();
+	bool close(Uint32 IP);
 	bool closeUDP();
 	NetworkingManager();
 	static NetworkingManager* getInstance();
 	bool createHost();
 	bool createClient();
-	void send(std::string *msg);
+	void send(Uint32 ip, std::string *msg);
 	bool createUDPPacket(int packetSize);
 	void sendUDP(std::string *msg);
 	bool getMessage(std::string &msg);
@@ -62,6 +61,6 @@ public:
 	bool isConnected();
 	bool isHost();
 	void setIP(char *ip, int port = DEFAULT_PORT);
-	int addPlayer(UINT32 ip);
-	int removePlayer(UINT32 ip);
+	int addPlayer(Uint32 ip, TCPsocket sock);
+	int removePlayer(Uint32 ip);
 };

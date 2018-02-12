@@ -14,7 +14,10 @@ private:
 
 public:
 	Sender(GameObject* gameObject, std::string ID);
+	void sendCreate();
+	void sendDestroy();
 	void sendUpdate();
+	void sendAttack();
 	void sendNetworkMessage(std::string messageKey, std::map<std::string, std::string> payload);
 	void onStart() {};
 	void onUpdate(int ticks);
