@@ -41,7 +41,9 @@ class BaseLongbow : public BaseProjectileWeapon
         /** Default constructor. */
         explicit BaseLongbow() = delete;
 
-		explicit BaseLongbow(std::string projectileImageName);
+		explicit BaseLongbow(std::string projectileImageName,
+			Vector2 projectileColliderSize, Vector2 projectileSpawnOffsetFromHolder,
+			float projectileSpriteScale, Vector2 projectileVelocity, float projectileLifespan);
 
 		virtual ~BaseLongbow() {};
 		

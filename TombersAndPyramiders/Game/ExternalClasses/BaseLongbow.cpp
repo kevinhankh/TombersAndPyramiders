@@ -30,8 +30,11 @@ const float BaseLongbow::LONGBOW_ATTACK_COOLDOWN_TIME = 5;
 /*----------------------------------------------------------------------------------------
 	Resource Methods
 ----------------------------------------------------------------------------------------*/
-BaseLongbow::BaseLongbow(std::string projectileImageName) :
-	BaseProjectileWeapon{ projectileImageName }
+BaseLongbow::BaseLongbow(std::string projectileImageName,
+	Vector2 projectileColliderSize, Vector2 projectileSpawnOffsetFromHolder,
+	float projectileSpriteScale, Vector2 projectileVelocity, float projectileLifespan) :
+	BaseProjectileWeapon{ projectileImageName, projectileColliderSize, 
+	projectileSpawnOffsetFromHolder, projectileSpriteScale, projectileVelocity, projectileLifespan }
 {}
 
 /*----------------------------------------------------------------------------------------
