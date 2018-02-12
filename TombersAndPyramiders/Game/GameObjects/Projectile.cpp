@@ -13,6 +13,7 @@
 ========================================================================================*/
 #include "Projectile.h"
 #include "BaseItem.h"
+#include <memory>
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
@@ -54,6 +55,6 @@ void Projectile::updateLifespan(int ticks)
 
 	if (m_lifespan <= 0)
 	{
-		//GameObject::destroy(this); // TODO: Destroy projectile without a memory access violation.
+		destroy(getId()); // TODO: Destroy projectile without a memory access violation.
 	}
 }

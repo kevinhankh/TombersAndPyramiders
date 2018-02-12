@@ -14,6 +14,7 @@ public:
 	virtual void onUpdate(int ticks) = 0;
 	virtual void onEnd() = 0;
 	void destroy(std::shared_ptr<GameObject> gameObject);
+	void destroy(int gameObjectID);
 protected:
 	GameObject* gameObject;
 };

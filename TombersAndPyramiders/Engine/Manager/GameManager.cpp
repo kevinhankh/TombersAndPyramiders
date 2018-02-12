@@ -110,8 +110,8 @@ void GameManager::addGameObject(int id, std::shared_ptr<GameObject> obj)
 {
 	m_globalGameObjects[id] = obj;
 }
-
-void GameManager::removeGameObject(std::shared_ptr<GameObject> objectToRemove)
+//void GameObject::destroy(int gameObjectId)
+void GameManager::removeGameObject(int objectToRemove)
 {
 	m_gameObjectsToRemove.push_back(objectToRemove);
 }
@@ -124,10 +124,14 @@ void GameManager::clearObjectsToRemove()
 
 	for (int i = 0; i < m_gameObjectsToRemove.size(); i++)
 	{
-		std::shared_ptr<GameObject> object = m_gameObjectsToRemove[i];
+		int id = m_gameObjectsToRemove[i];
+		std::shared_ptr<GameObject> object = m_globalGameObjects[id];
+		if (object == nullptr) 
+		{
+			object = SceneManager::getInstance()->getCurrentScene()->sceneObjects[id];
+		}
 		if (object != nullptr)
 		{
-			int id = object->getId();
 			m_globalGameObjects.erase(id);
 			SceneManager::getInstance()->getCurrentScene()->removeGameObject(id);
 			std::shared_ptr<SpriteRenderer> renderer = object->getComponent<SpriteRenderer>();

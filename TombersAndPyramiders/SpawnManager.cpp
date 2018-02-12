@@ -44,5 +44,6 @@ std::shared_ptr<PlayerCharacter> SpawnManager::generateSimpleCharacter(float x, 
 	std::shared_ptr<PlayerCharacter> simpleCharacter = GameManager::getInstance()->createGameObject<PlayerCharacter>(false);
 	simpleCharacter->getComponent<Inventory>()->addItem(new WoodenLongbow());
 	simpleCharacter->getTransform()->setPosition(x, y);
+	
 	return simpleCharacter;
 }

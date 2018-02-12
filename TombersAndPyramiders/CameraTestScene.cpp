@@ -24,9 +24,9 @@ void CameraTestScene::onStart()
 		}
 	}
 
-	std::shared_ptr<CameraFollow> cameraFollow = make_shared<CameraFollow>(Camera::getActiveCamera().get());
-	Camera::getActiveCamera()->addComponent(cameraFollow);
-	cameraFollow->setToFollow(SpawnManager::getInstance()->generateMovingSquare(0, 0));
+	/*std::shared_ptr<CameraFollow> cameraFollow = make_shared<CameraFollow>();
+	Camera::getActiveCamera()->addComponent<CameraFollow>(Camera::getActiveCamera().get());
+	cameraFollow->setToFollow(SpawnManager::getInstance()->generateMovingSquare(0, 0));*/
 }
 
 void CameraTestScene::onPause()

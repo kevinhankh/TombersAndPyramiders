@@ -39,7 +39,6 @@ void Scene::onObjectsUpdate(int ticks)
 	}
 }
 
-
 void Scene::purge()
 {
 	sceneObjects.clear();

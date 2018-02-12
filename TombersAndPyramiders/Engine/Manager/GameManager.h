@@ -20,7 +20,7 @@ public:
 	void onEnd();
 	static GameManager* getInstance();
 	void addGameObject(int id, std::shared_ptr<GameObject> obj);
-	void removeGameObject(std::shared_ptr<GameObject> objectToRemove);
+	void removeGameObject(int objectToRemove);
 	template <typename T, class... _Types>
 	std::shared_ptr<T> createGameObject(bool isGlobal, _Types&&... args)
 	{
@@ -51,7 +51,7 @@ public:
 	}
 
 private:
-	std::vector<std::shared_ptr<GameObject>> m_gameObjectsToRemove;
+	std::vector<int> m_gameObjectsToRemove;
 	std::map<int, std::shared_ptr<GameObject>> m_globalGameObjects;
 	static GameManager* s_instance;
 	bool m_breakLoop = false;

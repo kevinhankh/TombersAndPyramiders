@@ -18,7 +18,7 @@ CharacterTestScene::CharacterTestScene()
 
 void CharacterTestScene::onStart()
 {
-	Camera::getActiveCamera()->addComponent(std::make_shared<CameraFollow>(Camera::getActiveCamera().get()));
+	Camera::getActiveCamera()->addComponent<CameraFollow>(Camera::getActiveCamera().get());
 
 	for (int x = -5; x < 5; x++)
 	{
