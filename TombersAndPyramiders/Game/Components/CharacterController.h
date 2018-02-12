@@ -16,6 +16,7 @@
 #include "Damageable.h"
 #include "Vector2.h"
 #include "PlayerPilot.h"
+class Inventory;
 
 /*========================================================================================
 	CharacterController	
@@ -30,15 +31,8 @@ class CharacterController : public BaseController, public Damageable
 		static const Vector2 DEFAULT_PLAYER_MOVEMENT_SPEED;
 
 	private:
+		Inventory* m_inventory;
 		Vector2 m_movementSpeed;
-
-		bool m_wasUsingWeapon;
-		bool m_wasUsingShield;
-		bool m_wasUsingGreaves;
-
-		bool m_isUsingWeapon;
-		bool m_isUsingShield;
-		bool m_isUsingGreaves;
 
     /*----------------------------------------------------------------------------------------
 		Resource Management
@@ -46,17 +40,9 @@ class CharacterController : public BaseController, public Damageable
     public:
         explicit CharacterController() = delete;
 
-		explicit CharacterController(GameObject* gameObject, BasePilot* pilot = new PlayerPilot(), 
-			int maxHealth = DEFAULT_PLAYER_MAX_HP, Vector2 movementSpeed = DEFAULT_PLAYER_MOVEMENT_SPEED);
-
-	
-    /*----------------------------------------------------------------------------------------
-		Instance Setter Methods
-    ----------------------------------------------------------------------------------------*/
-	public:
-		void setIsUsingWeapon(bool isUsingWeapon);
-		void setIsUsingShield(bool isUsingShield);
-		void setIsUsingGreaves(bool isUsingGreaves);
+		explicit CharacterController(GameObject* parentGameobject, Inventory* inventory, BasePilot*
+			pilot = new PlayerPilot(), int maxHealth = DEFAULT_PLAYER_MAX_HP, 
+			Vector2 movementSpeed = DEFAULT_PLAYER_MOVEMENT_SPEED);
 
     /*----------------------------------------------------------------------------------------
 		Instance Methods
@@ -76,29 +62,25 @@ class CharacterController : public BaseController, public Damageable
 			The CharacterController will handle determining the speed of movement.
 		*/
 		void move(Vector2 moveInput);
+
+		/**
+			Uses the character's weapon this frame.
+		*/
+		void useWeapon();
 	
 	private:
 		/**
-			Updates the player's weapon this tick.
-
-			This will either start, continue, or stop the use of the weapon, 
-			depending on what input was received in the past two frames.
+			Forwards the onUpdate() call to the character's weapon.
 		*/
 		void updateWeapon(int ticks);
 
 		/**
-			Updates the player's shield this tick.
-
-			This will either start, continue, or stop the use of the shield, 
-			depending on what input was received in the past two frames.
+			Forwards the onUpdate() call to the character's shield.
 		*/
 		void updateShield(int ticks);
 
 		/**
-			Updates the player's greaves this tick.
-
-			This will either start, continue, or stop the use of the greaves, 
-			depending on what input was received in the past two frames.
+			Forwards the onUpdate() call to the character's greaves.
 		*/
 		void updateGreaves(int ticks);
 

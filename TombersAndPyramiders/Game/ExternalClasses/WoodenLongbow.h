@@ -1,7 +1,7 @@
 /*===================================================================================*//**
-	BaseGreaves
+	WoodenLongbow
 	
-	Abstract class for a base pair of greaves (leg armor).
+	A weak wooden longbow.
 
     @author Erick Fernandez de Arteaga
 	
@@ -12,32 +12,23 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "Updateable.h"
-#include "BaseEquippableItem.h"
+#include "BaseLongbow.h"
 
 /*========================================================================================
-	BaseGreaves	
+	WoodenLongbow	
 ========================================================================================*/
-class BaseGreaves : public BaseEquippableItem, public Updateable
-
+class WoodenLongbow : public BaseLongbow
 {
+    /*----------------------------------------------------------------------------------------
+		Static Fields
+    ----------------------------------------------------------------------------------------*/
+	private:
+		static const std::string WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME;
+
     /*----------------------------------------------------------------------------------------
 		Resource Management
     ----------------------------------------------------------------------------------------*/
     public:
         /** Default constructor. */
-        explicit BaseGreaves() = default;
-
-		virtual ~BaseGreaves() {};
-
-	/*----------------------------------------------------------------------------------------
-		Instance Methods
-	----------------------------------------------------------------------------------------*/
-    public:
-		virtual void onStart() = 0;
-		virtual void onUpdate(int ticks) = 0;
-		virtual void onEnd() = 0;
-
-	protected:
-		void addSubclassToInventory();
+        explicit WoodenLongbow();
 };

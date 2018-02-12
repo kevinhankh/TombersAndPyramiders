@@ -68,4 +68,9 @@ class PlayerPilot : public BasePilot
 			Determine how the character should move this frame based on player input.
 		*/
 		Vector2 getMovement();
+
+		/**
+			Returns whether there is input to use the character's weapon.
+		*/
+		bool getWeaponInput();
 };

@@ -1,7 +1,7 @@
 /*===================================================================================*//**
-	BaseShield
-	
-	Abstract class for a base shield.
+	BaseLongbow
+
+	Abstract class for a base longbow.
 
     @author Erick Fernandez de Arteaga
 	
@@ -10,13 +10,16 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "BaseShield.h"
-#include "Inventory.h"
+#include "WoodenLongbow.h"
 
 /*----------------------------------------------------------------------------------------
-	Instance Methods
+	Static Fields
 ----------------------------------------------------------------------------------------*/
-void BaseShield::addSubclassToInventory()
-{
-	m_inventory->setShield(this);
-}
+const std::string WoodenLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME = "IceTile.png";
+
+/*----------------------------------------------------------------------------------------
+	Resource Management
+----------------------------------------------------------------------------------------*/
+WoodenLongbow::WoodenLongbow() :
+	BaseLongbow{ WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME }
+{}
