@@ -34,6 +34,7 @@ class CharacterController : public BaseController, public Damageable
 		Inventory* m_inventory;
 		Vector2 m_movementSpeed;
 
+		std::shared_ptr<PlayerCharacter> m_playerCharacter;
     /*----------------------------------------------------------------------------------------
 		Resource Management
     ----------------------------------------------------------------------------------------*/

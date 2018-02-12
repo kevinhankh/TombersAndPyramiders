@@ -3,13 +3,13 @@
 #include "Collision/Collider.h"
 #include "SpriteRendererManager.h"
 #include "PhysicsManager.h"
+#include "GameObject.h"
 
-
-void Scene::addGameObject(int id, GameObject* obj)
+void Scene::addGameObject(int id, std::shared_ptr<GameObject> obj)
 {
 	if (obj != nullptr)
 	{
-		sceneObjects[id] = std::shared_ptr<GameObject>(obj);
+		sceneObjects[id] = obj;
 	}
 }
 

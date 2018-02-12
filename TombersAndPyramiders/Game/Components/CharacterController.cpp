@@ -22,6 +22,7 @@
 #include "BaseWeapon.h"
 #include "BaseShield.h"
 #include "BaseGreaves.h"
+#include "PlayerCharacter.h"
 
 /*----------------------------------------------------------------------------------------
 	Static Fields
@@ -33,7 +34,7 @@ const Vector2 CharacterController::DEFAULT_PLAYER_MOVEMENT_SPEED = Vector2(1, 1)
 	Resource Management
 ----------------------------------------------------------------------------------------*/
 CharacterController::CharacterController(GameObject* parentGameobject, Inventory* inventory,
-	BasePilot* pilot, int maxHealth, Vector2 movementSpeed) :
+										 BasePilot* pilot, int maxHealth, Vector2 movementSpeed) :
 	BaseController(parentGameobject, pilot), Damageable(maxHealth),
 	m_inventory{ inventory },
 	m_movementSpeed{ movementSpeed }
@@ -41,6 +42,12 @@ CharacterController::CharacterController(GameObject* parentGameobject, Inventory
 	if (m_inventory == nullptr)
 	{
 		throw std::invalid_argument("CharacterController::CharacterController(): m_inventory cannot be null.");
+	}
+
+	PlayerCharacter* player = dynamic_cast<PlayerCharacter*>(gameObject);
+	if (player != nullptr) 
+	{
+		m_playerCharacter = std::shared_ptr<PlayerCharacter>(player);
 	}
 }
 
@@ -61,7 +68,16 @@ void CharacterController::move(Vector2 delta)
 	delta.setX(delta.getX() * m_movementSpeed.getX());
 	delta.setY(delta.getY() * m_movementSpeed.getY());
 
-	gameObject->getComponent<Transform*>()->addTranslation(delta.getX(), delta.getY());
+	if (delta.getMagnitude() == 0)
+	{
+		m_playerCharacter->endRunAnimation();
+	} else 
+	{
+		m_playerCharacter->playRunAnimation();
+		gameObject->getTransform()->setRotation(delta.getRotationInDegrees());
+	}
+
+	gameObject->getTransform()->addTranslation(delta.getX(), delta.getY());
 }
 
 void CharacterController::useWeapon()

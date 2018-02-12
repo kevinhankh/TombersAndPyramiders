@@ -1,5 +1,6 @@
 #pragma once
 #include "Updateable.h"
+#include <memory>
 
 class GameObject;
 
@@ -12,7 +13,7 @@ public:
 	virtual void onStart() = 0;
 	virtual void onUpdate(int ticks) = 0;
 	virtual void onEnd() = 0;
-	void destroy(GameObject* gameObject);
+	void destroy(std::shared_ptr<GameObject> gameObject);
 protected:
 	GameObject* gameObject;
 };

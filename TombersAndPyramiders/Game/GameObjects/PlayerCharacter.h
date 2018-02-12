@@ -14,12 +14,20 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "SimpleSprite.h"
+#include "ComplexSprite.h"
+
+/*========================================================================================
+	Player Animation Defines
+========================================================================================*/
+#define ANIMATION_IDLE 0
+#define ANIMATION_RUN 1
+#define ANIMATION_ATTACK_MELEE 2
+#define ANIMATION_ATTACK_RANGE 2
 
 /*========================================================================================
 	PlayerCharacter	
 ========================================================================================*/
-class PlayerCharacter : public SimpleSprite
+class PlayerCharacter : public ComplexSprite
 {
     /*----------------------------------------------------------------------------------------
 		Instance Fields
@@ -50,8 +58,15 @@ class PlayerCharacter : public SimpleSprite
 		Instance Methods
 	----------------------------------------------------------------------------------------*/
     public:
-
+		void onUpdate(int ticks);
+		void playRunAnimation();
+		void endRunAnimation();
+		void playMeleeAttackAnimation();
+		void playRangeAttackAnimation();
 
     private:
-
+		/*--------------------
+		Player Animation Logic
+		--------------------*/
+		std::shared_ptr<ComplexSpriteinfo> generateComplexSpriteInfo();
 };

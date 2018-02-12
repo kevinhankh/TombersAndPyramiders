@@ -5,6 +5,7 @@
 #include "SceneManager.h"
 #include <algorithm>
 #include "Vector2.h"
+#include "Scene.h"
 
 PhysicsManager* PhysicsManager::s_instance;
 
