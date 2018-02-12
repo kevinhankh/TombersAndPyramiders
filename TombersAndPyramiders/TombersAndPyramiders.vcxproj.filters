@@ -76,6 +76,9 @@
     <Filter Include="Source Files\Game\ExternalClasses\Items">
       <UniqueIdentifier>{609bb4e8-7259-48d7-bb47-14bfe7920735}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Engine\Component\Audio">
+      <UniqueIdentifier>{b0037249-d407-4c71-b126-e8a865ed497e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

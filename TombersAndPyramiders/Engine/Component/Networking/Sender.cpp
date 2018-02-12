@@ -5,7 +5,9 @@ Sender::Sender(GameObject* gameObject, std::string ID) : Component(gameObject)
 {
 	this->m_id = ID;
 }
-
+//sendCreate
+//sendDestroy
+//
 void Sender::sendUpdate()
 {
 	std::map<std::string, std::string> payload;

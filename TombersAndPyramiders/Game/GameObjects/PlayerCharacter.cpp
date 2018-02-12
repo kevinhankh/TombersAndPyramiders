@@ -16,6 +16,7 @@
 #include "CharacterController.h"
 #include "Inventory.h"
 #include "Sender.h"
+#include "Receiver.h"
 
 /*----------------------------------------------------------------------------------------
 	Resource Management

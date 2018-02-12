@@ -57,12 +57,12 @@ void CharacterTestScene::onEnd()
 
 void CharacterTestScene::onUpdate(int ticks)
 {
-	if (InputManager::getInstance()->onKey(SDLK_j))
+	if (InputManager::getInstance()->onKeyReleased(SDLK_j))
 	{
 		SpawnManager::getInstance()->generateNetworkCharacter(25, 10);
 		NetworkingManager::getInstance()->createClient();
 	}
-	if (InputManager::getInstance()->onKey(SDLK_h))
+	if (InputManager::getInstance()->onKeyReleased(SDLK_h))
 	{
 		SpawnManager::getInstance()->generateNetworkCharacter(25, 10);
 		NetworkingManager::getInstance()->createHost();

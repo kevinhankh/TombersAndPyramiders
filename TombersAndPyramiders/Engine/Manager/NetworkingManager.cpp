@@ -62,16 +62,16 @@ bool NetworkingManager::host()
 		std::string error = SDLNet_GetError();
 		return false;
 	}
-	/*
+	
 	m_udpSocket = SDLNet_UDP_Open(m_port);
 	if (!m_udpSocket)
 	{
 		std::string udpError = SDLNet_GetError();
 		return false;
 	}
-	*/
+	
 	//addPlayer(ip.host);
-	//channel = SDLNet_UDP_Bind(m_udpSocket, DEFAULT_CHANNEL, &ip);
+	channel = SDLNet_UDP_Bind(m_udpSocket, DEFAULT_CHANNEL, &ip);
 
 	bool result = false;
 	while (!(result = accept()) && SDL_GetTicks() - startConnTime < TIMEOUT);
@@ -107,7 +107,7 @@ bool NetworkingManager::join()
 		close();
 		return false;
 	}
-	/*
+	
 	m_udpSocket = SDLNet_UDP_Open(m_port);
 	if (!m_udpSocket)
 	{
@@ -115,8 +115,8 @@ bool NetworkingManager::join()
 		closeUDP();
 		return false;
 	}
-	*/
-	//channel = SDLNet_UDP_Bind(m_udpSocket, DEFAULT_CHANNEL, &ip);
+	
+	channel = SDLNet_UDP_Bind(m_udpSocket, DEFAULT_CHANNEL, &ip);
 
 	std::cout << "SDLNet_TCP_Open:A>A>A WE DID IT JOIN" << std::endl;
 	pollMessages();
