@@ -22,18 +22,21 @@
 #include "BaseWeapon.h"
 #include "BaseShield.h"
 #include "BaseGreaves.h"
+#include "Character.h"
+#include "BaseMeleeWeapon.h"
+#include "BaseProjectileWeapon.h"
 
 /*----------------------------------------------------------------------------------------
 	Static Fields
 ----------------------------------------------------------------------------------------*/
-const int CharacterController::DEFAULT_PLAYER_MAX_HP = 100;
-const Vector2 CharacterController::DEFAULT_PLAYER_MOVEMENT_SPEED = Vector2(1, 1);
+const int CharacterController::DEFAULT_CHARACTER_MAX_HP = 100;
+const Vector2 CharacterController::DEFAULT_CHARACTER_MOVEMENT_SPEED = Vector2(1, 1);
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
 CharacterController::CharacterController(GameObject* parentGameobject, Inventory* inventory,
-	BasePilot* pilot, int maxHealth, Vector2 movementSpeed) :
+										 BasePilot* pilot, int maxHealth, Vector2 movementSpeed) :
 	BaseController(parentGameobject, pilot), Damageable(maxHealth),
 	m_inventory{ inventory },
 	m_movementSpeed{ movementSpeed }
@@ -41,6 +44,12 @@ CharacterController::CharacterController(GameObject* parentGameobject, Inventory
 	if (m_inventory == nullptr)
 	{
 		throw std::invalid_argument("CharacterController::CharacterController(): m_inventory cannot be null.");
+	}
+
+	Character* character = dynamic_cast<Character*>(gameObject);
+	if (character != nullptr)
+	{
+		m_character = std::shared_ptr<Character>(character);
 	}
 }
 
@@ -61,14 +70,28 @@ void CharacterController::move(Vector2 delta)
 	delta.setX(delta.getX() * m_movementSpeed.getX());
 	delta.setY(delta.getY() * m_movementSpeed.getY());
 
-	gameObject->getComponent<Transform*>()->addTranslation(delta.getX(), delta.getY());
+	if (delta.getMagnitude() == 0)
+	{
+		m_character->endRunAnimation();
+	} else 
+	{
+		m_character->playRunAnimation();
+		gameObject->getTransform()->setRotation(delta.getRotationInDegrees());
+	}
+
+	gameObject->getTransform()->addTranslation(delta.getX(), delta.getY());
 }
 
 void CharacterController::useWeapon()
 {
 	if (m_inventory->getWeapon() != nullptr)
 	{
-		m_inventory->getWeapon()->use();
+		BaseWeapon* weapon = m_inventory->getWeapon();
+		weapon->use(); //What if this returned a bool for whether the attack fired or not? So the rest didn't fire for just trying to call useWeapon and let us let weapons determine then things likecooldown
+		//m_inventory->getWeapon()->use();
+		 
+		//dynamic_cast<BaseMeleeWeapon>(weapon);
+		m_character->playMeleeAttackAnimation();
 	}
 }
 

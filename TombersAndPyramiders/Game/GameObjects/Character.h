@@ -1,9 +1,11 @@
 /*===================================================================================*//**
-	BaseController
+	Character
 	
-	Abstract class for a component that controls the actions of an agent.
-
-    @author Erick Fernandez de Arteaga
+	Prefab class for any character.
+    
+    Copyright 2017 Erick Fernandez de Arteaga. All rights reserved.
+        https://www.linkedin.com/in/erick-fda
+        https://bitbucket.org/erick-fda
 	
 *//*====================================================================================*/
 
@@ -12,56 +14,60 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include <memory>
-#include "Component.h"
-#include "Character.h"
-
-class GameObject;
-class BasePilot;
+#include "ComplexSprite.h"
+#include "BasePilot.h"
 
 /*========================================================================================
-	BaseController	
+	Player Animation Defines
 ========================================================================================*/
-class BaseController : public Component
+#define ANIMATION_IDLE 0
+#define ANIMATION_RUN 1
+#define ANIMATION_ATTACK_MELEE 2
+#define ANIMATION_ATTACK_RANGE 2
+
+/*========================================================================================
+	Character	
+========================================================================================*/
+class Character : public ComplexSprite
 {
     /*----------------------------------------------------------------------------------------
 		Instance Fields
     ----------------------------------------------------------------------------------------*/
-	protected:
-		std::unique_ptr<BasePilot> m_pilot;
+    private:
+
 
     /*----------------------------------------------------------------------------------------
 		Resource Management
     ----------------------------------------------------------------------------------------*/
     public:
-        explicit BaseController() = delete;
+        /** Default constructor. */
+        explicit Character(BasePilot* basePilot);
 
-		explicit BaseController(GameObject* parentGameobject, BasePilot* pilot);
-
-		virtual ~BaseController() {};
-		
+	/*----------------------------------------------------------------------------------------
+		Instance Getter Methods
+    ----------------------------------------------------------------------------------------*/
+    public:
+        
+    
 	/*----------------------------------------------------------------------------------------
 		Instance Setter Methods
 	----------------------------------------------------------------------------------------*/
-	public:
-		void setPilot(BasePilot* pilot);
+    public:
+
 
 	/*----------------------------------------------------------------------------------------
 		Instance Methods
 	----------------------------------------------------------------------------------------*/
-	public:
-		/**
-			Forwards the onStart() call to the pilot.
-		*/
-		virtual void onStart();
+    public:
+		void onUpdate(int ticks);
+		void playRunAnimation();
+		void endRunAnimation();
+		void playMeleeAttackAnimation();
+		void playRangeAttackAnimation();
 
-		/**
-			Forwards the onUpdate() call to the pilot.
-		*/
-		virtual void onUpdate(int ticks);
-
-		/**
-			Forwards the onEnd() call to the pilot.
-		*/
-		virtual void onEnd();
+    private:
+		/*--------------------
+		Player Animation Logic
+		--------------------*/
+		std::shared_ptr<ComplexSpriteinfo> generateComplexSpriteInfo();
 };

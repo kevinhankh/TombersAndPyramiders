@@ -12,6 +12,7 @@
 ========================================================================================*/
 #include "BaseLongbow.h"
 #include "Projectile.h"
+#include "GameManager.h"
 
 /*----------------------------------------------------------------------------------------
 	Static Fields
@@ -48,17 +49,16 @@ void BaseLongbow::onStart()
 {
 	m_isAttacking = true;
 	m_timeUntilNextAttack = LONGBOW_ATTACK_COOLDOWN_TIME;
-
-	new Projectile(
-		this, m_projectileImageName,
-		LONGBOW_PROJECTILE_COLLIDER_WIDTH, LONGBOW_PROJECTILE_COLLIDER_HEIGHT,
-		owner()->getTransform()->getX() + LONGBOW_PROJECTILE_SPAWN_X_OFFSET_FROM_HOLDER,
-		owner()->getTransform()->getY() + LONGBOW_PROJECTILE_SPAWN_Y_OFFSET_FROM_HOLDER,
-		LONGBOW_PROJECTILE_SPRITE_SCALE,
-		LONGBOW_PROJECTILE_X_VELOCITY, 
-		LONGBOW_PROJECTILE_Y_VELOCITY,
-		LONGBOW_PROJECTILE_LIFESPAN
-	);
+	GameManager::getInstance()->createGameObject<Projectile>(false, 
+															 this, 
+															 m_projectileImageName,
+															 LONGBOW_PROJECTILE_COLLIDER_WIDTH, LONGBOW_PROJECTILE_COLLIDER_HEIGHT,
+															 owner()->getTransform()->getX() + LONGBOW_PROJECTILE_SPAWN_X_OFFSET_FROM_HOLDER,
+															 owner()->getTransform()->getY() + LONGBOW_PROJECTILE_SPAWN_Y_OFFSET_FROM_HOLDER,
+															 LONGBOW_PROJECTILE_SPRITE_SCALE,
+															 LONGBOW_PROJECTILE_X_VELOCITY,
+															 LONGBOW_PROJECTILE_Y_VELOCITY,
+															 LONGBOW_PROJECTILE_LIFESPAN);
 }
 
 void BaseLongbow::onUpdate(int ticks)
