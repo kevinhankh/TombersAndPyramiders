@@ -27,7 +27,16 @@ void CharacterTestScene::onStart()
 		}
 	}
 
+	//if(host)
 	setCameraFollow(SpawnManager::getInstance()->generateSimpleCharacter(15, 5));
+	SpawnManager::getInstance()->generateNetworkCharacter(25, 10);
+	/*
+	else
+	{
+		setCameraFollow(SpawnManager::getInstance()->generateSimpleCharacter(25, 10));
+		SpawnManager::getInstance()->generateNetworkCharacter(15, 5);
+	}
+	*/
 }
 
 void CharacterTestScene::setCameraFollow(std::shared_ptr<GameObject> toFollow)

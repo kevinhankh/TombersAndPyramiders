@@ -14,6 +14,9 @@ NetworkingManager::NetworkingManager()
 {
 	SDLNet_Init();
 	m_messageQueue = new ThreadQueue<std::string>();
+
+	for (int i = 0; i < 16; ++i)
+		m_players[i] = NULL;
 }
 
 bool NetworkingManager::createHost()
@@ -40,6 +43,7 @@ bool NetworkingManager::host()
 {
 	// create a listening TCP socket on port 9999 (server)
 	IPaddress ip;
+	int channel;
 
 	int startConnTime = SDL_GetTicks();
 	int timeoutTime = SDL_GetTicks();
@@ -58,6 +62,16 @@ bool NetworkingManager::host()
 		std::string error = SDLNet_GetError();
 		return false;
 	}
+	m_udpSocket = SDLNet_UDP_Open(m_port);
+	if (!m_udpSocket)
+	{
+		std::string udpError = SDLNet_GetError();
+		return false;
+	}
+
+	//addPlayer(ip.host);
+	channel = SDLNet_UDP_Bind(m_udpSocket, DEFAULT_CHANNEL, &ip);
+
 	bool result = false;
 	while (!(result = accept()) && SDL_GetTicks() - startConnTime < TIMEOUT);
 	if (result)
@@ -77,6 +91,7 @@ bool NetworkingManager::host()
 bool NetworkingManager::join()
 {
 	IPaddress ip;
+	int channel;
 
 	if (SDLNet_ResolveHost(&ip, IP, m_port) == -1)
 	{
@@ -91,7 +106,18 @@ bool NetworkingManager::join()
 		close();
 		return false;
 	}
+	m_udpSocket = SDLNet_UDP_Open(m_port);
+	if (!m_udpSocket)
+	{
+		printf("SDLNet_UDP_Open: %s\n", SDLNet_GetError());
+		closeUDP();
+		return false;
+	}
+
+	channel = SDLNet_UDP_Bind(m_udpSocket, DEFAULT_CHANNEL, &ip);
+
 	std::cout << "SDLNet_TCP_Open:A>A>A WE DID IT JOIN" << std::endl;
+	std::cout << "SDLNet_UDP_Open:A>A>A WE DID IT JOIN" << std::endl;
 	pollMessages();
 	return true;
 }
@@ -123,6 +149,21 @@ bool NetworkingManager::close()
 	return true;
 }
 
+bool NetworkingManager::closeUDP()
+{
+	if (m_udpClient != NULL)
+	{
+		SDLNet_UDP_Close(m_udpClient);
+		m_udpClient = NULL;
+	}
+	if (m_udpSocket != NULL)
+	{
+		SDLNet_UDP_Close(m_udpSocket);
+		m_udpSocket = NULL;
+	}
+	return true;
+}
+
 //Host->Sending Messages->Client Exits->Host Crashes on line SDLNet_TCP_Send
 void NetworkingManager::send(std::string *msg)
 {
@@ -140,6 +181,30 @@ void NetworkingManager::send(std::string *msg)
 	{
 		//printf("SDLNet_TCP_Send: %s\n", SDLNet_GetError());
 	}
+}
+
+bool NetworkingManager::createUDPPacket(int packetSize)
+{
+	m_udpPacket = SDLNet_AllocPacket(packetSize);
+
+	if (m_udpPacket == NULL)
+	{
+		std::cout << "SDLNet_AllocPacket failed : " << SDLNet_GetError() << "\n";
+		return false;
+	}
+
+	m_udpPacket->address.port = m_port;
+
+	return true;
+}
+
+void NetworkingManager::sendUDP(std::string *msg)
+{
+	createUDPPacket(msg->length());
+	memcpy(m_udpPacket->data, msg->c_str(), msg->length());
+
+	if (SDLNet_UDP_Send(m_udpClient, DEFAULT_CHANNEL, m_udpPacket) == 0)
+		std::cout << "SDLNET_UDP_SEND failed: " << SDLNet_GetError() << "\n";
 }
 
 void NetworkingManager::pollMessages()
@@ -171,6 +236,35 @@ void NetworkingManager::pollMessagesThread()
 		m_messageQueue->push(newMsg);
 	}
 	close();
+}
+
+void NetworkingManager::pollMessagesUDP()
+{
+	m_messagesToSend.clear();
+	m_udpReceiverThread = std::thread(&NetworkingManager::pollMessagesThreadUDP, this);
+	m_udpReceiverThread.detach();
+}
+
+void NetworkingManager::pollMessagesThreadUDP()
+{
+#define MAXLEN 16384
+	int result;
+	char msg[MAXLEN];
+
+	while (m_udpSocket != NULL)
+	{ //replace with on connection lost
+
+		if (m_udpClient != NULL || m_udpSocket != NULL)
+			result = SDLNet_UDP_Recv(m_udpClient, &m_udpReceivedPacket);
+		if (result < 0)
+		{
+			closeUDP();
+			continue;
+		}
+		std::string newMsg(m_udpReceivedPacket.data, m_udpReceivedPacket.data+MAXLEN);
+		m_messageQueue->push(newMsg);
+	}
+	closeUDP();
 }
 
 bool NetworkingManager::getMessage(std::string &msg)
@@ -332,4 +426,36 @@ void NetworkingManager::setIP(char *ip, int p)
 {
 	IP = ip;
 	m_port = p;
+}
+
+int NetworkingManager::addPlayer(UINT32 ip)
+{
+	int playerId;
+
+	for (int i = 0; i < 16; ++i)
+	{
+		if (m_players[i] != NULL)
+		{
+			m_players[i] = ip;
+			playerId = i;
+		}
+	}
+
+	return playerId;
+}
+
+int NetworkingManager::removePlayer(UINT32 ip)
+{
+	int playerId;
+
+	for (int i = 0; i < 16; ++i)
+	{
+		if (m_players[i] == ip)
+		{
+			m_players[i] = NULL;
+			playerId = i;
+		}
+	}
+
+	return playerId;
 }

@@ -7,6 +7,7 @@
 #include <string>
 #define DEFAULT_IP "127.0.0.1"
 #define DEFAULT_PORT 9999
+#define DEFAULT_CHANNEL 1
 
 struct Message
 {
@@ -20,10 +21,17 @@ private:
 	static NetworkingManager* s_instance;
 	ThreadQueue<std::string> *m_messageQueue;
 	std::thread m_receiverThread;
+	std::thread m_udpReceiverThread;
 	std::vector<Message> m_messagesToSend;
 	char *IP = DEFAULT_IP;
 	int m_port = DEFAULT_PORT;
 
+	std::map<int, UINT32> m_players;
+
+	UDPpacket *m_udpPacket;
+	UDPpacket m_udpReceivedPacket;
+	UDPsocket m_udpSocket = NULL;
+	UDPsocket m_udpClient = NULL;
 	TCPsocket m_socket = NULL;
 	TCPsocket m_client = NULL;
 	bool accept();
@@ -31,17 +39,22 @@ private:
 	bool join();
 	void pollMessages();
 	void pollMessagesThread();
+	void pollMessagesUDP();
+	void pollMessagesThreadUDP();
 	std::string serializeMessage(Message message);
 	std::map<std::string, void*> deserializeMessage(std::string message);
 	void sendEventToReceiver(std::map<std::string, void*> data);
 
 public:
 	bool close();
+	bool closeUDP();
 	NetworkingManager();
 	static NetworkingManager* getInstance();
 	bool createHost();
 	bool createClient();
 	void send(std::string *msg);
+	bool createUDPPacket(int packetSize);
+	void sendUDP(std::string *msg);
 	bool getMessage(std::string &msg);
 	void prepareMessageForSending(std::string key, std::map<std::string, std::string> data);
 	void sendQueuedEvents();
@@ -49,4 +62,6 @@ public:
 	bool isConnected();
 	bool isHost();
 	void setIP(char *ip, int port = DEFAULT_PORT);
+	int addPlayer(UINT32 ip);
+	int removePlayer(UINT32 ip);
 };

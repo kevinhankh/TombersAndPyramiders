@@ -42,3 +42,12 @@ std::shared_ptr<PlayerCharacter> SpawnManager::generateSimpleCharacter(float x, 
 	simpleCharacters.push_back(simpleCharacter);
 	return simpleCharacter;
 }
+
+//Networking test
+std::shared_ptr<NetworkCharacter> SpawnManager::generateNetworkCharacter(float x, float y)
+{
+	std::shared_ptr<NetworkCharacter> networkCharacter = std::shared_ptr<NetworkCharacter>(new NetworkCharacter());
+	networkCharacter->getTransform()->setPosition(x, y);
+	networkCharacters.push_back(networkCharacter);
+	return networkCharacter;
+}
