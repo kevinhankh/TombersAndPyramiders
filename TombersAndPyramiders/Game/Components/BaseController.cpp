@@ -18,8 +18,8 @@
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-BaseController::BaseController(GameObject* gameObject, BasePilot* pilot) :
-	Component(gameObject)
+BaseController::BaseController(GameObject* parentGameobject, BasePilot* pilot) :
+	Component(parentGameobject)
 {
 	setPilot(pilot);
 }

@@ -36,7 +36,7 @@ class BaseController : public Component
     public:
         explicit BaseController() = delete;
 
-		explicit BaseController(GameObject* gameObject, BasePilot* pilot);
+		explicit BaseController(GameObject* parentGameobject, BasePilot* pilot);
 
 		virtual ~BaseController() {};
 		

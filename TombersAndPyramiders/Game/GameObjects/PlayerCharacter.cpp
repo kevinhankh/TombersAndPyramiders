@@ -23,8 +23,8 @@ PlayerCharacter::PlayerCharacter() :
 	ComplexSprite(generateComplexSpriteInfo(), 0, 0)
 {
 	setFPS(12);
-	addComponent<CharacterController>(std::make_shared<CharacterController>(this));
 	addComponent<Inventory>(std::make_shared<Inventory>(this));
+	addComponent<CharacterController>(std::make_shared<CharacterController>(this, getComponent<Inventory>().get()));
 }
 
 /*----------------------------------------------------------------------------------------

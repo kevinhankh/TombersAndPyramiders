@@ -1,7 +1,7 @@
 /*===================================================================================*//**
-	BaseWeapon
-	
-	Abstract class for a base weapon.
+	BaseMeleeWeapon
+
+	Abstract class for a base melee weapon.
 
     @author Erick Fernandez de Arteaga
 	
@@ -10,20 +10,30 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "BaseWeapon.h"
+#include "BaseMeleeWeapon.h"
+#include "DamagingRegion.h"
 #include "Inventory.h"
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-BaseWeapon::BaseWeapon() :
-	m_isAttacking{ false }
-{}
+BaseMeleeWeapon::BaseMeleeWeapon(string imageName, float colliderWidth, float colliderHeight, 
+	float xOffsetFromHolder, float yOffsetFromHolder, float colliderScale) :
+	m_damagingRegion{ this, imageName, colliderWidth, colliderHeight, 0, 0, colliderScale }
+{
+	m_offsetFromHolder = Vector2(xOffsetFromHolder, yOffsetFromHolder);
+}
 
 /*----------------------------------------------------------------------------------------
 	Instance Methods
 ----------------------------------------------------------------------------------------*/
-void BaseWeapon::addSubclassToInventory()
+void BaseMeleeWeapon::updatePosition()
 {
-	m_inventory->setWeapon(this);
+	if (owner() != nullptr)
+	{
+		float newX = owner()->getTransform()->getX() + m_offsetFromHolder.getX();
+		float newY = owner()->getTransform()->getY() + m_offsetFromHolder.getY();
+		
+		m_damagingRegion.getTransform()->setPosition(newX, newY);
+	}
 }

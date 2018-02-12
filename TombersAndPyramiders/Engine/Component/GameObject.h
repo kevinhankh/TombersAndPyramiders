@@ -48,7 +48,6 @@ public:
 		}
 		else
 		{
-			std::cout << "ERROR::FAILED TO FIND COMPONENT " << componentName << "  FOR OBJECT " << m_id << std::endl;
 			return nullptr;
 		}
 	}

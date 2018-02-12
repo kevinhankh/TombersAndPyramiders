@@ -1,7 +1,7 @@
 /*===================================================================================*//**
-	BaseGreaves
+	BaseProjectileWeapon
 	
-	Abstract class for a base pair of greaves (leg armor).
+	Abstract class for a base projectile weapon.
 
     @author Erick Fernandez de Arteaga
 	
@@ -12,32 +12,28 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "Updateable.h"
-#include "BaseEquippableItem.h"
+#include "BaseWeapon.h"
+#include <string>
 
 /*========================================================================================
-	BaseGreaves	
+	BaseProjectileWeapon	
 ========================================================================================*/
-class BaseGreaves : public BaseEquippableItem, public Updateable
-
+class BaseProjectileWeapon : public BaseWeapon
 {
+    /*----------------------------------------------------------------------------------------
+		Instance Fields
+    ----------------------------------------------------------------------------------------*/
+	protected:
+		std::string m_projectileImageName;
+
     /*----------------------------------------------------------------------------------------
 		Resource Management
     ----------------------------------------------------------------------------------------*/
     public:
         /** Default constructor. */
-        explicit BaseGreaves() = default;
+        explicit BaseProjectileWeapon() = delete;
 
-		virtual ~BaseGreaves() {};
+		explicit BaseProjectileWeapon(std::string projectileImageName);
 
-	/*----------------------------------------------------------------------------------------
-		Instance Methods
-	----------------------------------------------------------------------------------------*/
-    public:
-		virtual void onStart() = 0;
-		virtual void onUpdate(int ticks) = 0;
-		virtual void onEnd() = 0;
-
-	protected:
-		void addSubclassToInventory();
+		virtual ~BaseProjectileWeapon() {};
 };
