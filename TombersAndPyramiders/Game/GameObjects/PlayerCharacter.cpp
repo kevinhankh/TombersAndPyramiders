@@ -27,6 +27,7 @@ PlayerCharacter::PlayerCharacter() :
 	addComponent<CharacterController*>(new CharacterController(this));
 	addComponent<Inventory*>(new Inventory(this));
 	addComponent<Sender*>(new Sender(this, std::to_string(this->getId())));
+	addComponent<Receiver*>(new Receiver(this, std::to_string(this->getId())));
 }
 
 /*----------------------------------------------------------------------------------------
