@@ -47,10 +47,10 @@ bool Camera::isOnScreen(float transformX, float transformY, float transformScale
 {
 	float transformRadius = transformScale / 2.0f;
 
-	float leftBorder = transformX - transformRadius;
-	float rightBorder = transformX + transformRadius;
-	float topBorder = transformY + transformRadius;
-	float bottomBorder = transformY - transformRadius;
+	float leftBorder = transformX;// - transformRadius;
+	float rightBorder = transformX + transformScale;// + transformRadius;
+	float topBorder = transformY + transformScale;// + transformRadius;
+	float bottomBorder = transformY;// - transformRadius;
 
 	float width = rightBorder - leftBorder;
 	float height = topBorder - bottomBorder;
@@ -62,10 +62,10 @@ bool Camera::isOnScreen(float transformX, float transformY, float transformScale
 	float cameraX = cameraTransform->getX();
 	float cameraY = cameraTransform->getY();
 
-	float cameraLeftBorder = cameraX - 0.5f;
-	float cameraRightBorder = cameraX + cameraWidth - 0.5f;
-	float cameraTopBorder = cameraY + cameraHeight - 0.5f;
-	float cameraBottomBorder = cameraY - 0.5f;
+	float cameraLeftBorder = cameraX;
+	float cameraRightBorder = cameraX + cameraWidth;
+	float cameraTopBorder = cameraY + cameraHeight;
+	float cameraBottomBorder = cameraY;
 
 	//Check if in boundary
 	return (abs(leftBorder - cameraLeftBorder) * 2 < (width + cameraWidth)) &&
