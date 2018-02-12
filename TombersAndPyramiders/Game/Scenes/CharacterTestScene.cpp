@@ -20,14 +20,14 @@ void CharacterTestScene::onStart()
 {
 	Camera::getActiveCamera()->addComponent<CameraFollow>(Camera::getActiveCamera().get());
 
-	// Build floor tiles
-	for (int x = -5; x < 5; x++)
+	const int size = 5;
+	const int scale = 2;
+
+	for (int x = -size; x < size; x++)
 	{
 		for (int y = 5; y > -5; y--)
 		{
-			int column = x * 5;
-			int row = y * 5;
-			SpawnManager::getInstance()->generateMiscSquare(column, row, y - 50, 5);
+			SpawnManager::getInstance()->generateMiscSquare(x * scale, y * scale, scale);
 		}
 	}
 
