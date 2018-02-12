@@ -7,6 +7,7 @@
 #include "Game.h"
 #include <vector>
 #include <memory>
+#include "Scene.h"
 #include "SceneManager.h"
 
 class GameManager : public Updateable
@@ -19,7 +20,7 @@ public:
 	void onEnd();
 	static GameManager* getInstance();
 	void addGameObject(int id, std::shared_ptr<GameObject> obj);
-	void removeGameObject(GameObject* objectToRemove);
+	void removeGameObject(std::shared_ptr<GameObject> objectToRemove);
 	template <typename T, class... _Types>
 	std::shared_ptr<T> createGameObject(bool isGlobal, _Types&&... args)
 	{
@@ -30,8 +31,8 @@ public:
 
 		if (gameObject != nullptr)
 		{
-			gameObject->setId(id);
-
+			gameObject->setInitialState(isGlobal, id);
+				
 			if (isGlobal)
 			{
 				GameManager::getInstance()->addGameObject(id, gameObject);
@@ -50,7 +51,7 @@ public:
 	}
 
 private:
-	std::vector<GameObject*> m_gameObjectsToRemove;
+	std::vector<std::shared_ptr<GameObject>> m_gameObjectsToRemove;
 	std::map<int, std::shared_ptr<GameObject>> m_globalGameObjects;
 	static GameManager* s_instance;
 	bool m_breakLoop = false;

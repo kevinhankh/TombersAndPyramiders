@@ -111,7 +111,7 @@ void GameManager::addGameObject(int id, std::shared_ptr<GameObject> obj)
 	m_globalGameObjects[id] = obj;
 }
 
-void GameManager::removeGameObject(GameObject* objectToRemove)
+void GameManager::removeGameObject(std::shared_ptr<GameObject> objectToRemove)
 {
 	m_gameObjectsToRemove.push_back(objectToRemove);
 }
@@ -124,12 +124,23 @@ void GameManager::clearObjectsToRemove()
 
 	for (int i = 0; i < m_gameObjectsToRemove.size(); i++)
 	{
-		GameObject* object = m_gameObjectsToRemove[i];
-		if (object == NULL)
-			continue;
-		m_globalGameObjects.erase(object->getId());
-		SceneManager::getInstance()->getCurrentScene()->removeGameObject(object->getId());
-		//delete(object);
+		std::shared_ptr<GameObject> object = m_gameObjectsToRemove[i];
+		if (object != nullptr)
+		{
+			int id = object->getId();
+			m_globalGameObjects.erase(id);
+			SceneManager::getInstance()->getCurrentScene()->removeGameObject(id);
+			std::shared_ptr<SpriteRenderer> renderer = object->getComponent<SpriteRenderer>();
+			if (renderer != nullptr) 
+			{
+				SpriteRendererManager::getInstance()->removeSpriteFromRendering(renderer.get());
+			}
+			std::shared_ptr<Collider> collider = object->getComponent<Collider>();
+			if (collider != nullptr)
+			{
+				PhysicsManager::getInstance()->removeCollider(collider.get());
+			}
+		}
 	}
 	m_gameObjectsToRemove.clear();
 }

@@ -8,6 +8,7 @@
 #include <vector>
 #include "SpawnManager.h"
 
+
 CameraTestScene::CameraTestScene()
 {
 }
@@ -23,7 +24,7 @@ void CameraTestScene::onStart()
 		}
 	}
 
-	CameraFollow* cameraFollow = new CameraFollow(Camera::getActiveCamera());
+	std::shared_ptr<CameraFollow> cameraFollow = make_shared<CameraFollow>(Camera::getActiveCamera().get());
 	Camera::getActiveCamera()->addComponent(cameraFollow);
 	cameraFollow->setToFollow(SpawnManager::getInstance()->generateMovingSquare(0, 0));
 }

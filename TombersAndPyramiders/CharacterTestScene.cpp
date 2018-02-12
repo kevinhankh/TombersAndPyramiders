@@ -10,14 +10,15 @@
 #include <vector>
 #include "SpawnManager.h"
 
+std::shared_ptr<PlayerCharacter> player = nullptr;
+
 CharacterTestScene::CharacterTestScene()
 {
 }
 
 void CharacterTestScene::onStart()
 {
-	CameraFollow* cameraFollow = new CameraFollow(Camera::getActiveCamera());
-	Camera::getActiveCamera()->addComponent(cameraFollow);
+	Camera::getActiveCamera()->addComponent(std::make_shared<CameraFollow>(Camera::getActiveCamera().get()));
 
 	for (int x = -5; x < 5; x++)
 	{
@@ -27,12 +28,13 @@ void CharacterTestScene::onStart()
 		}
 	}
 
-	setCameraFollow(SpawnManager::getInstance()->generateSimpleCharacter(15, 5));
+	player = SpawnManager::getInstance()->generateSimpleCharacter(15, 5);
+	setCameraFollow(player);
 }
 
 void CharacterTestScene::setCameraFollow(std::shared_ptr<GameObject> toFollow)
 {
-	Camera::getActiveCamera()->getComponent<CameraFollow*>()->setToFollow(toFollow);
+	Camera::getActiveCamera()->getComponent<CameraFollow>()->setToFollow(toFollow);
 }
 
 void CharacterTestScene::onPause()
@@ -44,6 +46,17 @@ void CharacterTestScene::onEnd()
 
 }
 
+int counter = 0;
 void CharacterTestScene::onUpdate(int ticks)
 {
+	if (counter++ == 60)
+	{
+		player->destroy(player);
+		player = nullptr;
+	}
+	if (counter == 120)
+	{
+		player = SpawnManager::getInstance()->generateSimpleCharacter(-10, 5);
+		setCameraFollow(player);
+	}
 }

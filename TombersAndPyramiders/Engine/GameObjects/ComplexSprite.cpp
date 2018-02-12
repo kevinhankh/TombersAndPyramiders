@@ -5,9 +5,9 @@
 #include "Shader.h"
 #include "HelperFunctions.h"
 
-ComplexSprite::ComplexSprite(std::shared_ptr<ComplexSpriteinfo> info, float x, float y, float z, float scale, Shader* nonDefaultShader, int framesPerSecond) : GameObject(false)
+ComplexSprite::ComplexSprite(std::shared_ptr<ComplexSpriteinfo> info, float x, float y, float z, float scale, Shader* nonDefaultShader, int framesPerSecond) : GameObject()
 {
-	SpriteRenderer* spriteRenderer = new SpriteRenderer(this);
+	std::shared_ptr<SpriteRenderer> spriteRenderer = std::make_shared<SpriteRenderer>(this);
 	spriteRenderer->setActiveShader(Shader::getShader(SHADER_SPRITESHEET));
 
 	for (int i = 0; i != info->getSpriteCount(); i++)
@@ -31,7 +31,7 @@ ComplexSprite::ComplexSprite(std::shared_ptr<ComplexSpriteinfo> info, float x, f
 	Transform* transform = getTransform();
 	transform->setPosition(x, y, z);
 	transform->setScale(scale);
-	addComponent<SpriteRenderer*>(spriteRenderer);
+	addComponent<SpriteRenderer>(spriteRenderer);
 	m_framesTilReturn = -1;
 	this->m_framesPerSecond = framesPerSecond;
 
@@ -74,7 +74,7 @@ void ComplexSprite::changeSprite(int spriteIndexInComplexInfo)
 	{
 		m_sprites[m_currentSpriteSheet]->resetIndex();
 		m_currentSpriteSheet = spriteIndexInComplexInfo;
-		getComponent<SpriteRenderer*>()->setActiveSprite(m_sprites[spriteIndexInComplexInfo]);
+		getComponent<SpriteRenderer>()->setActiveSprite(m_sprites[spriteIndexInComplexInfo]);
 	}
 }
 

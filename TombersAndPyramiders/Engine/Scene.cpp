@@ -3,7 +3,7 @@
 #include "Collision/Collider.h"
 #include "SpriteRendererManager.h"
 #include "PhysicsManager.h"
-
+#include "GameObject.h"
 
 void Scene::addGameObject(int id, std::shared_ptr<GameObject> obj)
 {

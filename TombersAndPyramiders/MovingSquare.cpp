@@ -10,7 +10,7 @@ By default, GameObject's base class has a Transform component
 MovingSquare::MovingSquare() : SimpleSprite("IceTile.png", 0, 0)
 {
 	//Adding a base component. You create the new Component, pass it 'this', cast to a Component* then add it
-	addComponent<ComponentTemplate*>(new ComponentTemplate(this));
+	addComponent<ComponentTemplate>(std::make_shared<ComponentTemplate>(this));
 
 }
 

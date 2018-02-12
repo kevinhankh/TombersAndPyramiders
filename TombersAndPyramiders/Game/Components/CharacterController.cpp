@@ -107,12 +107,12 @@ void CharacterController::updateWeapon(int ticks)
 		/* ...and it is still in use, update use. */
 		if (m_isUsingWeapon)
 		{
-			gameObject->getComponent<Inventory*>()->getWeapon().onUpdate(ticks);
+			gameObject->getComponent<Inventory>()->getWeapon().onUpdate(ticks);
 		}
 		/* ...and it is no longer in use, end use. */
 		else
 		{
-			gameObject->getComponent<Inventory*>()->getWeapon().onEnd();
+			gameObject->getComponent<Inventory>()->getWeapon().onEnd();
 		}
 	}
 	/* If the weapon was not in use last frame... */
@@ -121,7 +121,7 @@ void CharacterController::updateWeapon(int ticks)
 		/* ...and it is in use this frame, start use. */
 		if (m_isUsingWeapon)
 		{
-			gameObject->getComponent<Inventory*>()->getWeapon().onStart();
+			gameObject->getComponent<Inventory>()->getWeapon().onStart();
 		}
 	}
 }
@@ -134,12 +134,12 @@ void CharacterController::updateShield(int ticks)
 		/* ...and it is still in use, update use. */
 		if (m_isUsingShield)
 		{
-			gameObject->getComponent<Inventory*>()->getShield().onUpdate(ticks);
+			gameObject->getComponent<Inventory>()->getShield().onUpdate(ticks);
 		}
 		/* ...and it is no longer in use, end use. */
 		else
 		{
-			gameObject->getComponent<Inventory*>()->getShield().onEnd();
+			gameObject->getComponent<Inventory>()->getShield().onEnd();
 		}
 	}
 	/* If the shield was not in use last frame... */
@@ -148,7 +148,7 @@ void CharacterController::updateShield(int ticks)
 		/* ...and it is in use this frame, start use. */
 		if (m_isUsingShield)
 		{
-			gameObject->getComponent<Inventory*>()->getShield().onStart();
+			gameObject->getComponent<Inventory>()->getShield().onStart();
 		}
 	}
 }
@@ -161,12 +161,12 @@ void CharacterController::updateGreaves(int ticks)
 		/* ...and they are still in use, update use. */
 		if (m_isUsingWeapon)
 		{
-			gameObject->getComponent<Inventory*>()->getWeapon().onUpdate(ticks);
+			gameObject->getComponent<Inventory>()->getWeapon().onUpdate(ticks);
 		}
 		/* ...and they are no longer in use, end use. */
 		else
 		{
-			gameObject->getComponent<Inventory*>()->getWeapon().onEnd();
+			gameObject->getComponent<Inventory>()->getWeapon().onEnd();
 		}
 	}
 	/* If the greaves were not in use last frame... */
@@ -175,7 +175,7 @@ void CharacterController::updateGreaves(int ticks)
 		/* ...and they are in use this frame, start use. */
 		if (m_isUsingWeapon)
 		{
-			gameObject->getComponent<Inventory*>()->getWeapon().onStart();
+			gameObject->getComponent<Inventory>()->getWeapon().onStart();
 		}
 	}
 }
