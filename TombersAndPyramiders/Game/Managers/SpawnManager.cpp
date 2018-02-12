@@ -43,7 +43,7 @@ std	::shared_ptr<MovingSquare> SpawnManager::generateMovingSquare(float x, float
 std::shared_ptr<Character> SpawnManager::generatePlayerCharacter(float x, float y)
 {
 	std::shared_ptr<Character> simpleCharacter = GameManager::getInstance()->createGameObject<Character>(false, new PlayerPilot());
-	simpleCharacter->getComponent<Inventory>()->addItem(new WoodenLongbow());
+	simpleCharacter->getComponent<Inventory>()->addItem(new WoodenShortsword());
 	simpleCharacter->getTransform()->setPosition(x, y);
 	
 	return simpleCharacter;
