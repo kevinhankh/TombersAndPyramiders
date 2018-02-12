@@ -20,15 +20,16 @@ void CharacterTestScene::onStart()
 {
 	Camera::getActiveCamera()->addComponent<CameraFollow>(Camera::getActiveCamera().get());
 
-	for (int x = -5; x < 5; x++)
+	for (int x = -50; x < 50; x++)
 	{
-		for (int y = -5; y < 5; y++)
+		for (int y = -50; y < 50; y++)
 		{
-			SpawnManager::getInstance()->generateMiscSquare(x * 5, y * 5, 5);
+			SpawnManager::getInstance()->generateMiscSquare(x, y, 1);
 		}
 	}
 
 	player = SpawnManager::getInstance()->generateSimpleCharacter(15, 5);
+
 	setCameraFollow(player);
 }
 
