@@ -20,13 +20,22 @@ void CharacterTestScene::onStart()
 {
 	Camera::getActiveCamera()->addComponent<CameraFollow>(Camera::getActiveCamera().get());
 
+	// Build floor tiles
 	for (int x = -5; x < 5; x++)
 	{
-		for (int y = -5; y < 5; y++)
+		for (int y = 5; y > -5; y--)
 		{
-			SpawnManager::getInstance()->generateMiscSquare(x * 5, y * 5, 5);
+			int column = x * 5;
+			int row = y * 5;
+			SpawnManager::getInstance()->generateMiscSquare(column, row, y - 50, 5);
 		}
 	}
+
+	//SpawnManager::getInstance()->generateMiscSquare(2.47, 2.15, 0, 5);
+	//SpawnManager::getInstance()->generateMiscSquare(-2.47, 2.15, 0, 5);
+	//SpawnManager::getInstance()->generateMiscSquare(0, 0, 1, 5);
+	//SpawnManager::getInstance()->generateMiscSquare(2.47, -2.15, 2, 5);
+	//SpawnManager::getInstance()->generateMiscSquare(-2.47, -2.15, 2, 5);
 
 	player = SpawnManager::getInstance()->generatePlayerCharacter(15, 5);
 

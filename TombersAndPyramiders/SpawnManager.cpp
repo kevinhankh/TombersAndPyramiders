@@ -25,10 +25,10 @@ SpawnManager::~SpawnManager()
 
 }
 
-std::shared_ptr<MiscSquare> SpawnManager::generateMiscSquare(float x, float y, float scale)
+std::shared_ptr<MiscSquare> SpawnManager::generateMiscSquare(float x, float y, float z, float scale)
 {
 	std::shared_ptr<MiscSquare> miscSquare = GameManager::getInstance()->createGameObject<MiscSquare>(false);
-	miscSquare->getTransform()->setPosition(x, y);
+	miscSquare->getTransform()->setPosition(x, y, z);
 	miscSquare->getTransform()->setScale(scale);
 	return miscSquare;
 }
