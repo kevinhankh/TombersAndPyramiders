@@ -8,7 +8,7 @@ private:
 	float m_width, m_height;
 	Vector2* m_corners[4];
 public:
-	BoxCollider(float width, float height);
+	BoxCollider(GameObject* parentGameObject, float width, float height);
 	float getWidth();
 	float getHeight();
 	Vector2* getCorner(int index);

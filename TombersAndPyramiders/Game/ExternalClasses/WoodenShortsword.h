@@ -1,7 +1,7 @@
 /*===================================================================================*//**
-	BaseGreaves
+	WoodenShortsword
 	
-	Abstract class for a base pair of greaves (leg armor).
+	A weak wooden shortsword.
 
     @author Erick Fernandez de Arteaga
 	
@@ -12,32 +12,22 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "Updateable.h"
-#include "BaseEquippableItem.h"
+#include "BaseShortsword.h"
 
 /*========================================================================================
-	BaseGreaves	
+	BaseWeapon	
 ========================================================================================*/
-class BaseGreaves : public BaseEquippableItem, public Updateable
-
+class WoodenShortsword : public BaseShortsword
 {
+    /*----------------------------------------------------------------------------------------
+		Static Fields
+    ----------------------------------------------------------------------------------------*/
+	static const string WOODEN_SHORTSWORD_IMAGE_NAME;
+
     /*----------------------------------------------------------------------------------------
 		Resource Management
     ----------------------------------------------------------------------------------------*/
     public:
         /** Default constructor. */
-        explicit BaseGreaves() = default;
-
-		virtual ~BaseGreaves() {};
-
-	/*----------------------------------------------------------------------------------------
-		Instance Methods
-	----------------------------------------------------------------------------------------*/
-    public:
-		virtual void onStart() = 0;
-		virtual void onUpdate(int ticks) = 0;
-		virtual void onEnd() = 0;
-
-	protected:
-		void addSubclassToInventory();
+        explicit WoodenShortsword();
 };

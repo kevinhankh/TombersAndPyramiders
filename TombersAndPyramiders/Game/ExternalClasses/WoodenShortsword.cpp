@@ -1,7 +1,7 @@
 /*===================================================================================*//**
-	BaseShield
-	
-	Abstract class for a base shield.
+	WoodenShortsword
+
+	Abstract class for a base shortsword.
 
     @author Erick Fernandez de Arteaga
 	
@@ -10,13 +10,16 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "BaseShield.h"
-#include "Inventory.h"
+#include "WoodenShortsword.h"
 
 /*----------------------------------------------------------------------------------------
-	Instance Methods
+	Static Fields
 ----------------------------------------------------------------------------------------*/
-void BaseShield::addSubclassToInventory()
-{
-	m_inventory->setShield(this);
-}
+const string WoodenShortsword::WOODEN_SHORTSWORD_IMAGE_NAME = "IceTile.png";
+
+/*----------------------------------------------------------------------------------------
+	Resource Management
+----------------------------------------------------------------------------------------*/
+WoodenShortsword::WoodenShortsword() :
+	BaseShortsword{ WOODEN_SHORTSWORD_IMAGE_NAME }
+{}

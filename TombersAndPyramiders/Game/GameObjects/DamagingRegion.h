@@ -1,8 +1,9 @@
 /*===================================================================================*//**
-	BaseGreaves
+	DamagingRegion
 	
-	Abstract class for a base pair of greaves (leg armor).
-
+	Prefab class for a GameObject that causes damage to damageable objects when it 
+	collides with them.
+    
     @author Erick Fernandez de Arteaga
 	
 *//*====================================================================================*/
@@ -12,32 +13,31 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "Updateable.h"
-#include "BaseEquippableItem.h"
+#include "GameObject.h"
+#include "SimpleSprite.h"
+#include "Vector2.h"
+class BaseWeapon;
 
 /*========================================================================================
-	BaseGreaves	
+	DamagingRegion	
 ========================================================================================*/
-class BaseGreaves : public BaseEquippableItem, public Updateable
-
+class DamagingRegion : public SimpleSprite
 {
+    /*----------------------------------------------------------------------------------------
+		Instance Fields
+    ----------------------------------------------------------------------------------------*/
+    private:
+		BaseWeapon* _weapon;
+
     /*----------------------------------------------------------------------------------------
 		Resource Management
     ----------------------------------------------------------------------------------------*/
     public:
         /** Default constructor. */
-        explicit BaseGreaves() = default;
+		explicit DamagingRegion() = delete;
 
-		virtual ~BaseGreaves() {};
+		explicit DamagingRegion(BaseWeapon* weapon, string imageName, float colliderWidth,
+			float colliderHeight, float xPosition = 0, float yPosition = 0, float spriteScale = 1);
 
-	/*----------------------------------------------------------------------------------------
-		Instance Methods
-	----------------------------------------------------------------------------------------*/
-    public:
-		virtual void onStart() = 0;
-		virtual void onUpdate(int ticks) = 0;
-		virtual void onEnd() = 0;
-
-	protected:
-		void addSubclassToInventory();
+		virtual ~DamagingRegion() {};
 };

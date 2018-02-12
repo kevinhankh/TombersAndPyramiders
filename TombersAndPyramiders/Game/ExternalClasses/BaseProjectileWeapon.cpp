@@ -1,7 +1,7 @@
 /*===================================================================================*//**
-	BaseShield
-	
-	Abstract class for a base shield.
+	BaseProjectileWeapon
+
+	Abstract class for a base projectile weapon.
 
     @author Erick Fernandez de Arteaga
 	
@@ -10,13 +10,11 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "BaseShield.h"
-#include "Inventory.h"
+#include "BaseProjectileWeapon.h"
 
 /*----------------------------------------------------------------------------------------
-	Instance Methods
+	Resource Management
 ----------------------------------------------------------------------------------------*/
-void BaseShield::addSubclassToInventory()
-{
-	m_inventory->setShield(this);
-}
+BaseProjectileWeapon::BaseProjectileWeapon(std::string projectileImageName) :
+	m_projectileImageName{ projectileImageName }
+{}
