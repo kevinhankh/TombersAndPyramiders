@@ -27,7 +27,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -167,11 +167,17 @@
     <ClCompile Include="Game\ExternalClasses\BaseGreaves.cpp" />
     <ClCompile Include="Game\ExternalClasses\BaseHelmet.cpp" />
     <ClCompile Include="Game\ExternalClasses\BaseItem.cpp" />
+    <ClCompile Include="Game\ExternalClasses\BaseLongbow.cpp" />
+    <ClCompile Include="Game\ExternalClasses\BaseMeleeWeapon.cpp" />
     <ClCompile Include="Game\ExternalClasses\BasePilot.cpp" />
+    <ClCompile Include="Game\ExternalClasses\BaseProjectileWeapon.cpp" />
     <ClCompile Include="Game\ExternalClasses\BaseShield.cpp" />
+    <ClCompile Include="Game\ExternalClasses\BaseShortsword.cpp" />
     <ClCompile Include="Game\ExternalClasses\BaseWeapon.cpp" />
     <ClCompile Include="Game\ExternalClasses\Damageable.cpp" />
     <ClCompile Include="Game\ExternalClasses\PlayerPilot.cpp" />
+    <ClCompile Include="Game\ExternalClasses\WoodenLongbow.cpp" />
+    <ClCompile Include="Game\ExternalClasses\WoodenShortsword.cpp" />
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Engine\Component\Component.cpp" />
     <ClCompile Include="Engine\Component\GameObject.cpp" />
@@ -185,8 +191,10 @@
     <ClCompile Include="Engine\Manager\GameManager.cpp" />
     <ClCompile Include="Engine\Manager\SpriteRendererManager.cpp" />
     <ClCompile Include="Game\Components\ComponentTemplate.cpp" />
+    <ClCompile Include="Game\GameObjects\DamagingRegion.cpp" />
     <ClCompile Include="Game\GameObjects\GameObjectTemplate.cpp" />
-    <ClCompile Include="Game\GameObjects\PlayerCharacter.cpp" />
+    <ClCompile Include="Game\GameObjects\Character.cpp" />
+    <ClCompile Include="Game\GameObjects\Projectile.cpp" />
     <ClCompile Include="Game\Scenes\SceneTemplate.cpp" />
     <ClCompile Include="GarbageCollection.cpp" />
     <ClCompile Include="main.cpp" />
@@ -239,12 +247,18 @@
     <ClInclude Include="Game\ExternalClasses\BaseHelmet.h" />
     <ClInclude Include="Game\ExternalClasses\BaseItem.h" />
     <ClInclude Include="Game\ExternalClasses\BaseGreaves.h" />
+    <ClInclude Include="Game\ExternalClasses\BaseLongbow.h" />
+    <ClInclude Include="Game\ExternalClasses\BaseMeleeWeapon.h" />
     <ClInclude Include="Game\ExternalClasses\BasePilot.h" />
+    <ClInclude Include="Game\ExternalClasses\BaseProjectileWeapon.h" />
     <ClInclude Include="Game\ExternalClasses\BaseShield.h" />
+    <ClInclude Include="Game\ExternalClasses\BaseShortsword.h" />
     <ClInclude Include="Game\ExternalClasses\BaseWeapon.h" />
     <ClInclude Include="Game\ExternalClasses\Damageable.h" />
     <ClInclude Include="Game\ExternalClasses\PlayerPilot.h" />
     <ClInclude Include="Game\ExternalClasses\UserDefinedRenderLayers.h" />
+    <ClInclude Include="Game\ExternalClasses\WoodenLongbow.h" />
+    <ClInclude Include="Game\ExternalClasses\WoodenShortsword.h" />
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="Engine\Component\Component.h" />
     <ClInclude Include="Engine\Component\GameObject.h" />
@@ -261,8 +275,10 @@
     <ClInclude Include="Engine\Manager\InputManager.h" />
     <ClInclude Include="Engine\Manager\SpriteRendererManager.h" />
     <ClInclude Include="Game\Components\ComponentTemplate.h" />
+    <ClInclude Include="Game\GameObjects\DamagingRegion.h" />
     <ClInclude Include="Game\GameObjects\GameObjectTemplate.h" />
-    <ClInclude Include="Game\GameObjects\PlayerCharacter.h" />
+    <ClInclude Include="Game\GameObjects\Character.h" />
+    <ClInclude Include="Game\GameObjects\Projectile.h" />
     <ClInclude Include="Game\Scenes\SceneTemplate.h" />
     <ClInclude Include="GarbageCollection.h" />
     <ClInclude Include="MiscSquare.h" />

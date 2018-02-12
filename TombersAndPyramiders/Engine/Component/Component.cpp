@@ -14,7 +14,7 @@ GameObject* Component::getGameObject()
 Component::~Component() {}
 
 
-void Component::destroy(GameObject* gameObject)
+void Component::destroy(std::shared_ptr<GameObject> gameObject)
 {
 	GameManager::getInstance()->removeGameObject(gameObject);
 }

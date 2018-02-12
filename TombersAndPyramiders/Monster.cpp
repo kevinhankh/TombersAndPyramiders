@@ -13,12 +13,12 @@ void Monster::OnUpdate(int ticks){
 
 }
 
-Monster::Monster() :
+/* Monster::Monster() :
 	SimpleSprite("IceTile.png", 0, 10)
 {
 	addComponent<CharacterController*>(new CharacterController(this));
 	
 }
-
+*/
 
 //state machine 

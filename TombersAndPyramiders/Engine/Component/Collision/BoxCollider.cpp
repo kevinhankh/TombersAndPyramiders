@@ -1,6 +1,6 @@
 #include "BoxCollider.h"
 
-BoxCollider::BoxCollider(float width, float height) : Collider(gameObject)
+BoxCollider::BoxCollider(GameObject* parentGameObject, float width, float height) : Collider(parentGameObject)
 {
 	m_width = width;
 	m_height = height;
