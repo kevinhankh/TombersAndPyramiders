@@ -14,7 +14,7 @@
 ========================================================================================*/
 #include <memory>
 #include "Component.h"
-#include "PlayerCharacter.h"
+#include "Character.h"
 
 class GameObject;
 class BasePilot;
