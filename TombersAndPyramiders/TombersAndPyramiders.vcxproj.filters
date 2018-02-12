@@ -300,6 +300,18 @@
     <ClCompile Include="Game\ExternalClasses\BaseWeapon.cpp">
       <Filter>Source Files\Game\ExternalClasses\Items</Filter>
     </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Source Files\Engine\Component\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="PathFinding.cpp">
+      <Filter>Source Files\Engine\Component\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Paper.cpp">
+      <Filter>Source Files\Engine\Component\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="AiPilot.cpp">
+      <Filter>Source Files\Game\ExternalClasses</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -532,6 +544,21 @@
     </ClInclude>
     <ClInclude Include="Game\ExternalClasses\BaseWeapon.h">
       <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Source Files\Engine\Component\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="PathFinding.h">
+      <Filter>Source Files\Engine\Component\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="SearchCell.h">
+      <Filter>Source Files\Engine\Component\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Paper.h">
+      <Filter>Source Files\Engine\Component\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="AiPilot.h">
+      <Filter>Source Files\Game\ExternalClasses</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

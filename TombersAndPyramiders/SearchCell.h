@@ -1,6 +1,5 @@
 #pragma once
-#include <Battler.h>
-#include <PathFinding.h>
+/* #include <PathFinding.h>
 
 #define WORLD_SIZE 10;
 struct SearchCell
@@ -29,3 +28,4 @@ public:
 
 };
 #pragma once
+*/
