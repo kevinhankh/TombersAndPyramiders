@@ -219,9 +219,6 @@
     <ClCompile Include="Engine\Component\Collision\CircleCollider.cpp">
       <Filter>Source Files\Engine\Component\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\External\Math\Axis.cpp">
-      <Filter>Source Files\Engine\External\Math</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Components\Inventory.cpp">
       <Filter>Source Files\Game\Components</Filter>
     </ClCompile>
@@ -260,6 +257,12 @@
     </ClCompile>
     <ClCompile Include="Game\ExternalClasses\BaseWeapon.cpp">
       <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObjects\Wall.cpp">
+      <Filter>Source Files\Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Component\Collision\Rigidbody.cpp">
+      <Filter>Source Files\Engine\Component\Collision</Filter>
     </ClCompile>
     <ClCompile Include="Game\GameObjects\DamagingRegion.cpp">
       <Filter>Source Files\Game\GameObjects</Filter>
@@ -322,6 +325,9 @@
       <Filter>Source Files\Game\Managers</Filter>
     </ClCompile>
     <ClCompile Include="Game\GameObjects\WorldItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObjects\GameObjectTemplate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -476,9 +482,6 @@
     <ClInclude Include="Engine\Component\Collision\CircleCollider.h">
       <Filter>Source Files\Engine\Component\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\External\Math\Axis.h">
-      <Filter>Source Files\Engine\External\Math</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Components\Inventory.h">
       <Filter>Source Files\Game\Components</Filter>
     </ClInclude>
@@ -517,6 +520,12 @@
     </ClInclude>
     <ClInclude Include="Game\ExternalClasses\BaseWeapon.h">
       <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObjects\Wall.h">
+      <Filter>Source Files\Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Component\Collision\Rigidbody.h">
+      <Filter>Source Files\Engine\Component\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Game\GameObjects\DamagingRegion.h">
       <Filter>Source Files\Game\GameObjects</Filter>
@@ -579,6 +588,12 @@
       <Filter>Source Files\Game\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Game\GameObjects\WorldItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObjects\PlayerCharacter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObjects\GameObjectTemplate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

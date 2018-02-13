@@ -8,7 +8,6 @@ Collider::Collider(GameObject* gameObject/*, float radius*/) : Component(gameObj
 	m_collision = false;
 	//add to physics manager;
 	PhysicsManager::getInstance()->addCollider(this);
-	m_transform = gameObject->getTransform();
 	m_disabled = false;
 }
 
@@ -71,20 +70,22 @@ void Collider::addCollision(GameObject* collider)
 	m_colliders.push_back(collider);
 }
 
-//float Collider::getRadius()
-//{
-//	return m_radius;
-//}
+/*float Collider::getRadius()
+{
+	return m_radius;
+}
+
+float Collider::getRadius()
+{
+	return m_radius;
+}
 /*
+
 void Collider::setRadius(float radius)
 {
 	m_radius = radius;
 }
 */
-Transform * Collider::getTransform()
-{
-	return m_transform;
-}
 
 Collider::~Collider()
 {

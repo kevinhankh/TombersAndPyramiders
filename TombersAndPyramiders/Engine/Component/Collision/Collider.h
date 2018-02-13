@@ -34,7 +34,5 @@ public:
 	void onUpdate(int ticks) {};
 	void onEnd() {};
 
-	Transform* getTransform();
-
 	~Collider();
 };

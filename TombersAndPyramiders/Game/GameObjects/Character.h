@@ -14,6 +14,8 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
+#include "SimpleSprite.h"
+#include "BoxCollider.h"
 #include "ComplexSprite.h"
 #include "BasePilot.h"
 
@@ -34,7 +36,7 @@ class Character : public ComplexSprite
 		Instance Fields
     ----------------------------------------------------------------------------------------*/
     private:
-
+		BoxCollider* m_boxCollider = nullptr;
 
     /*----------------------------------------------------------------------------------------
 		Resource Management
