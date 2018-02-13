@@ -140,7 +140,7 @@ void GameManager::clearObjectsToRemove()
 			{
 				SpriteRendererManager::getInstance()->removeSpriteFromRendering(renderer.get());
 			}
-			std::shared_ptr<Collider> collider = object->getComponent<Collider>();
+			std::shared_ptr<BoxCollider> collider = object->getComponent<BoxCollider>();
 			if (collider != nullptr)
 			{
 				PhysicsManager::getInstance()->removeCollider(collider.get());

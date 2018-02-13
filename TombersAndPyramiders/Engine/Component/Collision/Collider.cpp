@@ -70,6 +70,16 @@ void Collider::addCollision(GameObject* collider)
 	m_colliders.push_back(collider);
 }
 
+void Collider::setIsTrigger(bool isNowTrigger)
+{
+	m_isTrigger = isNowTrigger;
+}
+
+bool Collider::isTrigger()
+{
+	return m_isTrigger;
+}
+
 /*float Collider::getRadius()
 {
 	return m_radius;
@@ -91,3 +101,5 @@ Collider::~Collider()
 {
 	PhysicsManager::getInstance()->removeCollider(this);
 }
+
+
