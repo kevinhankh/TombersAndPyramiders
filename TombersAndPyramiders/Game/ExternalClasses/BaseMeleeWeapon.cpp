@@ -19,7 +19,7 @@
 ----------------------------------------------------------------------------------------*/
 BaseMeleeWeapon::BaseMeleeWeapon(string imageName, float colliderWidth, float colliderHeight, 
 	float xOffsetFromHolder, float yOffsetFromHolder, float colliderScale) :
-	m_damagingRegion{ this, imageName, colliderWidth, colliderHeight, 0, 0, colliderScale }
+	m_damagingRegion{ imageName, colliderWidth, colliderHeight, 0, 0, colliderScale }
 {
 	m_offsetFromHolder = Vector2(xOffsetFromHolder, yOffsetFromHolder);
 }

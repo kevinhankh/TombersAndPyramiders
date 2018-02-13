@@ -68,6 +68,21 @@ class CharacterController : public BaseController, public Damageable
 			Uses the character's weapon this frame.
 		*/
 		void useWeapon();
+
+		/**
+			Applies the given amount of damage to the character.
+			
+			The character will handle applying any scaling of this value 
+			based on buffs and equipment.
+		*/
+		virtual void takeDamage(int damage);
+
+	protected:
+		/**
+			Called when the character's HP reaches zero.
+			Handles the player's death.
+		*/
+		void death();
 	
 	private:
 		/**
@@ -84,11 +99,4 @@ class CharacterController : public BaseController, public Damageable
 			Forwards the onUpdate() call to the character's greaves.
 		*/
 		void updateGreaves(int ticks);
-
-	protected:
-		/**
-			Called when the character's HP reaches zero.
-			Handles the player's death.
-		*/
-		void death();
 };

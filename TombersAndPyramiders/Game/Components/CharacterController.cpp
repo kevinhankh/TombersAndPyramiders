@@ -76,7 +76,6 @@ void CharacterController::move(Vector2 delta)
 	} else 
 	{
 		m_character->playRunAnimation();
-		//gameObject->getTransform()->setRotation(delta.getRotationInDegrees());
 	}
 
 	gameObject->getTransform()->addTranslation(delta.getX(), delta.getY());
@@ -93,6 +92,11 @@ void CharacterController::useWeapon()
 		//dynamic_cast<BaseMeleeWeapon>(weapon);
 		m_character->playMeleeAttackAnimation();
 	}
+}
+
+void CharacterController::takeDamage(int damage)
+{
+	Damageable::takeDamage(damage);
 }
 
 void CharacterController::updateWeapon(int ticks)

@@ -17,6 +17,7 @@
 #include "SimpleSprite.h"
 #include "Vector2.h"
 class BaseWeapon;
+class Collider;
 
 /*========================================================================================
 	DamagingRegion	
@@ -26,8 +27,11 @@ class DamagingRegion : public SimpleSprite
     /*----------------------------------------------------------------------------------------
 		Instance Fields
     ----------------------------------------------------------------------------------------*/
-    private:
-		BaseWeapon* _weapon;
+    protected:
+		std::shared_ptr<Collider> m_collider;
+		int m_ownerId;
+		int m_damage;
+		bool m_destroyOnCollision;
 
     /*----------------------------------------------------------------------------------------
 		Resource Management
@@ -36,8 +40,18 @@ class DamagingRegion : public SimpleSprite
         /** Default constructor. */
 		explicit DamagingRegion() = delete;
 
-		explicit DamagingRegion(BaseWeapon* weapon, string imageName, float colliderWidth,
+		explicit DamagingRegion(string imageName, float colliderWidth,
 			float colliderHeight, float xPosition = 0, float yPosition = 0, float spriteScale = 1);
 
 		virtual ~DamagingRegion() {};
+		
+    /*----------------------------------------------------------------------------------------
+		Instance Methods
+    ----------------------------------------------------------------------------------------*/
+	public:
+		virtual void onUpdate(int ticks);
+
+	protected:
+		virtual void handleCollisions();
+		virtual void handleSingleCollision(GameObject* other);
 };

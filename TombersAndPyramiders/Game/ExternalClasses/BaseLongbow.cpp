@@ -55,7 +55,6 @@ void BaseLongbow::onStart()
 	Vector2 spawnPoint = getProjectileSpawnPoint();
 	Vector2 velocity = getProjectileVelocity();
 	GameManager::getInstance()->createGameObject<Projectile>(false, 
-															 this, 
 															 m_projectileImageName,
 															 LONGBOW_PROJECTILE_COLLIDER_WIDTH, LONGBOW_PROJECTILE_COLLIDER_HEIGHT,
 															 spawnPoint.getX(), spawnPoint.getY(),
