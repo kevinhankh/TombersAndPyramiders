@@ -41,6 +41,8 @@ class BaseWeapon : public BaseEquippableItem, public Updateable
 		Instance Methods
 	----------------------------------------------------------------------------------------*/
     public:
+		virtual void setOwnerId(int id) = 0;
+
 		/**
 			Uses the weapon.
 			This should be called every update that the controller gets input to use the weapon.

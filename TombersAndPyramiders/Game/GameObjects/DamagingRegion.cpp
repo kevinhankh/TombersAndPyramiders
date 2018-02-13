@@ -22,9 +22,8 @@
 ----------------------------------------------------------------------------------------*/
 DamagingRegion::DamagingRegion(string imageName, float colliderWidth, 
 	float colliderHeight, float xPosition, float yPosition, float spriteScale) :
-	SimpleSprite{ imageName, xPosition, yPosition, 0, spriteScale }, 
-	m_ownerId{ 0 }, 
-	m_damage{ 0 }, 
+	SimpleSprite{ imageName, xPosition, yPosition, 0, spriteScale },
+	m_damage{ 20 }, 
 	m_destroyOnCollision{ false }
 {
 	if (colliderWidth < 0)
@@ -46,6 +45,11 @@ DamagingRegion::DamagingRegion(string imageName, float colliderWidth,
 /*----------------------------------------------------------------------------------------
 	Instance Methods
 ----------------------------------------------------------------------------------------*/
+void DamagingRegion::setOwnerId(int id)
+{
+	m_ownerId = id;
+}
+
 void DamagingRegion::onUpdate(int ticks)
 {
 	handleCollisions();
@@ -53,11 +57,11 @@ void DamagingRegion::onUpdate(int ticks)
 
 void DamagingRegion::handleCollisions()
 {
-	if (m_collider != nullptr)
+	if (m_collider != nullptr && m_collider->collisionDetected())
 	{
-		for (auto& eachCollisionObject : m_collider->getColliders())
+		for (int i = 0; i < m_collider->getColliders().size(); i++)
 		{
-			handleSingleCollision(eachCollisionObject);
+			handleSingleCollision(m_collider->getColliders()[i]);
 		}
 	}
 }

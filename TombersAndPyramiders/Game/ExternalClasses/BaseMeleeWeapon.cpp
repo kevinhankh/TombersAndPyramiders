@@ -27,6 +27,11 @@ BaseMeleeWeapon::BaseMeleeWeapon(string imageName, float colliderWidth, float co
 /*----------------------------------------------------------------------------------------
 	Instance Methods
 ----------------------------------------------------------------------------------------*/
+void BaseMeleeWeapon::setOwnerId(int id)
+{
+	m_damagingRegion.setOwnerId(id);
+}
+
 void BaseMeleeWeapon::updatePosition()
 {
 	if (owner() != nullptr)

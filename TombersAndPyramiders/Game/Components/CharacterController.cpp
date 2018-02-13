@@ -125,5 +125,5 @@ void CharacterController::updateGreaves(int ticks)
 
 void CharacterController::death()
 {
-
+	destroy(gameObject->getId());
 }

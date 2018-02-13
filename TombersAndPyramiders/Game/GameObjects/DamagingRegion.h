@@ -49,6 +49,8 @@ class DamagingRegion : public SimpleSprite
 		Instance Methods
     ----------------------------------------------------------------------------------------*/
 	public:
+		virtual void setOwnerId(int id);
+
 		virtual void onUpdate(int ticks);
 
 	protected:

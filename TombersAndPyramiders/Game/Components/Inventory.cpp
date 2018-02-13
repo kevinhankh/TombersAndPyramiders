@@ -17,6 +17,7 @@
 #include "BaseHelmet.h"
 #include "BaseChestplate.h"
 #include "BaseGreaves.h"
+#include "GameObject.h"
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
@@ -69,6 +70,7 @@ BaseGreaves* Inventory::getGreaves()
 void Inventory::setWeapon(BaseWeapon* weapon)
 {
 	m_weapon = std::unique_ptr<BaseWeapon>(weapon);
+	m_weapon->setOwnerId(gameObject->getId());
 }
 
 void Inventory::setShield(BaseShield* shield)
