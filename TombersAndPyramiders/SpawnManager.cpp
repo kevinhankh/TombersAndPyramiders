@@ -17,19 +17,25 @@ std::shared_ptr<SpawnManager> SpawnManager::s_instance;
 void callback(std::map<std::string, void*> payload)
 {
 	SpawnManager* self = (SpawnManager*)payload["this"];
+	NetworkedGameScene* scene = new NetworkedGameScene ();
+	SceneManager::getInstance ()->pushScene (scene);
 
-	int p1IP = std::stoi (*(std::string*)payload["playerSpawnIP0"]);
-	float p1x = std::stof(*(std::string*)payload["playerSpawnX0"]);
-	float p1y = std::stof(*(std::string*)payload["playerSpawnY0"]);
+	int players = std::stoi (*(std::string*)payload["playerSpawns"]);
 
-	int p2IP = std::stoi (*(std::string*)payload["playerSpawnIP1"]);
-	float p2x = std::stof(*(std::string*)payload["playerSpawnX1"]);
-	float p2y = std::stof(*(std::string*)payload["playerSpawnY1"]);
+	int id = std::stoi (*(std::string*)payload["playerSpawnIP0"]);
+	float x = std::stof (*(std::string*)payload["playerSpawnX0"]);
+	float y = std::stof (*(std::string*)payload["playerSpawnY0"]);
 
-	std::cout << "IPC: " << p1IP << " - " << p2IP << std::endl;
+	SpawnManager::getInstance ()->generateNetworkCharacter (id, x, y);
 
-	SpawnManager::getInstance ()->generateNetworkCharacter (p1IP, p1x, p1y);
-	SpawnManager::getInstance ()->generatePlayerCharacter (p2IP, p2x, p2y);
+	for (auto i = 1; i < players; i++) {
+		id = std::stoi (*(std::string*)payload["playerSpawnIP" + std::to_string (i)]);
+		x = std::stof (*(std::string*)payload["playerSpawnX" + std::to_string (i)]);
+		y = std::stof (*(std::string*)payload["playerSpawnY" + std::to_string (i)]);
+		
+		scene->setCameraFollow (SpawnManager::getInstance ()->generatePlayerCharacter (id, x, y));
+	}
+
 
 }
 
@@ -37,27 +43,29 @@ void SpawnManager::sendStartPacket ()
 {
 	std::map<std::string, std::string> payload;
 
-	int p1IP = rand();
-	float p1x = -2;
-	float p1y = -2;
-	int p2IP = NetworkingManager::getInstance ()->m_clients.begin ()->first;
-	float p2x = 2;
-	float p2y = 2;
+	NetworkedGameScene* scene = new NetworkedGameScene ();
+	SceneManager::getInstance ()->pushScene (scene);
 
-	std::cout << "IPH: " << p1IP << " - " << p2IP << std::endl;
+	payload["playerSpawns"] = std::to_string (NetworkingManager::getInstance ()->m_clients.size() + 1);
 
-	payload["playerSpawnIP0"] = std::to_string (p1IP);
-	payload["playerSpawnX0"] = std::to_string (p1x);
-	payload["playerSpawnY0"] = std::to_string (p1y);
+	int id = rand (), x = 0, y = -2;
+	payload["playerSpawnIP0"] = std::to_string (id);
+	payload["playerSpawnX0"] = std::to_string (x);
+	payload["playerSpawnY0"] = std::to_string (y);
+	scene->setCameraFollow (SpawnManager::getInstance ()->generatePlayerCharacter (id, x, y));
 
-	payload["playerSpawnIP1"] = std::to_string (p2IP);
-	payload["playerSpawnX1"] = std::to_string (p2x);
-	payload["playerSpawnY1"] = std::to_string (p2y);
+	int i = 1;
+	for (auto it = NetworkingManager::getInstance ()->m_clients.begin (); it != NetworkingManager::getInstance ()->m_clients.end (); it++) {
+		id = it->first;
+		x = 2 * i;
+		y = 2;
+		payload["playerSpawnIP" + std::to_string(i)] = std::to_string (id);
+		payload["playerSpawnX" + std::to_string (i)] = std::to_string (x);
+		payload["playerSpawnY" + std::to_string (i)] = std::to_string (y);
+		SpawnManager::getInstance ()->generateNetworkCharacter (id, x, y);
+	}
 
 	NetworkingManager::getInstance ()->prepareMessageForSending ("STARTGAME", payload);
-
-	SpawnManager::getInstance ()->generatePlayerCharacter (p1IP, p1x, p1y);
-	SpawnManager::getInstance ()->generateNetworkCharacter (p2IP, p2x, p2y);
 }
 
 std::shared_ptr<SpawnManager> SpawnManager::getInstance()
