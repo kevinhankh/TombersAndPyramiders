@@ -330,6 +330,9 @@
     <ClCompile Include="Game\GameObjects\GameObjectTemplate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game\GameObjects\GameObjectTemplate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -591,6 +594,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\GameObjects\PlayerCharacter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObjects\GameObjectTemplate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\GameObjects\GameObjectTemplate.h">
