@@ -47,7 +47,6 @@ void PlayerPilot::onUpdate(int ticks)
 		m_characterController->move(getMovement());
 
 		/* TODO Make this read from the mouse position. */
-		m_characterController->getGameObject()->getTransform()->setRotation(getMovement().getRotationInDegrees());
 
 		if (getWeaponInput())
 		{

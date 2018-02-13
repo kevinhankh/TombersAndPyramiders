@@ -12,6 +12,7 @@
 #include <memory>
 #include <WoodenLongbow.h>
 #include "AudioManager.h"
+#include "GameManager.h"
 
 CharacterTestScene::CharacterTestScene()
 {
@@ -33,13 +34,15 @@ void CharacterTestScene::onStart()
 		}
 	}
 
-	SpawnManager::getInstance()->generateWall(0, 0, 10);
+	SpawnManager::getInstance()->generateWall(50, 0, 10);
+
+	//GameManager::getInstance()->createGameObject<SimpleSprite>(false, "LandingPage.png", 0, 0, 0, 42);
 
 	SpawnManager::getInstance()->generateWorldItem(-5, -5, std::make_shared<WoodenLongbow>());
 
 	SpawnManager::getInstance()->generateDummyCharacter(15, 15);
 
-	setCameraFollow(SpawnManager::getInstance()->generatePlayerCharacter(20, 20));
+	setCameraFollow(SpawnManager::getInstance()->generatePlayerCharacter(0, 0));
 }
 
 void CharacterTestScene::setCameraFollow(std::shared_ptr<GameObject> toFollow)
