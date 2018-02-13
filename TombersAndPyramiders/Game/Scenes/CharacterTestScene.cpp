@@ -22,8 +22,8 @@ void CharacterTestScene::onStart()
 {
 	Camera::getActiveCamera()->addComponent<CameraFollow>(Camera::getActiveCamera().get());
 
-	const int size = 50;
-	const int scale = 2;
+	const int size = 10;
+	const int scale = 5;
 
 	for (int x = -size; x < size; x++)
 	{
