@@ -18,7 +18,7 @@
 /*========================================================================================
 	BaseShield	
 ========================================================================================*/
-class BaseShield : public BaseEquippableItem, public Updateable
+class BaseShield : public BaseEquippableItem, public Updateable, public std::enable_shared_from_this<BaseShield>
 {
     /*----------------------------------------------------------------------------------------
 		Resource Management
@@ -33,8 +33,10 @@ class BaseShield : public BaseEquippableItem, public Updateable
 		Instance Methods
 	----------------------------------------------------------------------------------------*/
     public:
-		virtual void addToInventory(Inventory* inventory);
 		virtual void onStart() = 0;
 		virtual void onUpdate(int ticks) = 0;
 		virtual void onEnd() = 0;
+
+	protected:
+		std::shared_ptr<BaseItem> addSubclassToInventory();
 };

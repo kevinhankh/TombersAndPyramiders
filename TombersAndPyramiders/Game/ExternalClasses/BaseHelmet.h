@@ -17,7 +17,7 @@
 /*========================================================================================
 	BaseHelmet	
 ========================================================================================*/
-class BaseHelmet : public BaseEquippableItem
+class BaseHelmet : public BaseEquippableItem, public std::enable_shared_from_this<BaseHelmet>
 {
     /*----------------------------------------------------------------------------------------
 		Instance Fields
@@ -43,7 +43,8 @@ class BaseHelmet : public BaseEquippableItem
     public:
 		virtual int absorbHeadshot(int damage);
 
-		virtual void addToInventory(Inventory* inventory);
+	protected:
+		std::shared_ptr<BaseItem> addSubclassToInventory();
 
     private:
 		virtual void destroy();

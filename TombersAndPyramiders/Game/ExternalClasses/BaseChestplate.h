@@ -17,7 +17,7 @@
 /*========================================================================================
 	BaseChestplate	
 ========================================================================================*/
-class BaseChestplate : public BaseEquippableItem
+class BaseChestplate : public BaseEquippableItem, public std::enable_shared_from_this<BaseChestplate>
 {
     /*----------------------------------------------------------------------------------------
 		Instance Fields
@@ -48,10 +48,8 @@ class BaseChestplate : public BaseEquippableItem
 		*/
 		virtual int absorbDamage(int damage);
 
-		/**
-			Adds the chestplate to the given inventory.
-		*/
-		virtual void addToInventory(Inventory* inventory);
+	protected:
+		std::shared_ptr<BaseItem> addSubclassToInventory();
 
 	private:
 		/**

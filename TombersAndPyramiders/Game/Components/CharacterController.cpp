@@ -23,59 +23,52 @@
 #include "BaseShield.h"
 #include "BaseGreaves.h"
 #include "Rigidbody.h"
+#include "Character.h"
+#include "BaseMeleeWeapon.h"
+#include "BaseProjectileWeapon.h"
+#include "Collider.h"
+#include "SpawnManager.h"
 
 /*----------------------------------------------------------------------------------------
 	Static Fields
 ----------------------------------------------------------------------------------------*/
-const int CharacterController::DEFAULT_PLAYER_MAX_HP = 100;
-const Vector2 CharacterController::DEFAULT_PLAYER_MOVEMENT_SPEED = Vector2(0.25, 0.25);
+const int CharacterController::DEFAULT_CHARACTER_MAX_HP = 100;
+const Vector2 CharacterController::DEFAULT_CHARACTER_MOVEMENT_SPEED = Vector2(0.25, 0.25);
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-CharacterController::CharacterController(GameObject* gameObject, BasePilot* pilot, int maxHealth, 
-	Vector2 movementSpeed) :
-	BaseController(gameObject, pilot), Damageable(maxHealth), 
-	m_movementSpeed{ movementSpeed }, 
-	m_wasUsingWeapon{ false }, m_wasUsingShield{ false }, m_wasUsingGreaves{ false },
-	m_isUsingWeapon{ false }, m_isUsingShield{ false }, m_isUsingGreaves{ false }
+CharacterController::CharacterController(GameObject* parentGameobject, Inventory* inventory,
+										 BasePilot* pilot, int maxHealth, Vector2 movementSpeed) :
+	BaseController(parentGameobject, pilot), Damageable(maxHealth),
+	m_inventory{ inventory },
+	m_movementSpeed{ movementSpeed }
 {
-	m_boxCollider = new BoxCollider(gameObject, 1, 1);
-	gameObject->addComponent<BoxCollider*>(m_boxCollider);
+	if (m_inventory == nullptr)
+	{
+		throw std::invalid_argument("CharacterController::CharacterController(): m_inventory cannot be null.");
+	}
 
-	//m_circleCollider = new CircleCollider(gameObject, 1);
-	//gameObject->addComponent<CircleCollider*>(m_circleCollider);
-
-	m_rigidbody = new Rigidbody(gameObject, m_boxCollider);
-	gameObject->addComponent<Rigidbody*>(m_rigidbody);
-}
-
-
-/*----------------------------------------------------------------------------------------
-	Instance Setter Methods
-----------------------------------------------------------------------------------------*/
-void CharacterController::setIsUsingWeapon(bool isUsingWeapon)
-{
-	m_wasUsingWeapon = m_isUsingWeapon;
-	m_isUsingWeapon = isUsingWeapon;
-
-}
-
-void CharacterController::setIsUsingShield(bool isUsingShield)
-{
-	m_wasUsingShield = m_isUsingShield;
-	m_isUsingShield = isUsingShield;
-}
-
-void CharacterController::setIsUsingGreaves(bool isUsingGreaves)
-{
-	m_wasUsingGreaves = m_isUsingGreaves;
-	m_isUsingGreaves = isUsingGreaves;
+	Character* character = dynamic_cast<Character*>(gameObject);
+	if (character != nullptr)
+	{
+		m_character = std::shared_ptr<Character>(character);
+	}
+	m_boxCollider = gameObject->addComponent<BoxCollider>(gameObject, 1, 1);
+	//m_boxCollider = gameObject->addComponent<BoxCollider>(gameObject, gameObject->getTransform()->getScale(), gameObject->getTransform()->getScale());
+	m_rigidbody = gameObject->addComponent<Rigidbody>(gameObject, m_boxCollider.get());
 }
 
 /*----------------------------------------------------------------------------------------
 	Instance Methods
 ----------------------------------------------------------------------------------------*/
+void CharacterController::onStart()
+{
+	//m_boxCollider = gameObject->addComponent<BoxCollider>(gameObject, 10, 10);
+	//m_boxCollider = gameObject->addComponent<BoxCollider>(gameObject, gameObject->getTransform()->getScale(), gameObject->getTransform()->getScale());
+	//m_rigidbody = gameObject->addComponent<Rigidbody>(gameObject, m_boxCollider.get());
+}
+
 void CharacterController::onUpdate(int ticks)
 {
 	m_pilot.get()->onUpdate(ticks);
@@ -91,95 +84,84 @@ void CharacterController::move(Vector2 delta)
 	delta.setX(delta.getX() * m_movementSpeed.getX());
 	delta.setY(delta.getY() * m_movementSpeed.getY());
 
+	if (delta.getMagnitude() == 0)
+	{
+		m_character->endRunAnimation();
+	} else 
+	{
+		m_character->playRunAnimation();
+		//gameObject->getTransform()->setRotation(delta.getRotationInDegrees());
+	}
+
 	gameObject->getTransform()->addTranslation(delta.getX(), delta.getY());
-
 	m_rigidbody->setVelocity(delta);
-	//m_rigidbody->BlockMovement(delta);
+}
 
+void CharacterController::useWeapon()
+{
+	std::shared_ptr<BaseWeapon> weapon = m_inventory->getWeapon();
+	if (weapon != nullptr)
+	{
+		weapon->use(); //What if this returned a bool for whether the attack fired or not? So the rest didn't fire for just trying to call useWeapon and let us let weapons determine then things likecooldown
+		//m_inventory->getWeapon()->use();
+		 
+		//dynamic_cast<BaseMeleeWeapon>(weapon);
+		m_character->playMeleeAttackAnimation();
+	}
 }
 
 void CharacterController::updateWeapon(int ticks)
-{	
-	/* If the weapon was in use last frame... */
-	if (m_wasUsingWeapon)
+{
+	if (m_inventory->getWeapon() != nullptr)
 	{
-		/* ...and it is still in use, update use. */
-		if (m_isUsingWeapon)
-		{
-			gameObject->getComponent<Inventory*>()->getWeapon().onUpdate(ticks);
-		}
-		/* ...and it is no longer in use, end use. */
-		else
-		{
-			gameObject->getComponent<Inventory*>()->getWeapon().onEnd();
-		}
-	}
-	/* If the weapon was not in use last frame... */
-	else
-	{
-		/* ...and it is in use this frame, start use. */
-		if (m_isUsingWeapon)
-		{
-			gameObject->getComponent<Inventory*>()->getWeapon().onStart();
-		}
+		m_inventory->getWeapon()->onUpdate(ticks);
 	}
 }
 
 void CharacterController::updateShield(int ticks)
 {
-	/* If the shield was in use last frame... */
-	if (m_wasUsingShield)
+	if (m_inventory->getShield() != nullptr)
 	{
-		/* ...and it is still in use, update use. */
-		if (m_isUsingShield)
-		{
-			gameObject->getComponent<Inventory*>()->getShield().onUpdate(ticks);
-		}
-		/* ...and it is no longer in use, end use. */
-		else
-		{
-			gameObject->getComponent<Inventory*>()->getShield().onEnd();
-		}
-	}
-	/* If the shield was not in use last frame... */
-	else
-	{
-		/* ...and it is in use this frame, start use. */
-		if (m_isUsingShield)
-		{
-			gameObject->getComponent<Inventory*>()->getShield().onStart();
-		}
+		m_inventory->getShield()->onUpdate(ticks);
 	}
 }
 
 void CharacterController::updateGreaves(int ticks)
 {
-	/* If the greaves were in use last frame... */
-	if (m_wasUsingWeapon)
+	if (m_inventory->getGreaves() != nullptr)
 	{
-		/* ...and they are still in use, update use. */
-		if (m_isUsingWeapon)
-		{
-			gameObject->getComponent<Inventory*>()->getWeapon().onUpdate(ticks);
-		}
-		/* ...and they are no longer in use, end use. */
-		else
-		{
-			gameObject->getComponent<Inventory*>()->getWeapon().onEnd();
-		}
-	}
-	/* If the greaves were not in use last frame... */
-	else
-	{
-		/* ...and they are in use this frame, start use. */
-		if (m_isUsingWeapon)
-		{
-			gameObject->getComponent<Inventory*>()->getWeapon().onStart();
-		}
+		m_inventory->getGreaves()->onUpdate(ticks);
 	}
 }
 
 void CharacterController::death()
 {
 
+}
+
+std::shared_ptr<WorldItem> CharacterController::trySwapItem()
+{
+	std::shared_ptr<Collider> myCollider = gameObject->getComponent<Collider>();
+	if (myCollider != nullptr && myCollider->collisionDetected()) {
+		std::vector<GameObject*> collidedObjects = myCollider->getColliders();
+		for (int i = 0; i < collidedObjects.size(); i++)
+		{
+			WorldItem* worldItem = dynamic_cast<WorldItem*>(collidedObjects[i]);
+			float oldX = worldItem->getTransform()->getX();
+			float oldY = worldItem->getTransform()->getY();
+
+			if (worldItem != nullptr) 
+			{
+				std::shared_ptr<BaseItem> extractedItem = worldItem->pickupItem();
+
+				std::shared_ptr<BaseItem> removedItem = m_inventory->addItem(extractedItem);
+				if (removedItem != nullptr) {
+					return SpawnManager::getInstance()->generateWorldItem(oldX, oldY, removedItem);
+				}
+
+				break;
+			}
+		}
+	}
+	return nullptr;
 }

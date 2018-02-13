@@ -18,7 +18,7 @@
 /*========================================================================================
 	BaseGreaves	
 ========================================================================================*/
-class BaseGreaves : public BaseEquippableItem, public Updateable
+class BaseGreaves : public BaseEquippableItem, public Updateable, public std::enable_shared_from_this<BaseGreaves>
 
 {
     /*----------------------------------------------------------------------------------------
@@ -34,8 +34,10 @@ class BaseGreaves : public BaseEquippableItem, public Updateable
 		Instance Methods
 	----------------------------------------------------------------------------------------*/
     public:
-		virtual void addToInventory(Inventory* inventory);
 		virtual void onStart() = 0;
 		virtual void onUpdate(int ticks) = 0;
 		virtual void onEnd() = 0;
+
+	protected:
+		std::shared_ptr<BaseItem> addSubclassToInventory();
 };

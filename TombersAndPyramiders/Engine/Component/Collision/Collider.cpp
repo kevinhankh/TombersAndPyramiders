@@ -86,13 +86,6 @@ void Collider::setRadius(float radius)
 	m_radius = radius;
 }
 */
-Transform * Collider::getTransform()
-{
-	if (m_transform == nullptr) {
-		m_transform = gameObject->getTransform();
-	}
-	return m_transform;
-}
 
 Collider::~Collider()
 {

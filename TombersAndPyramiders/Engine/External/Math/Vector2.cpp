@@ -148,24 +148,21 @@ void Vector2::rotateVector(float radians)
 	m_y = tempSin * m_x + tempCos * m_y;
 }
 
-/*ignore but dont delete
-
-float Vector::getRotation() {
-	if (_x > 0 && _y > 0) {
-		_rotation = atan(_y / _x);
+float Vector2::getRotationInDegrees() {
+	if (m_x > 0 && m_y <= 0) {
+		m_rotation = atan(-m_y / m_x);
 	}
-	else if (_x < 0 && _y > 0) {
-		_rotation = atan(-_x / _y) + M_PI / 2;
+	else if (m_x <= 0 && m_y < 0) {
+		m_rotation = atan(-m_x / -m_y) + M_PI / 2;
 	}
-	else if (_x < 0 && _y < 0){
-		_rotation = atan(_y / _x) + M_PI;
+	else if (m_x < 0 && m_y >= 0){
+		m_rotation = atan(-m_y / m_x) + M_PI;
 	}
-	else if (_x > 0 && _y < 0) {
-		_rotation = atan(_x / -_y) + 3 * M_PI / 2;
+	else if (m_x >= 0 && m_y > 0) {
+		m_rotation = atan(m_x / m_y) + 3 * M_PI / 2;
 	}
 	else {
-		_rotation = 0;
+		m_rotation = 0;
 	}
-	return _rotation;
+	return (m_rotation * 180 / M_PI);
 }
-*/

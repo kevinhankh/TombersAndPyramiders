@@ -7,7 +7,7 @@ class BoxCollider : public Collider {
 private:
 	float m_width, m_height;
 public:
-	BoxCollider(GameObject* gameObject, float width, float height);
+	BoxCollider(GameObject* parentGameObject, float width, float height);
 	float getWidth();
 	float getHeight();
 	void setWidth(float width);

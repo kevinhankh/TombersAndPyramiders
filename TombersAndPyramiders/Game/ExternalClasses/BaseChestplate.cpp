@@ -59,9 +59,9 @@ int BaseChestplate::absorbDamage(int damage)
 	return (damage - absorbed);
 }
 
-void BaseChestplate::addToInventory(Inventory* inventory)
+std::shared_ptr<BaseItem> BaseChestplate::addSubclassToInventory()
 {
-	inventory->setChestplate(this);
+	return m_inventory->setChestplate(shared_from_this());
 }
 
 void BaseChestplate::destroy()

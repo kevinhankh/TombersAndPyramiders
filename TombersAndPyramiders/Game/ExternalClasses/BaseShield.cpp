@@ -16,7 +16,7 @@
 /*----------------------------------------------------------------------------------------
 	Instance Methods
 ----------------------------------------------------------------------------------------*/
-void BaseShield::addToInventory(Inventory* inventory)
+std::shared_ptr<BaseItem> BaseShield::addSubclassToInventory()
 {
-	inventory->setShield(this);
+	return m_inventory->setShield(shared_from_this());
 }
