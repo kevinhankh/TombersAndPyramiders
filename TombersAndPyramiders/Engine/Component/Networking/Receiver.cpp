@@ -40,10 +40,10 @@ Receiver::Receiver(GameObject* gameObject, std::string netID) : Component(gameOb
 		transform->setScale(scale);
 	}, this);
 
-	this->m_onUpdateID = Subscribe("ATTACK", [](std::map<std::string, void*> data) -> void
+	/*this->m_onUpdateID = Subscribe("ATTACK", [](std::map<std::string, void*> data) -> void
 	{
 
-	}, this);
+	}, this);*/
 
 	/*this->DestroySnowballID = Subscribe("DESTROYSNOWBALL", [](std::map<std::string, void*> data) -> void
 	{

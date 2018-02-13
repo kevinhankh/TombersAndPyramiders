@@ -53,8 +53,7 @@ void Sender::spawnPlayers(float p1x, float p1y, float p2x, float p2y)
 void Sender::sendAttack()
 {
 	std::map<std::string, std::string> payload;
-	//payload attack
-	//sendNetworkMessage("ATTACK", payload;)
+	sendNetworkMessage("ATTACK", payload);
 }
 
 void Sender::sendNetworkMessage(std::string messageKey, std::map<std::string, std::string> payload)

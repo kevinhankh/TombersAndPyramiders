@@ -21,7 +21,7 @@ private:
 	----------------------------------------------------------------------------------------*/
 public:
 	/** Default constructor. */
-	explicit HostCharacter(BasePilot* basePilot);
+	explicit HostCharacter(BasePilot* basePilot, int networkingID);
 
 	/*----------------------------------------------------------------------------------------
 	Instance Getter Methods

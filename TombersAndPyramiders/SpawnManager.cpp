@@ -105,7 +105,7 @@ std	::shared_ptr<MovingSquare> SpawnManager::generateMovingSquare(float x, float
 std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(Uint32 ip, float x, float y)
 {
 	int id = ip;
-	std::shared_ptr<ClientCharacter> simpleCharacter = GameManager::getInstance()->createGameObjectWithId<ClientCharacter>(false, id, new PlayerPilot());
+	std::shared_ptr<ClientCharacter> simpleCharacter = GameManager::getInstance()->createGameObjectWithId<ClientCharacter>(false, id, new PlayerPilot(), id);
 	simpleCharacter->getComponent<Inventory>()->addItem(new WoodenLongbow());
 	simpleCharacter->getTransform()->setPosition(x, y, 100);
 
@@ -115,7 +115,7 @@ std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(Uint32 ip
 std::shared_ptr<HostCharacter> SpawnManager::generateNetworkCharacter(Uint32 ip, float x, float y)
 {
 	int id = ip;
-	std::shared_ptr<HostCharacter> simpleCharacter = GameManager::getInstance()->createGameObjectWithId<HostCharacter>(false, id, new HostPilot ());
+	std::shared_ptr<HostCharacter> simpleCharacter = GameManager::getInstance()->createGameObjectWithId<HostCharacter>(false, id, new HostPilot (), id);
 	simpleCharacter->getComponent<Inventory>()->addItem(new WoodenLongbow());
 	simpleCharacter->getTransform()->setPosition(x, y, 100);
 	return simpleCharacter;

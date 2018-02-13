@@ -23,7 +23,7 @@ private:
 	----------------------------------------------------------------------------------------*/
 public:
 	/** Default constructor. */
-	explicit ClientCharacter(BasePilot* basePilot);
+	explicit ClientCharacter(BasePilot* basePilot, int networkingID);
 
 	/*----------------------------------------------------------------------------------------
 	Instance Getter Methods
