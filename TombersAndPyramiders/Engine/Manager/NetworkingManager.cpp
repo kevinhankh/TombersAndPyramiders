@@ -276,7 +276,7 @@ void NetworkingManager::pollMessagesThread(Uint32 ip)
 	char msg[MAXLEN];
 
 	while (m_socket != NULL)
-	{ //replace with on connection lost
+	{ 
 		if (m_clients.find(ip) != m_clients.end())
 			result = SDLNet_TCP_Recv(m_clients[ip], msg, MAXLEN);
 		else if (m_socket != NULL)
