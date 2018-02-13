@@ -22,4 +22,6 @@ const std::string WoodenLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME = "IceTile
 ----------------------------------------------------------------------------------------*/
 WoodenLongbow::WoodenLongbow() :
 	BaseLongbow{ WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME }
-{}
+{
+	m_itemIcon = "WoodenLongbow.png";
+}

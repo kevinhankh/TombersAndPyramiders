@@ -25,6 +25,8 @@
 #include "Character.h"
 #include "BaseMeleeWeapon.h"
 #include "BaseProjectileWeapon.h"
+#include "Collider.h"
+#include "SpawnManager.h"
 
 /*----------------------------------------------------------------------------------------
 	Static Fields
@@ -84,9 +86,9 @@ void CharacterController::move(Vector2 delta)
 
 void CharacterController::useWeapon()
 {
-	if (m_inventory->getWeapon() != nullptr)
+	std::shared_ptr<BaseWeapon> weapon = m_inventory->getWeapon();
+	if (weapon != nullptr)
 	{
-		BaseWeapon* weapon = m_inventory->getWeapon();
 		weapon->use(); //What if this returned a bool for whether the attack fired or not? So the rest didn't fire for just trying to call useWeapon and let us let weapons determine then things likecooldown
 		//m_inventory->getWeapon()->use();
 		 
@@ -122,4 +124,31 @@ void CharacterController::updateGreaves(int ticks)
 void CharacterController::death()
 {
 
+}
+
+std::shared_ptr<WorldItem> CharacterController::trySwapItem()
+{
+	std::shared_ptr<Collider> myCollider = gameObject->getComponent<Collider>();
+	if (myCollider != nullptr && myCollider->collisionDetected()) {
+		std::vector<GameObject*> collidedObjects = myCollider->getColliders();
+		for (int i = 0; i < collidedObjects.size(); i++)
+		{
+			WorldItem* worldItem = dynamic_cast<WorldItem*>(collidedObjects[i]);
+			float oldX = worldItem->getTransform()->getX();
+			float oldY = worldItem->getTransform()->getY();
+
+			if (worldItem != nullptr) 
+			{
+				std::shared_ptr<BaseItem> extractedItem = worldItem->pickupItem();
+
+				std::shared_ptr<BaseItem> removedItem = m_inventory->addItem(extractedItem);
+				if (removedItem != nullptr) {
+					return SpawnManager::getInstance()->generateWorldItem(oldX, oldY, removedItem);
+				}
+
+				break;
+			}
+		}
+	}
+	return nullptr;
 }

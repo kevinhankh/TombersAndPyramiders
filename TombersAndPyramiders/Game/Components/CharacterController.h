@@ -16,6 +16,7 @@
 #include "Damageable.h"
 #include "Vector2.h"
 #include "BasePilot.h"
+#include "WorldItem.h"
 class Inventory;
 
 /*========================================================================================
@@ -68,6 +69,13 @@ class CharacterController : public BaseController, public Damageable
 			Uses the character's weapon this frame.
 		*/
 		void useWeapon();
+
+
+		/**
+			Picks up the given WorldItem, extracting its BaseItem and equiping it. Returns the item we put down that was previously equipped, or nullptr if none were equipped prior.
+			If no item to pickup, it also returns nullptr, as its a failure to swap
+		*/
+		std::shared_ptr<WorldItem> trySwapItem();
 	
 	private:
 		/**

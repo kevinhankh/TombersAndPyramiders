@@ -23,8 +23,8 @@ Character::Character(BasePilot* basePilot) :
 	ComplexSprite(generateComplexSpriteInfo(), 0, 0)
 {
 	setFPS(12);
-	addComponent<Inventory>(this);
-	addComponent<CharacterController>(this, getComponent<Inventory>().get(), basePilot);
+	Inventory* inventory = addComponent<Inventory>(this).get();
+	addComponent<CharacterController>(this, inventory, basePilot);
 }
 
 /*----------------------------------------------------------------------------------------

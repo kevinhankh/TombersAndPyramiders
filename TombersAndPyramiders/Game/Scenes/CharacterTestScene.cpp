@@ -9,6 +9,8 @@
 #include "MiscSquare.h"
 #include <vector>
 #include "SpawnManager.h"
+#include <memory>
+#include <WoodenLongbow.h>
 
 std::shared_ptr<Character> player = nullptr;
 
@@ -20,7 +22,7 @@ void CharacterTestScene::onStart()
 {
 	Camera::getActiveCamera()->addComponent<CameraFollow>(Camera::getActiveCamera().get());
 
-	const int size = 5;
+	const int size = 50;
 	const int scale = 2;
 
 	for (int x = -size; x < size; x++)
@@ -33,6 +35,8 @@ void CharacterTestScene::onStart()
 
 
 	player = SpawnManager::getInstance()->generatePlayerCharacter(15, 5);
+
+	SpawnManager::getInstance()->generateWorldItem(-5, -5, std::make_shared<WoodenLongbow>());
 
 	setCameraFollow(player);
 }

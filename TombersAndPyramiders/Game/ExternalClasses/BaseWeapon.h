@@ -19,7 +19,7 @@
 /*========================================================================================
 	BaseWeapon	
 ========================================================================================*/
-class BaseWeapon : public BaseEquippableItem, public Updateable
+class BaseWeapon : public BaseEquippableItem, public Updateable, public std::enable_shared_from_this<BaseWeapon>
 {
     /*----------------------------------------------------------------------------------------
 		Instance Fields
@@ -69,5 +69,5 @@ class BaseWeapon : public BaseEquippableItem, public Updateable
 		virtual void onEnd() = 0;
 
 	protected:
-		void addSubclassToInventory();
+		std::shared_ptr<BaseItem> addSubclassToInventory();
 };
