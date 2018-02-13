@@ -23,7 +23,7 @@ public:
 	std::shared_ptr<MovingSquare> generateMovingSquare(float x, float y);
 
 	//Networking test
-	std::shared_ptr<Character> generateNetworkCharacter(Uint32 ip, float x, float y);
+	std::shared_ptr<NetworkCharacter> generateNetworkCharacter(Uint32 ip, float x, float y);
 
 	std::shared_ptr<Character> generatePlayerCharacter(float x, float y);
 	void sendStartPacket ();
