@@ -15,6 +15,14 @@ std::shared_ptr<Character> player2;
 
 NetworkedGameScene::NetworkedGameScene(float hostX, float hostY, Uint32 guestIP, float guestX, float guestY)
 {
+	for (int x = -10; x < 10; x++)
+	{
+		for (int y = -10; y < 10; y++)
+		{
+			SpawnManager::getInstance ()->generateMiscSquare (x * 2, y * 2, 2);
+		}
+	}
+
 	if (NetworkingManager::getInstance()->isHost())
 	{
 		player = SpawnManager::getInstance()->generatePlayerCharacter(hostX, hostY);
@@ -36,14 +44,6 @@ void NetworkedGameScene::setCameraFollow(std::shared_ptr<GameObject> toFollow)
 void NetworkedGameScene::onStart()
 {
 	Camera::getActiveCamera()->addComponent<CameraFollow>(Camera::getActiveCamera().get());
-
-	for (int x = -10; x < 10; x++)
-	{
-		for (int y = -10; y < 10; y++)
-		{
-			SpawnManager::getInstance()->generateMiscSquare(x * 2, y * 2, 2);
-		}
-	}
 }
 
 void NetworkedGameScene::onPause()

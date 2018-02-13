@@ -16,8 +16,8 @@ void callback(std::map<std::string, void*> payload)
 {
 	SpawnManager* self = (SpawnManager*)payload["this"];
 
-	float p1x = std::stof(*(std::string*)payload["playerSpawnX"]);
-	float p1y = std::stof(*(std::string*)payload["playerSpawnY"]);
+	float p1x = std::stof(*(std::string*)payload["playerSpawnX0"]);
+	float p1y = std::stof(*(std::string*)payload["playerSpawnY0"]);
 	float p2IP = std::stof (*(std::string*)payload["playerSpawnIP1"]);
 	std::cout << "IP" << p2IP << std::endl;
 	float p2x = std::stof(*(std::string*)payload["playerSpawnX1"]);
