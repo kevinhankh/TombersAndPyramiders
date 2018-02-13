@@ -5,6 +5,8 @@
 #include "MovingSquare.h"
 #include "NetworkCharacter.h"
 #include "Character.h"
+#include "HostCharacter.h"
+#include "ClientCharacter.h"
 
 class SpawnManager : public GameObject
 {
@@ -13,9 +15,6 @@ private:
 	//GameObject* mGameObj;
 
 
-	//Networking test
-	std::vector<std::shared_ptr<NetworkCharacter>> networkCharacters;
-
 public:
 	SpawnManager ();
 	~SpawnManager ();
@@ -23,9 +22,9 @@ public:
 	std::shared_ptr<MovingSquare> generateMovingSquare(float x, float y);
 
 	//Networking test
-	std::shared_ptr<Character> generateNetworkCharacter(Uint32 ip, float x, float y);
+	std::shared_ptr<HostCharacter> generateNetworkCharacter(Uint32 ip, float x, float y);
 
-	std::shared_ptr<Character> generatePlayerCharacter(float x, float y);
+	std::shared_ptr<ClientCharacter> generatePlayerCharacter(float x, float y);
 	void sendStartPacket ();
 
 	static std::shared_ptr<SpawnManager> getInstance();

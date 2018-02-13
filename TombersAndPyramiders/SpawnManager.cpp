@@ -9,6 +9,7 @@
 #include "Sender.h"
 #include "NetworkingManager.h"
 #include "NetworkedGameScene.h"
+#include "NetworkCharacter.h"
 
 std::shared_ptr<SpawnManager> SpawnManager::s_instance;
 
@@ -23,7 +24,14 @@ void callback(std::map<std::string, void*> payload)
 	float p2x = std::stof(*(std::string*)payload["playerSpawnX1"]);
 	float p2y = std::stof(*(std::string*)payload["playerSpawnY1"]);
 
-	SceneManager::getInstance ()->pushScene (new NetworkedGameScene (p1x, p1y, (Uint32)p2IP, p2x, p2y));
+	if (NetworkingManager::getInstance ()->isHost ())
+	{
+	}
+	else {
+		SpawnManager::getInstance ()->generateNetworkCharacter (p2IP, p1x, p2x);
+		SpawnManager::getInstance ()->generatePlayerCharacter (p2x, p2y);
+	}
+
 }
 
 void SpawnManager::sendStartPacket ()
@@ -44,7 +52,10 @@ void SpawnManager::sendStartPacket ()
 	payload["playerSpawnY1"] = std::to_string (p2y);
 
 	NetworkingManager::getInstance ()->prepareMessageForSending ("STARTGAME", payload);
-	SceneManager::getInstance ()->pushScene (new NetworkedGameScene (p1x, p1y, (Uint32)p2IP, p2x, p2y));
+	SceneManager::getInstance ()->pushScene (new NetworkedGameScene ());
+
+	SpawnManager::getInstance ()->generatePlayerCharacter (p1x, p1y);
+	SpawnManager::getInstance ()->generateNetworkCharacter (p2IP, p2x, p2y);
 }
 
 std::shared_ptr<SpawnManager> SpawnManager::getInstance()
@@ -81,19 +92,19 @@ std	::shared_ptr<MovingSquare> SpawnManager::generateMovingSquare(float x, float
 	return movingSquare;
 }
 
-std::shared_ptr<Character> SpawnManager::generatePlayerCharacter(float x, float y)
+std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(float x, float y)
 {
-	std::shared_ptr<Character> simpleCharacter = GameManager::getInstance()->createGameObject<Character>(false, new PlayerPilot());
+	std::shared_ptr<ClientCharacter> simpleCharacter = GameManager::getInstance()->createGameObject<ClientCharacter>(false, new PlayerPilot());
 	simpleCharacter->getComponent<Inventory>()->addItem(new WoodenLongbow());
 	simpleCharacter->getTransform()->setPosition(x, y);
 
 	return simpleCharacter;
 }
 
-std::shared_ptr<Character> SpawnManager::generateNetworkCharacter(Uint32 ip, float x, float y)
+std::shared_ptr<HostCharacter> SpawnManager::generateNetworkCharacter(Uint32 ip, float x, float y)
 {
 	int id = ip;
-	std::shared_ptr<Character> simpleCharacter = GameManager::getInstance()->createGameObjectWithId<Character>(false, id, nullptr);
+	std::shared_ptr<HostCharacter> simpleCharacter = GameManager::getInstance()->createGameObjectWithId<HostCharacter>(false, id, new PlayerPilot ());
 	simpleCharacter->getComponent<Inventory>()->addItem(new WoodenLongbow());
 	simpleCharacter->getTransform()->setPosition(x, y);
 	return simpleCharacter;

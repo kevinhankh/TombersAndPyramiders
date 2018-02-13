@@ -1,15 +1,15 @@
-#include "NetworkCharacter.h"
+#include "ClientCharacter.h"
 #include "CharacterController.h"
 #include "Inventory.h"
-#include "Receiver.h"
+#include "Sender.h"
 
-NetworkCharacter::NetworkCharacter(BasePilot* basePilot) :
+ClientCharacter::ClientCharacter(BasePilot* basePilot) :
 	Character(basePilot)
 {
 	setFPS(12);
 	addComponent<Inventory>(this);
 	addComponent<CharacterController>(this, getComponent<Inventory>().get(), basePilot);
-	addComponent<Receiver>(this, std::to_string(this->getId()));
+	addComponent<Sender>(this, std::to_string(this->getId()));
 }
 
 /*----------------------------------------------------------------------------------------
@@ -25,13 +25,13 @@ Instance Setter Methods
 /*----------------------------------------------------------------------------------------
 Instance Methods
 ----------------------------------------------------------------------------------------*/
-void NetworkCharacter::onUpdate(int ticks)
+void ClientCharacter::onUpdate(int ticks)
 {
 	updateFrames(ticks);
 }
 
 // Private generation logic for describing the sprite sheet relationships for this player
-std::shared_ptr<ComplexSpriteinfo> NetworkCharacter::generateComplexSpriteInfo()
+std::shared_ptr<ComplexSpriteinfo> ClientCharacter::generateComplexSpriteInfo()
 {
 	std::shared_ptr<ComplexSpriteinfo> spriteInfo = std::make_shared<ComplexSpriteinfo>();
 
@@ -44,28 +44,28 @@ std::shared_ptr<ComplexSpriteinfo> NetworkCharacter::generateComplexSpriteInfo()
 }
 
 // Changes the sprite animation to running
-void NetworkCharacter::playRunAnimation()
+void ClientCharacter::playRunAnimation()
 {
 	changeSprite(ANIMATION_RUN);
 }
 
 
 // Changes the sprite animation to idling
-void NetworkCharacter::endRunAnimation()
+void ClientCharacter::endRunAnimation()
 {
 	changeSprite(ANIMATION_IDLE);
 }
 
 
 // Changes the sprite animation to the melee attack for one animation then returns back to idle
-void NetworkCharacter::playMeleeAttackAnimation()
+void ClientCharacter::playMeleeAttackAnimation()
 {
 	changeSprite(ANIMATION_ATTACK_MELEE, ANIMATION_IDLE);
 }
 
 
 // Changes the sprite animation to the range attack for one animation then returns back to idle
-void NetworkCharacter::playRangeAttackAnimation()
+void ClientCharacter::playRangeAttackAnimation()
 {
 	changeSprite(ANIMATION_ATTACK_RANGE, ANIMATION_IDLE);
 }

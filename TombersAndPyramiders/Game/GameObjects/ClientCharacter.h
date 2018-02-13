@@ -10,7 +10,7 @@
 #define ANIMATION_ATTACK_MELEE 2
 #define ANIMATION_ATTACK_RANGE 2
 
-class NetworkCharacter : public Character
+class ClientCharacter : public Character
 {
 	/*----------------------------------------------------------------------------------------
 	Instance Fields
@@ -23,7 +23,7 @@ private:
 	----------------------------------------------------------------------------------------*/
 public:
 	/** Default constructor. */
-	explicit NetworkCharacter(BasePilot* basePilot);
+	explicit ClientCharacter(BasePilot* basePilot);
 
 	/*----------------------------------------------------------------------------------------
 	Instance Getter Methods

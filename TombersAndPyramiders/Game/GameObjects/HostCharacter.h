@@ -1,5 +1,3 @@
-
-
 #pragma once
 #include "ComplexSprite.h"
 #include "BasePilot.h"
@@ -10,7 +8,7 @@
 #define ANIMATION_ATTACK_MELEE 2
 #define ANIMATION_ATTACK_RANGE 2
 
-class NetworkCharacter : public Character
+class HostCharacter : public Character
 {
 	/*----------------------------------------------------------------------------------------
 	Instance Fields
@@ -23,7 +21,7 @@ private:
 	----------------------------------------------------------------------------------------*/
 public:
 	/** Default constructor. */
-	explicit NetworkCharacter(BasePilot* basePilot);
+	explicit HostCharacter(BasePilot* basePilot);
 
 	/*----------------------------------------------------------------------------------------
 	Instance Getter Methods

@@ -1,5 +1,7 @@
 #include "NetworkingManager.h"
 #include "MessageManager.h"
+#include "SceneManager.h"
+#include "NetworkedGameScene.h"
 
 NetworkingManager* NetworkingManager::s_instance;
 
@@ -56,6 +58,8 @@ bool NetworkingManager::startGame() {
 bool NetworkingManager::startGameClient() {
 	if (isHost() || !inLobby || gameStarted)
 		return false;
+
+	SceneManager::getInstance ()->pushScene (new NetworkedGameScene ());
 
 	inLobby = false;
 	gameStarted = true;
