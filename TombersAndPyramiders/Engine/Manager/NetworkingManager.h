@@ -30,7 +30,6 @@ private:
 	char *IP = DEFAULT_IP;
 	int m_port = DEFAULT_PORT;
 
-	std::map<Uint32, TCPsocket> m_clients;
 
 	UDPpacket *m_udpPacket;
 	UDPpacket m_udpReceivedPacket;
@@ -49,6 +48,7 @@ private:
 	void sendEventToReceiver(std::map<std::string, void*> data);
 
 public:
+	std::map<Uint32, TCPsocket> m_clients;
 	void listenForStart();
 	void stopListeningForStart();
 	void sendStartPacket();

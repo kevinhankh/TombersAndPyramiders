@@ -15,8 +15,6 @@
 #include "MessageManager.h"
 #include "NetworkedGameScene.h"
 
-std::shared_ptr<Character> player = nullptr;
-
 CharacterTestScene::CharacterTestScene ()
 {
 }
@@ -68,12 +66,6 @@ void CharacterTestScene::onUpdate (int ticks)
 			SpawnManager::getInstance ()->sendStartPacket ();
 		}
 	}
-}
-
-void CharacterTestScene::spawnPlayer(int x, int y)
-{
-	player = SpawnManager::getInstance()->generatePlayerCharacter(x, y);
-	setCameraFollow(player);
 }
 
 

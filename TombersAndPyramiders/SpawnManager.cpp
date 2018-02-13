@@ -16,12 +16,14 @@ void callback(std::map<std::string, void*> payload)
 {
 	SpawnManager* self = (SpawnManager*)payload["this"];
 
-	float p1x = std::stof(*(std::string*)payload["playerSpawnX0"]);
-	float p1y = std::stof(*(std::string*)payload["playerSpawnY0"]);
+	float p1x = std::stof(*(std::string*)payload["playerSpawnX"]);
+	float p1y = std::stof(*(std::string*)payload["playerSpawnY"]);
+	float p2IP = std::stof (*(std::string*)payload["playerSpawnIP1"]);
+	std::cout << "IP" << p2IP << std::endl;
 	float p2x = std::stof(*(std::string*)payload["playerSpawnX1"]);
 	float p2y = std::stof(*(std::string*)payload["playerSpawnY1"]);
 
-	SceneManager::getInstance ()->pushScene (new NetworkedGameScene (p1x, p1y, p2x, p2y));
+	SceneManager::getInstance ()->pushScene (new NetworkedGameScene (p1x, p1y, (Uint32)p2IP, p2x, p2y));
 }
 
 void SpawnManager::sendStartPacket ()
@@ -30,18 +32,19 @@ void SpawnManager::sendStartPacket ()
 
 	float p1x = -2;
 	float p1y = -2;
+	float p2IP = (float)NetworkingManager::getInstance ()->m_clients.begin ()->first;
 	float p2x = 2;
 	float p2y = 2;
-
 
 	payload["playerSpawnX0"] = std::to_string (p1x);
 	payload["playerSpawnY0"] = std::to_string (p1y);
 
+	payload["playerSpawnIP1"] = std::to_string (p2IP);
 	payload["playerSpawnX1"] = std::to_string (p2x);
 	payload["playerSpawnY1"] = std::to_string (p2y);
 
 	NetworkingManager::getInstance ()->prepareMessageForSending ("STARTGAME", payload);
-	SceneManager::getInstance ()->pushScene (new NetworkedGameScene (p1x, p1y, p2x, p2y));
+	SceneManager::getInstance ()->pushScene (new NetworkedGameScene (p1x, p1y, (Uint32)p2IP, p2x, p2y));
 }
 
 std::shared_ptr<SpawnManager> SpawnManager::getInstance()
@@ -87,11 +90,10 @@ std::shared_ptr<Character> SpawnManager::generatePlayerCharacter(float x, float 
 	return simpleCharacter;
 }
 
-std::shared_ptr<Character> SpawnManager::generateNetworkCharacter(float x, float y)
+std::shared_ptr<Character> SpawnManager::generateNetworkCharacter(Uint32 ip, float x, float y)
 {
-	IPaddress ip = NetworkingManager::getInstance()->getIP();
-	int id = ip.host + rand();
-	std::shared_ptr<Character> simpleCharacter = GameManager::getInstance()->createGameObjectWithId<Character>(false, id, new PlayerPilot());
+	int id = ip;
+	std::shared_ptr<Character> simpleCharacter = GameManager::getInstance()->createGameObjectWithId<Character>(false, id, nullptr);
 	simpleCharacter->getComponent<Inventory>()->addItem(new WoodenLongbow());
 	simpleCharacter->getTransform()->setPosition(x, y);
 	return simpleCharacter;
