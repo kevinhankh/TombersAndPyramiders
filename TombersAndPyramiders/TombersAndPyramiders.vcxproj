@@ -40,8 +40,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -207,6 +207,15 @@
     <ClCompile Include="Game\Scenes\CharacterTestScene.cpp" />
     <ClCompile Include="Game\Scenes\SceneTemplate.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MiscSquare.cpp" />
+    <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="MovingSquare.cpp" />
+    <ClCompile Include="NeuralNet.cpp" />
+    <ClCompile Include="Neuron.cpp" />
+    <ClCompile Include="Paper.cpp" />
+    <ClCompile Include="PathFinding.cpp" />
+    <ClCompile Include="SpawnManager.cpp" />
+    <ClCompile Include="TrainingData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\AiPilot.h" />
@@ -291,6 +300,17 @@
     <ClInclude Include="Game\Scenes\CameraTestScene.h" />
     <ClInclude Include="Game\Scenes\CharacterTestScene.h" />
     <ClInclude Include="Game\Scenes\SceneTemplate.h" />
+    <ClInclude Include="GarbageCollection.h" />
+    <ClInclude Include="MiscSquare.h" />
+    <ClInclude Include="Monster.h" />
+    <ClInclude Include="MovingSquare.h" />
+    <ClInclude Include="NeuralNet.h" />
+    <ClInclude Include="Neuron.h" />
+    <ClInclude Include="Paper.h" />
+    <ClInclude Include="PathFinding.h" />
+    <ClInclude Include="SearchCell.h" />
+    <ClInclude Include="SpawnManager.h" />
+    <ClInclude Include="TrainingData.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Character.bmp" />
