@@ -22,4 +22,6 @@ const string WoodenShortsword::WOODEN_SHORTSWORD_IMAGE_NAME = "IceTile.png";
 ----------------------------------------------------------------------------------------*/
 WoodenShortsword::WoodenShortsword() :
 	BaseShortsword{ WOODEN_SHORTSWORD_IMAGE_NAME }
-{}
+{
+	m_itemIcon = "WoodenShortsword.png";
+}

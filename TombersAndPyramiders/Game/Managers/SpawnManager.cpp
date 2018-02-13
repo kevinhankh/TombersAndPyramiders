@@ -43,9 +43,24 @@ std	::shared_ptr<MovingSquare> SpawnManager::generateMovingSquare(float x, float
 std::shared_ptr<Character> SpawnManager::generatePlayerCharacter(float x, float y)
 {
 	std::shared_ptr<Character> simpleCharacter = GameManager::getInstance()->createGameObject<Character>(false, new PlayerPilot());
-	simpleCharacter->getComponent<Inventory>()->addItem(new WoodenLongbow());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenShortsword>());
 	simpleCharacter->getTransform()->setPosition(x, y);
 	
 	return simpleCharacter;
 }
 
+std::shared_ptr<WorldItem> SpawnManager::generateWorldItem(float x, float y, std::shared_ptr<BaseItem> item) 
+{
+	std::shared_ptr<WorldItem> worldItem = GameManager::getInstance()->createGameObject<WorldItem>(false, item, x, y);
+	worldItem->addComponent<BoxCollider>(worldItem.get(), 1, 1)->setIsTrigger(true);
+	return worldItem;
+}
+
+std::shared_ptr<Wall> SpawnManager::generateWall(float x, float y, float scale)
+{
+	std::shared_ptr<Wall> wall = GameManager::getInstance()->createGameObject<Wall>(false);
+	wall->getTransform()->setPosition(x, y);
+	wall->getTransform()->setScale(scale);
+
+	return wall;
+}

@@ -13,6 +13,7 @@
 	Dependencies
 ========================================================================================*/
 #include "BaseWeapon.h"
+#include "Vector2.h"
 #include <string>
 
 /*========================================================================================
@@ -25,6 +26,11 @@ class BaseProjectileWeapon : public BaseWeapon
     ----------------------------------------------------------------------------------------*/
 	protected:
 		std::string m_projectileImageName;
+		Vector2 m_projectileColliderSize;
+		Vector2 m_projectileSpawnOffsetFromHolder;
+		float m_projectileSpriteScale;
+		Vector2 m_projectileVelocity;
+		float m_projectileLifespan;
 
     /*----------------------------------------------------------------------------------------
 		Resource Management
@@ -33,7 +39,15 @@ class BaseProjectileWeapon : public BaseWeapon
         /** Default constructor. */
         explicit BaseProjectileWeapon() = delete;
 
-		explicit BaseProjectileWeapon(std::string projectileImageName);
+		explicit BaseProjectileWeapon(std::string projectileImageName, 
+			Vector2 projectileColliderSize, Vector2 projectileSpawnOffsetFromHolder, 
+			float projectileSpriteScale, Vector2 projectileVelocity, float projectileLifespan);
 
 		virtual ~BaseProjectileWeapon() {};
+		
+    /*----------------------------------------------------------------------------------------
+		Instance Methods
+    ----------------------------------------------------------------------------------------*/
+	public:
+		virtual void setOwnerId(int id);
 };

@@ -45,11 +45,18 @@ void PlayerPilot::onUpdate(int ticks)
 	if (m_characterController != nullptr)
 	{
 		m_characterController->move(getMovement());
-	}
 
-	if (getWeaponInput())
+		/* TODO Make this read from the mouse position. */
+		m_characterController->getGameObject()->getTransform()->setRotation(getMovement().getRotationInDegrees());
+
+		if (getWeaponInput())
+		{
+			m_characterController->useWeapon();
+		}
+	}
+	if (InputManager::getInstance()->onKeyPressed(SDLK_e)) 
 	{
-		m_characterController->useWeapon();
+		m_characterController->trySwapItem();
 	}
 }
 
@@ -89,5 +96,5 @@ Vector2 PlayerPilot::getMovement()
 
 bool PlayerPilot::getWeaponInput()
 {
-	return InputManager::getInstance()->onKey(SDLK_i);
+	return InputManager::getInstance()->onKeyPressed(SDLK_i);
 }

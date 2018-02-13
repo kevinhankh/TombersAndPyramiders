@@ -138,9 +138,9 @@
     <ClCompile Include="Engine\Component\Collision\BoxCollider.cpp" />
     <ClCompile Include="Engine\Component\Collision\CircleCollider.cpp" />
     <ClCompile Include="Engine\Component\Collision\Collider.cpp" />
+    <ClCompile Include="Engine\Component\Collision\Rigidbody.cpp" />
     <ClCompile Include="Engine\Component\Networking\Receiver.cpp" />
     <ClCompile Include="Engine\Component\Networking\Sender.cpp" />
-    <ClCompile Include="Engine\External\Math\Axis.cpp" />
     <ClCompile Include="Engine\External\Render\FrameBufferObject.cpp" />
     <ClCompile Include="Engine\External\Render\ISprite.cpp" />
     <ClCompile Include="Engine\External\Render\Sprite.cpp" />
@@ -197,6 +197,8 @@
     <ClCompile Include="Game\GameObjects\MiscSquare.cpp" />
     <ClCompile Include="Game\GameObjects\MovingSquare.cpp" />
     <ClCompile Include="Game\GameObjects\Projectile.cpp" />
+    <ClCompile Include="Game\GameObjects\Wall.cpp" />
+    <ClCompile Include="Game\GameObjects\WorldItem.cpp" />
     <ClCompile Include="Game\Managers\SpawnManager.cpp" />
     <ClCompile Include="Game\Scenes\CameraTestScene.cpp" />
     <ClCompile Include="Game\Scenes\CharacterTestScene.cpp" />
@@ -212,9 +214,9 @@
     <ClInclude Include="Engine\Component\Collision\BoxCollider.h" />
     <ClInclude Include="Engine\Component\Collision\CircleCollider.h" />
     <ClInclude Include="Engine\Component\Collision\Collider.h" />
+    <ClInclude Include="Engine\Component\Collision\Rigidbody.h" />
     <ClInclude Include="Engine\Component\Networking\Receiver.h" />
     <ClInclude Include="Engine\Component\Networking\Sender.h" />
-    <ClInclude Include="Engine\External\Math\Axis.h" />
     <ClInclude Include="Engine\External\Render\FrameBufferObject.h" />
     <ClInclude Include="Engine\External\Render\ISprite.h" />
     <ClInclude Include="Engine\External\Render\Sprite.h" />
@@ -276,6 +278,8 @@
     <ClInclude Include="Game\GameObjects\MiscSquare.h" />
     <ClInclude Include="Game\GameObjects\MovingSquare.h" />
     <ClInclude Include="Game\GameObjects\Projectile.h" />
+    <ClInclude Include="Game\GameObjects\Wall.h" />
+    <ClInclude Include="Game\GameObjects\WorldItem.h" />
     <ClInclude Include="Game\Managers\SpawnManager.h" />
     <ClInclude Include="Game\Scenes\CameraTestScene.h" />
     <ClInclude Include="Game\Scenes\CharacterTestScene.h" />
