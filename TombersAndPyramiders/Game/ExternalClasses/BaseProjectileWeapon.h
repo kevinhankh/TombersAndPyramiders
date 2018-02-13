@@ -44,4 +44,10 @@ class BaseProjectileWeapon : public BaseWeapon
 			float projectileSpriteScale, Vector2 projectileVelocity, float projectileLifespan);
 
 		virtual ~BaseProjectileWeapon() {};
+		
+    /*----------------------------------------------------------------------------------------
+		Instance Methods
+    ----------------------------------------------------------------------------------------*/
+	public:
+		virtual void setOwnerId(int id);
 };

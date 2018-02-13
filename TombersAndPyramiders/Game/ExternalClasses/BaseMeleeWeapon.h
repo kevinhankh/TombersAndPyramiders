@@ -43,5 +43,7 @@ class BaseMeleeWeapon : public BaseWeapon
 		Instance Methods
     ----------------------------------------------------------------------------------------*/
 	public:
+		virtual void setOwnerId(int id);
+
 		void updatePosition();
 };

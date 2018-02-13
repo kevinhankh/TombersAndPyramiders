@@ -17,6 +17,7 @@
 #include "BaseHelmet.h"
 #include "BaseChestplate.h"
 #include "BaseGreaves.h"
+#include "GameObject.h"
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
@@ -70,6 +71,7 @@ std::shared_ptr<BaseWeapon> Inventory::setWeapon(std::shared_ptr<BaseWeapon> wea
 {
 	auto old = m_weapon;
 	m_weapon = weapon;
+	m_weapon->setOwnerId(gameObject->getId());
 	return old;
 }
 

@@ -19,7 +19,7 @@
 ----------------------------------------------------------------------------------------*/
 BaseMeleeWeapon::BaseMeleeWeapon(string imageName, float colliderWidth, float colliderHeight, 
 	float xOffsetFromHolder, float yOffsetFromHolder, float colliderScale) :
-	m_damagingRegion{ this, imageName, colliderWidth, colliderHeight, 0, 0, colliderScale }
+	m_damagingRegion{ imageName, colliderWidth, colliderHeight, 0, 0, colliderScale }
 {
 	m_offsetFromHolder = Vector2(xOffsetFromHolder, yOffsetFromHolder);
 }
@@ -27,6 +27,11 @@ BaseMeleeWeapon::BaseMeleeWeapon(string imageName, float colliderWidth, float co
 /*----------------------------------------------------------------------------------------
 	Instance Methods
 ----------------------------------------------------------------------------------------*/
+void BaseMeleeWeapon::setOwnerId(int id)
+{
+	m_damagingRegion.setOwnerId(id);
+}
+
 void BaseMeleeWeapon::updatePosition()
 {
 	if (owner() != nullptr)
