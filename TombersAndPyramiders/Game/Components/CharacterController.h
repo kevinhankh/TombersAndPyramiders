@@ -17,6 +17,8 @@
 #include "Vector2.h"
 #include "PlayerPilot.h"
 #include "BoxCollider.h"
+#include "CircleCollider.h"
+#include "Rigidbody.h"
 
 /*========================================================================================
 	CharacterController	
@@ -42,6 +44,8 @@ class CharacterController : public BaseController, public Damageable
 		bool m_isUsingGreaves;
 
 		BoxCollider* m_boxCollider = nullptr;
+		CircleCollider* m_circleCollider = nullptr;
+		Rigidbody* m_rigidbody = nullptr;
 
     /*----------------------------------------------------------------------------------------
 		Resource Management

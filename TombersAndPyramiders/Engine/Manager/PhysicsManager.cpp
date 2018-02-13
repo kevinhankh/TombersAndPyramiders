@@ -114,7 +114,18 @@ bool PhysicsManager::checkCircleBoxCollision(CircleCollider* c, BoxCollider* b)
 {
 	// check if there is a collision between a circle and a box
 
-	return false;
+	float distanceX = abs(c->getTransform()->getX() - b->getTransform()->getX());
+	float distanceY = abs(c->getTransform()->getY() - b->getTransform()->getY());
+
+	if (distanceX > b->getWidth() / 2 + c->getRadius()
+		|| distanceY > b->getHeight() / 2 + c->getRadius())
+		return false;
+
+	if (distanceX <= b->getWidth() / 2
+		|| distanceY <= b->getHeight())
+		return true;
+
+	return (pow(distanceX - b->getWidth() / 2,2) + pow(distanceY - b->getHeight() / 2,2) <= pow(c->getRadius(),2));
 }
 
 void PhysicsManager::purge()

@@ -27,10 +27,13 @@ void CharacterTestScene::onStart()
 		}
 	}
 
-	SpawnManager::getInstance()->generateMovingSquare(0, 0);
-	SpawnManager::getInstance()->generateMovingSquare(2, 2);
+	//SpawnManager::getInstance()->generateMovingSquare(0, 0);
+	//SpawnManager::getInstance()->generateMovingSquare(2, 2);
 
-	SpawnManager::getInstance()->generateWall(0, 0, 10);
+	SpawnManager::getInstance()->generateWall(-20, -20, 10);
+	SpawnManager::getInstance()->generateWall(20, 20, 10);
+	SpawnManager::getInstance()->generateWall(-20, 20, 10);
+	SpawnManager::getInstance()->generateWall(20, -20, 10);
 
 	setCameraFollow(SpawnManager::getInstance()->generateDummySimpleCharacter(15, 5));
 	//setCameraFollow(SpawnManager::getInstance()->generateSimpleCharacter(15, 5));

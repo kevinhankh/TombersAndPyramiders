@@ -3,6 +3,7 @@
 #include "SimpleSprite.h"
 #include "ComponentTemplate.h"
 #include "BoxCollider.h"
+#include "CircleCollider.h"
 
 //Instance/Wall
 class Wall : public SimpleSprite
@@ -10,6 +11,7 @@ class Wall : public SimpleSprite
 private:
 	////Private Variables
 	BoxCollider* m_boxCollider = nullptr;
+	CircleCollider* m_circleCollider = nullptr;
 
 	////Private Methods
 

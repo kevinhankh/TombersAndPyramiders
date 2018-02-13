@@ -22,6 +22,7 @@
 #include "BaseWeapon.h"
 #include "BaseShield.h"
 #include "BaseGreaves.h"
+#include "Rigidbody.h"
 
 /*----------------------------------------------------------------------------------------
 	Static Fields
@@ -41,6 +42,12 @@ CharacterController::CharacterController(GameObject* gameObject, BasePilot* pilo
 {
 	m_boxCollider = new BoxCollider(gameObject, 1, 1);
 	gameObject->addComponent<BoxCollider*>(m_boxCollider);
+
+	//m_circleCollider = new CircleCollider(gameObject, 1);
+	//gameObject->addComponent<CircleCollider*>(m_circleCollider);
+
+	m_rigidbody = new Rigidbody(gameObject, m_boxCollider);
+	gameObject->addComponent<Rigidbody*>(m_rigidbody);
 }
 
 
@@ -80,20 +87,15 @@ void CharacterController::onUpdate(int ticks)
 
 void CharacterController::move(Vector2 delta)
 {
-	std::cout << "X: " << delta.getX() << ", Y: " << delta.getY() << "\n";
+	//std::cout << "X: " << delta.getX() << ", Y: " << delta.getY() << "\n";
 	delta.setX(delta.getX() * m_movementSpeed.getX());
 	delta.setY(delta.getY() * m_movementSpeed.getY());
-	
-	if (m_boxCollider && m_boxCollider->collisionDetected() && m_boxCollider->getColliders()[0] && delta.getY() > 0)
-	{
-		std::cout << "Push down \n";
-		gameObject->getTransform()->setY(m_boxCollider->getColliders()[0]->getTransform()->getY() - m_boxCollider->getColliders()[0]->getComponent<BoxCollider*>()->getHeight() / 2 - gameObject->getComponent<BoxCollider*>()->getHeight() / 2);
-	}
 
-	else
-	{
-		gameObject->getTransform()->addTranslation(delta.getX(), delta.getY());
-	}
+	gameObject->getTransform()->addTranslation(delta.getX(), delta.getY());
+
+	m_rigidbody->setVelocity(delta);
+	//m_rigidbody->BlockMovement(delta);
+
 }
 
 void CharacterController::updateWeapon(int ticks)

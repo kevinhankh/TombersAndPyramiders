@@ -9,12 +9,16 @@ This includes adding relevant components or any setup.
 
 By default, GameObject's base class has a Transform component
 */
-MovingSquare::MovingSquare() : SimpleSprite("IceTile.png", 0, 0)
+MovingSquare::MovingSquare() : SimpleSprite("MadFace.png", 0, 0)
 {
 	//Adding a base component. You create the new Component, pass it 'this', cast to a Component* then add it
 	addComponent<ComponentTemplate*>(new ComponentTemplate(this));
-	m_boxCollider = new BoxCollider(this, 1,1);
-	addComponent<BoxCollider*>(m_boxCollider);
+
+	//m_boxCollider = new BoxCollider(this, 1,1);
+	//addComponent<BoxCollider*>(m_boxCollider);
+
+	m_circleCollider = new CircleCollider(this, 10);
+	addComponent<CircleCollider*>(m_circleCollider);
 }
 
 MovingSquare::~MovingSquare()

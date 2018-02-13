@@ -137,6 +137,7 @@
     <ClCompile Include="CameraTestScene.cpp" />
     <ClCompile Include="CharacterTestScene.cpp" />
     <ClCompile Include="Engine\Component\Collision\Collider.cpp" />
+    <ClCompile Include="Engine\Component\Collision\Rigidbody.cpp" />
     <ClCompile Include="Engine\Component\Networking\Receiver.cpp" />
     <ClCompile Include="Engine\Component\Networking\Sender.cpp" />
     <ClCompile Include="Engine\External\Render\FrameBufferObject.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="CameraTestScene.h" />
     <ClInclude Include="CharacterTestScene.h" />
     <ClInclude Include="Engine\Component\Collision\Collider.h" />
+    <ClInclude Include="Engine\Component\Collision\Rigidbody.h" />
     <ClInclude Include="Engine\Component\Networking\Receiver.h" />
     <ClInclude Include="Engine\Component\Networking\Sender.h" />
     <ClInclude Include="Engine\External\Render\FrameBufferObject.h" />
