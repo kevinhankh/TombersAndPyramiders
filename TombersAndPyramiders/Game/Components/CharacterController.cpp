@@ -55,8 +55,7 @@ CharacterController::CharacterController(GameObject* parentGameobject, Inventory
 	{
 		m_character = std::shared_ptr<Character>(character);
 	}
-	m_boxCollider = gameObject->addComponent<BoxCollider>(gameObject, 1, 1);
-	//m_boxCollider = gameObject->addComponent<BoxCollider>(gameObject, gameObject->getTransform()->getScale(), gameObject->getTransform()->getScale());
+	m_boxCollider = gameObject->addComponent<BoxCollider>(gameObject, gameObject->getTransform()->getScale(), gameObject->getTransform()->getScale());
 	m_rigidbody = gameObject->addComponent<Rigidbody>(gameObject, m_boxCollider.get());
 }
 
