@@ -18,6 +18,9 @@ struct Message
 class NetworkingManager
 {
 private:
+	int m_startPacketID;
+	bool inLobby = false; //closeall will set both of these to false
+	bool gameStarted = false;
 	static NetworkingManager* s_instance;
 	ThreadQueue<std::string> *m_messageQueue;
 	std::thread m_receiverThread;
@@ -45,10 +48,15 @@ private:
 	void sendEventToReceiver(std::map<std::string, void*> data);
 
 public:
+	void listenForStart();
+	void stopListeningForStart();
+	void sendStartPacket();
 	bool close(Uint32 IP);
 	bool closeUDP();
 	NetworkingManager();
 	static NetworkingManager* getInstance();
+	IPaddress getIP();
+	bool startGame();
 	bool createHost();
 	bool createClient();
 	void send(Uint32 ip, std::string *msg);

@@ -29,10 +29,6 @@ void CharacterTestScene::onStart()
 			SpawnManager::getInstance()->generateMiscSquare(x * 5, y * 5, 5);
 		}
 	}
-
-	player = SpawnManager::getInstance()->generatePlayerCharacter(15, 5);
-
-	setCameraFollow(player);
 }
 
 void CharacterTestScene::setCameraFollow(std::shared_ptr<GameObject> toFollow)
@@ -63,15 +59,21 @@ void CharacterTestScene::onUpdate(int ticks)
 		NetworkingManager::getInstance()->createHost();
 		//SpawnManager::getInstance()->generateNetworkCharacter(25, 10);
 	}
-
-	if (counter++ == 60)
+	if (InputManager::getInstance()->onKeyReleased(SDLK_k))
 	{
-		player->destroy(player);
-		player = nullptr;
-	}
-	if (counter == 120)
-	{
-		player = SpawnManager::getInstance()->generatePlayerCharacter(-10, 5);
-		setCameraFollow(player);
+		if (NetworkingManager::getInstance()->startGame()) {
+		/*	player = SpawnManager::getInstance()->generateNetworkCharacter(15, 5);
+			setCameraFollow(player);*/
+		}
 	}
 }
+
+
+
+/*
+
+
+player = SpawnManager::getInstance()->generatePlayerCharacter(15, 5);
+
+setCameraFollow(player);
+*/

@@ -38,8 +38,48 @@ bool NetworkingManager::isHost()
 	return m_clients[ip.host] != NULL;
 }
 
+IPaddress NetworkingManager::getIP() {
+	IPaddress ip;
+	SDLNet_ResolveHost(&ip, NULL, m_port);
+	return ip;
+}
+
+bool NetworkingManager::startGame() {
+	if (!inLobby || gameStarted)
+		return false;
+
+	if (isHost()) {
+		sendStartPacket();
+	}
+
+	inLobby = false;
+	gameStarted = true;
+
+	return true;
+}
+
+void NetworkingManager::sendStartPacket()
+{
+	std::map<std::string, std::string> payload;
+	NetworkingManager::getInstance()->prepareMessageForSending("STARTGAME", payload);
+}
+
+void NetworkingManager::listenForStart()
+{
+	this->m_startPacketID = MessageManager::subscribe("STARTGAME", [](std::map<std::string, void*> data) -> void
+	{
+		NetworkingManager::getInstance()->startGame();
+	}, this);
+}
+
+void NetworkingManager::stopListeningForStart() {
+	MessageManager::unSubscribe("STARTGAME", m_startPacketID);
+}
+
 bool NetworkingManager::host()
 {
+	if (inLobby || gameStarted)
+		return false;
 	// create a listening TCP socket on port 9999 (server)
 	IPaddress ip;
 	int channel;
@@ -68,8 +108,11 @@ bool NetworkingManager::host()
 		std::string udpError = SDLNet_GetError();
 		return false;
 	}
+
+	std::cout << "hey u " << ip.host << std::endl;
 	
-	addPlayer(ip.host, m_socket);
+	inLobby = true;
+	gameStarted = false;
 	channel = SDLNet_UDP_Bind(m_udpSocket, DEFAULT_CHANNEL, &ip);
 
 	bool result = false;
@@ -89,6 +132,9 @@ bool NetworkingManager::host()
 
 bool NetworkingManager::join()
 {
+	if (inLobby || gameStarted)
+		return false;
+
 	IPaddress ip;
 	int channel;
 
@@ -105,7 +151,7 @@ bool NetworkingManager::join()
 		close(ip.host);
 		return false;
 	}
-	
+	/*
 	m_udpSocket = SDLNet_UDP_Open(m_port);
 	if (!m_udpSocket)
 	{
@@ -114,9 +160,12 @@ bool NetworkingManager::join()
 		return false;
 	}
 	
-	channel = SDLNet_UDP_Bind(m_udpSocket, DEFAULT_CHANNEL, &ip);
+	channel = SDLNet_UDP_Bind(m_udpSocket, DEFAULT_CHANNEL, &ip);*/
 
-	addPlayer(ip.host, m_socket);
+	inLobby = true;
+	gameStarted = false;
+	addPlayer(ip.host, m_socket); //right
+	listenForStart();
 
 	std::cout << "SDLNet_TCP_Open:A>A>A WE DID IT JOIN" << std::endl;
 	pollMessages(ip.host);
@@ -126,6 +175,9 @@ bool NetworkingManager::join()
 
 bool NetworkingManager::accept()
 {
+	if (gameStarted)
+		return false;
+
 	TCPsocket m_client = SDLNet_TCP_Accept(m_socket);
 	if (!m_client)
 	{

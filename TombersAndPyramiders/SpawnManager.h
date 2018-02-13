@@ -6,7 +6,7 @@
 #include "NetworkCharacter.h"
 #include "Character.h"
 
-class SpawnManager
+class SpawnManager : public GameObject
 {
 private:
 	static SpawnManager* s_instance;
@@ -23,7 +23,7 @@ public:
 	std::shared_ptr<MovingSquare> generateMovingSquare(float x, float y);
 
 	//Networking test
-	std::shared_ptr<Character> generateNetworkCharacter(Uint32 ip, float x, float y);
+	std::shared_ptr<Character> generateNetworkCharacter(float x, float y);
 
 	std::shared_ptr<Character> generatePlayerCharacter(float x, float y);
 

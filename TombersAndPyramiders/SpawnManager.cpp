@@ -6,6 +6,8 @@
 #include "WoodenLongbow.h"
 #include "PlayerPilot.h"
 #include "Receiver.h"
+#include "Sender.h"
+#include "NetworkingManager.h"
 
 SpawnManager* SpawnManager::s_instance;
 
@@ -16,9 +18,10 @@ SpawnManager* SpawnManager::getInstance()
 	return s_instance;
 }
 
-SpawnManager::SpawnManager()
+SpawnManager::SpawnManager() : GameObject()
 {
-
+	addComponent<Receiver>(*(new Receiver(this, std::to_string(getId()))));
+	addComponent<Sender>(*(new Sender(this, std::to_string(getId()))));
 }
 
 SpawnManager::~SpawnManager()
@@ -50,13 +53,13 @@ std::shared_ptr<Character> SpawnManager::generatePlayerCharacter(float x, float 
 	return simpleCharacter;
 }
 
-std::shared_ptr<Character> SpawnManager::generateNetworkCharacter(Uint32 ip, float x, float y)
+std::shared_ptr<Character> SpawnManager::generateNetworkCharacter(float x, float y)
 {
-	int id = ip + rand();
+	IPaddress ip = NetworkingManager::getInstance()->getIP();
+	int id = ip.host + rand();
 	std::shared_ptr<Character> simpleCharacter = GameManager::getInstance()->createGameObject<Character>(false, id, new PlayerPilot());
 	simpleCharacter->getComponent<Inventory>()->addItem(new WoodenLongbow());
 	simpleCharacter->getTransform()->setPosition(x, y);
-	;
 	simpleCharacter->addComponent<Receiver>(*(new Receiver(simpleCharacter.get(), std::to_string(id))));
 
 	return simpleCharacter;
