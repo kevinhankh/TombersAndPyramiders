@@ -54,14 +54,17 @@ void BaseLongbow::onStart()
 	m_timeUntilNextAttack = LONGBOW_ATTACK_COOLDOWN_TIME;
 	Vector2 spawnPoint = getProjectileSpawnPoint();
 	Vector2 velocity = getProjectileVelocity();
-	GameManager::getInstance()->createGameObject<Projectile>(false, 
-															 this, 
-															 m_projectileImageName,
-															 LONGBOW_PROJECTILE_COLLIDER_WIDTH, LONGBOW_PROJECTILE_COLLIDER_HEIGHT,
-															 spawnPoint.getX(), spawnPoint.getY(),
-															 LONGBOW_PROJECTILE_SPRITE_SCALE,
-															 velocity.getX(), velocity.getY(),
-															 LONGBOW_PROJECTILE_LIFESPAN);
+	std::shared_ptr<Projectile> newProjectile = 
+		GameManager::getInstance()->createGameObject<Projectile>(
+			false, 
+			m_projectileImageName,
+			LONGBOW_PROJECTILE_COLLIDER_WIDTH, LONGBOW_PROJECTILE_COLLIDER_HEIGHT,
+			spawnPoint.getX(), spawnPoint.getY(),
+			LONGBOW_PROJECTILE_SPRITE_SCALE,
+			velocity.getX(), velocity.getY(),
+			LONGBOW_PROJECTILE_LIFESPAN);
+
+	newProjectile->setOwnerId(owner()->getId());
 }
 
 void BaseLongbow::onUpdate(int ticks)

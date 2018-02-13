@@ -54,7 +54,7 @@ void PlayerPilot::onUpdate(int ticks)
 			m_characterController->useWeapon();
 		}
 	}
-	if (InputManager::getInstance()->onKey(SDLK_e)) 
+	if (InputManager::getInstance()->onKeyPressed(SDLK_e)) 
 	{
 		m_characterController->trySwapItem();
 	}
@@ -96,5 +96,5 @@ Vector2 PlayerPilot::getMovement()
 
 bool PlayerPilot::getWeaponInput()
 {
-	return InputManager::getInstance()->onKeyPressed(SDLK_i);
+	return InputManager::getInstance()->onKeyPressed(SDLK_SPACE);
 }

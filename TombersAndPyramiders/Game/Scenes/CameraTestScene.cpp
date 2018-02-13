@@ -20,13 +20,10 @@ void CameraTestScene::onStart()
 	{
 		for (int y = -50; y < 0; y++)
 		{
-			SpawnManager::getInstance()->generateMiscSquare(x * 5, y * 5, 5);
+			SpawnManager::getInstance()->generateMiscSquare(x * 5, y * 5, 0, 5, "stoneTile.png", false);
 		}
 	}
 
-	/*std::shared_ptr<CameraFollow> cameraFollow = make_shared<CameraFollow>();
-	Camera::getActiveCamera()->addComponent<CameraFollow>(Camera::getActiveCamera().get());
-	cameraFollow->setToFollow(SpawnManager::getInstance()->generateMovingSquare(0, 0));*/
 }
 
 void CameraTestScene::onPause()

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "SimpleSprite.h"
-#include "ComponentTemplate.h"
 #include "WorldItem.h"
 #include <memory>
 #include "BaseItem.h"
