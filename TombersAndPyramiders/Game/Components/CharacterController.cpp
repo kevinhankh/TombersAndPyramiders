@@ -55,8 +55,7 @@ CharacterController::CharacterController(GameObject* parentGameobject, Inventory
 	{
 		m_character = std::shared_ptr<Character>(character);
 	}
-	m_boxCollider = gameObject->addComponent<BoxCollider>(gameObject, 1, 1);
-	//m_boxCollider = gameObject->addComponent<BoxCollider>(gameObject, gameObject->getTransform()->getScale(), gameObject->getTransform()->getScale());
+	m_boxCollider = gameObject->addComponent<BoxCollider>(gameObject, gameObject->getTransform()->getScale(), gameObject->getTransform()->getScale());
 	m_rigidbody = gameObject->addComponent<Rigidbody>(gameObject, m_boxCollider.get());
 }
 
@@ -166,14 +165,11 @@ std::shared_ptr<WorldItem> CharacterController::trySwapItem()
 
 			if (worldItem != nullptr) 
 			{
-				float oldX = worldItem->getTransform()->getX();
-				float oldY = worldItem->getTransform()->getY();
-
 				std::shared_ptr<BaseItem> extractedItem = worldItem->pickupItem();
 
 				std::shared_ptr<BaseItem> removedItem = m_inventory->addItem(extractedItem);
 				if (removedItem != nullptr) {
-					return SpawnManager::getInstance()->generateWorldItem(oldX, oldY, removedItem);
+					return SpawnManager::getInstance()->generateWorldItem(m_character->getTransform()->getX(), m_character->getTransform()->getY(), removedItem);
 				}
 
 				break;

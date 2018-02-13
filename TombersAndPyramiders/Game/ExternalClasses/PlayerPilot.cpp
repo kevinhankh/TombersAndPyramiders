@@ -14,6 +14,7 @@
 #include "CharacterController.h"
 #include "InputManager.h"
 #include "Vector2.h"
+#include "Sender.h"
 
 /*----------------------------------------------------------------------------------------
 	Instance Setter Methods
@@ -51,11 +52,13 @@ void PlayerPilot::onUpdate(int ticks)
 		if (getWeaponInput())
 		{
 			m_characterController->useWeapon();
+			m_characterController->getGameObject()->getComponent<Sender>()->sendAttack();
 		}
 	}
 	if (InputManager::getInstance()->onKeyPressed(SDLK_e)) 
 	{
 		m_characterController->trySwapItem();
+		//Pickup/Drop items
 	}
 }
 

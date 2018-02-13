@@ -3,22 +3,21 @@
 #include "Scene.h"
 #include "GameObject.h"
 #include "Shader.h"
-#include <memory>
 #include "CameraFollow.h"
+#include "Character.h"
 
-class CharacterTestScene : public Scene
+class NetworkedGameScene : public Scene
 {
 private:
 
-
 public:
-	CharacterTestScene();
+	std::map<Uint32, Character> players;
+	NetworkedGameScene();
+	void setCameraFollow(std::shared_ptr<GameObject> toFollow);
 	void onStart();
 	void onResume() {};
 	void onUpdate(int ticks);
 	void onPause();
 	void onEnd();
-	void setCameraFollow(std::shared_ptr<GameObject> toFollow);
 
-	void spawnPlayer(int x, int y);
 };

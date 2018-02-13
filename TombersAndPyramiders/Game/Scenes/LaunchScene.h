@@ -4,16 +4,16 @@
 #include "GameObject.h"
 #include "Shader.h"
 
-class SceneTemplate : public Scene
+class LaunchScene : public Scene
 {
 private:
 
 public:
-	SceneTemplate();
+	LaunchScene();
 	void onStart();
 	void onResume() {};
 	void onUpdate(int ticks);
 	void onPause();
 	void onEnd();
-	
+
 };

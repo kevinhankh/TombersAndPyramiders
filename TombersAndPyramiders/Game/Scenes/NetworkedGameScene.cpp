@@ -1,32 +1,36 @@
-#include "CharacterTestScene.h"
+#include "NetworkedGameScene.h"
 #include "GLHeaders.h"
 #include "SpriteRendererManager.h"
 #include "Shader.h"
 #include "SharedConstants.h"
+#include "SceneTemplate.h"
 #include <iostream>
 #include "Camera.h"
-#include "MovingSquare.h"
-#include "MiscSquare.h"
-#include <vector>
 #include "SpawnManager.h"
+#include "CameraFollow.h"
+#include "NetworkingManager.h"
 #include <memory>
-#include <WoodenLongbow.h>
-#include "AudioManager.h"
-//REMOVE ALL THREE COMMENTS NOT JUST ONE BELOW
-//std::shared_ptr<Character> player = nullptr;
-/*std::shared_ptr<Character> Ai = nullptr;
+#include "WoodenShortsword.h"
+
+std::shared_ptr<Character> player = nullptr;
+std::shared_ptr<Character> player2 = nullptr;
+std::shared_ptr<Character> Ai = nullptr;
 std::shared_ptr<Character> Ai2 = nullptr;
 std::shared_ptr<Character> Ai3 = nullptr;
 std::shared_ptr<Character> Ai4 = nullptr;
 
-CharacterTestScene::CharacterTestScene()
+NetworkedGameScene::NetworkedGameScene()
 {
+
 }
 
-void CharacterTestScene::onStart()
+void NetworkedGameScene::setCameraFollow(std::shared_ptr<GameObject> toFollow)
 {
-	Camera::getActiveCamera()->addComponent<CameraFollow>(Camera::getActiveCamera().get());
+	Camera::getActiveCamera()->getComponent<CameraFollow>()->setToFollow(toFollow);
+}
 
+void NetworkedGameScene::onStart()
+{
 	const float size = 12;
 	const float scale = 5;
 
@@ -45,7 +49,7 @@ void CharacterTestScene::onStart()
 			float wallOffset = 1.25f;
 
 			// Create a floor tile. 
-			SpawnManager::getInstance()->generateMiscSquare(column, row - (y * floorOffset) , (y * -1) - 50, scale, "stoneTile.png", false);
+			SpawnManager::getInstance()->generateMiscSquare(column, row - (y * floorOffset), (y * -1) - 50, scale, "stoneTile.png", false);
 
 			int xMod = (int)x % 3;
 			int yMod = (int)y % 3;
@@ -86,7 +90,7 @@ void CharacterTestScene::onStart()
 				{
 					SpawnManager::getInstance()->generateMiscSquare(column - 3, row + scale * 2, y * -1, scale, "woodPile.png", true);
 				}
-				SpawnManager::getInstance()->generateMiscSquare(column, row + (scale / 2) , y * -1, scale, "wallBottom.png", true);
+				SpawnManager::getInstance()->generateMiscSquare(column, row + (scale / 2), y * -1, scale, "wallBottom.png", true);
 			}
 			// Create a left wall
 			else if (x == 0)
@@ -104,31 +108,33 @@ void CharacterTestScene::onStart()
 			}
 		}
 	}
-	SpawnManager::getInstance()->generateWorldItem(5, -5, std::make_shared<WoodenLongbow>());
+	SpawnManager::getInstance()->generateWorldItem(5, -5, std::make_shared<WoodenShortsword>());
 
-	//player = SpawnManager::getInstance()->generatePlayerCharacter(15, -10);
 	Ai = SpawnManager::getInstance()->generateAiCharacter(14, -15);
 	Ai2 = SpawnManager::getInstance()->generateAiCharacter(44, -20);
 	Ai3 = SpawnManager::getInstance()->generateAiCharacter(54, -40);
 	Ai4 = SpawnManager::getInstance()->generateAiCharacter(14, -35);
 
-	//setCameraFollow(player);
+	Camera::getActiveCamera ()->addComponent<CameraFollow> (Camera::getActiveCamera ().get ());	
+	if (NetworkingManager::getInstance ()->isHost ())
+	{
+		setCameraFollow (player);
+	}
+	else {
+		setCameraFollow (player2);
+	}
 }
 
-void CharacterTestScene::setCameraFollow(std::shared_ptr<GameObject> toFollow)
-{
-	Camera::getActiveCamera()->getComponent<CameraFollow>()->setToFollow(toFollow);
-}
-
-void CharacterTestScene::onPause()
-{
-}
-
-void CharacterTestScene::onEnd()
+void NetworkedGameScene::onPause()
 {
 
 }
 
-void CharacterTestScene::onUpdate(int ticks)
+void NetworkedGameScene::onEnd()
 {
-}*/
+
+}
+
+void NetworkedGameScene::onUpdate(int ticks)
+{
+}
