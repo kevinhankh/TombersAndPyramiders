@@ -10,7 +10,7 @@ class NetworkedGameScene : public Scene
 private:
 
 public:
-	NetworkedGameScene(float hostX, float hostY, float guestX, float guestY, int lobbyID);
+	NetworkedGameScene(float hostX, float hostY, float guestX, float guestY);
 	void setCameraFollow(std::shared_ptr<GameObject> toFollow);
 	void onStart();
 	void onResume() {};

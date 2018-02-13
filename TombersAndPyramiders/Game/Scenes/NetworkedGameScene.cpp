@@ -10,16 +10,21 @@
 #include "CameraFollow.h"
 #include "NetworkingManager.h"
 
-NetworkedGameScene::NetworkedGameScene(float hostX, float hostY, float guestX, float guestY, int lobbyID)
+std::shared_ptr<Character> player = nullptr;
+std::shared_ptr<Character> player2 = nullptr;
+
+NetworkedGameScene::NetworkedGameScene(float hostX, float hostY, float guestX, float guestY)
 {
 	if (NetworkingManager::getInstance()->isHost())
 	{
-		SpawnManager::getInstance()->generateNetworkCharacter(guestX, guestY);
-		SpawnManager::getInstance()->generatePlayerCharacter(hostX, hostY);
+		player = SpawnManager::getInstance()->generatePlayerCharacter(hostX, hostY);
+		player2 = SpawnManager::getInstance()->generateNetworkCharacter(guestX, guestY);
+		setCameraFollow(player);
 	}
 	else {
-		SpawnManager::getInstance()->generateNetworkCharacter(hostX, hostY);
-		SpawnManager::getInstance()->generatePlayerCharacter(guestX, guestY);
+		player = SpawnManager::getInstance()->generateNetworkCharacter(hostX, hostY);
+		player2 = SpawnManager::getInstance()->generatePlayerCharacter(guestX, guestY);
+		setCameraFollow(player2);
 	}
 }
 
