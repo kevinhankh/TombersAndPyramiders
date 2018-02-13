@@ -25,9 +25,9 @@ SpawnManager::~SpawnManager()
 
 }
 
-std::shared_ptr<MiscSquare> SpawnManager::generateMiscSquare(float x, float y, float z, float scale, string spriteName)
+std::shared_ptr<MiscSquare> SpawnManager::generateMiscSquare(float x, float y, float z, float scale, string spriteName, bool hasCollider)
 {
-	std::shared_ptr<MiscSquare> miscSquare = GameManager::getInstance()->createGameObject<MiscSquare>(false, spriteName);
+	std::shared_ptr<MiscSquare> miscSquare = GameManager::getInstance()->createGameObject<MiscSquare>(false, spriteName, hasCollider);
 	miscSquare->getTransform()->setPosition(x, y, z);
 	miscSquare->getTransform()->setScale(scale);
 	return miscSquare;
@@ -56,11 +56,11 @@ std::shared_ptr<WorldItem> SpawnManager::generateWorldItem(float x, float y, std
 	return worldItem;
 }
 
-std::shared_ptr<Wall> SpawnManager::generateWall(float x, float y, float scale)
-{
-	std::shared_ptr<Wall> wall = GameManager::getInstance()->createGameObject<Wall>(false);
-	wall->getTransform()->setPosition(x, y);
-	wall->getTransform()->setScale(scale);
-
-	return wall;
-}
+//std::shared_ptr<Wall> SpawnManager::generateWall(float x, float y, float scale)
+//{
+//	std::shared_ptr<Wall> wall = GameManager::getInstance()->createGameObject<Wall>(false);
+//	wall->getTransform()->setPosition(x, y);
+//	wall->getTransform()->setScale(scale);
+//
+//	return wall;
+//}

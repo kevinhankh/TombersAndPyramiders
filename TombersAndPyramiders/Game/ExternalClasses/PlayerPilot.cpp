@@ -96,5 +96,5 @@ Vector2 PlayerPilot::getMovement()
 
 bool PlayerPilot::getWeaponInput()
 {
-	return InputManager::getInstance()->onKeyPressed(SDLK_i);
+	return InputManager::getInstance()->onKeyPressed(SDLK_SPACE);
 }

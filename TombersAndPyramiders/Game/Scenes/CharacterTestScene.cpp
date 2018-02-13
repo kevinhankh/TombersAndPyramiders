@@ -13,13 +13,14 @@
 #include <WoodenLongbow.h>
 #include "AudioManager.h"
 
+std::shared_ptr<Character> player = nullptr;
+
 CharacterTestScene::CharacterTestScene()
 {
 }
 
 void CharacterTestScene::onStart()
 {
-	AudioManager::getInstance()->playMusic();
 	Camera::getActiveCamera()->addComponent<CameraFollow>(Camera::getActiveCamera().get());
 
 	const float size = 12;
@@ -37,15 +38,15 @@ void CharacterTestScene::onStart()
 			float wallOffset = 1.25f;
 
 			// Create a floor tile. 
-			SpawnManager::getInstance()->generateMiscSquare(column, row - (y * floorOffset) , (y * -1) - 50, scale, "stoneTile.png");
+			SpawnManager::getInstance()->generateMiscSquare(column, row - (y * floorOffset) , (y * -1) - 50, scale, "stoneTile.png", false);
 
 			int xMod = (int)x % 3;
 			int yMod = (int)y % 3;
 
 
-			if (xMod == 0 && yMod == 0 && x != 0 && y != 0)
+			if (xMod == 0 && yMod == 0 && x != 0 && y != 0 && x != size && y != -size)
 			{
-				SpawnManager::getInstance()->generateMiscSquare(column, row - (y * floorOffset), (y * -1) - 50, scale, "table.png");
+				SpawnManager::getInstance()->generateMiscSquare(column, row - (y * floorOffset), 50, scale, "table.png", true);
 			}
 
 			// Create our walls. A wall is half the size of a tile, so we need two. Each wall that gets created south of a previous wall
@@ -56,19 +57,19 @@ void CharacterTestScene::onStart()
 				// Create top left wall.
 				if (x == 0)
 				{
-					SpawnManager::getInstance()->generateMiscSquare(column, row + (scale / 2) + floorOffset, y * -1, scale, "wallTopLeft.png");
-					SpawnManager::getInstance()->generateMiscSquare(column, row + floorOffset, (y * -1) + 0.5, scale, "wallLeft.png");
+					SpawnManager::getInstance()->generateMiscSquare(column, row + (scale / 2) + floorOffset, y * -1, scale, "wallTopLeft.png", true);
+					SpawnManager::getInstance()->generateMiscSquare(column - scale + wallOffset, row + floorOffset, (y * -1) + 0.5, scale, "wallLeft.png", true);
 				}
 				// Create top right wall.
 				else if (x == size)
 				{
-					SpawnManager::getInstance()->generateMiscSquare(column, row + (scale / 2) + floorOffset, y * -1, scale, "wallTopRight.png");
-					SpawnManager::getInstance()->generateMiscSquare(column, row + floorOffset, (y * -1) + 0.5, scale, "wallRight.png");
-					SpawnManager::getInstance()->generateMiscSquare(column - floorOffset, row + floorOffset, (y * -1) + 0.5, scale, "barrels.png");
+					SpawnManager::getInstance()->generateMiscSquare(column, row + (scale / 2) + floorOffset, y * -1, scale, "wallTopRight.png", true);
+					SpawnManager::getInstance()->generateMiscSquare(column + scale - wallOffset, row + floorOffset, (y * -1) + 0.5, scale, "wallRight.png", true);
+					SpawnManager::getInstance()->generateMiscSquare(column - floorOffset, row + floorOffset, (y * -1) + 0.5, scale, "barrels.png", true);
 				}
 				else
 				{
-					SpawnManager::getInstance()->generateMiscSquare(column, row + scale, y * -1, scale, "wallBottom.png");
+					SpawnManager::getInstance()->generateMiscSquare(column, row + scale, y * -1, scale, "wallTop.png", true);
 				}
 			}
 			// Create bottom walls.
@@ -76,30 +77,31 @@ void CharacterTestScene::onStart()
 			{
 				if (x == size)
 				{
-					SpawnManager::getInstance()->generateMiscSquare(column - floorOffset, row + scale * 2, y * -1, scale, "woodPile.png");
+					SpawnManager::getInstance()->generateMiscSquare(column - 3, row + scale * 2, y * -1, scale, "woodPile.png", true);
 				}
-				SpawnManager::getInstance()->generateMiscSquare(column, row + scale, y * -1, scale, "wallBottom.png");
+				SpawnManager::getInstance()->generateMiscSquare(column, row + (scale / 2) , y * -1, scale, "wallBottom.png", true);
 			}
 			// Create a left wall
 			else if (x == 0)
 			{
-				SpawnManager::getInstance()->generateMiscSquare(column, row + floorOffset + scale / 2, y * -1, scale, "wallLeft.png");
-				SpawnManager::getInstance()->generateMiscSquare(column, row + floorOffset, (y * -1) + 0.5, scale, "wallLeft.png");
+				SpawnManager::getInstance()->generateMiscSquare(column - scale + wallOffset, row + floorOffset + scale / 2, y * -1, scale, "wallLeft.png", true);
+				SpawnManager::getInstance()->generateMiscSquare(column - scale + wallOffset, row + floorOffset, (y * -1) + 0.5, scale, "wallLeft.png", true);
 			}
 			// Create a right wall.
 			else if (x == size)
 			{
 				float wallHorizontalOffset = scale;
 
-				SpawnManager::getInstance()->generateMiscSquare(column, row + floorOffset + scale / 2, y * -1, scale, "wallRight.png");
-				SpawnManager::getInstance()->generateMiscSquare(column, row + floorOffset, (y * -1) + 0.5, scale, "wallRight.png");
+				SpawnManager::getInstance()->generateMiscSquare(column + scale - wallOffset, row + floorOffset + scale / 2, y * -1, scale, "wallRight.png", true);
+				SpawnManager::getInstance()->generateMiscSquare(column + scale - wallOffset, row + floorOffset, (y * -1) + 0.5, scale, "wallRight.png", true);
 			}
 		}
 	}
+	SpawnManager::getInstance()->generateWorldItem(5, -5, std::make_shared<WoodenLongbow>());
 
-	SpawnManager::getInstance()->generateWorldItem(-5, -5, std::make_shared<WoodenLongbow>());
+	player = SpawnManager::getInstance()->generatePlayerCharacter(15, -5);
 
-	setCameraFollow(SpawnManager::getInstance()->generatePlayerCharacter(20, 20));
+	setCameraFollow(player);
 }
 
 void CharacterTestScene::setCameraFollow(std::shared_ptr<GameObject> toFollow)
