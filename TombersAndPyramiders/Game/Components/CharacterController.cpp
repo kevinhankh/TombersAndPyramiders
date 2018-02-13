@@ -91,7 +91,6 @@ void CharacterController::move(Vector2 delta)
 	} else 
 	{
 		m_character->playRunAnimation();
-		//gameObject->getTransform()->setRotation(delta.getRotationInDegrees());
 	}
 
 	gameObject->getTransform()->addTranslation(delta.getX(), delta.getY());
@@ -117,6 +116,11 @@ void CharacterController::useWeapon()
 		 
 		//dynamic_cast<BaseMeleeWeapon>(weapon);
 	}
+}
+
+void CharacterController::takeDamage(int damage)
+{
+	Damageable::takeDamage(damage);
 }
 
 void CharacterController::updateWeapon(int ticks)
@@ -145,7 +149,7 @@ void CharacterController::updateGreaves(int ticks)
 
 void CharacterController::death()
 {
-
+	destroy(gameObject->getId());
 }
 
 std::shared_ptr<WorldItem> CharacterController::trySwapItem()
