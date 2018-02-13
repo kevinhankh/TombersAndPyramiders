@@ -4,7 +4,6 @@
 #include <condition_variable>
 #include "SpriteSheet.h"
 #include "Camera.h"
-#include "GarbageCollection.h"
 
 /*
 TODO:
@@ -279,11 +278,7 @@ void SpriteRendererManager::prepareRenderingThread()
 	std::sort(m_activeSprites.begin(), m_activeSprites.end(), sortByZ);
 	RenderingShaderGroup rg;
 
-	if (m_activeSprites.size() == 0)
-	{
-		std::cout << "SPRITERENDERERERMANAGER::PREPARERENDERINGTHREAD::EMPTY SPRITE LIST" << std::endl;
-	}
-	else
+	if (m_activeSprites.size() > 0)
 	{
 		std::shared_ptr<Camera> camera = Camera::getActiveCamera();
 		for (size_t i = 0; i < m_activeSprites.size(); i++)

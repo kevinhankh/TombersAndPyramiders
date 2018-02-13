@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "Shader.h"
 #include "CameraFollow.h"
+#include "Character.h"
 
 class NetworkedGameScene : public Scene
 {
