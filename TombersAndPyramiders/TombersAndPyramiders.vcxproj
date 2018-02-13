@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0D909B57-AFD6-44B4-B192-3F9AD4D73850}</ProjectGuid>
     <RootNamespace>BlizzardBallBattle</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -191,14 +191,13 @@
     <ClCompile Include="Engine\Manager\GameManager.cpp" />
     <ClCompile Include="Engine\Manager\SpriteRendererManager.cpp" />
     <ClCompile Include="Game\Components\ComponentTemplate.cpp" />
-    <ClCompile Include="Game\GameObjects\GameObjectTemplate.cpp" />
-    <ClCompile Include="Game\GameObjects\Wall.cpp" />
     <ClCompile Include="Game\GameObjects\Character.cpp" />
     <ClCompile Include="Game\GameObjects\DamagingRegion.cpp" />
     <ClCompile Include="Game\GameObjects\GameObjectTemplate.cpp" />
     <ClCompile Include="Game\GameObjects\MiscSquare.cpp" />
     <ClCompile Include="Game\GameObjects\MovingSquare.cpp" />
     <ClCompile Include="Game\GameObjects\Projectile.cpp" />
+    <ClCompile Include="Game\GameObjects\Wall.cpp" />
     <ClCompile Include="Game\GameObjects\WorldItem.cpp" />
     <ClCompile Include="Game\Managers\SpawnManager.cpp" />
     <ClCompile Include="Game\Scenes\CameraTestScene.cpp" />
@@ -273,15 +272,13 @@
     <ClInclude Include="Engine\Manager\InputManager.h" />
     <ClInclude Include="Engine\Manager\SpriteRendererManager.h" />
     <ClInclude Include="Game\Components\ComponentTemplate.h" />
-    <ClInclude Include="Game\GameObjects\GameObjectTemplate.h" />
-    <ClInclude Include="Game\GameObjects\PlayerCharacter.h" />
-    <ClInclude Include="Game\GameObjects\Wall.h" />
     <ClInclude Include="Game\GameObjects\Character.h" />
     <ClInclude Include="Game\GameObjects\DamagingRegion.h" />
     <ClInclude Include="Game\GameObjects\GameObjectTemplate.h" />
     <ClInclude Include="Game\GameObjects\MiscSquare.h" />
     <ClInclude Include="Game\GameObjects\MovingSquare.h" />
     <ClInclude Include="Game\GameObjects\Projectile.h" />
+    <ClInclude Include="Game\GameObjects\Wall.h" />
     <ClInclude Include="Game\GameObjects\WorldItem.h" />
     <ClInclude Include="Game\Managers\SpawnManager.h" />
     <ClInclude Include="Game\Scenes\CameraTestScene.h" />
