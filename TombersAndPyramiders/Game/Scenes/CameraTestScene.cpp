@@ -20,7 +20,7 @@ void CameraTestScene::onStart()
 	{
 		for (int y = -5; y < 5; y++)
 		{
-			SpawnManager::getInstance()->generateMiscSquare(x * 5, y * 5, 0, 5);
+			SpawnManager::getInstance()->generateMiscSquare(x * 5, y * 5, 0, 5, "stoneTile.png");
 		}
 	}
 
