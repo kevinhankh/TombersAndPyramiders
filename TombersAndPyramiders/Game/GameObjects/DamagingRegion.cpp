@@ -37,7 +37,7 @@ DamagingRegion::DamagingRegion(string imageName, float colliderWidth,
 	}
 
 	/* TODO Weapon collider makes you crash into your own weapon. */
-	m_collider = addComponent<BoxCollider>(this, colliderWidth, colliderHeight);
+ 	m_collider = addComponent<BoxCollider>(this, colliderWidth, colliderHeight);
 	m_collider->setIsTrigger(true);
 }
 

@@ -14,6 +14,10 @@
 #include "AudioManager.h"
 
 std::shared_ptr<Character> player = nullptr;
+std::shared_ptr<Character> Ai = nullptr;
+std::shared_ptr<Character> Ai2 = nullptr;
+std::shared_ptr<Character> Ai3 = nullptr;
+std::shared_ptr<Character> Ai4 = nullptr;
 
 CharacterTestScene::CharacterTestScene()
 {
@@ -102,9 +106,11 @@ void CharacterTestScene::onStart()
 	}
 	SpawnManager::getInstance()->generateWorldItem(5, -5, std::make_shared<WoodenLongbow>());
 
-	player = SpawnManager::getInstance()->generatePlayerCharacter(15, -5);
-
-	SpawnManager::getInstance()->generateDummyCharacter(35, -5);
+	player = SpawnManager::getInstance()->generatePlayerCharacter(15, -10);
+	Ai = SpawnManager::getInstance()->generateAiCharacter(14, -15);
+	Ai2 = SpawnManager::getInstance()->generateAiCharacter(44, -20);
+	Ai3 = SpawnManager::getInstance()->generateAiCharacter(54, -40);
+	Ai4 = SpawnManager::getInstance()->generateAiCharacter(14, -35);
 
 	setCameraFollow(player);
 }

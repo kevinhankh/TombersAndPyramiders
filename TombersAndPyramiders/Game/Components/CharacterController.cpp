@@ -91,7 +91,7 @@ void CharacterController::move(Vector2 delta)
 	} else 
 	{
 		m_character->playRunAnimation();
-		getGameObject()->getTransform()->setRotation(delta.getRotationInDegrees());//Make it get mouse position for player looking
+		gameObject->getTransform()->setRotation(delta.getRotationInDegrees());
 	}
 
 	gameObject->getTransform()->addTranslation(delta.getX(), delta.getY());

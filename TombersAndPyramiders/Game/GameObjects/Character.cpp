@@ -50,7 +50,7 @@ std::shared_ptr<ComplexSpriteinfo> Character::generateComplexSpriteInfo()
 {
 	std::shared_ptr<ComplexSpriteinfo> spriteInfo = std::make_shared<ComplexSpriteinfo>();
 
-	spriteInfo->addInfo("squareIdle.png", 8, 1);
+	spriteInfo->addInfo("squareidle.png", 8, 1);
 	spriteInfo->addInfo("squareRun.png", 8, 1);
 	spriteInfo->addInfo("squareRedAttack.png", 8, 1);
 	spriteInfo->addInfo("squareWhiteAttack.png", 8, 1);
