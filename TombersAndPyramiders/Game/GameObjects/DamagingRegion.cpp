@@ -36,10 +36,8 @@ DamagingRegion::DamagingRegion(string imageName, float colliderWidth,
 		throw std::invalid_argument("DamagingRegion::DamagingRegion(): colliderHeight must be non-negative.");
 	}
 
-	// TODO: Add this line back in once Michael fixes BoxCollider.
-	//addComponent<BoxCollider*>(new BoxCollider(this, colliderWidth, colliderHeight));
-
-	m_collider = getComponent<Collider>();
+	/* TODO Weapon collider makes you crash into your own weapon. */
+	m_collider = addComponent<BoxCollider>(this, colliderWidth, colliderHeight);
 }
 
 /*----------------------------------------------------------------------------------------
