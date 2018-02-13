@@ -5,6 +5,7 @@
 #include "WoodenShortsword.h"
 #include "WoodenLongbow.h"
 #include "PlayerPilot.h"
+#include "AiPilot.h"
 
 SpawnManager* SpawnManager::s_instance;
 
@@ -47,6 +48,15 @@ std::shared_ptr<Character> SpawnManager::generatePlayerCharacter(float x, float 
 	simpleCharacter->getTransform()->setPosition(x, y);
 	
 	return simpleCharacter;
+}
+
+std::shared_ptr<Character> SpawnManager::generateAiCharacter(float x, float y)
+{
+	std::shared_ptr<Character> simpleAi = GameManager::getInstance()->createGameObject<Character>(false, new AiPilot());
+	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
+	simpleAi->getTransform()->setPosition(x, y);
+
+	return simpleAi;
 }
 
 std::shared_ptr<WorldItem> SpawnManager::generateWorldItem(float x, float y, std::shared_ptr<BaseItem> item) 

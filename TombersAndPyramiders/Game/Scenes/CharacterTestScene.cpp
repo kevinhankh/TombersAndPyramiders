@@ -13,6 +13,7 @@
 #include <WoodenLongbow.h>
 
 std::shared_ptr<Character> player = nullptr;
+std::shared_ptr<Character> Ai = nullptr;
 
 CharacterTestScene::CharacterTestScene()
 {
@@ -35,10 +36,12 @@ void CharacterTestScene::onStart()
 
 
 	player = SpawnManager::getInstance()->generatePlayerCharacter(15, 5);
+	Ai = SpawnManager::getInstance()->generateAiCharacter(14, 4);
 
 	SpawnManager::getInstance()->generateWorldItem(-5, -5, std::make_shared<WoodenLongbow>());
 
-	setCameraFollow(player);
+	//setCameraFollow(player);
+	setCameraFollow(Ai);
 }
 
 void CharacterTestScene::setCameraFollow(std::shared_ptr<GameObject> toFollow)
@@ -66,6 +69,7 @@ void CharacterTestScene::onUpdate(int ticks)
 	if (counter == 120)
 	{
 		player = SpawnManager::getInstance()->generatePlayerCharacter(-10, 5);
-		setCameraFollow(player);
+		//setCameraFollow(player);
+		setCameraFollow(Ai);
 	}
 }

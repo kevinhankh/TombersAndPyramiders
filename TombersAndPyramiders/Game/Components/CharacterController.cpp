@@ -78,7 +78,7 @@ void CharacterController::move(Vector2 delta)
 	} else 
 	{
 		m_character->playRunAnimation();
-		//gameObject->getTransform()->setRotation(delta.getRotationInDegrees());
+		gameObject->getTransform()->setRotation(delta.getRotationInDegrees());
 	}
 
 	gameObject->getTransform()->addTranslation(delta.getX(), delta.getY());
