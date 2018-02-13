@@ -20,7 +20,7 @@ void callback(std::map<std::string, void*> payload)
 	float p2x = std::stof(*(std::string*)payload["p2x"]);
 	float p2y = std::stof(*(std::string*)payload["p2y"]);
 
-	self->generateNetworkCharacter((float)payload["p1x"], payload["p1y"]);
+	self->generateNetworkCharacter(p1x, p1y);
 }
 
 SpawnManager* SpawnManager::getInstance()

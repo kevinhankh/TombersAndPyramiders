@@ -27,7 +27,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -195,6 +195,7 @@
     <ClCompile Include="Game\GameObjects\GameObjectTemplate.cpp" />
     <ClCompile Include="Game\GameObjects\NetworkCharacter.cpp" />
     <ClCompile Include="Game\GameObjects\Projectile.cpp" />
+    <ClCompile Include="Game\Scenes\NetworkedGameScene.cpp" />
     <ClCompile Include="Game\Scenes\SceneTemplate.cpp" />
     <ClCompile Include="GarbageCollection.cpp" />
     <ClCompile Include="main.cpp" />
@@ -277,6 +278,7 @@
     <ClInclude Include="Game\GameObjects\NetworkCharacter.h" />
     <ClInclude Include="Game\GameObjects\PlayerCharacter.h" />
     <ClInclude Include="Game\GameObjects\Projectile.h" />
+    <ClInclude Include="Game\Scenes\NetworkedGameScene.h" />
     <ClInclude Include="Game\Scenes\SceneTemplate.h" />
     <ClInclude Include="GarbageCollection.h" />
     <ClInclude Include="MiscSquare.h" />

@@ -330,6 +330,9 @@
     <ClCompile Include="Game\GameObjects\Character.cpp">
       <Filter>Source Files\Game\GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Scenes\NetworkedGameScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -591,6 +594,9 @@
       <Filter>Source Files\Game\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="Game\GameObjects\PlayerCharacter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scenes\NetworkedGameScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

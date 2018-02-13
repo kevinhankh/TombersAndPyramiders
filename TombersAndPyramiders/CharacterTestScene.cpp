@@ -12,6 +12,7 @@
 #include "InputManager.h"
 #include "NetworkingManager.h"
 #include "SceneManager.h"
+#include "MessageManager.h"
 
 std::shared_ptr<Character> player = nullptr;
 

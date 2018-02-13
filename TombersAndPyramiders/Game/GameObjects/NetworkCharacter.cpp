@@ -9,7 +9,7 @@ NetworkCharacter::NetworkCharacter(BasePilot* basePilot) :
 	setFPS(12);
 	addComponent<Inventory>(this);
 	addComponent<CharacterController>(this, getComponent<Inventory>().get(), basePilot);
-	addComponent<Receiver>(this, this->getId());
+	addComponent<Receiver>(*(new Receiver(this, std::to_string(this->getId()))));
 }
 
 /*----------------------------------------------------------------------------------------
