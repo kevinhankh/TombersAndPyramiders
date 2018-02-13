@@ -11,19 +11,22 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
+#include <memory>
 #include "Projectile.h"
 #include "BaseItem.h"
-#include <memory>
+#include "CharacterController.h"
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-Projectile::Projectile(BaseWeapon* weapon, string imageName, float colliderWidth, float colliderHeight, 
+Projectile::Projectile(string imageName, float colliderWidth, float colliderHeight, 
 	float spawnXPosition, float spawnYPosition, float spriteScale, float xVelociy, float yVelocity, float lifespan) :
-	DamagingRegion{ weapon, imageName, colliderWidth, colliderHeight, spawnXPosition, spawnYPosition, spriteScale }, 
+	DamagingRegion{ imageName, colliderWidth, colliderHeight, spawnXPosition, spawnYPosition, spriteScale }, 
 	m_velocity{ Vector2(xVelociy, yVelocity) },
 	m_lifespan{ lifespan }
-{}
+{
+	m_destroyOnCollision = true;
+}
 
 Projectile::~Projectile()
 {}
@@ -34,7 +37,31 @@ Projectile::~Projectile()
 void Projectile::onUpdate(int ticks)
 {
 	updatePosition(ticks);
+	DamagingRegion::handleCollisions();
 	updateLifespan(ticks);
+}
+
+void Projectile::handleSingleCollision(GameObject* other)
+{
+	/* Ensure you don't collide with the thing that created you. */
+	if (other->getId() != m_ownerId)
+	{
+		/* If the other thing is a character, damage it. */
+		std::shared_ptr<CharacterController> ccOther = other->getComponent<CharacterController>();
+		if (ccOther != nullptr)
+		{
+			ccOther->takeDamage(m_damage);
+
+			if (m_destroyOnCollision)
+			{
+				destroy(getId());
+			}
+
+			return;
+		}
+
+		/* TODO Handle collisions with walls? */
+	}
 }
 
 void Projectile::updatePosition(int ticks)
@@ -55,7 +82,6 @@ void Projectile::updateLifespan(int ticks)
 
 	if (m_lifespan <= 0)
 	{
-		
 		destroy(getId());
 	}
 }

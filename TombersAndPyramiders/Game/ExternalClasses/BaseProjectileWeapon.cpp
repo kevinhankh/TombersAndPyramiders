@@ -25,3 +25,10 @@ BaseProjectileWeapon::BaseProjectileWeapon(std::string projectileImageName,
 	m_projectileVelocity{ projectileVelocity }, 
 	m_projectileLifespan{ projectileLifespan }
 {}
+
+
+/*----------------------------------------------------------------------------------------
+	Instance Methods
+----------------------------------------------------------------------------------------*/
+void BaseProjectileWeapon::setOwnerId(int id)
+{}
