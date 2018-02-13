@@ -61,6 +61,7 @@ void Projectile::handleSingleCollision(GameObject* other)
 		}
 
 		/* TODO Handle collisions with walls? */
+		destroy(getId());
 	}
 }
 
