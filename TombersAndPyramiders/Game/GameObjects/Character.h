@@ -23,7 +23,7 @@
 #define ANIMATION_IDLE 0
 #define ANIMATION_RUN 1
 #define ANIMATION_ATTACK_MELEE 2
-#define ANIMATION_ATTACK_RANGE 2
+#define ANIMATION_ATTACK_RANGE 3
 
 /*========================================================================================
 	Character	

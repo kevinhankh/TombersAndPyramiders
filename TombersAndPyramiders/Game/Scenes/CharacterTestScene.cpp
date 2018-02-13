@@ -11,6 +11,7 @@
 #include "SpawnManager.h"
 #include <memory>
 #include <WoodenLongbow.h>
+#include "AudioManager.h"
 
 std::shared_ptr<Character> player = nullptr;
 
@@ -20,6 +21,7 @@ CharacterTestScene::CharacterTestScene()
 
 void CharacterTestScene::onStart()
 {
+	AudioManager::getInstance()->playMusic();
 	Camera::getActiveCamera()->addComponent<CameraFollow>(Camera::getActiveCamera().get());
 
 	const int size = 10;

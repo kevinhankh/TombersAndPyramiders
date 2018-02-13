@@ -27,6 +27,7 @@
 #include "BaseProjectileWeapon.h"
 #include "Collider.h"
 #include "SpawnManager.h"
+#include "AudioManager.h"
 
 /*----------------------------------------------------------------------------------------
 	Static Fields
@@ -91,9 +92,17 @@ void CharacterController::useWeapon()
 	{
 		weapon->use(); //What if this returned a bool for whether the attack fired or not? So the rest didn't fire for just trying to call useWeapon and let us let weapons determine then things likecooldown
 		//m_inventory->getWeapon()->use();
+
+		std::shared_ptr<BaseMeleeWeapon> melee = dynamic_pointer_cast<BaseMeleeWeapon>(weapon);
+		if (melee != nullptr) {
+			m_character->playMeleeAttackAnimation();
+			AudioManager::getInstance()->playSwordSwingSFX();
+		} else{
+			m_character->playRangeAttackAnimation();
+			AudioManager::getInstance()->playShootArrowSFX();
+		}
 		 
 		//dynamic_cast<BaseMeleeWeapon>(weapon);
-		m_character->playMeleeAttackAnimation();
 	}
 }
 

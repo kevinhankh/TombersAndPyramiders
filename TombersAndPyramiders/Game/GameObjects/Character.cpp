@@ -61,14 +61,20 @@ std::shared_ptr<ComplexSpriteinfo> Character::generateComplexSpriteInfo()
 // Changes the sprite animation to running
 void Character::playRunAnimation()
 {
-	changeSprite(ANIMATION_RUN);
+	if (getCurrentSprite() == ANIMATION_IDLE)
+	{
+		changeSprite(ANIMATION_RUN);
+	}
 }
 
 
 // Changes the sprite animation to idling
 void Character::endRunAnimation()
 {
-	changeSprite(ANIMATION_IDLE);
+	if (getCurrentSprite() == ANIMATION_RUN) 
+	{
+		changeSprite(ANIMATION_IDLE);
+	}
 }
 
 
