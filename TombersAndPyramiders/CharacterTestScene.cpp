@@ -11,6 +11,7 @@
 #include "SpawnManager.h"
 #include "InputManager.h"
 #include "NetworkingManager.h"
+#include "SceneManager.h"
 
 std::shared_ptr<Character> player = nullptr;
 
@@ -52,6 +53,12 @@ void CharacterTestScene::onUpdate(int ticks)
 	if (InputManager::getInstance()->onKeyReleased(SDLK_j))
 	{
 		NetworkingManager::getInstance()->createClient();
+		MessageManager::subscribe("GAMESTART", [](std::map<std::string, void*> data) -> void
+		{
+			//data has world data
+			//data has starting positions
+			//start scene
+		}, this);
 		//SpawnManager::getInstance()->generateNetworkCharacter(25, 10);
 	}
 	if (InputManager::getInstance()->onKeyReleased(SDLK_h))
@@ -61,13 +68,21 @@ void CharacterTestScene::onUpdate(int ticks)
 	}
 	if (InputManager::getInstance()->onKeyReleased(SDLK_k))
 	{
-		if (NetworkingManager::getInstance()->startGame()) {
-		/*	player = SpawnManager::getInstance()->generateNetworkCharacter(15, 5);
-			setCameraFollow(player);*/
+		if (NetworkingManager::getInstance()->startGame())
+		{
+			//Build the "GAMESTART" message
+			//Start the scene
 		}
+		
+		
 	}
 }
 
+void CharacterTestScene::spawnPlayer(int x, int y)
+{
+	player = SpawnManager::getInstance()->generatePlayerCharacter(x, y);
+	setCameraFollow(player);
+}
 
 
 /*

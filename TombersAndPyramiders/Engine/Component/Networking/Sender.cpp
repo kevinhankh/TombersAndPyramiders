@@ -38,6 +38,18 @@ void Sender::sendUpdate()
 	sendNetworkMessage("UPDATE", payload);
 }
 
+void Sender::spawnPlayers(float p1x, float p1y, float p2x, float p2y)
+{
+	//Host tells reciever 
+	std::map<std::string, std::string> payload;
+	payload["p1x"] = p1x;
+	payload["p1y"] = p1y;
+	payload["p2x"] = p2x;
+	payload["p2y"] = p2y;
+
+	sendNetworkMessage("SPAWN", payload);
+}
+
 void Sender::sendAttack()
 {
 	std::map<std::string, std::string> payload;

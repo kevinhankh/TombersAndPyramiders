@@ -57,6 +57,7 @@ public:
 	static NetworkingManager* getInstance();
 	IPaddress getIP();
 	bool startGame();
+	bool startGameClient();
 	bool createHost();
 	bool createClient();
 	void send(Uint32 ip, std::string *msg);

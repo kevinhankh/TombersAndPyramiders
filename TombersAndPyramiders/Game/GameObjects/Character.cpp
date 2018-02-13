@@ -15,6 +15,7 @@
 #include "Character.h"
 #include "CharacterController.h"
 #include "Inventory.h"
+#include "Sender.h"
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
@@ -25,6 +26,7 @@ Character::Character(BasePilot* basePilot) :
 	setFPS(12);
 	addComponent<Inventory>(this);
 	addComponent<CharacterController>(this, getComponent<Inventory>().get(), basePilot);
+	addComponent<Sender>(this, this->getId());
 }
 
 /*----------------------------------------------------------------------------------------

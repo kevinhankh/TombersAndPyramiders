@@ -45,16 +45,26 @@ IPaddress NetworkingManager::getIP() {
 }
 
 bool NetworkingManager::startGame() {
-	if (!inLobby || gameStarted)
+	
+	if (!isHost() || !inLobby || gameStarted)
 		return false;
 
-	if (isHost()) {
-		sendStartPacket();
-	}
+	sendStartPacket();
+
 
 	inLobby = false;
 	gameStarted = true;
+	std::cout << "Server start game!" << std::endl;
+	return true;
+}
 
+bool NetworkingManager::startGameClient() {
+	if (!inLobby || gameStarted)
+		return false;
+
+	inLobby = false;
+	gameStarted = true;
+	std::cout << "Client start game!" << std::endl;
 	return true;
 }
 
@@ -62,13 +72,14 @@ void NetworkingManager::sendStartPacket()
 {
 	std::map<std::string, std::string> payload;
 	NetworkingManager::getInstance()->prepareMessageForSending("STARTGAME", payload);
+
 }
 
 void NetworkingManager::listenForStart()
 {
 	this->m_startPacketID = MessageManager::subscribe("STARTGAME", [](std::map<std::string, void*> data) -> void
 	{
-		NetworkingManager::getInstance()->startGame();
+		NetworkingManager::getInstance()->startGameClient();
 	}, this);
 }
 
@@ -110,7 +121,7 @@ bool NetworkingManager::host()
 	}
 
 	std::cout << "hey u " << ip.host << std::endl;
-	
+	addPlayer(ip.host, m_socket);
 	inLobby = true;
 	gameStarted = false;
 	channel = SDLNet_UDP_Bind(m_udpSocket, DEFAULT_CHANNEL, &ip);
@@ -345,6 +356,8 @@ void NetworkingManager::prepareMessageForSending(std::string key, std::map<std::
 //TODO: Do over time
 void NetworkingManager::sendQueuedEvents()
 {
+	if (m_messagesToSend.size() < 1)
+		return;
 	std::string packet = "[";
 	for (size_t i = 0; i < m_messagesToSend.size(); i++)
 	{

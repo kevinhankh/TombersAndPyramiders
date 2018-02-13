@@ -11,6 +11,18 @@
 
 SpawnManager* SpawnManager::s_instance;
 
+void callback(std::map<std::string, void*> payload)
+{
+	SpawnManager* self = (SpawnManager*)payload["this"];
+
+	float p1x = std::stof(*(std::string*)payload["p1x"]);
+	float p1y = std::stof(*(std::string*)payload["p1y"]);
+	float p2x = std::stof(*(std::string*)payload["p2x"]);
+	float p2y = std::stof(*(std::string*)payload["p2y"]);
+
+	self->generateNetworkCharacter((float)payload["p1x"], payload["p1y"]);
+}
+
 SpawnManager* SpawnManager::getInstance()
 {
 	if (s_instance == nullptr)
@@ -20,8 +32,9 @@ SpawnManager* SpawnManager::getInstance()
 
 SpawnManager::SpawnManager() : GameObject()
 {
-	addComponent<Receiver>(*(new Receiver(this, std::to_string(getId()))));
-	addComponent<Sender>(*(new Sender(this, std::to_string(getId()))));
+	auto receiver = addComponent<Receiver>(*(new Receiver(this, std::to_string(getId()))));
+	receiver->Subscribe("SPAWN", callback, this);
+	auto sender = addComponent<Sender>(*(new Sender(this, std::to_string(getId()))));
 }
 
 SpawnManager::~SpawnManager()
