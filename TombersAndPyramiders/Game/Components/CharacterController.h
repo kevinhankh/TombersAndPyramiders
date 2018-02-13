@@ -15,8 +15,14 @@
 #include "BaseController.h"
 #include "Damageable.h"
 #include "Vector2.h"
+#include "PlayerPilot.h"
+#include "BoxCollider.h"
+#include "CircleCollider.h"
+#include "Rigidbody.h"
 #include "BasePilot.h"
 #include "WorldItem.h"
+#include "Rigidbody.h"
+
 class Inventory;
 
 /*========================================================================================
@@ -34,6 +40,8 @@ class CharacterController : public BaseController, public Damageable
 	private:
 		Inventory* m_inventory;
 		Vector2 m_movementSpeed;
+		std::shared_ptr<Rigidbody> m_rigidbody;
+		std::shared_ptr<BoxCollider> m_boxCollider;
 
 		std::shared_ptr<Character> m_character;
     /*----------------------------------------------------------------------------------------
@@ -54,6 +62,7 @@ class CharacterController : public BaseController, public Damageable
 			Forwards the onUpdate() call to the pilot.
 		*/
 		void onUpdate(int ticks);
+		void onStart();
 
 		/**
 			Moves this component's gameObject.

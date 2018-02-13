@@ -1,18 +1,16 @@
 #pragma once
 
 #include "SimpleSprite.h"
-#include "ComponentTemplate.h"
 #include "BoxCollider.h"
 #include "CircleCollider.h"
 
-//Instance/MovableCharacter
-class MovingSquare : public SimpleSprite
+//Instance/Wall
+class Wall : public SimpleSprite
 {
 private:
 	////Private Variables
 	std::shared_ptr<BoxCollider> m_boxCollider = nullptr;
-	std::shared_ptr<CircleCollider> m_circleCollider = nullptr;
-
+	
 	////Private Methods
 
 public:
@@ -20,9 +18,9 @@ public:
 
 	////Public Methods
 	//The constructor that is called on creation
-	MovingSquare();
+	Wall();
 	//The destructor that is called on deletion
-	~MovingSquare();
+	~Wall();
 
 	void onStart() {};
 	void onUpdate(int ticks);

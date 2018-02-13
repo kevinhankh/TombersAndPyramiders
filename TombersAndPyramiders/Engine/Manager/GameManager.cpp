@@ -78,13 +78,15 @@ void GameManager::onUpdate(int ticks)
 		NetworkingManager::getInstance()->sendQueuedEvents();
 	}
 
-	SpriteRendererManager::getInstance()->onUpdate(ticks);
 	PhysicsManager::getInstance()->onUpdate(ticks);
+	SpriteRendererManager::getInstance()->onUpdate(ticks);
 
 	for (std::map<int, std::shared_ptr<GameObject>>::iterator it = m_globalGameObjects.begin(); it != m_globalGameObjects.end(); ++it)
 	{
-		it->second->onComponentsUpdate(ticks);
-		it->second->onUpdate(ticks);
+		if (it->second != nullptr) {
+			it->second->onComponentsUpdate(ticks);
+			it->second->onUpdate(ticks);
+		}
 	}
 
 	m_game->onUpdate(ticks);

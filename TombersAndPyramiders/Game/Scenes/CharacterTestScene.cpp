@@ -12,8 +12,6 @@
 #include <memory>
 #include <WoodenLongbow.h>
 
-std::shared_ptr<Character> player = nullptr;
-
 CharacterTestScene::CharacterTestScene()
 {
 }
@@ -33,12 +31,11 @@ void CharacterTestScene::onStart()
 		}
 	}
 
-
-	player = SpawnManager::getInstance()->generatePlayerCharacter(15, 5);
+	SpawnManager::getInstance()->generateWall(0, 0, 10);
 
 	SpawnManager::getInstance()->generateWorldItem(-5, -5, std::make_shared<WoodenLongbow>());
 
-	setCameraFollow(player);
+	setCameraFollow(SpawnManager::getInstance()->generatePlayerCharacter(20, 20));
 }
 
 void CharacterTestScene::setCameraFollow(std::shared_ptr<GameObject> toFollow)
@@ -55,17 +52,6 @@ void CharacterTestScene::onEnd()
 
 }
 
-int counter = 0;
 void CharacterTestScene::onUpdate(int ticks)
 {
-	if (counter++ == 60)
-	{
-		player->destroy(player);
-		player = nullptr;
-	}
-	if (counter == 120)
-	{
-		player = SpawnManager::getInstance()->generatePlayerCharacter(-10, 5);
-		setCameraFollow(player);
-	}
 }
