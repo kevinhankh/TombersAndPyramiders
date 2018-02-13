@@ -54,6 +54,10 @@ void PlayerPilot::onUpdate(int ticks)
 			m_characterController->useWeapon();
 		}
 	}
+	if (InputManager::getInstance()->onKey(SDLK_e)) 
+	{
+		m_characterController->trySwapItem();
+	}
 }
 
 void PlayerPilot::onEnd()

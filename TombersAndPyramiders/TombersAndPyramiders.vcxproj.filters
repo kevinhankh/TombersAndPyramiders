@@ -321,6 +321,9 @@
     <ClCompile Include="Game\Managers\SpawnManager.cpp">
       <Filter>Source Files\Game\Managers</Filter>
     </ClCompile>
+    <ClCompile Include="Game\GameObjects\WorldItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -574,6 +577,9 @@
     </ClInclude>
     <ClInclude Include="Game\Managers\SpawnManager.h">
       <Filter>Source Files\Game\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObjects\WorldItem.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
