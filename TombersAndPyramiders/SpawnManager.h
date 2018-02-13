@@ -24,7 +24,7 @@ public:
 	//Networking test
 	std::shared_ptr<HostCharacter> generateNetworkCharacter(Uint32 ip, float x, float y);
 
-	std::shared_ptr<ClientCharacter> generatePlayerCharacter(float x, float y);
+	std::shared_ptr<ClientCharacter> generatePlayerCharacter(Uint32 ip, float x, float y);
 	void sendStartPacket ();
 
 	static std::shared_ptr<SpawnManager> getInstance();

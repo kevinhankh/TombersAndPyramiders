@@ -174,6 +174,7 @@
     <ClCompile Include="Game\ExternalClasses\BaseShortsword.cpp" />
     <ClCompile Include="Game\ExternalClasses\BaseWeapon.cpp" />
     <ClCompile Include="Game\ExternalClasses\Damageable.cpp" />
+    <ClCompile Include="Game\ExternalClasses\HostPilot.cpp" />
     <ClCompile Include="Game\ExternalClasses\PlayerPilot.cpp" />
     <ClCompile Include="Game\ExternalClasses\WoodenLongbow.cpp" />
     <ClCompile Include="Game\ExternalClasses\WoodenShortsword.cpp" />
@@ -254,6 +255,7 @@
     <ClInclude Include="Game\ExternalClasses\BaseShortsword.h" />
     <ClInclude Include="Game\ExternalClasses\BaseWeapon.h" />
     <ClInclude Include="Game\ExternalClasses\Damageable.h" />
+    <ClInclude Include="Game\ExternalClasses\HostPilot.h" />
     <ClInclude Include="Game\ExternalClasses\PlayerPilot.h" />
     <ClInclude Include="Game\ExternalClasses\UserDefinedRenderLayers.h" />
     <ClInclude Include="Game\ExternalClasses\WoodenLongbow.h" />
