@@ -9,16 +9,16 @@
 class SpawnManager : public GameObject
 {
 private:
-	static SpawnManager* s_instance;
+	static std::shared_ptr<SpawnManager> s_instance;
 	//GameObject* mGameObj;
 
-	SpawnManager();
-	~SpawnManager();
 
 	//Networking test
 	std::vector<std::shared_ptr<NetworkCharacter>> networkCharacters;
 
 public:
+	SpawnManager ();
+	~SpawnManager ();
 	std::shared_ptr<MiscSquare> generateMiscSquare(float x, float y, float scale);
 	std::shared_ptr<MovingSquare> generateMovingSquare(float x, float y);
 
@@ -26,6 +26,7 @@ public:
 	std::shared_ptr<Character> generateNetworkCharacter(float x, float y);
 
 	std::shared_ptr<Character> generatePlayerCharacter(float x, float y);
+	void sendStartPacket ();
 
-	static SpawnManager* getInstance();
+	static std::shared_ptr<SpawnManager> getInstance();
 };

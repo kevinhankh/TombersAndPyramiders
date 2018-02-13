@@ -50,7 +50,7 @@ public:
 		return result;
 	}
 	template <typename T, class... _Types>
-	std::shared_ptr<T> createGameObject(bool isGlobal, int id, _Types&&... args)
+	std::shared_ptr<T> createGameObjectWithId(bool isGlobal, int id, _Types&&... args)
 	{
 		std::shared_ptr<T> result = std::make_shared<T>(args...);
 

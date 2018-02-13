@@ -33,9 +33,7 @@ bool NetworkingManager::isConnected()
 
 bool NetworkingManager::isHost()
 {
-	IPaddress ip;
-	SDLNet_ResolveHost(&ip, NULL, m_port);
-	return m_clients[ip.host] != NULL;
+	return m_isHost;
 }
 
 IPaddress NetworkingManager::getIP() {
@@ -49,9 +47,6 @@ bool NetworkingManager::startGame() {
 	if (!isHost() || !inLobby || gameStarted)
 		return false;
 
-	sendStartPacket();
-
-
 	inLobby = false;
 	gameStarted = true;
 	std::cout << "Server start game!" << std::endl;
@@ -59,20 +54,13 @@ bool NetworkingManager::startGame() {
 }
 
 bool NetworkingManager::startGameClient() {
-	if (!inLobby || gameStarted)
+	if (isHost() || !inLobby || gameStarted)
 		return false;
 
 	inLobby = false;
 	gameStarted = true;
 	std::cout << "Client start game!" << std::endl;
 	return true;
-}
-
-void NetworkingManager::sendStartPacket()
-{
-	std::map<std::string, std::string> payload;
-	NetworkingManager::getInstance()->prepareMessageForSending("STARTGAME", payload);
-
 }
 
 void NetworkingManager::listenForStart()
@@ -120,10 +108,9 @@ bool NetworkingManager::host()
 		return false;
 	}
 
-	std::cout << "hey u " << ip.host << std::endl;
-	addPlayer(ip.host, m_socket);
 	inLobby = true;
 	gameStarted = false;
+	m_isHost = true;
 	channel = SDLNet_UDP_Bind(m_udpSocket, DEFAULT_CHANNEL, &ip);
 
 	bool result = false;
@@ -290,7 +277,6 @@ void NetworkingManager::pollMessagesThread(Uint32 ip)
 
 	while (m_socket != NULL)
 	{ //replace with on connection lost
-
 		if (m_clients.find(ip) != m_clients.end())
 			result = SDLNet_TCP_Recv(m_clients[ip], msg, MAXLEN);
 		else if (m_socket != NULL)

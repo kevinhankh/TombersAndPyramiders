@@ -21,6 +21,7 @@ private:
 	int m_startPacketID;
 	bool inLobby = false; //closeall will set both of these to false
 	bool gameStarted = false;
+	bool m_isHost = false;
 	static NetworkingManager* s_instance;
 	ThreadQueue<std::string> *m_messageQueue;
 	std::thread m_receiverThread;

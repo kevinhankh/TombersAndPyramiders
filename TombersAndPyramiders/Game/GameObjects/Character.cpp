@@ -26,7 +26,7 @@ Character::Character(BasePilot* basePilot) :
 	setFPS(12);
 	addComponent<Inventory>(this);
 	addComponent<CharacterController>(this, getComponent<Inventory>().get(), basePilot);
-	addComponent<Sender>(*(new Sender(this, std::to_string(this->getId()))));
+	addComponent<Sender>(this, std::to_string(this->getId()));
 }
 
 /*----------------------------------------------------------------------------------------

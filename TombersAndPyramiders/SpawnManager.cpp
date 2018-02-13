@@ -8,33 +8,54 @@
 #include "Receiver.h"
 #include "Sender.h"
 #include "NetworkingManager.h"
+#include "NetworkedGameScene.h"
 
-SpawnManager* SpawnManager::s_instance;
+std::shared_ptr<SpawnManager> SpawnManager::s_instance;
 
 void callback(std::map<std::string, void*> payload)
 {
 	SpawnManager* self = (SpawnManager*)payload["this"];
 
-	float p1x = std::stof(*(std::string*)payload["p1x"]);
-	float p1y = std::stof(*(std::string*)payload["p1y"]);
-	float p2x = std::stof(*(std::string*)payload["p2x"]);
-	float p2y = std::stof(*(std::string*)payload["p2y"]);
+	float p1x = std::stof(*(std::string*)payload["playerSpawnX0"]);
+	float p1y = std::stof(*(std::string*)payload["playerSpawnY0"]);
+	float p2x = std::stof(*(std::string*)payload["playerSpawnX1"]);
+	float p2y = std::stof(*(std::string*)payload["playerSpawnY1"]);
 
-	self->generateNetworkCharacter(p1x, p1y);
+	SceneManager::getInstance ()->pushScene (new NetworkedGameScene (p1x, p1y, p2x, p2y));
 }
 
-SpawnManager* SpawnManager::getInstance()
+void SpawnManager::sendStartPacket ()
+{
+	std::map<std::string, std::string> payload;
+
+	float p1x = -2;
+	float p1y = -2;
+	float p2x = 2;
+	float p2y = 2;
+
+
+	payload["playerSpawnX0"] = std::to_string (p1x);
+	payload["playerSpawnY0"] = std::to_string (p1y);
+
+	payload["playerSpawnX1"] = std::to_string (p2x);
+	payload["playerSpawnY1"] = std::to_string (p2y);
+
+	NetworkingManager::getInstance ()->prepareMessageForSending ("STARTGAME", payload);
+	SceneManager::getInstance ()->pushScene (new NetworkedGameScene (p1x, p1y, p2x, p2y));
+}
+
+std::shared_ptr<SpawnManager> SpawnManager::getInstance()
 {
 	if (s_instance == nullptr)
-		s_instance = new SpawnManager();
+		s_instance = GameManager::getInstance()->createGameObject<SpawnManager> (true);
 	return s_instance;
 }
 
 SpawnManager::SpawnManager() : GameObject()
 {
-	auto receiver = addComponent<Receiver>(*(new Receiver(this, std::to_string(getId()))));
-	receiver->Subscribe("SPAWN", callback, this);
-	auto sender = addComponent<Sender>(*(new Sender(this, std::to_string(getId()))));
+	auto receiver = addComponent<Receiver>(this, std::to_string(getId()));
+	MessageManager::subscribe ("STARTGAME", callback, this);
+	auto sender = addComponent<Sender>(this, std::to_string(getId()));
 }
 
 SpawnManager::~SpawnManager()
@@ -70,11 +91,9 @@ std::shared_ptr<Character> SpawnManager::generateNetworkCharacter(float x, float
 {
 	IPaddress ip = NetworkingManager::getInstance()->getIP();
 	int id = ip.host + rand();
-	std::shared_ptr<Character> simpleCharacter = GameManager::getInstance()->createGameObject<Character>(false, id, new PlayerPilot());
+	std::shared_ptr<Character> simpleCharacter = GameManager::getInstance()->createGameObjectWithId<Character>(false, id, new PlayerPilot());
 	simpleCharacter->getComponent<Inventory>()->addItem(new WoodenLongbow());
 	simpleCharacter->getTransform()->setPosition(x, y);
-	simpleCharacter->addComponent<Receiver>(*(new Receiver(simpleCharacter.get(), std::to_string(id))));
-
 	return simpleCharacter;
 }
 /*

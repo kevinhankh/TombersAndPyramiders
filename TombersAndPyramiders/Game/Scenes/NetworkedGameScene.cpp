@@ -10,7 +10,7 @@
 #include "CameraFollow.h"
 #include "NetworkingManager.h"
 
-NetworkedGameScene::NetworkedGameScene(float hostX, float hostY, float guestX, float guestY, int lobbyID)
+NetworkedGameScene::NetworkedGameScene(float hostX, float hostY, float guestX, float guestY)
 {
 	if (NetworkingManager::getInstance()->isHost())
 	{
@@ -32,11 +32,11 @@ void NetworkedGameScene::onStart()
 {
 	Camera::getActiveCamera()->addComponent<CameraFollow>(Camera::getActiveCamera().get());
 
-	for (int x = -5; x < 5; x++)
+	for (int x = -10; x < 10; x++)
 	{
-		for (int y = -5; y < 5; y++)
+		for (int y = -10; y < 10; y++)
 		{
-			SpawnManager::getInstance()->generateMiscSquare(x * 5, y * 5, 5);
+			SpawnManager::getInstance()->generateMiscSquare(x * 2, y * 2, 2);
 		}
 	}
 }
