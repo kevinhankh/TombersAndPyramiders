@@ -76,6 +76,12 @@
     <Filter Include="Source Files\Game\ExternalClasses\Items">
       <UniqueIdentifier>{609bb4e8-7259-48d7-bb47-14bfe7920735}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Engine\External\LevelGeneration">
+      <UniqueIdentifier>{b8e43e0b-3dab-4713-b3e0-7d65f9ec0cc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\GameObject\Tiles">
+      <UniqueIdentifier>{b803da57-8b38-417a-b7eb-da611ad651cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -297,29 +303,29 @@
     <ClCompile Include="Game\ExternalClasses\BaseWeapon.cpp">
       <Filter>Source Files\Game\ExternalClasses\Items</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameObjects\DamagingRegion.cpp">
-      <Filter>Source Files\Game\GameObjects</Filter>
+    <ClCompile Include="Engine\External\LevelGeneration\Codec.cpp">
+      <Filter>Source Files\Engine\External\LevelGeneration</Filter>
     </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\BaseMeleeWeapon.cpp">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    <ClCompile Include="Engine\External\LevelGeneration\Generator.cpp">
+      <Filter>Source Files\Engine\External\LevelGeneration</Filter>
     </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\BaseShortsword.cpp">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    <ClCompile Include="Engine\GameObjects\Tiles\ConnectorTile.cpp">
+      <Filter>Source Files\Engine\GameObject\Tiles</Filter>
     </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\WoodenShortsword.cpp">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    <ClCompile Include="Engine\GameObjects\Tiles\CornerTile.cpp">
+      <Filter>Source Files\Engine\GameObject\Tiles</Filter>
     </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\BaseProjectileWeapon.cpp">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    <ClCompile Include="Engine\GameObjects\Tiles\DoorTile.cpp">
+      <Filter>Source Files\Engine\GameObject\Tiles</Filter>
     </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\BaseLongbow.cpp">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    <ClCompile Include="Engine\GameObjects\Tiles\FloorTile.cpp">
+      <Filter>Source Files\Engine\GameObject\Tiles</Filter>
     </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\WoodenLongbow.cpp">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    <ClCompile Include="Engine\GameObjects\Tiles\WallTile.cpp">
+      <Filter>Source Files\Engine\GameObject\Tiles</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameObjects\Projectile.cpp">
-      <Filter>Source Files\Game\GameObjects</Filter>
+    <ClCompile Include="Engine\GameObjects\Tiles\Tile.cpp">
+      <Filter>Source Files\Engine\GameObject\Tiles</Filter>
     </ClCompile>
     <ClCompile Include="Game\GameObjects\Character.cpp">
       <Filter>Source Files\Game\GameObjects</Filter>
@@ -554,29 +560,29 @@
     <ClInclude Include="Game\ExternalClasses\BaseWeapon.h">
       <Filter>Source Files\Game\ExternalClasses\Items</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameObjects\DamagingRegion.h">
-      <Filter>Source Files\Game\GameObjects</Filter>
+    <ClInclude Include="Engine\External\LevelGeneration\Codec.h">
+      <Filter>Source Files\Engine\External\LevelGeneration</Filter>
     </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\BaseMeleeWeapon.h">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    <ClInclude Include="Engine\External\LevelGeneration\Generator.h">
+      <Filter>Source Files\Engine\External\LevelGeneration</Filter>
     </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\BaseShortsword.h">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    <ClInclude Include="Engine\GameObjects\Tiles\ConnectorTile.h">
+      <Filter>Source Files\Engine\GameObject\Tiles</Filter>
     </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\WoodenShortsword.h">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    <ClInclude Include="Engine\GameObjects\Tiles\CornerTile.h">
+      <Filter>Source Files\Engine\GameObject\Tiles</Filter>
     </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\BaseProjectileWeapon.h">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    <ClInclude Include="Engine\GameObjects\Tiles\DoorTile.h">
+      <Filter>Source Files\Engine\GameObject\Tiles</Filter>
     </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\BaseLongbow.h">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    <ClInclude Include="Engine\GameObjects\Tiles\FloorTile.h">
+      <Filter>Source Files\Engine\GameObject\Tiles</Filter>
     </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\WoodenLongbow.h">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
+    <ClInclude Include="Engine\GameObjects\Tiles\WallTile.h">
+      <Filter>Source Files\Engine\GameObject\Tiles</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameObjects\Projectile.h">
-      <Filter>Source Files\Game\GameObjects</Filter>
+    <ClInclude Include="Engine\GameObjects\Tiles\Tile.h">
+      <Filter>Source Files\Engine\GameObject\Tiles</Filter>
     </ClInclude>
     <ClInclude Include="Game\GameObjects\Character.h">
       <Filter>Source Files\Game\GameObjects</Filter>
