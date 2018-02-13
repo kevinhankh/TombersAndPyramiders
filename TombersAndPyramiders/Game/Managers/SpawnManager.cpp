@@ -5,6 +5,7 @@
 #include "WoodenShortsword.h"
 #include "WoodenLongbow.h"
 #include "PlayerPilot.h"
+#include "DummyPilot.h"
 
 SpawnManager* SpawnManager::s_instance;
 
@@ -46,6 +47,15 @@ std::shared_ptr<Character> SpawnManager::generatePlayerCharacter(float x, float 
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenShortsword>());
 	simpleCharacter->getTransform()->setPosition(x, y);
 	
+	return simpleCharacter;
+}
+
+std::shared_ptr<Character> SpawnManager::generateDummyCharacter(float x, float y)
+{
+	std::shared_ptr<Character> simpleCharacter = GameManager::getInstance()->createGameObject<Character>(false, new DummyPilot());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenShortsword>());
+	simpleCharacter->getTransform()->setPosition(x, y);
+
 	return simpleCharacter;
 }
 

@@ -104,6 +104,8 @@ void CharacterTestScene::onStart()
 
 	player = SpawnManager::getInstance()->generatePlayerCharacter(15, -5);
 
+	SpawnManager::getInstance()->generateDummyCharacter(35, -5);
+
 	setCameraFollow(player);
 }
 
