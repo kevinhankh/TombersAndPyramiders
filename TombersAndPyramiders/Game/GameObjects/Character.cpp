@@ -54,6 +54,7 @@ std::shared_ptr<ComplexSpriteinfo> Character::generateComplexSpriteInfo()
 	spriteInfo->addInfo("squareRun.png", 8, 1);
 	spriteInfo->addInfo("squareRedAttack.png", 8, 1);
 	spriteInfo->addInfo("squareWhiteAttack.png", 8, 1);
+	spriteInfo->addInfo("squareHurt.png", 8, 1);
 
 	return spriteInfo;
 }
@@ -89,4 +90,9 @@ void Character::playMeleeAttackAnimation()
 void Character::playRangeAttackAnimation()
 {
 	changeSprite(ANIMATION_ATTACK_RANGE, ANIMATION_IDLE);
+}
+
+void Character::playHurtAnimation()
+{
+	changeSprite(ANIMATION_HURT, ANIMATION_IDLE);
 }

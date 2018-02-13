@@ -37,6 +37,8 @@ void CharacterTestScene::onStart()
 
 	SpawnManager::getInstance()->generateWorldItem(-5, -5, std::make_shared<WoodenLongbow>());
 
+	SpawnManager::getInstance()->generateDummyCharacter(15, 15);
+
 	setCameraFollow(SpawnManager::getInstance()->generatePlayerCharacter(20, 20));
 }
 
