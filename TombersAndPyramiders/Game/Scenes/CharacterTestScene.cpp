@@ -105,6 +105,7 @@ void CharacterTestScene::onStart()
 		}
 	}
 	SpawnManager::getInstance()->generateWorldItem(5, -5, std::make_shared<WoodenLongbow>());
+
 	player = SpawnManager::getInstance()->generatePlayerCharacter(15, -10);
 	Ai = SpawnManager::getInstance()->generateAiCharacter(14, -15);
 	Ai2 = SpawnManager::getInstance()->generateAiCharacter(44, -20);

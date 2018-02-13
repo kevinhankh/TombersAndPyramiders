@@ -122,6 +122,8 @@ void CharacterController::useWeapon()
 void CharacterController::takeDamage(int damage)
 {
 	Damageable::takeDamage(damage);
+	m_character->playHurtAnimation();
+	AudioManager::getInstance()->playHitSFX();
 }
 
 void CharacterController::updateWeapon(int ticks)
