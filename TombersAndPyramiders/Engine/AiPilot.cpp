@@ -10,7 +10,6 @@ int attackNumber = rand();
 void AiPilot::shouldFire()
 {
 	attackNumber = attackNumber %6;
-	cout << attackNumber % 2 + 1 << endl;
 	attackCount = attackCount + 1;
 	if (attackCount == 120)
 	{
@@ -66,7 +65,6 @@ int randomNumber = rand();
 Vector2 AiPilot::getMovement()
 {
 	randomNumber = randomNumber %9;
-	cout << randomNumber % 9 + 1 << endl;
 	coun = coun + 1;
 	Vector2 movement = Vector2(0, 0);
 	if (coun == 60)
@@ -76,40 +74,40 @@ Vector2 AiPilot::getMovement()
 	}
 		if (randomNumber == 1)
 		{
-			movement.setX(-0.05f);
+			movement.setX(-0.2f);
 		}
 		else if (randomNumber == 2)
 		{
-			movement.setX(0.05f);
+			movement.setX(0.2f);
 	
 		}
 		else if (randomNumber == 3)
 		{
-			movement.setY(0.05f);
+			movement.setY(0.2f);
 		}
 		else if (randomNumber == 4)
 		{
-			movement.setY(-0.05f);
+			movement.setY(-0.2f);
 		}
 		else if (randomNumber == 5)
 		{
-			movement.setX(-0.05f);
-			movement.setY(0.05f);
+			movement.setX(-0.2f);
+			movement.setY(0.2f);
 		}
 		else if (randomNumber == 6)
 		{
-			movement.setX(0.05f);
-			movement.setY(0.05f);
+			movement.setX(0.2f);
+			movement.setY(0.2f);
 		}
 		else if (randomNumber == 7)
 		{
-			movement.setX(-0.05f);
-			movement.setY(-0.05f);
+			movement.setX(-0.2f);
+			movement.setY(-0.2f);
 		}
 		else if (randomNumber == 8)
 		{
-			movement.setX(0.05f);
-			movement.setY(-0.05f);
+			movement.setX(0.2f);
+			movement.setY(-0.2f);
 		}
 	
 	return movement;
