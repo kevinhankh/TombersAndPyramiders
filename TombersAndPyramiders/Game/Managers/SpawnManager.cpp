@@ -52,6 +52,7 @@ std::shared_ptr<Character> SpawnManager::generatePlayerCharacter(float x, float 
 std::shared_ptr<WorldItem> SpawnManager::generateWorldItem(float x, float y, std::shared_ptr<BaseItem> item) 
 {
 	std::shared_ptr<WorldItem> worldItem = GameManager::getInstance()->createGameObject<WorldItem>(false, item, x, y);
+	worldItem->addComponent<BoxCollider>(worldItem.get(), 1, 1);
 	return worldItem;
 }
 

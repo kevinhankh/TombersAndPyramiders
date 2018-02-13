@@ -141,17 +141,18 @@ void CharacterController::death()
 
 std::shared_ptr<WorldItem> CharacterController::trySwapItem()
 {
-	std::shared_ptr<Collider> myCollider = gameObject->getComponent<Collider>();
+	std::shared_ptr<BoxCollider> myCollider = gameObject->getComponent<BoxCollider>();
 	if (myCollider != nullptr && myCollider->collisionDetected()) {
 		std::vector<GameObject*> collidedObjects = myCollider->getColliders();
 		for (int i = 0; i < collidedObjects.size(); i++)
 		{
 			WorldItem* worldItem = dynamic_cast<WorldItem*>(collidedObjects[i]);
-			float oldX = worldItem->getTransform()->getX();
-			float oldY = worldItem->getTransform()->getY();
 
 			if (worldItem != nullptr) 
 			{
+				float oldX = worldItem->getTransform()->getX();
+				float oldY = worldItem->getTransform()->getY();
+
 				std::shared_ptr<BaseItem> extractedItem = worldItem->pickupItem();
 
 				std::shared_ptr<BaseItem> removedItem = m_inventory->addItem(extractedItem);
