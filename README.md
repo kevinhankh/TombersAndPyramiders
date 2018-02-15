@@ -12,9 +12,9 @@ The game engine is a custom built C++ engine created for both Windows and Mac. T
 
 ### Current State
 
-The game at our planned Alpha stage, which was intended to be our minimum viable product for user testing the controls and combat system over the network. Currently, the engine is built, however will require optimizations before beta. The game itself allows for two users to create a game online and fight each other. There are not currently any puzzles or randomly generated rooms, as those were planned for our beat version. Users can run around online, attacking each other with the bow they get on spawn. The players can switch to the sword that is on the ground to fight with the sword. There are random walking and shooting AI’s that are placed around the scene which can kill players or be killed.
+The game is currently at our planned Alpha stage, which was intended to be our minimum viable product for user testing the controls and combat system over the network. Currently, the engine is built, however will require optimizations before beta. The game itself allows for two users to create a game online and fight each other. There are not currently any puzzles or randomly generated rooms, as those were planned for our beta version. Users can run around online, attacking each other with the bow they get on spawn. The players can switch to the sword that is on the ground to fight with the sword. There are random walking and shooting AI’s that are placed around the scene which can kill players or be killed.
 
-The game, however, is not complete. Not everything is sync’d over the network yet, meaning certain things get out of sync in the games. The game crashes on player death due to a bug with the networking logic, however that bug was deemed acceptable for the initial launch for testing due to player death already being the end game state. Optimizations are required to allow for mass scaling, currently the team is debating implementing quad tree’s to better handle the culling and physics collision. 
+The game, however, is not complete. Not everything is sync’d over the network yet, meaning certain things get out of sync in the games. The game crashes on player death due to a bug with the networking logic, however that bug was deemed acceptable for the initial launch for testing due to player death already being the end game state for alpha. Optimizations are required to allow for mass scaling, currently the team is debating implementing quad tree’s to better handle the culling and physics collision. 
 
 User testing will be done to determine changes required for the core mechanics in the game before finalizing them for Beta.
 
@@ -50,4 +50,4 @@ The final milestone will be for April. This final release will include completin
 
 ## Team
 
-The team consists of seven members. The project manager, Dustin Limington, as well as eight other members, Carson Roscoe (@carsonroscoe), Chen Li, Erick Fernandez de Arteaga, Evgeni Manseyeu, Jaegar Sarauer (@jaegars), Kevin Han, Michael Nation, and Tanja Tong. We are all senior students completing our Bachelor of Technology in Computer Systems who came together to create an awesome game together.
+The team consists of seven members. The project manager, Dustin Limington, as well as eight other members, Carson Roscoe, Chen Li, Erick Fernandez de Arteaga, Evgeni Manseyeu, Jaegar Sarauer, Kevin Han, Michael Nation, and Tanja Tong. We are all senior students completing our Bachelor of Technology in Computer Systems who came together to create an awesome game together.
