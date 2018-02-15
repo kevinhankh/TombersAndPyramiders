@@ -4,7 +4,7 @@
 
 Tombers and Pyramiders is a 2.5D top down 16 person online ‘battle arena’ like game. Every player begins the game as an undead character with no weapons at the bottom of a pyramid. At the top of the pyramid is a treasure that brings your character back to life, but there is only one of these treasures and sixteen players. Players race to the top of the pyramid, solving puzzles, avoiding booby-traps and fighting other players along the way.
 
-The combat system allows for six types of equippable items. Weapons, Shields, Greaves, Helmets and Chestplates. Weapons, Shields and Greaves are activables, each with unique affects. The items equipped determines your characters fighting abilities. The pyramid is filled with other undead aggressive enemies that can kill players, as well as puzzle rooms which may require multiple characters to partake together. 
+The combat system allows for five types of equippable items. Weapons, Shields, Greaves, Helmets and Chestplates. Weapons, Shields and Greaves are activables, each with unique affects. The items equipped determines your characters fighting abilities. The pyramid is filled with other undead aggressive enemies that can kill players, as well as puzzle rooms which may require multiple characters to partake together. 
 
 ### Engine
 
