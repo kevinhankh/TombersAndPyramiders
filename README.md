@@ -50,4 +50,4 @@ The final milestone will be for April. This final release will include completin
 
 ## Team
 
-The team consists of seven members. The project manager, Dustin Limington, as well as eight other members, Carson Roscoe, Chen Li, Erick Fernandez de Arteaga, Evgeni Manseyeu, Jaegar Sarauer, Kevin Han, Michael Nation, and Tanja Tong. We are all senior students completing our Bachelor of Technology in Computer Systems who came together to create an awesome game together.
+The team consists of seven members. The project manager, Dustin Limington, as well as eight other members, Carson Roscoe, Chen Li, Erick Fernandez de Arteaga, Evgeni Maiseyeu, Jaegar Sarauer, Kevin Han, Michael Nation, and Tanja Tong. We are all senior students completing our Bachelor of Technology in Computer Systems who came together to create an awesome game together.
