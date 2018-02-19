@@ -27,4 +27,6 @@ WoodenLongbow::WoodenLongbow() :
 		LONGBOW_PROJECTILE_SPRITE_SCALE, 
 		Vector2(LONGBOW_PROJECTILE_X_VELOCITY, LONGBOW_PROJECTILE_Y_VELOCITY), 
 		LONGBOW_PROJECTILE_LIFESPAN }
-{}
+{
+	m_itemIcon = "WoodenLongbow.png"; 
+}

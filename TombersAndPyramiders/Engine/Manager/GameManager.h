@@ -49,6 +49,33 @@ public:
 
 		return result;
 	}
+	template <typename T, class... _Types>
+	std::shared_ptr<T> createGameObjectWithId(bool isGlobal, int id, _Types&&... args)
+	{
+		std::shared_ptr<T> result = std::make_shared<T>(args...);
+
+		std::shared_ptr<GameObject> gameObject = std::dynamic_pointer_cast<GameObject, T>(result);
+
+		if (gameObject != nullptr)
+		{
+			gameObject->setInitialState(isGlobal, id);
+
+			if (isGlobal)
+			{
+				GameManager::getInstance()->addGameObject(id, gameObject);
+			}
+			else
+			{
+				SceneManager::getInstance()->getCurrentScene()->addGameObject(id, gameObject);
+			}
+		}
+		else
+		{
+			throw "ERROR:GameManager.h:createGameObject:Object created was not a GameObject";
+		}
+
+		return result;
+	}
 
 private:
 	std::vector<int> m_gameObjectsToRemove;

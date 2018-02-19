@@ -13,20 +13,26 @@
 #include "BaseMeleeWeapon.h"
 #include "DamagingRegion.h"
 #include "Inventory.h"
+#include "GameManager.h"
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
 BaseMeleeWeapon::BaseMeleeWeapon(string imageName, float colliderWidth, float colliderHeight, 
-	float xOffsetFromHolder, float yOffsetFromHolder, float colliderScale) :
-	m_damagingRegion{ this, imageName, colliderWidth, colliderHeight, 0, 0, colliderScale }
+	float xOffsetFromHolder, float yOffsetFromHolder, float colliderScale)
 {
 	m_offsetFromHolder = Vector2(xOffsetFromHolder, yOffsetFromHolder);
+	m_damagingRegion = GameManager::getInstance()->createGameObject<DamagingRegion>(false, imageName, colliderWidth, colliderHeight, 0, 0, colliderScale);
 }
 
 /*----------------------------------------------------------------------------------------
 	Instance Methods
 ----------------------------------------------------------------------------------------*/
+void BaseMeleeWeapon::setOwnerId(int id)
+{
+	m_damagingRegion->setOwnerId(id);
+}
+
 void BaseMeleeWeapon::updatePosition()
 {
 	if (owner() != nullptr)
@@ -42,9 +48,9 @@ void BaseMeleeWeapon::updatePosition()
 			owner()->getTransform()->getRotation()
 		);
 
-		m_damagingRegion.getTransform()->setPosition(newPosition.getX(), newPosition.getY());
+		m_damagingRegion->getTransform()->setPosition(newPosition.getX(), newPosition.getY());
 
 		/* Set the weapon's rotation about its center. */
-		m_damagingRegion.getTransform()->setRotation(owner()->getTransform()->getRotation());
+		m_damagingRegion->getTransform()->setRotation(owner()->getTransform()->getRotation());
 	}
 }

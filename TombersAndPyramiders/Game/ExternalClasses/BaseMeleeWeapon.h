@@ -15,6 +15,7 @@
 #include "BaseWeapon.h"
 #include "DamagingRegion.h"
 #include "Vector2.h"
+#include <memory>
 
 /*========================================================================================
 	BaseMeleeWeapon	
@@ -25,7 +26,7 @@ class BaseMeleeWeapon : public BaseWeapon
 		Instance Fields
     ----------------------------------------------------------------------------------------*/
 	protected:
-		DamagingRegion m_damagingRegion;
+		std::shared_ptr<DamagingRegion> m_damagingRegion;
 		Vector2 m_offsetFromHolder;
 
     /*----------------------------------------------------------------------------------------
@@ -43,5 +44,7 @@ class BaseMeleeWeapon : public BaseWeapon
 		Instance Methods
     ----------------------------------------------------------------------------------------*/
 	public:
+		virtual void setOwnerId(int id);
+
 		void updatePosition();
 };

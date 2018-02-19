@@ -14,6 +14,7 @@
 #include "CharacterController.h"
 #include "InputManager.h"
 #include "Vector2.h"
+#include "Sender.h"
 
 /*----------------------------------------------------------------------------------------
 	Instance Setter Methods
@@ -47,12 +48,17 @@ void PlayerPilot::onUpdate(int ticks)
 		m_characterController->move(getMovement());
 
 		/* TODO Make this read from the mouse position. */
-		m_characterController->getGameObject()->getTransform()->setRotation(getMovement().getRotationInDegrees());
 
 		if (getWeaponInput())
 		{
 			m_characterController->useWeapon();
+			m_characterController->getGameObject()->getComponent<Sender>()->sendAttack();
 		}
+	}
+	if (InputManager::getInstance()->onKeyPressed(SDLK_e)) 
+	{
+		m_characterController->trySwapItem();
+		//Pickup/Drop items
 	}
 }
 
@@ -92,5 +98,5 @@ Vector2 PlayerPilot::getMovement()
 
 bool PlayerPilot::getWeaponInput()
 {
-	return InputManager::getInstance()->onKeyPressed(SDLK_i);
+	return InputManager::getInstance()->onKeyPressed(SDLK_SPACE);
 }

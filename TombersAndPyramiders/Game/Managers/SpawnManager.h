@@ -1,22 +1,36 @@
 #pragma once
 
 #include <memory>
+#include "Wall.h"
 #include "MiscSquare.h"
 #include "MovingSquare.h"
 #include "Character.h"
+#include "BaseItem.h"
+#include "WorldItem.h"
+#include "HostCharacter.h"
+#include "ClientCharacter.h"
 
-class SpawnManager
+class SpawnManager : public GameObject
 {
-private:
-	static SpawnManager* s_instance;
-	//GameObject* mGameObj;
-
+public:
 	SpawnManager();
 	~SpawnManager();
-
-public:
-	std::shared_ptr<MiscSquare> generateMiscSquare(float x, float y, float scale);
+	std::shared_ptr<MiscSquare> generateMiscSquare(float x, float y, float z, float scale, string spriteName, bool hasCollider);
+	//std::shared_ptr<Wall> generateWall(float x, float y, float scale);
+	//std::shared_ptr<MiscSquare> generateMiscSquare(float x, float y, float scale);
 	std::shared_ptr<MovingSquare> generateMovingSquare(float x, float y);
 	std::shared_ptr<Character> generatePlayerCharacter(float x, float y);
-	static SpawnManager* getInstance();
+	std::shared_ptr<Character> generateAiCharacter(float x, float y);
+	std::shared_ptr<WorldItem> generateWorldItem(float x, float y, std::shared_ptr<BaseItem> item);
+	std::shared_ptr<Character> generateDummyCharacter(float x, float y);
+
+	std::shared_ptr<HostCharacter> generateNetworkCharacter(Uint32 ip, float x, float y);
+
+	std::shared_ptr<ClientCharacter> generatePlayerCharacter(Uint32 ip, float x, float y);
+	void sendStartPacket();
+
+	static std::shared_ptr<SpawnManager> getInstance();
+
+private:
+	static std::shared_ptr<SpawnManager> s_instance;
 };

@@ -48,6 +48,7 @@ public:
 		}
 		else
 		{
+
 			return nullptr;
 		}
 	}
@@ -57,7 +58,6 @@ public:
 	{
 		return (T)m_components[getClassName<T>()];
 	}
-
 	template <typename T, class... _Types>
 	std::shared_ptr<T> addComponent(_Types&&... args)
 	{
