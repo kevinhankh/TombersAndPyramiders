@@ -9,6 +9,7 @@
 #include "PhysicsManager.h"
 #include "AudioManager.h"
 #include <memory>
+#include "Camera.h"
 
 GameManager* GameManager::s_instance;
 
@@ -77,8 +78,9 @@ void GameManager::onUpdate(int ticks)
 
 		NetworkingManager::getInstance()->sendQueuedEvents();
 	}
-
+	
 	PhysicsManager::getInstance()->onUpdate(ticks);
+	repopulateQuadTree();
 	SpriteRendererManager::getInstance()->onUpdate(ticks);
 
 	for (std::map<int, std::shared_ptr<GameObject>>::iterator it = m_globalGameObjects.begin(); it != m_globalGameObjects.end(); ++it)
@@ -92,6 +94,33 @@ void GameManager::onUpdate(int ticks)
 	m_game->onUpdate(ticks);
 
 
+}
+
+void GameManager::repopulateQuadTree()
+{
+	Transform camTransform = *Camera::getActiveCamera()->getTransform();
+	m_quadTree.reset(new QuadTree(QuadTreeBounds(camTransform.getX(), camTransform.getY(), getGameWidth(), getGameHeight())));
+	for (std::map<int, std::shared_ptr<GameObject>>::iterator it = m_globalGameObjects.begin(); it != m_globalGameObjects.end(); ++it)
+	{
+		if (it->second != nullptr) {
+			m_quadTree->insert(it->second);
+		}
+	}
+	auto sceneObject = SceneManager::getInstance()->getCurrentScene()->sceneObjects;
+	for (std::map<int, std::shared_ptr<GameObject>>::iterator it = sceneObject.begin(); it != sceneObject.end(); ++it)
+	{
+		if (it->second != nullptr) {
+			m_quadTree->insert(it->second);
+		}
+	}
+}
+
+
+std::vector<std::shared_ptr<GameObject>> GameManager::getObjectsInBounds(float x, float y, float width, float height)
+{
+	std::vector<std::shared_ptr<GameObject>> result;
+	m_quadTree->populateList(QuadTreeBounds(x, y, width, height), result);
+	return result;
 }
 
 void GameManager::onEnd()

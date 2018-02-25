@@ -9,6 +9,7 @@
 #include <memory>
 #include "Scene.h"
 #include "SceneManager.h"
+#include "QuadTree.h"
 
 class GameManager : public Updateable
 {
@@ -21,6 +22,8 @@ public:
 	static GameManager* getInstance();
 	void addGameObject(int id, std::shared_ptr<GameObject> obj);
 	void removeGameObject(int objectToRemove);
+	std::vector<std::shared_ptr<GameObject>> getObjectsInBounds(float x, float y, float width, float height);
+
 	template <typename T, class... _Types>
 	std::shared_ptr<T> createGameObject(bool isGlobal, _Types&&... args)
 	{
@@ -80,10 +83,13 @@ public:
 private:
 	std::vector<int> m_gameObjectsToRemove;
 	std::map<int, std::shared_ptr<GameObject>> m_globalGameObjects;
+	std::unique_ptr<QuadTree> m_quadTree = nullptr;
+
 	static GameManager* s_instance;
 	bool m_breakLoop = false;
 	int m_lastTime = 0;
 	//game instance.
 	Game* m_game;
 	void fpsThrottle(int ticks);
+	void repopulateQuadTree();
 };
