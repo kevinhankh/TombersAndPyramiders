@@ -1,0 +1,56 @@
+#pragma once
+
+#include <vector>
+#include <memory>
+#include "GameObject.h"
+
+struct QuadTreeBounds
+{
+private:
+	float m_x;
+	float m_y;
+	float m_width;
+	float m_height;
+public:
+	QuadTreeBounds(float x, float y, float width, float height);
+	QuadTreeBounds(std::shared_ptr<GameObject> gameObject);
+	float getX();
+	float getY();
+	float getWidth();
+	float getHeight();
+};
+
+class QuadTree
+{
+private:
+	static const int m_maxItems = 8; //maximum number of Items a node can hold until splitting
+	static const int m_maxDepth = 7; //maximum depth of the quadTree
+
+									 //bounding box intersection
+	static bool intersects(QuadTreeBounds &quadBounds1, QuadTreeBounds &quadBounds2);
+
+	//Node constituting tree structure
+	struct Node
+	{
+	public:
+		QuadTreeBounds m_bounds; //physical bounds of node
+		const int m_depth; //depth
+
+		std::unique_ptr<Node> m_children[4]; //child nodes
+		std::vector<std::shared_ptr<GameObject>> m_items; //collection of retItems
+
+		Node(QuadTreeBounds &_bounds, int pLevel);
+
+		bool isLeaf();
+		void split();
+		void populate(QuadTreeBounds& bounds, std::vector<std::shared_ptr<GameObject>> &retItems);
+		void insert(std::shared_ptr<GameObject> item);
+	};
+
+	Node m_root;
+
+public:
+	QuadTree(QuadTreeBounds quadRect);
+	void insert(std::shared_ptr<GameObject> gameObject);
+	void populateList(QuadTreeBounds & bounds, std::vector<std::shared_ptr<GameObject>> &gameObjects);
+};
