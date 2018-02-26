@@ -34,8 +34,7 @@ void NetworkedGameScene::onStart()
 	const float size = 12;
 	const float scale = 5;
 
-	SpawnManager::getInstance()->generateMiscSquare(25, -25, -100, 115, "sandBG.png", false);
-
+	//SpawnManager::getInstance()->generateMiscSquare(25, -25, -100, 115, "sandBG.png", false);
 
 	for (float x = 0; x <= size; x++)
 	{

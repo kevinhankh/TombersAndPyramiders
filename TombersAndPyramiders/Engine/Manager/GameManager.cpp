@@ -98,8 +98,7 @@ void GameManager::onUpdate(int ticks)
 
 void GameManager::repopulateQuadTree()
 {
-	Transform camTransform = *Camera::getActiveCamera()->getTransform();
-	m_quadTree.reset(new QuadTree(QuadTreeBounds(camTransform.getX(), camTransform.getY(), getGameWidth(), getGameHeight())));
+	m_quadTree.reset(new QuadTree(QuadTreeBounds(0, 0, 800, 800))); //Width/Height of playable world
 	for (std::map<int, std::shared_ptr<GameObject>>::iterator it = m_globalGameObjects.begin(); it != m_globalGameObjects.end(); ++it)
 	{
 		if (it->second != nullptr) {
@@ -167,7 +166,7 @@ void GameManager::clearObjectsToRemove()
 			std::shared_ptr<SpriteRenderer> renderer = object->getComponent<SpriteRenderer>();
 			if (renderer != nullptr) 
 			{
-				SpriteRendererManager::getInstance()->removeSpriteFromRendering(renderer.get());
+				SpriteRendererManager::getInstance()->removeSpriteFromRendering(id);
 			}
 			std::shared_ptr<BoxCollider> collider = object->getComponent<BoxCollider>();
 			if (collider != nullptr)

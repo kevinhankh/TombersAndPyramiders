@@ -32,10 +32,10 @@ float QuadTreeBounds::getHeight() { return m_height; }
 bool QuadTree::intersects(QuadTreeBounds &quadBounds1, QuadTreeBounds &quadBounds2)
 {
 	return !(
-		quadBounds1.getX() + quadBounds1.getWidth() < quadBounds2.getX() ||
-		quadBounds1.getX() > quadBounds2.getX() + quadBounds2.getWidth() ||
-		quadBounds1.getY() > quadBounds2.getY() + quadBounds2.getHeight() ||
-		quadBounds1.getY() + quadBounds1.getWidth() < quadBounds2.getY()
+		quadBounds1.getX() + quadBounds1.getWidth() / 2.0f <= quadBounds2.getX() - quadBounds2.getWidth() / 2.0f ||
+		quadBounds1.getX() - quadBounds1.getWidth() / 2.0f >= quadBounds2.getX() + quadBounds2.getWidth() / 2.0f||
+		quadBounds1.getY() - quadBounds1.getHeight() / 2.0f >= quadBounds2.getY() + quadBounds2.getHeight() / 2.0f ||
+		quadBounds1.getY() + quadBounds1.getWidth() / 2.0f <= quadBounds2.getY() - quadBounds2.getHeight() / 2.0f
 		);
 }
 

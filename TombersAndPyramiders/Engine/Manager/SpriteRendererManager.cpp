@@ -4,6 +4,7 @@
 #include <condition_variable>
 #include "SpriteSheet.h"
 #include "Camera.h"
+#include "GameManager.h"
 
 /*
 TODO:
@@ -37,6 +38,15 @@ spriteRenderers.erase(id);
 
 void SpriteRendererManager::onUpdate(int ticks)
 {
+	for (int i = 0; i < m_spritesToSubscribe.size(); i++) 
+	{
+		if (m_spritesToSubscribe[i] != nullptr)
+		{
+			m_activeSprites[m_spritesToSubscribe[i]->getGameObject()->getId()] = m_spritesToSubscribe[i]->shared_from_this();
+		}
+	}
+	m_spritesToSubscribe.clear();
+
 	prepareRenderingThread();
 	//Load fboPlainPass
 	//renderReadingStick.lock();
@@ -257,9 +267,9 @@ GLuint SpriteRendererManager::generateTexture(std::string textureFileName)
 }
 
 
-bool sortByZ(SpriteRenderer *lhs, SpriteRenderer *rhs)
+bool sortByZ(std::shared_ptr<GameObject> lhs, std::shared_ptr<GameObject> rhs)
 {
-	return lhs->getGameObject()->getTransform()->getZ() < rhs->getGameObject()->getTransform()->getZ();
+	return lhs->getTransform()->getZ() < rhs->getTransform()->getZ();
 }
 
 void SpriteRendererManager::prepareRenderingThread()
@@ -275,19 +285,45 @@ void SpriteRendererManager::prepareRenderingThread()
 		//renderReadingStick.lock();
 	m_renderingGroups.clear();
 	GLuint lastShader = lastShaderUnset;
-	std::sort(m_activeSprites.begin(), m_activeSprites.end(), sortByZ);
 	RenderingShaderGroup rg;
+
+	std::shared_ptr<Camera> camera = Camera::getActiveCamera();
 
 	if (m_activeSprites.size() > 0)
 	{
-		std::shared_ptr<Camera> camera = Camera::getActiveCamera();
-		for (size_t i = 0; i < m_activeSprites.size(); i++)
+		int toRender = 0;
+		int missing = 0;
+
+		///*###DOESENT WORK but culls
+		auto objectsInBounds = GameManager::getInstance()->getObjectsInBounds(camera->getTransform()->getX(), camera->getTransform()->getY(), getGameWidth() * 1.25f, getGameHeight() * 1.25f);
+		std::sort(objectsInBounds.begin(), objectsInBounds.end(), sortByZ);
+		for (size_t i = 0; i < objectsInBounds.size(); i++)
 		{
-			SpriteRenderer *spriteRenderer = m_activeSprites[i];
+			if (objectsInBounds[i] == nullptr || objectsInBounds[i] == NULL)
+			{
+				continue;
+			}
+
+			if (m_activeSprites.find(objectsInBounds[i]->getId()) == m_activeSprites.end()) {
+				continue; //This game object is not one we're supposed to render either way
+			}
+
+			std::shared_ptr<SpriteRenderer> spriteRenderer = m_activeSprites[objectsInBounds[i]->getId()];
+		//*/
+
+		//####WORKS but doesent cull####
+		//for (std::map<int, std::shared_ptr<SpriteRenderer>>::iterator it = m_activeSprites.begin(); it != m_activeSprites.end(); ++it)
+		//{
+			//std::shared_ptr<SpriteRenderer> spriteRenderer = it->second;
+			if (spriteRenderer == nullptr)
+			{
+				continue;
+			}
+
 			Transform* transform = spriteRenderer->getGameObject()->getTransform();
 			
-			if (camera->isOnScreen(transform)) 
-			{
+			//if (camera->isOnScreen(transform)) //Don't need if this culling does the trick instead
+			//{
 				RenderingObject ro;
 
 				Shader *shader = spriteRenderer->getShader();
@@ -322,13 +358,18 @@ void SpriteRendererManager::prepareRenderingThread()
 				if (ro.isValid())
 				{
 					rg.children.push_back(ro);
+					toRender++;
 				}
-			}
+				else {
+					missing++;
+				}
+			//}
 			//if (isRenderingLayerEnabled(spriteRenderer->getLayer()))
 			//{
 				
 			//}
 		}
+		std::cout << toRender << " " << missing << std::endl;
 		m_renderingGroups.push_back(rg);
 	}
 
@@ -474,6 +515,9 @@ void SpriteRendererManager::renderPass(int layerToRender, bool clearFirst)
 						int hit = 0;
 					}
 					glUniform3i(spriteSheetLocation, spriteSheet->getColumnCount(), spriteSheet->getRowCount(), spriteSheet->getCurrentIndex());
+				}
+				else {
+					int hit = 1;
 				}
 			}
 
@@ -640,9 +684,12 @@ void SpriteRendererManager::applyEndProcessing(FrameBufferObject mainTexture, Fr
 	//Draw mainTexture with postProcessingOverlay overlayed
 }
 
-void SpriteRendererManager::addSpriteForRendering(SpriteRenderer *sprite)
+void SpriteRendererManager::addSpriteForRendering(SpriteRenderer* sprite)
 {
-	m_activeSprites.push_back(sprite);
+	if (sprite != nullptr)
+	{
+		m_spritesToSubscribe.push_back(sprite); //Have to lazy load it into a spritesToAdd list because sprite->getGameObject->getId() is not set when SpriteRenderer's constructor is called
+	}
 }
 
 void SpriteRendererManager::disableRenderingLayer(int layer)
@@ -665,9 +712,9 @@ bool SpriteRendererManager::isRenderingLayerEnabled(int layer)
 	return m_disabledLayers.find(layer) == m_disabledLayers.end();
 }
 
-void SpriteRendererManager::removeSpriteFromRendering(SpriteRenderer *sprite)
+void SpriteRendererManager::removeSpriteFromRendering(int objectID)
 {
-	m_activeSprites.erase(std::remove(m_activeSprites.begin(), m_activeSprites.end(), sprite), m_activeSprites.end());
+	m_activeSprites[objectID] = nullptr;
 }
 
 void SpriteRendererManager::purge()
