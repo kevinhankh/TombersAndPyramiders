@@ -1,6 +1,5 @@
 #include "QuadTree.h"
 
-
 QuadTreeBounds::QuadTreeBounds(float x, float y, float width, float height)
 {
 	m_x = x;
@@ -32,10 +31,10 @@ float QuadTreeBounds::getHeight() { return m_height; }
 bool QuadTree::intersects(QuadTreeBounds &quadBounds1, QuadTreeBounds &quadBounds2)
 {
 	return !(
-		quadBounds1.getX() + quadBounds1.getWidth() / 2.0f <= quadBounds2.getX() - quadBounds2.getWidth() / 2.0f ||
-		quadBounds1.getX() - quadBounds1.getWidth() / 2.0f >= quadBounds2.getX() + quadBounds2.getWidth() / 2.0f||
-		quadBounds1.getY() - quadBounds1.getHeight() / 2.0f >= quadBounds2.getY() + quadBounds2.getHeight() / 2.0f ||
-		quadBounds1.getY() + quadBounds1.getWidth() / 2.0f <= quadBounds2.getY() - quadBounds2.getHeight() / 2.0f
+		quadBounds1.getX() + quadBounds1.getWidth() / 2.0f < quadBounds2.getX() - quadBounds2.getWidth() / 2.0f ||
+		quadBounds1.getX() - quadBounds1.getWidth() / 2.0f > quadBounds2.getX() + quadBounds2.getWidth() / 2.0f ||
+		quadBounds1.getY() - quadBounds1.getHeight() / 2.0f > quadBounds2.getY() + quadBounds2.getHeight() / 2.0f ||
+		quadBounds1.getY() + quadBounds1.getWidth() / 2.0f < quadBounds2.getY() - quadBounds2.getHeight() / 2.0f
 		);
 }
 
@@ -116,7 +115,77 @@ void QuadTree::Node::insert(std::shared_ptr<GameObject> item)
 	}
 }
 
-QuadTree::QuadTree(QuadTreeBounds quadRect) : m_root(quadRect, 0) {}
+QuadTree::QuadTree(QuadTreeBounds quadRect) : m_root(quadRect, 0) {
+	//Test quad tree that it works... cause I'm worried it doesent. Lets check intersection
+	int passes = 0;
+	if (QuadTree::intersects(QuadTreeBounds(0, 0, 10, 10), QuadTreeBounds(0, 0, 5, 5))) {
+		//Yes
+		passes++;
+	}
+	if (QuadTree::intersects(QuadTreeBounds(5, 0, 10, 10), QuadTreeBounds(0, 0, 5, 5))) {
+		//Yes
+		passes++;
+	}
+	if (QuadTree::intersects(QuadTreeBounds(50, -25, 10, 10), QuadTreeBounds(40, -25, 10, 11))) {
+		//Yes
+		passes++;
+	}
+	if (QuadTree::intersects(QuadTreeBounds(50, -25, 10, 10), QuadTreeBounds(40, -25, 10, 10))) {
+		//Yes
+		passes++;
+	}
+	if (QuadTree::intersects(QuadTreeBounds(40, -15, 10, 10), QuadTreeBounds(40, -25, 10, 10))) {
+		//Yes
+		passes++;
+	}
+	if (QuadTree::intersects(QuadTreeBounds(40, -16, 10, 10), QuadTreeBounds(40, -25, 10, 10))) {
+		//Yes
+		passes++;
+	}
+	if (!QuadTree::intersects(QuadTreeBounds(40, -14, 10, 10), QuadTreeBounds(40, -25, 10, 10))) {
+		//Yes
+		passes++;
+	}
+	if (!QuadTree::intersects(QuadTreeBounds(50, -25, 10, 10), QuadTreeBounds(39, -25, 10, 10))) {
+		//Yes
+		passes++;
+	}
+	if (QuadTree::intersects(QuadTreeBounds(50, -25, 10, 10), QuadTreeBounds(60, -25, 10, 10))) {
+		//Yes
+		passes++;
+	}
+	if (QuadTree::intersects(QuadTreeBounds(50, -35, 10, 10), QuadTreeBounds(59, -25, 10, 10))) {
+		//Yes
+		passes++;
+	}
+	if (!QuadTree::intersects(QuadTreeBounds(50, -36, 10, 10), QuadTreeBounds(59, -25, 10, 10))) {
+		//Yes
+		passes++;
+	}
+	if (QuadTree::intersects(QuadTreeBounds(50, -34, 10, 10), QuadTreeBounds(59, -25, 10, 10))) {
+		//Yes
+		passes++;
+	}
+	if (!QuadTree::intersects(QuadTreeBounds(50, -25, 10, 10), QuadTreeBounds(61, -25, 10, 10))) {
+		//Yes
+		passes++;
+	}
+	if (QuadTree::intersects(QuadTreeBounds(50, -25, 10, 10), QuadTreeBounds(59, -25, 10, 10))) {
+		//Yes
+		passes++;
+	}
+	if (QuadTree::intersects(QuadTreeBounds(50, -25, 10, 10), QuadTreeBounds(41, -25, 10, 10))) {
+		//Yes
+		passes++;
+	}
+	if (!QuadTree::intersects(QuadTreeBounds(-30, 0, 10, 10), QuadTreeBounds(0, 0, 5, 5))) {
+		//No
+		passes++;
+	}
+	if (passes != 16) {
+		int fuck = 1;
+	}
+}
 
 void QuadTree::insert(std::shared_ptr<GameObject> gameObject)
 {

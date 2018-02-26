@@ -304,11 +304,12 @@ void SpriteRendererManager::prepareRenderingThread()
 				continue;
 			}
 
-			if (m_activeSprites.find(objectsInBounds[i]->getId()) == m_activeSprites.end()) {
+			/*if (m_activeSprites.find(objectsInBounds[i]->getId()) == m_activeSprites.end()) 
+			{
 				continue; //This game object is not one we're supposed to render either way
-			}
+			}*/
 
-			std::shared_ptr<SpriteRenderer> spriteRenderer = m_activeSprites[objectsInBounds[i]->getId()];
+			std::shared_ptr<SpriteRenderer> spriteRenderer = m_activeSprites[objectsInBounds[i]->getId()]; //objectsInBounds[i]->getComponent<SpriteRenderer>() also misculls so it is the getObjectsInBounds call itself
 		//*/
 
 		//####WORKS but doesent cull####
