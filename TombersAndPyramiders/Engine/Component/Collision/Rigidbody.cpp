@@ -18,17 +18,17 @@ void Rigidbody::BlockMovement()
 				if (blockingGameObject != nullptr && blockingGameObject != NULL && blockingGameObject->hasComponent<BoxCollider>())
 				{
 					// Push down when try to move up
-					if (m_velocity.getY() > 0 && blockingGameObject->getTransform()->getY() - blockingGameObject->getComponent<BoxCollider>()->getHeight() / 2 > gameObject->getTransform()->getY())
-						gameObject->getTransform()->setY(blockingGameObject->getTransform()->getY() - blockingGameObject->getComponent<BoxCollider>()->getHeight() / 2 - m_boxCollider->getHeight() / 2);
+					if (m_velocity.getY() > 0 && blockingGameObject->getTransform()->getY() + blockingGameObject->getComponent<BoxCollider>()->getYOffset() - blockingGameObject->getComponent<BoxCollider>()->getHeight() / 2 > gameObject->getTransform()->getY() + gameObject->getComponent<BoxCollider>()->getYOffset())
+						gameObject->getTransform()->setY(blockingGameObject->getTransform()->getY() + blockingGameObject->getComponent<BoxCollider>()->getYOffset() - blockingGameObject->getComponent<BoxCollider>()->getHeight() / 2 - m_boxCollider->getHeight() / 2 - m_boxCollider->getYOffset());
 					// Push up when try to move down
-					else if (m_velocity.getY() < 0 && blockingGameObject->getTransform()->getY() + blockingGameObject->getComponent<BoxCollider>()->getHeight() / 2 < gameObject->getTransform()->getY())
-						gameObject->getTransform()->setY(blockingGameObject->getTransform()->getY() + blockingGameObject->getComponent<BoxCollider>()->getHeight() / 2 + m_boxCollider->getHeight() / 2);
+					else if (m_velocity.getY() < 0 && blockingGameObject->getTransform()->getY() + blockingGameObject->getComponent<BoxCollider>()->getYOffset() + blockingGameObject->getComponent<BoxCollider>()->getHeight() / 2 < gameObject->getTransform()->getY() + gameObject->getComponent<BoxCollider>()->getYOffset())
+						gameObject->getTransform()->setY(blockingGameObject->getTransform()->getY() + blockingGameObject->getComponent<BoxCollider>()->getYOffset() + blockingGameObject->getComponent<BoxCollider>()->getHeight() / 2 + m_boxCollider->getHeight() / 2 + m_boxCollider->getYOffset());
 					// Push left when try to move right
-					if (m_velocity.getX() > 0 && blockingGameObject->getTransform()->getX() - blockingGameObject->getComponent<BoxCollider>()->getWidth() / 2 > gameObject->getTransform()->getX())
-						gameObject->getTransform()->setX(blockingGameObject->getTransform()->getX() - blockingGameObject->getComponent<BoxCollider>()->getWidth() / 2 - m_boxCollider->getWidth() / 2);
+					if (m_velocity.getX() > 0 && blockingGameObject->getTransform()->getX() + blockingGameObject->getComponent<BoxCollider>()->getXOffset() - blockingGameObject->getComponent<BoxCollider>()->getWidth() / 2 > gameObject->getTransform()->getX() + gameObject->getComponent<BoxCollider>()->getXOffset())
+						gameObject->getTransform()->setX(blockingGameObject->getTransform()->getX() + blockingGameObject->getComponent<BoxCollider>()->getXOffset() - blockingGameObject->getComponent<BoxCollider>()->getWidth() / 2 - m_boxCollider->getWidth() / 2 - m_boxCollider->getXOffset());
 					// Push right when try to move left
-					else if (m_velocity.getX() < 0 && blockingGameObject->getTransform()->getX() + blockingGameObject->getComponent<BoxCollider>()->getWidth() / 2 < gameObject->getTransform()->getX())
-						gameObject->getTransform()->setX(blockingGameObject->getTransform()->getX() + blockingGameObject->getComponent<BoxCollider>()->getWidth() / 2 + m_boxCollider->getWidth() / 2);
+					else if (m_velocity.getX() < 0 && blockingGameObject->getTransform()->getX() + blockingGameObject->getComponent<BoxCollider>()->getXOffset() + blockingGameObject->getComponent<BoxCollider>()->getWidth() / 2 < gameObject->getTransform()->getX() + gameObject->getComponent<BoxCollider>()->getXOffset())
+						gameObject->getTransform()->setX(blockingGameObject->getTransform()->getX() + blockingGameObject->getComponent<BoxCollider>()->getXOffset() + blockingGameObject->getComponent<BoxCollider>()->getWidth() / 2 + m_boxCollider->getWidth() / 2 + m_boxCollider->getXOffset());
 				}
 			}
 		}

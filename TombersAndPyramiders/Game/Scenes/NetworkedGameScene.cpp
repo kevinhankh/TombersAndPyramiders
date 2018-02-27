@@ -36,6 +36,8 @@ void NetworkedGameScene::onStart()
 
 	SpawnManager::getInstance()->generateMiscSquare(25, -25, -100, 115, "sandBG.png", false);
 
+	// Testing box collision offset (you can delete this)
+	SpawnManager::getInstance()->generateMiscSquare(7, -7, 0, 5, "TestBlock.png", true);
 
 	for (float x = 0; x <= size; x++)
 	{

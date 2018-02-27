@@ -14,8 +14,7 @@ private:
 	bool m_disabled;
 	bool m_isTrigger = false;
 protected:
-	float m_xOffset;
-	float m_yOffset;
+	float m_xOffset, m_yOffset;
 public:
 	Collider(GameObject* gameObject/*, float radius*/);
 	bool doesCollide(GameObject* other);
