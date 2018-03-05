@@ -104,17 +104,19 @@ void GameManager::reinstantiateQuadTree(float x, float y, float width, float hei
 
 void GameManager::resizeQuadTree(float x, float y, float width, float height) 
 {
-	std::vector<std::shared_ptr<GameObject>> toMove;
-	m_quadTree->populateList(m_quadTree->getBounds(), toMove);
-	m_quadTree.reset(new QuadTree(QuadTreeBounds(x, y, width, height))); //Width/Height of playable world
-	for (int i = 0; i < toMove.size(); i++) 
+	std::set<std::shared_ptr<GameObject>> toMove = m_quadTree->getAll();
+	reinstantiateQuadTree(x, y, width, height);
+	for(auto it = toMove.begin(); it != toMove.end(); it++)
 	{
-		m_quadTree->insert(toMove[i]);
+		m_quadTree->insert(*it);
 	}
 }
 
 void GameManager::updateQuadTree() {
-	m_quadTree->reconstruct();
+	if (m_quadTree->reconstruct() > 50)
+	{
+ 		resizeQuadTree(m_quadTree->getBounds().getX(), m_quadTree->getBounds().getY(),m_quadTree->getBounds().getWidth(), m_quadTree->getBounds().getHeight());
+	}
 }
 
 std::vector<std::shared_ptr<GameObject>> GameManager::getObjectsInBounds(float x, float y, float width, float height)
@@ -122,6 +124,7 @@ std::vector<std::shared_ptr<GameObject>> GameManager::getObjectsInBounds(float x
 	std::vector<std::shared_ptr<GameObject>> result;
 	m_quadTree->populateList(QuadTreeBounds(x, y, width, height), result);
 	//std::cout << x << " " << y << " | " << width << " " << height << " | " << result.size() << std::endl;
+	result.erase(std::unique(result.begin(), result.end()), result.end());
 	return result;
 }
 

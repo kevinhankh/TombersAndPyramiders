@@ -267,119 +267,98 @@ GLuint SpriteRendererManager::generateTexture(std::string textureFileName)
 }
 
 
-bool sortByZ(std::shared_ptr<GameObject> lhs, std::shared_ptr<GameObject> rhs)
+bool sortByZ(std::shared_ptr<SpriteRenderer> lhs, std::shared_ptr<SpriteRenderer> rhs)
 {
-	return lhs->getTransform()->getZ() < rhs->getTransform()->getZ();
+	return lhs->getGameObject()->getTransform()->getZ() < rhs->getGameObject()->getTransform()->getZ();
 }
 
 void SpriteRendererManager::prepareRenderingThread()
 {
-	GLuint lastShaderUnset = 1000000;
-
-	//while (isBeingCollected);
-	//std::unique_lock<std::mutex> lock(threadMutex);
-
-	//while (renderingThreadIsAlive)
-	//{
-		//condition.wait(lock);
-		//renderReadingStick.lock();
-	m_renderingGroups.clear();
-	GLuint lastShader = lastShaderUnset;
-	RenderingShaderGroup rg;
-
-	std::shared_ptr<Camera> camera = Camera::getActiveCamera();
-
 	if (m_activeSprites.size() > 0)
 	{
+		GLuint lastShaderUnset = 1000000;
+
+		//while (isBeingCollected);
+		//std::unique_lock<std::mutex> lock(threadMutex);
+
+		//while (renderingThreadIsAlive)
+		//{
+		//condition.wait(lock);
+		//renderReadingStick.lock();
+		m_renderingGroups.clear();
+		GLuint lastShader = lastShaderUnset;
+		RenderingShaderGroup rg;
+
+		std::shared_ptr<Camera> camera = Camera::getActiveCamera();
+
+		std::vector<std::shared_ptr<SpriteRenderer>> renderers;
 		int toRender = 0;
 
+		//##Have Culled Objects. Find Ones To Render
 		auto objectsInBounds = GameManager::getInstance()->getObjectsInBounds(camera->getTransform()->getX(), camera->getTransform()->getY(), getGameWidth(), getGameHeight());
-		std::sort(objectsInBounds.begin(), objectsInBounds.end(), sortByZ);
 		for (size_t i = 0; i < objectsInBounds.size(); i++)
 		{
 			if (objectsInBounds[i] == nullptr || objectsInBounds[i] == NULL)
 			{
 				continue;
 			}
-
-			if (m_activeSprites.find(objectsInBounds[i]->getId()) == m_activeSprites.end()) 
+			if (m_activeSprites.find(objectsInBounds[i]->getId()) == m_activeSprites.end())
 			{
 				continue; //This game object is not one we're supposed to render either way
 			}
-
 			std::shared_ptr<SpriteRenderer> spriteRenderer = m_activeSprites[objectsInBounds[i]->getId()]; //objectsInBounds[i]->getComponent<SpriteRenderer>() also misculls so it is the getObjectsInBounds call itself
-			if (spriteRenderer == nullptr) 
-			{
-				/*std::shared_ptr<SpriteRenderer> renderer = objectsInBounds[i]->getComponent<SpriteRenderer>();
-				if (renderer != nullptr)//spriteRenderer is null but renderer isn't, so this object didn't subscribe? subscribe it?
-				{
-					int id = objectsInBounds[i]->getId();
-					m_activeSprites[objectsInBounds[i]->getId()] = renderer;
-					spriteRenderer = renderer;
-				}
-				else { //Doesent have a renderer so remove it I guess
-					m_activeSprites.erase(m_activeSprites.find(objectsInBounds[i]->getId()));
-					continue;
-				}*/
-				//m_activeSprites.erase(m_activeSprites.find(objectsInBounds[i]->getId()));
-				continue;
-			}
-																										   //
-
-		//####WORKS but doesent cull####
-		/*for (std::map<int, std::shared_ptr<SpriteRenderer>>::iterator it = m_activeSprites.begin(); it != m_activeSprites.end(); ++it)
-		{
-			std::shared_ptr<SpriteRenderer> spriteRenderer = it->second;
 			if (spriteRenderer == nullptr)
 			{
 				continue;
-			}*/
+			}
+			renderers.push_back(spriteRenderer);
+		}
+
+		//##Have Renderers. Sort Them
+		std::sort(renderers.begin(), renderers.end(), sortByZ);
+
+		//##Have Sorted Renderers. Prepare Rendering Info Objects
+		for (size_t i = 0; i < renderers.size(); i++) {
+			std::shared_ptr<SpriteRenderer> spriteRenderer = renderers[i];
 
 			Transform* transform = spriteRenderer->getGameObject()->getTransform();
 			
-			//if (camera->isOnScreen(transform)) //Don't need if this culling does the trick instead
-			//{
-				RenderingObject ro;
+			RenderingObject ro;
 
-				Shader *shader = spriteRenderer->getShader();
-				if (shader == nullptr)
-				{
-					continue;
-				}
-				GLuint roShader = shader->program;
-				ro.sprite = spriteRenderer->getSprite();
+			Shader *shader = spriteRenderer->getShader();
+			if (shader == nullptr)
+			{
+				continue;
+			}
+			GLuint roShader = shader->program;
+			ro.sprite = spriteRenderer->getSprite();
 
-				if (lastShader == lastShaderUnset)
-				{
-					lastShader = roShader;
-					rg.shaderProgram = roShader;
-					rg.shaderID = shader->getID();
-				}
+			if (lastShader == lastShaderUnset)
+			{
+				lastShader = roShader;
+				rg.shaderProgram = roShader;
+				rg.shaderID = shader->getID();
+			}
 
-				if (roShader != lastShader)
-				{
-					m_renderingGroups.push_back(rg);
-					lastShader = roShader;
-					rg = RenderingShaderGroup();
-					rg.shaderProgram = roShader;
-					rg.shaderID = shader->getID();
-				}
+			if (roShader != lastShader)
+			{
+				m_renderingGroups.push_back(rg);
+				lastShader = roShader;
+				rg = RenderingShaderGroup();
+				rg.shaderProgram = roShader;
+				rg.shaderID = shader->getID();
+			}
 
-				//Pass in transform
-				ro.transform = transform;
+			//Pass in transform
+			ro.transform = transform;
 
-				ro.spriteRenderer = spriteRenderer;
+			ro.spriteRenderer = spriteRenderer;
 
-				if (ro.isValid())
-				{
-					rg.children.push_back(ro);
-					toRender++;
-				}
-			//}
-			//if (isRenderingLayerEnabled(spriteRenderer->getLayer()))
-			//{
-				
-			//}
+			if (ro.isValid())
+			{
+				rg.children.push_back(ro);
+				toRender++;
+			}
 		}
 		std::cout << objectsInBounds.size() << " " << toRender << std::endl;
 		m_renderingGroups.push_back(rg);

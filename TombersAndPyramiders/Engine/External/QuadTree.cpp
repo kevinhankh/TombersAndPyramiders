@@ -136,7 +136,7 @@ void QuadTree::Node::insert(std::shared_ptr<GameObject> item)
 	}
 }
 
-void QuadTree::Node::reconstruct(std::vector<std::shared_ptr<GameObject>> &gameObjects)
+void QuadTree::Node::reconstruct(std::vector<std::shared_ptr<GameObject>> &gameObjects, int& deletions)
 {
 	if (isLeaf())
 	{
@@ -147,15 +147,40 @@ void QuadTree::Node::reconstruct(std::vector<std::shared_ptr<GameObject>> &gameO
 				if (!intersects(m_bounds, QuadTreeBounds(m_items[i])))
 				{
 					gameObjects.push_back(m_items[i]);
+					deletions++;
 					m_items[i] = nullptr; //Lazy deletion. Will be removed on split, skipped on populate
 				}
+			}
+			else {
+				deletions++;
 			}
 		}
 	}
 	else {
 		for (int i = 0; i < 4; i++)
 		{
-			m_children[i]->reconstruct(gameObjects); //attempt to insert into children
+			m_children[i]->reconstruct(gameObjects, deletions);
+		}
+	}
+}
+
+void QuadTree::Node::getAll(std::set<std::shared_ptr<GameObject>> &gameObjects)
+{
+	if (isLeaf())
+	{
+		for (int i = 0; i < m_items.size(); i++)
+		{
+			if (m_items[i] != nullptr)
+			{
+				gameObjects.insert(m_items[i]);
+			}
+		}
+	}
+	else 
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			m_children[i]->getAll(gameObjects);
 		}
 	}
 }
@@ -165,10 +190,11 @@ void QuadTree::lazyInsert(std::shared_ptr<GameObject> gameObject)
 	m_lazyInserts.push_back(gameObject);
 }
 
-void QuadTree::reconstruct()
+int QuadTree::reconstruct()
 {
+	int deletions = 0;
 	std::vector<std::shared_ptr<GameObject>> toReinsert;
-	m_root.reconstruct(toReinsert);
+	m_root.reconstruct(toReinsert, deletions);
 	for (auto it = toReinsert.begin(); it != toReinsert.end(); it++)
 	{
 		if (*it != nullptr)
@@ -184,6 +210,7 @@ void QuadTree::reconstruct()
 		}
 	}
 	m_lazyInserts.clear();
+	return deletions;
 }
 
 QuadTree::QuadTree(QuadTreeBounds quadRect) : m_root(quadRect, 0) {}
@@ -201,4 +228,12 @@ void QuadTree::insert(std::shared_ptr<GameObject> gameObject)
 void QuadTree::populateList(QuadTreeBounds & bounds, std::vector<std::shared_ptr<GameObject>> &gameObjects)
 {
 	m_root.populate(bounds, gameObjects);
+}
+
+
+std::set<std::shared_ptr<GameObject>> QuadTree::getAll()
+{
+	std::set<std::shared_ptr<GameObject>> toReturn;
+	m_root.getAll(toReturn);
+	return toReturn;
 }

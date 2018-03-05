@@ -3,6 +3,7 @@
 #include <vector>
 #include <memory>
 #include "GameObject.h"
+#include <set>
 
 struct QuadTreeBounds
 {
@@ -45,7 +46,8 @@ private:
 		void split();
 		void populate(QuadTreeBounds& bounds, std::vector<std::shared_ptr<GameObject>> &retItems);
 		void insert(std::shared_ptr<GameObject> item);
-		void reconstruct(std::vector<std::shared_ptr<GameObject>> &gameObjects);
+		void reconstruct(std::vector<std::shared_ptr<GameObject>> &gameObjects, int& deletions);
+		void getAll(std::set<std::shared_ptr<GameObject>> &gameObjects);
 	};
 
 	Node m_root;
@@ -56,7 +58,8 @@ public:
 	void insert(std::shared_ptr<GameObject> gameObject);
 	void lazyInsert(std::shared_ptr<GameObject> gameObject);
 	void populateList(QuadTreeBounds & bounds, std::vector<std::shared_ptr<GameObject>> &gameObjects);
-	void reconstruct();
+	int reconstruct();
 	QuadTreeBounds getBounds();
+	std::set<std::shared_ptr<GameObject>> getAll();
 
 };
