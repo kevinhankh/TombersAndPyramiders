@@ -23,8 +23,8 @@ public:
 class QuadTree
 {
 private:
-	static const int m_maxItems = 8; //maximum number of Items a node can hold until splitting
-	static const int m_maxDepth = 7; //maximum depth of the quadTree
+	static const int m_maxItems = 10; //maximum number of Items a node can hold until splitting
+	static const int m_maxDepth = 4; //maximum depth of the quadTree
 
 	//bounding box intersection
 	static bool intersects(QuadTreeBounds &quadBounds1, QuadTreeBounds &quadBounds2);

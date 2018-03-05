@@ -125,7 +125,7 @@ void QuadTree::Node::insert(std::shared_ptr<GameObject> item)
 
 	if (isLeaf())
 	{
-		m_items.push_back(item); //leaf node, directly add to item collection
+		m_items.push_back(item); //leaf node, directly add to item collection. If items is bigger than max size before split, it'll keep growing since we're at max depth
 	}
 	else
 	{
@@ -169,13 +169,13 @@ void QuadTree::reconstruct()
 {
 	std::vector<std::shared_ptr<GameObject>> toReinsert;
 	m_root.reconstruct(toReinsert);
-	/*for (int i = 0; i < toReinsert.size(); i++)
+	for (auto it = toReinsert.begin(); it != toReinsert.end(); it++)
 	{
-		if (toReinsert[i] != nullptr)
+		if (*it != nullptr)
 		{
-			m_root.insert(toReinsert[i]);
+			m_root.insert(*it);
 		}
-	}*/
+	}
 	for (int i = 0; i < m_lazyInserts.size(); i++)
 	{
 		if (m_lazyInserts[i] != nullptr)

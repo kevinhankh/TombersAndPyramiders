@@ -293,7 +293,7 @@ void SpriteRendererManager::prepareRenderingThread()
 	{
 		int toRender = 0;
 
-		auto objectsInBounds = GameManager::getInstance()->getObjectsInBounds(camera->getTransform()->getX(), camera->getTransform()->getY(), getGameWidth() * 0.8f, getGameHeight() * 0.8f);
+		auto objectsInBounds = GameManager::getInstance()->getObjectsInBounds(camera->getTransform()->getX(), camera->getTransform()->getY(), getGameWidth(), getGameHeight());
 		std::sort(objectsInBounds.begin(), objectsInBounds.end(), sortByZ);
 		for (size_t i = 0; i < objectsInBounds.size(); i++)
 		{
