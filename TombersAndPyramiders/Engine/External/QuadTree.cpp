@@ -1,4 +1,6 @@
 #include "QuadTree.h"
+#include <iostream>
+#include <sstream>
 
 QuadTreeBounds::QuadTreeBounds(float x, float y, float width, float height)
 {
@@ -7,6 +9,7 @@ QuadTreeBounds::QuadTreeBounds(float x, float y, float width, float height)
 	m_width = width;
 	m_height = height;
 }
+
 
 QuadTreeBounds::QuadTreeBounds(std::shared_ptr<GameObject> gameObject)
 {
@@ -53,19 +56,29 @@ void QuadTree::Node::split()
 	//create a child for each quadrant
 	float newWidth = m_bounds.getWidth() / 2.0f;
 	float newHeight = m_bounds.getHeight() / 2.0f;
-	m_children[0].reset(new Node(QuadTreeBounds(m_bounds.getX(), m_bounds.getY(), newWidth, newHeight), m_depth));
-	m_children[1].reset(new Node(QuadTreeBounds(m_bounds.getX() + newWidth, m_bounds.getY(), newWidth, newHeight), m_depth));
-	m_children[2].reset(new Node(QuadTreeBounds(m_bounds.getX(), m_bounds.getY() + newHeight, newWidth, newHeight), m_depth));
-	m_children[3].reset(new Node(QuadTreeBounds(m_bounds.getX() + newWidth, m_bounds.getY() + newHeight, newWidth, newHeight), m_depth));
+
+	//TopLeft: 100-50, 100+50, 100, 100
+	m_children[0].reset(new Node(QuadTreeBounds(m_bounds.getX() - newWidth / 2.0f, m_bounds.getY() + newHeight / 2.0f, newWidth, newHeight), m_depth));  //TopLeft
+	//TopRight: 100+50, 100+50
+	m_children[1].reset(new Node(QuadTreeBounds(m_bounds.getX() + newWidth / 2.0f, m_bounds.getY() + newHeight / 2.0f, newWidth, newHeight), m_depth)); //TopRight
+	//BottomLeft: 100-50, 100-50
+	m_children[2].reset(new Node(QuadTreeBounds(m_bounds.getX() - newWidth / 2.0f, m_bounds.getY() - newHeight / 2.0f, newWidth, newHeight), m_depth)); //BottomLeft
+	//BottomRight: 100+50, 100-50
+	m_children[3].reset(new Node(QuadTreeBounds(m_bounds.getX() + newWidth / 2.0f, m_bounds.getY() - newHeight / 2.0f, newWidth, newHeight), m_depth)); //BottomRight
 	//insert items into children
+
 	for (int j = 0; j < m_items.size(); j++)
 	{
 		std::shared_ptr<GameObject> object = m_items[j];
 		for (int i = 0; i < 4; i++)
 		{
-			m_children[i]->insert(object);
+			if (object != nullptr)
+			{
+				m_children[i]->insert(object);
+			}
 		}
 	}
+
 	//clear item collection
 	m_items.clear();
 }
@@ -79,7 +92,15 @@ void QuadTree::Node::populate(QuadTreeBounds& bounds, std::vector<std::shared_pt
 
 	if (isLeaf())
 	{
-		retItems.insert(retItems.end(), m_items.begin(), m_items.end()); //leaf node, populate return collection
+		for (int i = 0; i < m_items.size(); i++)
+		{
+			if (m_items[i] != nullptr)
+			{
+				retItems.push_back(m_items[i]);
+			}
+			
+		}
+		//retItems.insert(retItems.end(), m_items.begin(), m_items.end()); //leaf node, populate return collection
 	}
 	else
 	{
@@ -115,76 +136,61 @@ void QuadTree::Node::insert(std::shared_ptr<GameObject> item)
 	}
 }
 
-QuadTree::QuadTree(QuadTreeBounds quadRect) : m_root(quadRect, 0) {
-	//Test quad tree that it works... cause I'm worried it doesent. Lets check intersection
-	int passes = 0;
-	if (QuadTree::intersects(QuadTreeBounds(0, 0, 10, 10), QuadTreeBounds(0, 0, 5, 5))) {
-		//Yes
-		passes++;
+void QuadTree::Node::reconstruct(std::vector<std::shared_ptr<GameObject>> &gameObjects)
+{
+	if (isLeaf())
+	{
+		for (int i = 0; i < m_items.size(); i++)
+		{
+			if (m_items[i] != nullptr)
+			{
+				if (!intersects(m_bounds, QuadTreeBounds(m_items[i])))
+				{
+					gameObjects.push_back(m_items[i]);
+					m_items[i] = nullptr; //Lazy deletion. Will be removed on split, skipped on populate
+				}
+			}
+		}
 	}
-	if (QuadTree::intersects(QuadTreeBounds(5, 0, 10, 10), QuadTreeBounds(0, 0, 5, 5))) {
-		//Yes
-		passes++;
+	else {
+		for (int i = 0; i < 4; i++)
+		{
+			m_children[i]->reconstruct(gameObjects); //attempt to insert into children
+		}
 	}
-	if (QuadTree::intersects(QuadTreeBounds(50, -25, 10, 10), QuadTreeBounds(40, -25, 10, 11))) {
-		//Yes
-		passes++;
+}
+
+void QuadTree::lazyInsert(std::shared_ptr<GameObject> gameObject)
+{
+	m_lazyInserts.push_back(gameObject);
+}
+
+void QuadTree::reconstruct()
+{
+	std::vector<std::shared_ptr<GameObject>> toReinsert;
+	m_root.reconstruct(toReinsert);
+	/*for (int i = 0; i < toReinsert.size(); i++)
+	{
+		if (toReinsert[i] != nullptr)
+		{
+			m_root.insert(toReinsert[i]);
+		}
+	}*/
+	for (int i = 0; i < m_lazyInserts.size(); i++)
+	{
+		if (m_lazyInserts[i] != nullptr)
+		{
+			m_root.insert(m_lazyInserts[i]);
+		}
 	}
-	if (QuadTree::intersects(QuadTreeBounds(50, -25, 10, 10), QuadTreeBounds(40, -25, 10, 10))) {
-		//Yes
-		passes++;
-	}
-	if (QuadTree::intersects(QuadTreeBounds(40, -15, 10, 10), QuadTreeBounds(40, -25, 10, 10))) {
-		//Yes
-		passes++;
-	}
-	if (QuadTree::intersects(QuadTreeBounds(40, -16, 10, 10), QuadTreeBounds(40, -25, 10, 10))) {
-		//Yes
-		passes++;
-	}
-	if (!QuadTree::intersects(QuadTreeBounds(40, -14, 10, 10), QuadTreeBounds(40, -25, 10, 10))) {
-		//Yes
-		passes++;
-	}
-	if (!QuadTree::intersects(QuadTreeBounds(50, -25, 10, 10), QuadTreeBounds(39, -25, 10, 10))) {
-		//Yes
-		passes++;
-	}
-	if (QuadTree::intersects(QuadTreeBounds(50, -25, 10, 10), QuadTreeBounds(60, -25, 10, 10))) {
-		//Yes
-		passes++;
-	}
-	if (QuadTree::intersects(QuadTreeBounds(50, -35, 10, 10), QuadTreeBounds(59, -25, 10, 10))) {
-		//Yes
-		passes++;
-	}
-	if (!QuadTree::intersects(QuadTreeBounds(50, -36, 10, 10), QuadTreeBounds(59, -25, 10, 10))) {
-		//Yes
-		passes++;
-	}
-	if (QuadTree::intersects(QuadTreeBounds(50, -34, 10, 10), QuadTreeBounds(59, -25, 10, 10))) {
-		//Yes
-		passes++;
-	}
-	if (!QuadTree::intersects(QuadTreeBounds(50, -25, 10, 10), QuadTreeBounds(61, -25, 10, 10))) {
-		//Yes
-		passes++;
-	}
-	if (QuadTree::intersects(QuadTreeBounds(50, -25, 10, 10), QuadTreeBounds(59, -25, 10, 10))) {
-		//Yes
-		passes++;
-	}
-	if (QuadTree::intersects(QuadTreeBounds(50, -25, 10, 10), QuadTreeBounds(41, -25, 10, 10))) {
-		//Yes
-		passes++;
-	}
-	if (!QuadTree::intersects(QuadTreeBounds(-30, 0, 10, 10), QuadTreeBounds(0, 0, 5, 5))) {
-		//No
-		passes++;
-	}
-	if (passes != 16) {
-		int fuck = 1;
-	}
+	m_lazyInserts.clear();
+}
+
+QuadTree::QuadTree(QuadTreeBounds quadRect) : m_root(quadRect, 0) {}
+
+QuadTreeBounds QuadTree::getBounds()
+{
+	return m_root.m_bounds;
 }
 
 void QuadTree::insert(std::shared_ptr<GameObject> gameObject)

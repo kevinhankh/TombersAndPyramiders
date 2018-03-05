@@ -292,10 +292,8 @@ void SpriteRendererManager::prepareRenderingThread()
 	if (m_activeSprites.size() > 0)
 	{
 		int toRender = 0;
-		int missing = 0;
 
-		///*###DOESENT WORK but culls
-		auto objectsInBounds = GameManager::getInstance()->getObjectsInBounds(camera->getTransform()->getX(), camera->getTransform()->getY(), getGameWidth() * 1.25f, getGameHeight() * 1.25f);
+		auto objectsInBounds = GameManager::getInstance()->getObjectsInBounds(camera->getTransform()->getX(), camera->getTransform()->getY(), getGameWidth() * 0.8f, getGameHeight() * 0.8f);
 		std::sort(objectsInBounds.begin(), objectsInBounds.end(), sortByZ);
 		for (size_t i = 0; i < objectsInBounds.size(); i++)
 		{
@@ -304,22 +302,38 @@ void SpriteRendererManager::prepareRenderingThread()
 				continue;
 			}
 
-			/*if (m_activeSprites.find(objectsInBounds[i]->getId()) == m_activeSprites.end()) 
+			if (m_activeSprites.find(objectsInBounds[i]->getId()) == m_activeSprites.end()) 
 			{
 				continue; //This game object is not one we're supposed to render either way
-			}*/
+			}
 
 			std::shared_ptr<SpriteRenderer> spriteRenderer = m_activeSprites[objectsInBounds[i]->getId()]; //objectsInBounds[i]->getComponent<SpriteRenderer>() also misculls so it is the getObjectsInBounds call itself
-		//*/
+			if (spriteRenderer == nullptr) 
+			{
+				/*std::shared_ptr<SpriteRenderer> renderer = objectsInBounds[i]->getComponent<SpriteRenderer>();
+				if (renderer != nullptr)//spriteRenderer is null but renderer isn't, so this object didn't subscribe? subscribe it?
+				{
+					int id = objectsInBounds[i]->getId();
+					m_activeSprites[objectsInBounds[i]->getId()] = renderer;
+					spriteRenderer = renderer;
+				}
+				else { //Doesent have a renderer so remove it I guess
+					m_activeSprites.erase(m_activeSprites.find(objectsInBounds[i]->getId()));
+					continue;
+				}*/
+				//m_activeSprites.erase(m_activeSprites.find(objectsInBounds[i]->getId()));
+				continue;
+			}
+																										   //
 
 		//####WORKS but doesent cull####
-		//for (std::map<int, std::shared_ptr<SpriteRenderer>>::iterator it = m_activeSprites.begin(); it != m_activeSprites.end(); ++it)
-		//{
-			//std::shared_ptr<SpriteRenderer> spriteRenderer = it->second;
+		/*for (std::map<int, std::shared_ptr<SpriteRenderer>>::iterator it = m_activeSprites.begin(); it != m_activeSprites.end(); ++it)
+		{
+			std::shared_ptr<SpriteRenderer> spriteRenderer = it->second;
 			if (spriteRenderer == nullptr)
 			{
 				continue;
-			}
+			}*/
 
 			Transform* transform = spriteRenderer->getGameObject()->getTransform();
 			
@@ -361,16 +375,13 @@ void SpriteRendererManager::prepareRenderingThread()
 					rg.children.push_back(ro);
 					toRender++;
 				}
-				else {
-					missing++;
-				}
 			//}
 			//if (isRenderingLayerEnabled(spriteRenderer->getLayer()))
 			//{
 				
 			//}
 		}
-		std::cout << toRender << " " << missing << std::endl;
+		std::cout << objectsInBounds.size() << " " << toRender << std::endl;
 		m_renderingGroups.push_back(rg);
 	}
 

@@ -10,6 +10,7 @@
 #include "AudioManager.h"
 #include <memory>
 #include "Camera.h"
+#include "SharedConstants.h"
 
 GameManager* GameManager::s_instance;
 
@@ -22,12 +23,12 @@ GameManager* GameManager::getInstance()
 
 GameManager::GameManager()
 {
-
+	reinstantiateQuadTree(getGameWidth() / 2.0f, getGameHeight() / 2.0f, getGameWidth(), getGameHeight());
 }
 
 void GameManager::onStart()
 {
-
+	resizeQuadTree(12 * 5 / 2.0f, -12 * 5 / 2.0f, 12 * 5 * 1.25f, 12 * 5 * 1.25f);
 	m_lastTime = SDL_GetTicks();
 	m_game = new Game();
 	m_game->onStart();
@@ -78,9 +79,9 @@ void GameManager::onUpdate(int ticks)
 
 		NetworkingManager::getInstance()->sendQueuedEvents();
 	}
-	
+
+	updateQuadTree();
 	PhysicsManager::getInstance()->onUpdate(ticks);
-	repopulateQuadTree();
 	SpriteRendererManager::getInstance()->onUpdate(ticks);
 
 	for (std::map<int, std::shared_ptr<GameObject>>::iterator it = m_globalGameObjects.begin(); it != m_globalGameObjects.end(); ++it)
@@ -96,29 +97,31 @@ void GameManager::onUpdate(int ticks)
 
 }
 
-void GameManager::repopulateQuadTree()
+void GameManager::reinstantiateQuadTree(float x, float y, float width, float height)
 {
-	m_quadTree.reset(new QuadTree(QuadTreeBounds(0, 0, 800, 800))); //Width/Height of playable world
-	for (std::map<int, std::shared_ptr<GameObject>>::iterator it = m_globalGameObjects.begin(); it != m_globalGameObjects.end(); ++it)
+	m_quadTree.reset(new QuadTree(QuadTreeBounds(x, y, width, height))); //Width/Height of playable world
+}
+
+void GameManager::resizeQuadTree(float x, float y, float width, float height) 
+{
+	std::vector<std::shared_ptr<GameObject>> toMove;
+	m_quadTree->populateList(m_quadTree->getBounds(), toMove);
+	m_quadTree.reset(new QuadTree(QuadTreeBounds(x, y, width, height))); //Width/Height of playable world
+	for (int i = 0; i < toMove.size(); i++) 
 	{
-		if (it->second != nullptr) {
-			m_quadTree->insert(it->second);
-		}
-	}
-	auto sceneObject = SceneManager::getInstance()->getCurrentScene()->sceneObjects;
-	for (std::map<int, std::shared_ptr<GameObject>>::iterator it = sceneObject.begin(); it != sceneObject.end(); ++it)
-	{
-		if (it->second != nullptr) {
-			m_quadTree->insert(it->second);
-		}
+		m_quadTree->insert(toMove[i]);
 	}
 }
 
+void GameManager::updateQuadTree() {
+	m_quadTree->reconstruct();
+}
 
 std::vector<std::shared_ptr<GameObject>> GameManager::getObjectsInBounds(float x, float y, float width, float height)
 {
 	std::vector<std::shared_ptr<GameObject>> result;
 	m_quadTree->populateList(QuadTreeBounds(x, y, width, height), result);
+	//std::cout << x << " " << y << " | " << width << " " << height << " | " << result.size() << std::endl;
 	return result;
 }
 

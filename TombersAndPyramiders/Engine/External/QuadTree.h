@@ -26,7 +26,7 @@ private:
 	static const int m_maxItems = 8; //maximum number of Items a node can hold until splitting
 	static const int m_maxDepth = 7; //maximum depth of the quadTree
 
-									 //bounding box intersection
+	//bounding box intersection
 	static bool intersects(QuadTreeBounds &quadBounds1, QuadTreeBounds &quadBounds2);
 
 	//Node constituting tree structure
@@ -45,12 +45,18 @@ private:
 		void split();
 		void populate(QuadTreeBounds& bounds, std::vector<std::shared_ptr<GameObject>> &retItems);
 		void insert(std::shared_ptr<GameObject> item);
+		void reconstruct(std::vector<std::shared_ptr<GameObject>> &gameObjects);
 	};
 
 	Node m_root;
+	std::vector<std::shared_ptr<GameObject>> m_lazyInserts;
 
 public:
 	QuadTree(QuadTreeBounds quadRect);
 	void insert(std::shared_ptr<GameObject> gameObject);
+	void lazyInsert(std::shared_ptr<GameObject> gameObject);
 	void populateList(QuadTreeBounds & bounds, std::vector<std::shared_ptr<GameObject>> &gameObjects);
+	void reconstruct();
+	QuadTreeBounds getBounds();
+
 };
