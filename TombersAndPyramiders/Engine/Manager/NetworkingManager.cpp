@@ -44,21 +44,21 @@ IPaddress NetworkingManager::getIP() {
 
 bool NetworkingManager::startGame() {
 	
-	if (!isHost() || !inLobby || gameStarted)
+	if (!isHost() || !m_inLobby || m_gameStarted)
 		return false;
 
-	inLobby = false;
-	gameStarted = true;
+	m_inLobby = false;
+	m_gameStarted = true;
 	std::cout << "Server start game!" << std::endl;
 	return true;
 }
 
 bool NetworkingManager::startGameClient() {
-	if (isHost() || !inLobby || gameStarted)
+	if (isHost() || !m_inLobby || m_gameStarted)
 		return false;
 
-	inLobby = false;
-	gameStarted = true;
+	m_inLobby = false;
+	m_gameStarted = true;
 	std::cout << "Client start game!" << std::endl;
 	return true;
 }
@@ -77,7 +77,7 @@ void NetworkingManager::stopListeningForStart() {
 
 bool NetworkingManager::host()
 {
-	if (inLobby || gameStarted)
+	if (m_inLobby || m_gameStarted)
 		return false;
 	// create a listening TCP socket on port 9999 (server)
 	IPaddress ip;
@@ -85,7 +85,7 @@ bool NetworkingManager::host()
 
 	int startConnTime = SDL_GetTicks();
 	int timeoutTime = SDL_GetTicks();
-	const int TIMEOUT = 60000;
+	const int TIMEOUT = 30000;
 
 	if (SDLNet_ResolveHost(&ip, NULL, m_port) == -1)
 	{
@@ -108,16 +108,24 @@ bool NetworkingManager::host()
 		return false;
 	}
 
-	inLobby = true;
-	gameStarted = false;
+	m_inLobby = true;
+	m_gameStarted = false;
 	m_isHost = true;
-	channel = SDLNet_UDP_Bind(m_udpSocket, DEFAULT_CHANNEL, &ip);
+	//channel = SDLNet_UDP_Bind(m_udpSocket, DEFAULT_CHANNEL, &ip);
+
+	std::cout << "Hosting server." << std::endl;
+	addPlayer (ip.host, m_socket);
 
 	bool result = false;
-	while (!(result = accept()) && SDL_GetTicks() - startConnTime < TIMEOUT);
+	while (/*!(result = accept ()) &&*/ SDL_GetTicks () - startConnTime < TIMEOUT) {
+		if (accept())
+		{
+			result = true;
+			std::cout << "Connection established." << std::endl;
+		}
+	}
 	if (result)
 	{
-		std::cout << "Connection established." << std::endl;
 		return true;
 	}
 	else
@@ -130,7 +138,7 @@ bool NetworkingManager::host()
 
 bool NetworkingManager::join()
 {
-	if (inLobby || gameStarted)
+	if (m_inLobby || m_gameStarted)
 		return false;
 
 	IPaddress ip;
@@ -160,12 +168,12 @@ bool NetworkingManager::join()
 	
 	channel = SDLNet_UDP_Bind(m_udpSocket, DEFAULT_CHANNEL, &ip);*/
 
-	inLobby = true;
-	gameStarted = false;
+	m_inLobby = true;
+	m_gameStarted = false;
 	addPlayer(ip.host, m_socket); //right
 	listenForStart();
 
-	std::cout << "SDLNet_TCP_Open:A>A>A WE DID IT JOIN" << std::endl;
+	std::cout << "Joined as a host." << std::endl;
 	pollMessages(ip.host);
 	//pollMessagesUDP(ip.host);
 	return true;
@@ -173,7 +181,7 @@ bool NetworkingManager::join()
 
 bool NetworkingManager::accept()
 {
-	if (gameStarted)
+	if (m_gameStarted)
 		return false;
 
 	TCPsocket m_client = SDLNet_TCP_Accept(m_socket);
@@ -182,10 +190,17 @@ bool NetworkingManager::accept()
 		return false;
 	}
 	IPaddress *ip = SDLNet_TCP_GetPeerAddress(m_client);
-	addPlayer(ip->host, m_client);
+	int player_id = addPlayer(ip->host, m_client);
+	if (player_id < 0) {
+		SDLNet_TCP_Close (m_client);
+		std::cout << "Too many players." << std::endl;
+		return false;
+	}
 	pollMessages(ip->host);
+	sendAcceptPacket (ip->host, player_id);
+	//send (ip->host, "nice new guy");
 	// communicate over new_tcpsock
-	std::cout << "SDLNet_TCP_Accept:A>A>A WE DID IT ACCETP" << std::endl;
+	std::cout << "Accepted a client." << std::endl;
 	return true;
 }
 
@@ -287,10 +302,31 @@ void NetworkingManager::pollMessagesThread(Uint32 ip)
 			continue;
 		}
 		std::string newMsg = msg;
+		std::cout << msg << std::endl;
 		m_messageQueue->push(newMsg);
 	}
 	close(ip);
 }
+
+void NetworkingManager::sendAcceptPacket (Uint32 ip, int player_id) {
+
+	std::string packet = "[{key:HANDSHAKE|ACCEPT, playerId: " + std::to_string (player_id) + "}]";
+	send (ip, &packet);
+}
+
+//void NetworkingManager::sendStartPacket (Uint32 ip) {
+//	//includes sycnronization (must pass all other players)
+//	std::string packet = "[{key:HANDSHAKE|START, ";
+//
+//	int i = 0;
+//	for (auto it = m_clients.begin (); it != m_clients.end (); it++) {
+//		packet += "player" + std::to_string(i) + ": " + std::to_string (it->first);
+//	}
+//
+//	packet += "}]";
+//
+//	send (ip, &packet);
+//}
 
 void NetworkingManager::pollMessagesUDP()
 {
@@ -393,27 +429,27 @@ void NetworkingManager::handleParsingEvents(std::string packet)
 		bool reading = false;
 		while (packet.size() > 0)
 		{
-			if (!reading)
+		if (!reading)
+		{
+			if (packet[0] == '{')
 			{
-				if (packet[0] == '{')
-				{
-					reading = true;
-					currentMessage += packet[0];
-				}
-			}
-			else
-			{
+				reading = true;
 				currentMessage += packet[0];
-				if (packet[0] == '}')
-				{
-					reading = false;
-					messages.push_back(currentMessage);
-					sendEventToReceiver(deserializeMessage(currentMessage));
-					currentMessage = "";
-				}
 			}
+		}
+		else
+		{
+			currentMessage += packet[0];
+			if (packet[0] == '}')
+			{
+				reading = false;
+				messages.push_back (currentMessage);
+				sendEventToReceiver (deserializeMessage (currentMessage));
+				currentMessage = "";
+			}
+		}
 
-			packet.erase(0, 1);
+		packet.erase (0, 1);
 		}
 	}
 }
@@ -422,17 +458,17 @@ void NetworkingManager::handleParsingEvents(std::string packet)
 
 //TODO: Deserialize this:
 //Example: {key : Player|UPDATE,rotation : 37.000000,scale : 1.000000,x : 1.000000,y : 0.000000}
-std::map<std::string, void*> NetworkingManager::deserializeMessage(std::string message)
+std::map<std::string, void*> NetworkingManager::deserializeMessage (std::string message)
 {
 	std::map<std::string, void*> data;
 	std::string currentKey = "";
 	std::string currentValue = "";
 	bool readingKey;
 	bool readingValue;
-	while (message.size() > 0)
+	while (message.size () > 0)
 	{
 		char curChar = message[0];
-		message.erase(0, 1);
+		message.erase (0, 1);
 
 		if (curChar == ',' || curChar == '{')
 		{
@@ -441,7 +477,7 @@ std::map<std::string, void*> NetworkingManager::deserializeMessage(std::string m
 			readingValue = false;
 			if (curChar == ',')
 			{
-				data[currentKey] = (void*)new std::string(currentValue);
+				data[currentKey] = (void*)new std::string (currentValue);
 			}
 			std::string newCurrentString = "";
 			std::string newCurrentValue = "";
@@ -459,10 +495,10 @@ std::map<std::string, void*> NetworkingManager::deserializeMessage(std::string m
 		else if (curChar == '}')
 		{
 			//End
-			data[currentKey] = (void*)new std::string(currentValue);
+			data[currentKey] = (void*)new std::string (currentValue);
 			break;
 		}
-		if (!isspace(curChar))
+		if (!isspace (curChar))
 		{
 			if (readingKey)
 			{
@@ -478,20 +514,26 @@ std::map<std::string, void*> NetworkingManager::deserializeMessage(std::string m
 	return data;
 }
 
-void NetworkingManager::setIP(char *ip, int p)
+void NetworkingManager::setIP (char *ip, int p)
 {
 	IP = ip;
 	m_port = p;
 }
 
-int NetworkingManager::addPlayer(Uint32 ip, TCPsocket sock)
+int NetworkingManager::addPlayer (Uint32 ip, TCPsocket sock)
 {
-	if (m_clients.size() > 16)
+	if (m_clients.size () > 16)
 	{
-		return 0;
+		return -1;
 	}
-	m_clients.insert(std::pair<Uint32, TCPsocket>(ip, sock));
-	return 1;
+	m_clients.insert (std::pair<Uint32, TCPsocket> (ip, sock));
+
+	std::cout << "----" << std::endl;
+	for (auto it = m_clients.begin (); it != m_clients.end (); it++) {
+		std::cout << "Client: " << it->first << std::endl;
+	}
+
+	return ip;
 }
 
 int NetworkingManager::removePlayer(Uint32 ip)

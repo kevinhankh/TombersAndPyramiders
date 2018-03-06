@@ -28,6 +28,8 @@ void Sender::sendDestroy()
 
 void Sender::sendUpdate()
 {
+	if (!NetworkingManager::getInstance ()->inGame ())
+		return;
 	std::map<std::string, std::string> payload;
 	Transform* transform = gameObject->getTransform();
 	payload["x"] = std::to_string(transform->getX());

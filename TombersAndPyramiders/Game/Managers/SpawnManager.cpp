@@ -48,7 +48,7 @@ void SpawnManager::sendStartPacket()
 	NetworkedGameScene* scene = new NetworkedGameScene();
 	SceneManager::getInstance()->pushScene(scene);
 
-	payload["playerSpawns"] = std::to_string(NetworkingManager::getInstance()->m_clients.size() + 1);
+	payload["playerSpawns"] = std::to_string(NetworkingManager::getInstance()->m_clients.size());
 
 	int id = rand(), x = 0, y = -2;
 	payload["playerSpawnIP0"] = std::to_string(id);

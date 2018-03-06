@@ -5,6 +5,7 @@
 #include <thread>
 #include <map>
 #include <string>
+#include <memory>
 #define DEFAULT_IP "127.0.0.1"
 #define DEFAULT_PORT 9999
 #define DEFAULT_CHANNEL 1
@@ -19,8 +20,8 @@ class NetworkingManager
 {
 private:
 	int m_startPacketID;
-	bool inLobby = false; //closeall will set both of these to false
-	bool gameStarted = false;
+	bool m_inLobby = false; //closeall will set both of these to false
+	bool m_gameStarted = false;
 	bool m_isHost = false;
 	static NetworkingManager* s_instance;
 	ThreadQueue<std::string> *m_messageQueue;
@@ -46,6 +47,7 @@ private:
 	std::string serializeMessage(Message message);
 	std::map<std::string, void*> deserializeMessage(std::string message);
 	void sendEventToReceiver(std::map<std::string, void*> data);
+	void sendAcceptPacket (Uint32 ip, int player_id);
 
 public:
 	std::map<Uint32, TCPsocket> m_clients;
@@ -70,6 +72,12 @@ public:
 	void handleParsingEvents(std::string packet);
 	bool isConnected();
 	bool isHost();
+	bool inLobby () {
+		return m_inLobby;
+	}
+	bool inGame () {
+		return m_gameStarted;
+	}
 	void setIP(char *ip, int port = DEFAULT_PORT);
 	int addPlayer(Uint32 ip, TCPsocket sock);
 	int removePlayer(Uint32 ip);
