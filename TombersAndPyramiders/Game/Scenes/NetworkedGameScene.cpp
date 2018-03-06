@@ -12,8 +12,6 @@
 #include <memory>
 #include "WoodenShortsword.h"
 
-//std::shared_ptr<Character> player = nullptr;
-//std::shared_ptr<Character> player2 = nullptr;
 std::map<int, shared_ptr<Character>> players;
 std::shared_ptr<Character> Ai = nullptr;
 std::shared_ptr<Character> Ai2 = nullptr;
@@ -116,14 +114,7 @@ void NetworkedGameScene::onStart ()
 	Ai3 = SpawnManager::getInstance ()->generateAiCharacter (54, -40);
 	Ai4 = SpawnManager::getInstance ()->generateAiCharacter (14, -35);
 
-	/*Camera::getActiveCamera ()->addComponent<CameraFollow> (Camera::getActiveCamera ().get ());
-	if (NetworkingManager::getInstance ()->isHost ())
-	{
-		setCameraFollow (player);
-	}
-	else {
-		setCameraFollow (player2);
-	}*/
+	Camera::getActiveCamera ()->addComponent<CameraFollow> (Camera::getActiveCamera ().get ());
 }
 
 void NetworkedGameScene::onPause ()

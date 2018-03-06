@@ -81,4 +81,5 @@ public:
 	void setIP(char *ip, int port = DEFAULT_PORT);
 	int addPlayer(Uint32 ip, TCPsocket sock);
 	int removePlayer(Uint32 ip);
+	bool isSelf (Uint32 ip);
 };

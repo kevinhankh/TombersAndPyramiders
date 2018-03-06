@@ -18,27 +18,26 @@ std::shared_ptr<SpawnManager> SpawnManager::s_instance;
 
 void callback(std::map<std::string, void*> payload)
 {
+	std::cout << "Client Start." << std::endl;
+
 	SpawnManager* self = (SpawnManager*)payload["this"];
 	NetworkedGameScene* scene = new NetworkedGameScene();
 	SceneManager::getInstance()->pushScene(scene);
 
 	int players = std::stoi(*(std::string*)payload["playerSpawns"]);
 
-	int id = std::stoi(*(std::string*)payload["playerSpawnIP0"]);
-	float x = std::stof(*(std::string*)payload["playerSpawnX0"]);
-	float y = std::stof(*(std::string*)payload["playerSpawnY0"]);
-
-	SpawnManager::getInstance()->generateNetworkCharacter(id, x, y);
-
-	for (auto i = 1; i < players; i++) {
+	int id = 0, x = 0, y = 0;
+	for (int i = 0; i < players; i++) {
 		id = std::stoi(*(std::string*)payload["playerSpawnIP" + std::to_string(i)]);
 		x = std::stof(*(std::string*)payload["playerSpawnX" + std::to_string(i)]);
 		y = std::stof(*(std::string*)payload["playerSpawnY" + std::to_string(i)]);
-
-		scene->setCameraFollow(SpawnManager::getInstance()->generatePlayerCharacter(id, x, y));
+		if (NetworkingManager::getInstance ()->isSelf (id))
+			scene->setCameraFollow (SpawnManager::getInstance ()->generatePlayerCharacter (id, x, y));
+		else
+			SpawnManager::getInstance ()->generateNetworkCharacter(id, x, y);
 	}
 
-
+	NetworkingManager::getInstance ()->startGameClient ();
 }
 
 void SpawnManager::sendStartPacket()
@@ -50,7 +49,7 @@ void SpawnManager::sendStartPacket()
 
 	payload["playerSpawns"] = std::to_string(NetworkingManager::getInstance()->m_clients.size());
 
-	int id = rand(), x = 0, y = -2;
+	int id = 1000, x = 0, y = 0;
 	payload["playerSpawnIP0"] = std::to_string(id);
 	payload["playerSpawnX0"] = std::to_string(x);
 	payload["playerSpawnY0"] = std::to_string(y);
@@ -60,7 +59,7 @@ void SpawnManager::sendStartPacket()
 	for (auto it = NetworkingManager::getInstance()->m_clients.begin(); it != NetworkingManager::getInstance()->m_clients.end(); it++) {
 		id = it->first;
 		x = 2 * i;
-		y = 2;
+		y = 0;
 		payload["playerSpawnIP" + std::to_string(i)] = std::to_string(id);
 		payload["playerSpawnX" + std::to_string(i)] = std::to_string(x);
 		payload["playerSpawnY" + std::to_string(i)] = std::to_string(y);

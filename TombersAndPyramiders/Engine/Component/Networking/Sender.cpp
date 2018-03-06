@@ -30,6 +30,7 @@ void Sender::sendUpdate()
 {
 	if (!NetworkingManager::getInstance ()->inGame ())
 		return;
+	std::cout << "SEND IT" << this->m_id << std::endl;
 	std::map<std::string, std::string> payload;
 	Transform* transform = gameObject->getTransform();
 	payload["x"] = std::to_string(transform->getX());
