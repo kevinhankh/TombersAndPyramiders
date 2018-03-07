@@ -16,6 +16,7 @@
 #include "GameObject.h"
 #include "SimpleSprite.h"
 #include "Vector2.h"
+#include <unordered_set>
 class BaseWeapon;
 class Collider;
 
@@ -32,6 +33,7 @@ class DamagingRegion : public SimpleSprite
 		int m_ownerId;
 		int m_damage;
 		bool m_destroyOnCollision;
+		std::unordered_set<int> m_hitList;
 
     /*----------------------------------------------------------------------------------------
 		Resource Management
@@ -50,8 +52,8 @@ class DamagingRegion : public SimpleSprite
     ----------------------------------------------------------------------------------------*/
 	public:
 		virtual void setOwnerId(int id);
-
 		virtual void onUpdate(int ticks);
+		virtual void clearHitList();
 
 	protected:
 		virtual void handleCollisions();

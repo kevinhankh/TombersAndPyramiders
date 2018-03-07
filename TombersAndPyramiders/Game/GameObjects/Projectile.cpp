@@ -41,15 +41,22 @@ void Projectile::onUpdate(int ticks)
 	updateLifespan(ticks);
 }
 
+/**
+	Handles collisions for projectile damaging regions.
+*/
 void Projectile::handleSingleCollision(GameObject* other)
 {
+	auto otherId = other->getId();
+
 	/* Ensure you don't collide with the thing that created you. */
-	if (other->getId() != m_ownerId)
+	if (otherId != m_ownerId)
 	{
 		/* If the other thing is a character, damage it. */
 		std::shared_ptr<CharacterController> ccOther = other->getComponent<CharacterController>();
 		if (ccOther != nullptr)
 		{
+			m_hitList.insert(otherId);
+
 			ccOther->takeDamage(m_damage);
 
 			if (m_destroyOnCollision)
@@ -61,7 +68,6 @@ void Projectile::handleSingleCollision(GameObject* other)
 		}
 
 		/* TODO Handle collisions with walls? */
-		destroy(getId());
 	}
 }
 

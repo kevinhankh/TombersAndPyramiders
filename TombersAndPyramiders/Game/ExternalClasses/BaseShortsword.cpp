@@ -49,6 +49,7 @@ void BaseShortsword::onStart()
 {
 	m_isAttacking = true;
 	m_timeUntilNextAttack = SHORTSWORD_ATTACK_COOLDOWN_TIME;
+	m_damagingRegion->clearHitList();
 	m_damagingRegion->getTransform()->setScale(1);
 	m_damagingRegion->getComponent<BoxCollider>()->setDisabled(false);
 }
