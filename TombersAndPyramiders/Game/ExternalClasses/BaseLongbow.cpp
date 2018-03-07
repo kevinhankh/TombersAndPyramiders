@@ -31,9 +31,9 @@ const float BaseLongbow::LONGBOW_ATTACK_COOLDOWN_TIME = 5;
 	Resource Methods
 ----------------------------------------------------------------------------------------*/
 BaseLongbow::BaseLongbow(int damage, std::string projectileImageName,
-	Vector2 projectileColliderSize, Vector2 projectileSpawnOffsetFromHolder,
+	Vector2 projectileColliderSize, bool destroyProjectilesOnCollision, Vector2 projectileSpawnOffsetFromHolder,
 	float projectileSpriteScale, Vector2 projectileVelocity, float projectileLifespan) :
-	BaseProjectileWeapon{ damage, projectileImageName, projectileColliderSize, 
+	BaseProjectileWeapon{ damage, projectileImageName, projectileColliderSize, destroyProjectilesOnCollision, 
 	projectileSpawnOffsetFromHolder, projectileSpriteScale, projectileVelocity, projectileLifespan }
 {}
 
@@ -60,6 +60,7 @@ void BaseLongbow::onStart()
 			m_damage, 
 			m_projectileImageName,
 			LONGBOW_PROJECTILE_COLLIDER_WIDTH, LONGBOW_PROJECTILE_COLLIDER_HEIGHT,
+			m_destroyProjectilesOnCollision, 
 			spawnPoint.getX(), spawnPoint.getY(),
 			LONGBOW_PROJECTILE_SPRITE_SCALE,
 			velocity.getX(), velocity.getY(),

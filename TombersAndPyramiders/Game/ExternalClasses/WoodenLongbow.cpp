@@ -17,6 +17,7 @@
 ----------------------------------------------------------------------------------------*/
 const int WoodenLongbow::WOODEN_LONGBOW_DAMAGE = 20;
 const std::string WoodenLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME = "IceTile.png";
+const bool WoodenLongbow::WOODEN_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION = true;
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
@@ -24,6 +25,7 @@ const std::string WoodenLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME = "IceTile
 WoodenLongbow::WoodenLongbow() :
 	BaseLongbow{ WOODEN_LONGBOW_DAMAGE, WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME,
 		Vector2(LONGBOW_PROJECTILE_COLLIDER_WIDTH, LONGBOW_PROJECTILE_COLLIDER_HEIGHT), 
+		WOODEN_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION, 
 		Vector2(LONGBOW_PROJECTILE_SPAWN_X_OFFSET_FROM_HOLDER, LONGBOW_PROJECTILE_SPAWN_Y_OFFSET_FROM_HOLDER), 
 		LONGBOW_PROJECTILE_SPRITE_SCALE, 
 		Vector2(LONGBOW_PROJECTILE_X_VELOCITY, LONGBOW_PROJECTILE_Y_VELOCITY), 

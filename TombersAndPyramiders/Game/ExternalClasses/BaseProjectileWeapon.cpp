@@ -16,11 +16,12 @@
 	Resource Management
 ----------------------------------------------------------------------------------------*/
 BaseProjectileWeapon::BaseProjectileWeapon(int damage, std::string projectileImageName,
-	Vector2 projectileColliderSize, Vector2 projectileSpawnOffsetFromHolder,
+	Vector2 projectileColliderSize, bool destroyProjectilesOnCollision, Vector2 projectileSpawnOffsetFromHolder,
 	float projectileSpriteScale, Vector2 projectileVelocity, float projectileLifespan) :
 	BaseWeapon(damage),
 	m_projectileImageName{ projectileImageName }, 
 	m_projectileColliderSize{ projectileColliderSize }, 
+	m_destroyProjectilesOnCollision{ destroyProjectilesOnCollision }, 
 	m_projectileSpawnOffsetFromHolder{ projectileSpawnOffsetFromHolder }, 
 	m_projectileSpriteScale{ projectileSpriteScale }, 
 	m_projectileVelocity{ projectileVelocity }, 

@@ -37,7 +37,7 @@ class BaseShortsword : public BaseMeleeWeapon
         /** Default constructor. */
         explicit BaseShortsword() = delete;
 
-		explicit BaseShortsword(int damage, string imageName);
+		explicit BaseShortsword(int damage, string imageName, bool destroyOnCollision);
 
 		virtual ~BaseShortsword() {};
 	

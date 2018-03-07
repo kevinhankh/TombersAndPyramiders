@@ -21,10 +21,10 @@
 	Resource Management
 ----------------------------------------------------------------------------------------*/
 DamagingRegion::DamagingRegion(int damage, string imageName, float colliderWidth, 
-	float colliderHeight, float xPosition, float yPosition, float spriteScale) :
+	float colliderHeight, bool destroyOnCollision, float xPosition, float yPosition, float spriteScale) :
 	SimpleSprite{ imageName, xPosition, yPosition, 0, spriteScale },
 	m_damage{ damage }, 
-	m_destroyOnCollision{ false }, 
+	m_destroyOnCollision{ destroyOnCollision },
 	m_hitList { std::unordered_set<int>() }
 {
 	if (colliderWidth < 0)

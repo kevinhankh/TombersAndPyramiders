@@ -26,8 +26,9 @@ const float BaseShortsword::SHORTSWORD_ATTACK_COOLDOWN_TIME = 5;
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-BaseShortsword::BaseShortsword(int damage, string imageName) :
+BaseShortsword::BaseShortsword(int damage, string imageName, bool destroyOnCollision) :
 	BaseMeleeWeapon{ damage, imageName, SHORTSWORD_COLLIDER_WIDTH, SHORTSWORD_COLLIDER_HEIGHT, 
+	destroyOnCollision, 
 	SHORTSWORD_X_OFFSET_FROM_HOLDER, SHORTSWORD_Y_OFFSET_FROM_HOLDER, SHORTSWORD_COLLIDER_SCALE }
 {
 	m_damagingRegion->getComponent<BoxCollider>()->setDisabled(true);

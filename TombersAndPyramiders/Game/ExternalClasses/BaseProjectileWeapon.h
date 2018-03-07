@@ -27,6 +27,7 @@ class BaseProjectileWeapon : public BaseWeapon
 	protected:
 		std::string m_projectileImageName;
 		Vector2 m_projectileColliderSize;
+		bool m_destroyProjectilesOnCollision;
 		Vector2 m_projectileSpawnOffsetFromHolder;
 		float m_projectileSpriteScale;
 		Vector2 m_projectileVelocity;
@@ -40,8 +41,9 @@ class BaseProjectileWeapon : public BaseWeapon
         explicit BaseProjectileWeapon() = delete;
 
 		explicit BaseProjectileWeapon(int damage, std::string projectileImageName, 
-			Vector2 projectileColliderSize, Vector2 projectileSpawnOffsetFromHolder, 
-			float projectileSpriteScale, Vector2 projectileVelocity, float projectileLifespan);
+			Vector2 projectileColliderSize, bool destroyprojectilesOnCollision, 
+			Vector2 projectileSpawnOffsetFromHolder, float projectileSpriteScale, 
+			Vector2 projectileVelocity, float projectileLifespan);
 
 		virtual ~BaseProjectileWeapon() {};
 		
