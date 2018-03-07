@@ -136,7 +136,7 @@ bool SpriteRendererManager::init()
 	}
 
 	// Create our window centered as an OpenGL window
-	m_mainWindow = SDL_CreateWindow("Blizzard Ball Battle", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_OPENGL);
+	m_mainWindow = SDL_CreateWindow("Tombers and Pyramiders", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_OPENGL);
 
 	// Check that everything worked out okay
 	if (!m_mainWindow)
