@@ -40,17 +40,4 @@ class BaseShortsword : public BaseMeleeWeapon
 		explicit BaseShortsword(int damage, string imageName, bool destroyOnCollision);
 
 		virtual ~BaseShortsword() {};
-	
-    /*----------------------------------------------------------------------------------------
-		Instance Methods
-    ----------------------------------------------------------------------------------------*/
-	public:
-		virtual void use();
-
-		void onStart();
-		void onUpdate(int ticks);
-		void onEnd();
-
-	private:
-		void updateAttack(int ticks);
 };

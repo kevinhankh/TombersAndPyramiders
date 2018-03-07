@@ -14,14 +14,15 @@
 #include "DamagingRegion.h"
 #include "Inventory.h"
 #include "GameManager.h"
+#include "BoxCollider.h"
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
 BaseMeleeWeapon::BaseMeleeWeapon(int damage, string imageName, float colliderWidth, float colliderHeight, 
-	bool destroyOnCollision, 
+	bool destroyOnCollision, float attackCooldownTime, 
 	float xOffsetFromHolder, float yOffsetFromHolder, float colliderScale) :
-	BaseWeapon(damage)
+	BaseWeapon(damage, attackCooldownTime)
 {
 	m_offsetFromHolder = Vector2(xOffsetFromHolder, yOffsetFromHolder);
 	m_damagingRegion = GameManager::getInstance()->createGameObject<DamagingRegion>(false, damage, imageName, 
@@ -34,6 +35,36 @@ BaseMeleeWeapon::BaseMeleeWeapon(int damage, string imageName, float colliderWid
 void BaseMeleeWeapon::setOwnerId(int id)
 {
 	m_damagingRegion->setOwnerId(id);
+}
+
+void BaseMeleeWeapon::use()
+{
+	if (!m_isAttacking)
+	{
+		onStart();
+	}
+}
+
+void BaseMeleeWeapon::onStart()
+{
+	m_isAttacking = true;
+	m_timeUntilNextAttack = m_attackCooldownTime;
+	m_damagingRegion->clearHitList();
+	m_damagingRegion->getTransform()->setScale(1);
+	m_damagingRegion->getComponent<BoxCollider>()->setDisabled(false);
+}
+
+void BaseMeleeWeapon::onUpdate(int ticks)
+{
+	updatePosition();
+	updateAttack(ticks);
+}
+
+void BaseMeleeWeapon::onEnd()
+{
+	m_isAttacking = false;
+	m_damagingRegion->getTransform()->setScale(0);
+	m_damagingRegion->getComponent<BoxCollider>()->setDisabled(true);
 }
 
 void BaseMeleeWeapon::updatePosition()
@@ -55,5 +86,18 @@ void BaseMeleeWeapon::updatePosition()
 
 		/* Set the weapon's rotation about its center. */
 		m_damagingRegion->getTransform()->setRotation(owner()->getTransform()->getRotation());
+	}
+}
+
+void BaseMeleeWeapon::updateAttack(int ticks)
+{
+	if (m_isAttacking)
+	{
+		m_timeUntilNextAttack -= ticks / BaseItem::TICKS_PER_SECOND;
+
+		if (m_timeUntilNextAttack <= 0)
+		{
+			onEnd();
+		}
 	}
 }

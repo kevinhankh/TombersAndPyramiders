@@ -16,9 +16,10 @@
 	Resource Management
 ----------------------------------------------------------------------------------------*/
 BaseProjectileWeapon::BaseProjectileWeapon(int damage, std::string projectileImageName,
-	Vector2 projectileColliderSize, bool destroyProjectilesOnCollision, Vector2 projectileSpawnOffsetFromHolder,
+	Vector2 projectileColliderSize, bool destroyProjectilesOnCollision, float attackCooldownTime, 
+	Vector2 projectileSpawnOffsetFromHolder,
 	float projectileSpriteScale, Vector2 projectileVelocity, float projectileLifespan) :
-	BaseWeapon(damage),
+	BaseWeapon(damage, attackCooldownTime),
 	m_projectileImageName{ projectileImageName }, 
 	m_projectileColliderSize{ projectileColliderSize }, 
 	m_destroyProjectilesOnCollision{ destroyProjectilesOnCollision }, 

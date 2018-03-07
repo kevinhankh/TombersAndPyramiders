@@ -26,6 +26,7 @@ class BaseWeapon : public BaseEquippableItem, public Updateable, public std::ena
     ----------------------------------------------------------------------------------------*/
 	protected:
 		int m_damage;
+		float m_attackCooldownTime;
 		bool m_isAttacking;
 		float m_timeUntilNextAttack;
 
@@ -36,7 +37,7 @@ class BaseWeapon : public BaseEquippableItem, public Updateable, public std::ena
         /** Default constructor. */
         explicit BaseWeapon() = delete;
 
-		explicit BaseWeapon(int damage);
+		explicit BaseWeapon(int damage, float attackCooldownTime);
 
 		virtual ~BaseWeapon() {};
 

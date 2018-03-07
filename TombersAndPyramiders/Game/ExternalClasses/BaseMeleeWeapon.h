@@ -37,7 +37,7 @@ class BaseMeleeWeapon : public BaseWeapon
 		explicit BaseMeleeWeapon() = delete;
 
 		explicit BaseMeleeWeapon(int damage, string imageName, float colliderWidth, float colliderHeight, 
-			bool destroyOnCollision, 
+			bool destroyOnCollision, float attackCooldownTime, 
 			float xOffsetFromHolder, float yOffsetFromHolder, float colliderScale = 1);
 
 		virtual ~BaseMeleeWeapon() {};
@@ -48,6 +48,14 @@ class BaseMeleeWeapon : public BaseWeapon
     ----------------------------------------------------------------------------------------*/
 	public:
 		virtual void setOwnerId(int id);
+		virtual void use();
 
-		void updatePosition();
+		virtual void onStart();
+		virtual void onUpdate(int ticks);
+		virtual void onEnd();
+
+		virtual void updatePosition();
+
+	private:
+		void updateAttack(int ticks);
 };
