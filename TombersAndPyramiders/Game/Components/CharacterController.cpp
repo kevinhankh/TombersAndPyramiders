@@ -63,11 +63,7 @@ CharacterController::CharacterController(GameObject* parentGameobject, Inventory
 	Instance Methods
 ----------------------------------------------------------------------------------------*/
 void CharacterController::onStart()
-{
-	//m_boxCollider = gameObject->addComponent<BoxCollider>(gameObject, 10, 10);
-	//m_boxCollider = gameObject->addComponent<BoxCollider>(gameObject, gameObject->getTransform()->getScale(), gameObject->getTransform()->getScale());
-	//m_rigidbody = gameObject->addComponent<Rigidbody>(gameObject, m_boxCollider.get());
-}
+{}
 
 void CharacterController::onUpdate(int ticks)
 {
@@ -80,7 +76,6 @@ void CharacterController::onUpdate(int ticks)
 
 void CharacterController::move(Vector2 delta)
 {
-	//std::cout << "X: " << delta.getX() << ", Y: " << delta.getY() << "\n";
 	delta.setX(delta.getX() * m_movementSpeed.getX());
 	delta.setY(delta.getY() * m_movementSpeed.getY());
 
@@ -102,19 +97,18 @@ void CharacterController::useWeapon()
 	std::shared_ptr<BaseWeapon> weapon = m_inventory->getWeapon();
 	if (weapon != nullptr)
 	{
-		weapon->use(); //What if this returned a bool for whether the attack fired or not? So the rest didn't fire for just trying to call useWeapon and let us let weapons determine then things likecooldown
-		//m_inventory->getWeapon()->use();
-
-		std::shared_ptr<BaseMeleeWeapon> melee = dynamic_pointer_cast<BaseMeleeWeapon>(weapon);
-		if (melee != nullptr) {
-			m_character->playMeleeAttackAnimation();
-			AudioManager::getInstance()->playSwordSwingSFX();
-		} else{
-			m_character->playRangeAttackAnimation();
-			AudioManager::getInstance()->playShootArrowSFX();
+		if (weapon->use())
+		{
+			std::shared_ptr<BaseMeleeWeapon> melee = dynamic_pointer_cast<BaseMeleeWeapon>(weapon);
+			if (melee != nullptr) {
+				m_character->playMeleeAttackAnimation();
+				AudioManager::getInstance()->playSwordSwingSFX();
+			}
+			else {
+				m_character->playRangeAttackAnimation();
+				AudioManager::getInstance()->playShootArrowSFX();
+			}
 		}
-		 
-		//dynamic_cast<BaseMeleeWeapon>(weapon);
 	}
 }
 

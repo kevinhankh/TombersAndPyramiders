@@ -19,14 +19,12 @@
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-Projectile::Projectile(string imageName, float colliderWidth, float colliderHeight, 
+Projectile::Projectile(int damage, string imageName, float colliderWidth, float colliderHeight, bool destroyOnCollision, 
 	float spawnXPosition, float spawnYPosition, float spriteScale, float xVelociy, float yVelocity, float lifespan) :
-	DamagingRegion{ imageName, colliderWidth, colliderHeight, spawnXPosition, spawnYPosition, spriteScale }, 
+	DamagingRegion{ damage, imageName, colliderWidth, colliderHeight, destroyOnCollision, spawnXPosition, spawnYPosition, spriteScale },
 	m_velocity{ Vector2(xVelociy, yVelocity) },
 	m_lifespan{ lifespan }
-{
-	m_destroyOnCollision = true;
-}
+{}
 
 Projectile::~Projectile()
 {}
@@ -41,15 +39,22 @@ void Projectile::onUpdate(int ticks)
 	updateLifespan(ticks);
 }
 
+/**
+	Handles collisions for projectile damaging regions.
+*/
 void Projectile::handleSingleCollision(GameObject* other)
 {
+	auto otherId = other->getId();
+
 	/* Ensure you don't collide with the thing that created you. */
-	if (other->getId() != m_ownerId)
+	if (otherId != m_ownerId)
 	{
 		/* If the other thing is a character, damage it. */
 		std::shared_ptr<CharacterController> ccOther = other->getComponent<CharacterController>();
 		if (ccOther != nullptr)
 		{
+			m_hitList.insert(otherId);
+
 			ccOther->takeDamage(m_damage);
 
 			if (m_destroyOnCollision)
@@ -61,7 +66,6 @@ void Projectile::handleSingleCollision(GameObject* other)
 		}
 
 		/* TODO Handle collisions with walls? */
-		destroy(getId());
 	}
 }
 
