@@ -38,12 +38,16 @@ BaseProjectileWeapon::BaseProjectileWeapon(int damage, std::string projectileIma
 void BaseProjectileWeapon::setOwnerId(int id)
 {}
 
-void BaseProjectileWeapon::use()
+bool BaseProjectileWeapon::use()
 {
-	if (!m_isAttacking)
+	auto willAttack = !m_isAttacking;
+
+	if (willAttack)
 	{
 		onStart();
 	}
+
+	return willAttack;
 }
 
 void BaseProjectileWeapon::onStart()

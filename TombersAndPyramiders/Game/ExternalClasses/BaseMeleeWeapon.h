@@ -48,7 +48,7 @@ class BaseMeleeWeapon : public BaseWeapon
     ----------------------------------------------------------------------------------------*/
 	public:
 		virtual void setOwnerId(int id);
-		virtual void use();
+		virtual bool use();
 
 		virtual void onStart();
 		virtual void onUpdate(int ticks);

@@ -97,15 +97,17 @@ void CharacterController::useWeapon()
 	std::shared_ptr<BaseWeapon> weapon = m_inventory->getWeapon();
 	if (weapon != nullptr)
 	{
-		weapon->use(); //What if this returned a bool for whether the attack fired or not? So the rest didn't fire for just trying to call useWeapon and let us let weapons determine then things like cooldown
-
-		std::shared_ptr<BaseMeleeWeapon> melee = dynamic_pointer_cast<BaseMeleeWeapon>(weapon);
-		if (melee != nullptr) {
-			m_character->playMeleeAttackAnimation();
-			AudioManager::getInstance()->playSwordSwingSFX();
-		} else{
-			m_character->playRangeAttackAnimation();
-			AudioManager::getInstance()->playShootArrowSFX();
+		if (weapon->use())
+		{
+			std::shared_ptr<BaseMeleeWeapon> melee = dynamic_pointer_cast<BaseMeleeWeapon>(weapon);
+			if (melee != nullptr) {
+				m_character->playMeleeAttackAnimation();
+				AudioManager::getInstance()->playSwordSwingSFX();
+			}
+			else {
+				m_character->playRangeAttackAnimation();
+				AudioManager::getInstance()->playShootArrowSFX();
+			}
 		}
 	}
 }

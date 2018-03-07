@@ -37,12 +37,16 @@ void BaseMeleeWeapon::setOwnerId(int id)
 	m_damagingRegion->setOwnerId(id);
 }
 
-void BaseMeleeWeapon::use()
+bool BaseMeleeWeapon::use()
 {
-	if (!m_isAttacking)
+	auto willAttack = !m_isAttacking;
+
+	if (willAttack)
 	{
 		onStart();
 	}
+
+	return willAttack;
 }
 
 void BaseMeleeWeapon::onStart()
