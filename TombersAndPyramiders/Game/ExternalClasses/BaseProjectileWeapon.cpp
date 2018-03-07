@@ -15,9 +15,10 @@
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-BaseProjectileWeapon::BaseProjectileWeapon(std::string projectileImageName,
+BaseProjectileWeapon::BaseProjectileWeapon(int damage, std::string projectileImageName,
 	Vector2 projectileColliderSize, Vector2 projectileSpawnOffsetFromHolder,
 	float projectileSpriteScale, Vector2 projectileVelocity, float projectileLifespan) :
+	BaseWeapon(damage),
 	m_projectileImageName{ projectileImageName }, 
 	m_projectileColliderSize{ projectileColliderSize }, 
 	m_projectileSpawnOffsetFromHolder{ projectileSpawnOffsetFromHolder }, 

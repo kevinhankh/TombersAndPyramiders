@@ -17,7 +17,8 @@
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-BaseWeapon::BaseWeapon() :
+BaseWeapon::BaseWeapon(int damage) :
+	m_damage{ damage },
 	m_isAttacking{ false }
 {}
 

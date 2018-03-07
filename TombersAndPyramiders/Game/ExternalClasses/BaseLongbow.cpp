@@ -30,10 +30,10 @@ const float BaseLongbow::LONGBOW_ATTACK_COOLDOWN_TIME = 5;
 /*----------------------------------------------------------------------------------------
 	Resource Methods
 ----------------------------------------------------------------------------------------*/
-BaseLongbow::BaseLongbow(std::string projectileImageName,
+BaseLongbow::BaseLongbow(int damage, std::string projectileImageName,
 	Vector2 projectileColliderSize, Vector2 projectileSpawnOffsetFromHolder,
 	float projectileSpriteScale, Vector2 projectileVelocity, float projectileLifespan) :
-	BaseProjectileWeapon{ projectileImageName, projectileColliderSize, 
+	BaseProjectileWeapon{ damage, projectileImageName, projectileColliderSize, 
 	projectileSpawnOffsetFromHolder, projectileSpriteScale, projectileVelocity, projectileLifespan }
 {}
 
@@ -57,6 +57,7 @@ void BaseLongbow::onStart()
 	std::shared_ptr<Projectile> newProjectile = 
 		GameManager::getInstance()->createGameObject<Projectile>(
 			false, 
+			m_damage, 
 			m_projectileImageName,
 			LONGBOW_PROJECTILE_COLLIDER_WIDTH, LONGBOW_PROJECTILE_COLLIDER_HEIGHT,
 			spawnPoint.getX(), spawnPoint.getY(),

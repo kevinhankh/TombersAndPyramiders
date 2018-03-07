@@ -19,9 +19,9 @@
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-Projectile::Projectile(string imageName, float colliderWidth, float colliderHeight, 
+Projectile::Projectile(int damage, string imageName, float colliderWidth, float colliderHeight, 
 	float spawnXPosition, float spawnYPosition, float spriteScale, float xVelociy, float yVelocity, float lifespan) :
-	DamagingRegion{ imageName, colliderWidth, colliderHeight, spawnXPosition, spawnYPosition, spriteScale }, 
+	DamagingRegion{ damage, imageName, colliderWidth, colliderHeight, spawnXPosition, spawnYPosition, spriteScale }, 
 	m_velocity{ Vector2(xVelociy, yVelocity) },
 	m_lifespan{ lifespan }
 {

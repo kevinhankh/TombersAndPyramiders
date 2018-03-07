@@ -20,10 +20,10 @@
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-DamagingRegion::DamagingRegion(string imageName, float colliderWidth, 
+DamagingRegion::DamagingRegion(int damage, string imageName, float colliderWidth, 
 	float colliderHeight, float xPosition, float yPosition, float spriteScale) :
 	SimpleSprite{ imageName, xPosition, yPosition, 0, spriteScale },
-	m_damage{ 20 }, 
+	m_damage{ damage }, 
 	m_destroyOnCollision{ false }
 {
 	if (colliderWidth < 0)
@@ -36,7 +36,6 @@ DamagingRegion::DamagingRegion(string imageName, float colliderWidth,
 		throw std::invalid_argument("DamagingRegion::DamagingRegion(): colliderHeight must be non-negative.");
 	}
 
-	/* TODO Weapon collider makes you crash into your own weapon. */
  	m_collider = addComponent<BoxCollider>(this, colliderWidth, colliderHeight);
 	m_collider->setIsTrigger(true);
 }
@@ -83,7 +82,5 @@ void DamagingRegion::handleSingleCollision(GameObject* other)
 
 			return;
 		}
-
-		/* TODO Handle collision with walls? */
 	}
 }

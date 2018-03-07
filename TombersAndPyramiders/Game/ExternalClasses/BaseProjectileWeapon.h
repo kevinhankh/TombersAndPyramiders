@@ -39,7 +39,7 @@ class BaseProjectileWeapon : public BaseWeapon
         /** Default constructor. */
         explicit BaseProjectileWeapon() = delete;
 
-		explicit BaseProjectileWeapon(std::string projectileImageName, 
+		explicit BaseProjectileWeapon(int damage, std::string projectileImageName, 
 			Vector2 projectileColliderSize, Vector2 projectileSpawnOffsetFromHolder, 
 			float projectileSpriteScale, Vector2 projectileVelocity, float projectileLifespan);
 

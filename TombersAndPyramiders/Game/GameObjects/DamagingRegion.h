@@ -40,7 +40,7 @@ class DamagingRegion : public SimpleSprite
         /** Default constructor. */
 		explicit DamagingRegion() = delete;
 
-		explicit DamagingRegion(string imageName, float colliderWidth,
+		explicit DamagingRegion(int damage, string imageName, float colliderWidth,
 			float colliderHeight, float xPosition = 0, float yPosition = 0, float spriteScale = 1);
 
 		virtual ~DamagingRegion() {};

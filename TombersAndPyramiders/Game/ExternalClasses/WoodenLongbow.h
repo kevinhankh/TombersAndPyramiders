@@ -23,6 +23,7 @@ class WoodenLongbow : public BaseLongbow
 		Static Fields
     ----------------------------------------------------------------------------------------*/
 	private:
+		static const int WOODEN_LONGBOW_DAMAGE;
 		static const std::string WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME;
 
     /*----------------------------------------------------------------------------------------

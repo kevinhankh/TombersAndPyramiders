@@ -15,13 +15,14 @@
 /*----------------------------------------------------------------------------------------
 	Static Fields
 ----------------------------------------------------------------------------------------*/
+const int WoodenLongbow::WOODEN_LONGBOW_DAMAGE = 20;
 const std::string WoodenLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME = "IceTile.png";
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
 WoodenLongbow::WoodenLongbow() :
-	BaseLongbow{ WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME,
+	BaseLongbow{ WOODEN_LONGBOW_DAMAGE, WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME,
 		Vector2(LONGBOW_PROJECTILE_COLLIDER_WIDTH, LONGBOW_PROJECTILE_COLLIDER_HEIGHT), 
 		Vector2(LONGBOW_PROJECTILE_SPAWN_X_OFFSET_FROM_HOLDER, LONGBOW_PROJECTILE_SPAWN_Y_OFFSET_FROM_HOLDER), 
 		LONGBOW_PROJECTILE_SPRITE_SCALE, 
