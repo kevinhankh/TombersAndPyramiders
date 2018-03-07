@@ -11,8 +11,6 @@
 	Dependencies
 ========================================================================================*/
 #include "BaseLongbow.h"
-#include "Projectile.h"
-#include "GameManager.h"
 
 /*----------------------------------------------------------------------------------------
 	Static Fields
@@ -38,84 +36,3 @@ BaseLongbow::BaseLongbow(int damage, std::string projectileImageName,
 	destroyProjectilesOnCollision, LONGBOW_ATTACK_COOLDOWN_TIME, 
 	projectileSpawnOffsetFromHolder, projectileSpriteScale, projectileVelocity, projectileLifespan }
 {}
-
-/*----------------------------------------------------------------------------------------
-	Instance Methods
-----------------------------------------------------------------------------------------*/
-void BaseLongbow::use()
-{
-	if (!m_isAttacking)
-	{
-		onStart();
-	}
-}
-
-void BaseLongbow::onStart()
-{
-	m_isAttacking = true;
-	m_timeUntilNextAttack = LONGBOW_ATTACK_COOLDOWN_TIME;
-	Vector2 spawnPoint = getProjectileSpawnPoint();
-	Vector2 velocity = getProjectileVelocity();
-	std::shared_ptr<Projectile> newProjectile = 
-		GameManager::getInstance()->createGameObject<Projectile>(
-			false, 
-			m_damage, 
-			m_projectileImageName,
-			LONGBOW_PROJECTILE_COLLIDER_WIDTH, LONGBOW_PROJECTILE_COLLIDER_HEIGHT,
-			m_destroyProjectilesOnCollision, 
-			spawnPoint.getX(), spawnPoint.getY(),
-			LONGBOW_PROJECTILE_SPRITE_SCALE,
-			velocity.getX(), velocity.getY(),
-			LONGBOW_PROJECTILE_LIFESPAN);
-
-	newProjectile->setOwnerId(owner()->getId());
-}
-
-void BaseLongbow::onUpdate(int ticks)
-{
-	updateAttack(ticks);
-}
-
-void BaseLongbow::onEnd()
-{
-	m_isAttacking = false;
-}
-
-void BaseLongbow::updateAttack(int ticks)
-{
-	if (m_isAttacking)
-	{
-		m_timeUntilNextAttack -= ticks / TICKS_PER_SECOND;
-
-		if (m_timeUntilNextAttack <= 0)
-		{
-			onEnd();
-		}
-	}
-}
-
-Vector2 BaseLongbow::getProjectileSpawnPoint()
-{
-	Vector2 spawnPoint = Vector2(
-		owner()->getTransform()->getX() + m_projectileSpawnOffsetFromHolder.getX(),
-		owner()->getTransform()->getY() + m_projectileSpawnOffsetFromHolder.getY()
-	);
-
-	spawnPoint.rotateFromOrigin(
-		Vector2(owner()->getTransform()->getX(), owner()->getTransform()->getY()), 
-		owner()->getTransform()->getRotation()
-	);
-
-	return spawnPoint;
-}
-
-Vector2 BaseLongbow::getProjectileVelocity()
-{
-	Vector2 velocity = Vector2(
-		m_projectileVelocity.getX(), m_projectileVelocity.getY()
-	);
-	
-	velocity.rotate( owner()->getTransform()->getRotation() );
-
-	return velocity;
-}

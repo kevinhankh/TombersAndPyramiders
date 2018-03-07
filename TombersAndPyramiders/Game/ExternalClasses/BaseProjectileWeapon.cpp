@@ -11,6 +11,8 @@
 	Dependencies
 ========================================================================================*/
 #include "BaseProjectileWeapon.h"
+#include "Projectile.h"
+#include "GameManager.h"
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
@@ -35,3 +37,81 @@ BaseProjectileWeapon::BaseProjectileWeapon(int damage, std::string projectileIma
 ----------------------------------------------------------------------------------------*/
 void BaseProjectileWeapon::setOwnerId(int id)
 {}
+
+void BaseProjectileWeapon::use()
+{
+	if (!m_isAttacking)
+	{
+		onStart();
+	}
+}
+
+void BaseProjectileWeapon::onStart()
+{
+	m_isAttacking = true;
+	m_timeUntilNextAttack = m_attackCooldownTime;
+	Vector2 spawnPoint = getProjectileSpawnPoint();
+	Vector2 velocity = getProjectileVelocity();
+	std::shared_ptr<Projectile> newProjectile =
+		GameManager::getInstance()->createGameObject<Projectile>(
+			false,
+			m_damage,
+			m_projectileImageName,
+			m_projectileColliderSize.getX(), m_projectileColliderSize.getY(),
+			m_destroyProjectilesOnCollision,
+			spawnPoint.getX(), spawnPoint.getY(),
+			m_projectileSpriteScale,
+			velocity.getX(), velocity.getY(),
+			m_projectileLifespan);
+
+	newProjectile->setOwnerId(owner()->getId());
+}
+
+void BaseProjectileWeapon::onUpdate(int ticks)
+{
+	updateAttack(ticks);
+}
+
+void BaseProjectileWeapon::onEnd()
+{
+	m_isAttacking = false;
+}
+
+void BaseProjectileWeapon::updateAttack(int ticks)
+{
+	if (m_isAttacking)
+	{
+		m_timeUntilNextAttack -= ticks / TICKS_PER_SECOND;
+
+		if (m_timeUntilNextAttack <= 0)
+		{
+			onEnd();
+		}
+	}
+}
+
+Vector2 BaseProjectileWeapon::getProjectileSpawnPoint()
+{
+	Vector2 spawnPoint = Vector2(
+		owner()->getTransform()->getX() + m_projectileSpawnOffsetFromHolder.getX(),
+		owner()->getTransform()->getY() + m_projectileSpawnOffsetFromHolder.getY()
+	);
+
+	spawnPoint.rotateFromOrigin(
+		Vector2(owner()->getTransform()->getX(), owner()->getTransform()->getY()),
+		owner()->getTransform()->getRotation()
+	);
+
+	return spawnPoint;
+}
+
+Vector2 BaseProjectileWeapon::getProjectileVelocity()
+{
+	Vector2 velocity = Vector2(
+		m_projectileVelocity.getX(), m_projectileVelocity.getY()
+	);
+
+	velocity.rotate(owner()->getTransform()->getRotation());
+
+	return velocity;
+}

@@ -52,4 +52,24 @@ class BaseProjectileWeapon : public BaseWeapon
     ----------------------------------------------------------------------------------------*/
 	public:
 		virtual void setOwnerId(int id);
+		virtual void use();
+
+		virtual void onStart();
+		virtual void onUpdate(int ticks);
+		virtual void onEnd();
+
+	protected:
+		virtual void updateAttack(int ticks);
+		
+		/**
+			Returns a Vector2 containing the coordinates where projectiles should be spawned 
+			this tick.
+		*/
+		virtual Vector2 getProjectileSpawnPoint();
+		
+		/**
+			Returns a Vector2 containing the velocity projectiles should be spawned with
+			this tick.
+		*/
+		virtual Vector2 getProjectileVelocity();
 };

@@ -47,29 +47,4 @@ class BaseLongbow : public BaseProjectileWeapon
 			Vector2 projectileVelocity, float projectileLifespan);
 
 		virtual ~BaseLongbow() {};
-		
-    /*----------------------------------------------------------------------------------------
-		Instance Methods
-    ----------------------------------------------------------------------------------------*/
-	public:
-		void use();
-
-		void onStart();
-		void onUpdate(int ticks);
-		void onEnd();
-
-	protected:
-		void updateAttack(int ticks);
-		
-		/**
-			Returns a Vector2 containing the coordinates where projectiles should be spawned 
-			this tick.
-		*/
-		Vector2 getProjectileSpawnPoint();
-		
-		/**
-			Returns a Vector2 containing the velocity projectiles should be spawned with
-			this tick.
-		*/
-		Vector2 getProjectileVelocity();
 };
