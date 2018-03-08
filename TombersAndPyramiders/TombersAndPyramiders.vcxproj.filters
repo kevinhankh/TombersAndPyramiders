@@ -92,6 +92,9 @@
     <ClCompile Include="Game\ExternalClasses\Possession\BasePossessableController.cpp" />
     <ClCompile Include="Game\ExternalClasses\Possession\TowerController.cpp" />
     <ClCompile Include="Game\ExternalClasses\Possession\GhostPilot.cpp" />
+    <ClCompile Include="Game\Scenes\PossessionTestScene.cpp" />
+    <ClCompile Include="Game\GameObjects\GhostCharacter.cpp" />
+    <ClCompile Include="Game\GameObjects\Tower.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Component\AI\AI.h" />
@@ -192,6 +195,9 @@
     <ClInclude Include="Game\ExternalClasses\Possession\BasePossessableController.h" />
     <ClInclude Include="Game\ExternalClasses\Possession\TowerController.h" />
     <ClInclude Include="Game\ExternalClasses\Possession\GhostPilot.h" />
+    <ClInclude Include="Game\Scenes\PossessionTestScene.h" />
+    <ClInclude Include="Game\GameObjects\GhostCharacter.h" />
+    <ClInclude Include="Game\GameObjects\Tower.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Character.bmp" />

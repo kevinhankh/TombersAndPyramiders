@@ -119,6 +119,7 @@ void GameManager::updateQuadTree() {
 	}
 }
 
+
 std::vector<std::shared_ptr<GameObject>> GameManager::getObjectsInBounds(float x, float y, float width, float height)
 {
 	std::vector<std::shared_ptr<GameObject>> result;
