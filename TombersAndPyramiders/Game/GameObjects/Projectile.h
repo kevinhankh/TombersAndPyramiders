@@ -33,7 +33,8 @@ class Projectile : public DamagingRegion
 	public:
 		explicit Projectile() = delete;
 
-		explicit Projectile(string imageName, float colliderWidth, float colliderHeight, 
+		explicit Projectile(int damage, string imageName, float colliderWidth, float colliderHeight, 
+			bool destroyOnCollision, 
 			float spawnXPosition, float spawnYPosition, float spriteScale, 
 			float xVelocity, float yVelocity, 
 			float lifespan);
