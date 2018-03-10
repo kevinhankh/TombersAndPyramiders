@@ -13,6 +13,11 @@ private:
 	BaseController* m_ghostController;
 	std::shared_ptr<BasePossessableController> m_possessableController;
 	bool m_possessing;
+
+	//Used in case, on swap, that other object gets an update on the same frame which swaps back before InputManager refreshed
+	bool m_justSwapped;
+
+	bool checkShouldSwap();
 	
 public:
 	/** Default constructor. */

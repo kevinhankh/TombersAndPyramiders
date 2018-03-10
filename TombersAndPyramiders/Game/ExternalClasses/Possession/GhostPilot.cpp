@@ -7,6 +7,7 @@
 
 GhostPilot::GhostPilot() {
 	m_ghostController = nullptr;
+	m_justSwapped = false;
 }
 
 void GhostPilot::setController(BaseController* controller)
@@ -21,6 +22,11 @@ void GhostPilot::setController(BaseController* controller)
 
 void GhostPilot::onUpdate(int ticks)
 {
+	if (m_justSwapped && InputManager::getInstance()->onKeyReleased(SDLK_e))
+	{
+		m_justSwapped = false;
+	}
+
 	//If we are possessing something
 	if (m_possessableController != nullptr)
 	{
@@ -30,13 +36,13 @@ void GhostPilot::onUpdate(int ticks)
 			m_possessableController->trigger();
 		}
 		//Possessing + E = Stop Possessing
-		else if (InputManager::getInstance()->onKeyPressed(SDLK_q))
+		else if (checkShouldSwap())
 		{
-			std::cout << "UNPOSSESSING!" << std::endl;
 			m_possessableController->swapPilots(m_ghostController);
 			m_possessableController->onPossessionEnd();
 			m_possessableController = nullptr;
 			m_ghostController->getGameObject()->getTransform()->setScale(1.0f);
+			m_justSwapped = true;
 		}
 	}
 	//If we are not possessing anything
@@ -50,7 +56,7 @@ void GhostPilot::onUpdate(int ticks)
 			{
 				controller->move(getMovement());
 				//Not Possessing + E = Try To Possess
-				if (InputManager::getInstance()->onKeyPressed(SDLK_e))
+				if (checkShouldSwap())
 				{
 					Transform* transform = m_controller->getGameObject()->getTransform();
 					std::vector<std::shared_ptr<GameObject>> gameObjects = GameManager::getInstance()->getObjectsInBounds(transform->getX(), transform->getY(), 2.0f, 2.0f);
@@ -59,11 +65,11 @@ void GhostPilot::onUpdate(int ticks)
 						std::shared_ptr<BasePossessableController> possessionController = (*it)->getComponent<BasePossessableController>();
 						if (possessionController != nullptr) //If we pressed E on something we can possess
 						{
-							std::cout << "POSSESSINGG!" << std::endl;
 							m_ghostController->getGameObject()->getTransform()->setScale(0.0f);
 							m_controller->swapPilots(possessionController.get());
 							m_possessableController = possessionController;
 							m_possessableController->onPossessionStart();
+							m_justSwapped = true;
 							break;
 						}
 					}
@@ -86,6 +92,11 @@ void GhostPilot::onStart()
 
 void GhostPilot::onEnd()
 {}
+
+bool GhostPilot::checkShouldSwap()
+{
+	return !m_justSwapped && InputManager::getInstance()->onKeyPressed(SDLK_e);
+}
 
 Vector2 GhostPilot::getMovement()
 {
