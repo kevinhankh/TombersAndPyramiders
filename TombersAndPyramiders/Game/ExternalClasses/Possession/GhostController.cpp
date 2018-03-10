@@ -8,11 +8,15 @@ GhostController::GhostController(GameObject* parentGameobject, BasePilot* pilot)
 
 void GhostController::onStart()
 {
+	std::cout << "GhostController::OnStart" << std::endl;
 }
 
 void GhostController::onUpdate(int ticks)
 {
-	m_pilot.get()->onUpdate(ticks);
+	if (m_pilot != nullptr)
+	{
+		m_pilot->onUpdate(ticks);
+	}
 }
 
 void GhostController::move(Vector2 delta)

@@ -5,12 +5,18 @@
 #include "BasePossessableController.h"
 #include "GhostController.h"
 
-GhostPilot::GhostPilot() {}
+GhostPilot::GhostPilot() {
+	m_ghostController = nullptr;
+}
 
-void GhostPilot::onStart()
+void GhostPilot::setController(BaseController* controller)
 {
-	m_possessableController = nullptr;
-	m_ghostController = m_controller;
+	BasePilot::setController(controller);
+	if (m_ghostController == nullptr)
+	{
+		m_possessableController = nullptr;
+		m_ghostController = m_controller;
+	}
 }
 
 void GhostPilot::onUpdate(int ticks)
@@ -24,46 +30,49 @@ void GhostPilot::onUpdate(int ticks)
 			m_possessableController->trigger();
 		}
 		//Possessing + E = Stop Possessing
-		else if (InputManager::getInstance()->onKeyPressed(SDLK_e))
+		else if (InputManager::getInstance()->onKeyPressed(SDLK_q))
 		{
+			std::cout << "UNPOSSESSING!" << std::endl;
+			m_possessableController->swapPilots(m_ghostController);
 			m_possessableController->onPossessionEnd();
-			m_controller->setPilot(nullptr);
 			m_possessableController = nullptr;
-			m_possessing = false;
-			m_ghostController->setPilot(this);
+			m_ghostController->getGameObject()->getTransform()->setScale(1.0f);
 		}
 	}
 	//If we are not possessing anything
 	else
 	{
-		if (m_controller != nullptr) //Regular controller for moving the Ghost
+		if (m_ghostController != nullptr) //Regular controller for moving the Ghost
 		{
 			//Not Possessing + Movement = Move Ghost
-
 			GhostController* controller = dynamic_cast<GhostController*>(m_controller);
 			if (controller != nullptr)
 			{
 				controller->move(getMovement());
-			}
-
-			//Not Possessing + E = Try To Possess
-			if (InputManager::getInstance()->onKeyPressed(SDLK_e))
-			{
-				Transform* transform = m_controller->getGameObject()->getTransform();
-				std::vector<std::shared_ptr<GameObject>> gameObjects = GameManager::getInstance()->getObjectsInBounds(transform->getX(), transform->getY(), 2.0f, 2.0f);
-				for (auto it = gameObjects.begin(); it != gameObjects.end(); it++)
+				//Not Possessing + E = Try To Possess
+				if (InputManager::getInstance()->onKeyPressed(SDLK_e))
 				{
-					std::shared_ptr<BasePossessableController> possessionController = (*it)->getComponent<BasePossessableController>();
-					if (possessionController != nullptr) //If we pressed E on something we can possess
+					Transform* transform = m_controller->getGameObject()->getTransform();
+					std::vector<std::shared_ptr<GameObject>> gameObjects = GameManager::getInstance()->getObjectsInBounds(transform->getX(), transform->getY(), 2.0f, 2.0f);
+					for (auto it = gameObjects.begin(); it != gameObjects.end(); it++)
 					{
-						std::cout << "POSSESSINGG!" << std::endl;
-						m_controller->setPilot(nullptr);
-						possessionController->onPossessionStart(this);
-						m_possessableController = possessionController;
-						break;
+						std::shared_ptr<BasePossessableController> possessionController = (*it)->getComponent<BasePossessableController>();
+						if (possessionController != nullptr) //If we pressed E on something we can possess
+						{
+							std::cout << "POSSESSINGG!" << std::endl;
+							m_ghostController->getGameObject()->getTransform()->setScale(0.0f);
+							m_controller->swapPilots(possessionController.get());
+							m_possessableController = possessionController;
+							m_possessableController->onPossessionStart();
+							break;
+						}
 					}
+
 				}
-					
+			}
+			else 
+			{
+				std::cout << "ERROR::GHOSTPILOT::ONUPDATE::No GhostController or BasePossessableController attacked" << std::endl;
 			}
 		}
 		else {
@@ -71,6 +80,9 @@ void GhostPilot::onUpdate(int ticks)
 		}
 	}
 }
+
+void GhostPilot::onStart()
+{}
 
 void GhostPilot::onEnd()
 {}

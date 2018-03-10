@@ -26,6 +26,7 @@ public:
 	void onUpdate(int ticks);
 
 	void onEnd();
+	void setController(BaseController* controller);
 
 private:
 	Vector2 getMovement();

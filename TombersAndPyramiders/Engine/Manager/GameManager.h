@@ -47,6 +47,7 @@ public:
 				SceneManager::getInstance()->getCurrentScene()->addGameObject(id, gameObject);
 			}
 			m_quadTree->lazyInsert(gameObject);
+			m_toCallOnStart.push_back(gameObject);
 		} 
 		else 
 		{
@@ -75,6 +76,7 @@ public:
 				SceneManager::getInstance()->getCurrentScene()->addGameObject(id, gameObject);
 			}
 			m_quadTree->lazyInsert(gameObject);
+			m_toCallOnStart.push_back(gameObject);
 		}
 		else
 		{
@@ -86,6 +88,7 @@ public:
 
 private:
 	std::vector<int> m_gameObjectsToRemove;
+	std::vector<std::shared_ptr<GameObject>> m_toCallOnStart;
 	std::map<int, std::shared_ptr<GameObject>> m_globalGameObjects;
 	std::unique_ptr<QuadTree> m_quadTree = nullptr;
 

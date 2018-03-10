@@ -12,8 +12,8 @@ public:
 	GhostCharacter(BasePilot* pilot);
 	~GhostCharacter();
 
-	void onStart() {};
-	void onUpdate(int ticks) {}
+	void onStart();
+	void onUpdate(int ticks) {};
 	void onEnd() {};
 
 };

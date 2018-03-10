@@ -80,6 +80,15 @@ void GameManager::onUpdate(int ticks)
 		NetworkingManager::getInstance()->sendQueuedEvents();
 	}
 
+	for (auto it = m_toCallOnStart.begin(); it != m_toCallOnStart.end(); ++it)
+	{
+		if (*it != nullptr)
+		{
+			(*it)->onStart();
+		}
+	}
+	m_toCallOnStart.clear();
+
 	updateQuadTree();
 	PhysicsManager::getInstance()->onUpdate(ticks);
 	SpriteRendererManager::getInstance()->onUpdate(ticks);

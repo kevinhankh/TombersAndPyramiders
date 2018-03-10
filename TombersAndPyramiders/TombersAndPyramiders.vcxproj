@@ -182,7 +182,7 @@
     <ClCompile Include="Game\ExternalClasses\HostPilot.cpp" />
     <ClCompile Include="Game\ExternalClasses\DummyPilot.cpp" />
     <ClCompile Include="Game\ExternalClasses\PlayerPilot.cpp" />
-    <ClCompile Include="Game\ExternalClasses\BasePossessableController.cpp" />
+    <ClCompile Include="Game\ExternalClasses\Possession\BasePossessableController.cpp" />
     <ClCompile Include="Game\ExternalClasses\Possession\GhostController.cpp" />
     <ClCompile Include="Game\ExternalClasses\Possession\GhostController.h" />
     <ClCompile Include="Game\ExternalClasses\Possession\GhostPilot.cpp" />
@@ -282,7 +282,7 @@
     <ClInclude Include="Game\ExternalClasses\HostPilot.h" />
     <ClInclude Include="Game\ExternalClasses\DummyPilot.h" />
     <ClInclude Include="Game\ExternalClasses\PlayerPilot.h" />
-    <ClInclude Include="Game\ExternalClasses\BasePossessableController.h" />
+    <ClInclude Include="Game\ExternalClasses\Possession\BasePossessableController.h" />
     <ClInclude Include="Game\ExternalClasses\Possession\GhostPilot.h" />
     <ClInclude Include="Game\ExternalClasses\Possession\TowerController.h" />
     <ClInclude Include="Game\ExternalClasses\UserDefinedRenderLayers.h" />

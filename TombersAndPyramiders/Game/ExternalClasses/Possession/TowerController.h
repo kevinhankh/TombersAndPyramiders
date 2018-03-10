@@ -3,7 +3,8 @@
 
 class TowerController : public BasePossessableController {
 public:
-	virtual void onPossessionStart(BasePilot* pilot);
+	TowerController(GameObject* parentGameobject, BasePilot* pilot);
+	virtual void onPossessionStart();
 	virtual void onPossessionEnd();
 	virtual void trigger();
 };
