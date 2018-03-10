@@ -13,6 +13,7 @@
 #include "NetworkedGameScene.h"
 #include "NetworkCharacter.h"
 #include "HostPilot.h"
+#include "GhostPilot.h"
 
 std::shared_ptr<SpawnManager> SpawnManager::s_instance;
 
@@ -159,8 +160,9 @@ std::shared_ptr<WorldItem> SpawnManager::generateWorldItem(float x, float y, std
 
 std::shared_ptr<GhostCharacter> SpawnManager::generateGhost(float x, float y)
 {
-	std::shared_ptr<GhostCharacter> ghost = GameManager::getInstance()->createGameObject<GhostCharacter>(false);
+	std::shared_ptr<GhostCharacter> ghost = GameManager::getInstance()->createGameObject<GhostCharacter>(false, new GhostPilot());
 	ghost->getTransform()->setPosition(x, y);
+	ghost->getTransform()->setZ(2);
 	return ghost;
 }
 

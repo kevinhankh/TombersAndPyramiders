@@ -1,7 +1,9 @@
 #pragma once
 
 #include "BasePilot.h"
-#include "BasePossessableController.h"
+#include <memory>
+
+extern class BasePossessableController;
 
 class Vector2;
 
@@ -14,7 +16,7 @@ private:
 	
 public:
 	/** Default constructor. */
-	explicit GhostPilot() = default;
+	GhostPilot();
 
 public:
 

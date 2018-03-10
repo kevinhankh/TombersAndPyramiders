@@ -2,12 +2,14 @@
 
 #include "SimpleSprite.h"
 
+extern class BasePilot;
+
 class GhostCharacter : public SimpleSprite
 {
 private:
 
 public:
-	GhostCharacter();
+	GhostCharacter(BasePilot* pilot);
 	~GhostCharacter();
 
 	void onStart() {};

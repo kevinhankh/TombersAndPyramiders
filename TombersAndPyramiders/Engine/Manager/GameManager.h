@@ -24,6 +24,7 @@ public:
 	void removeGameObject(int objectToRemove);
 	std::vector<std::shared_ptr<GameObject>> getObjectsInBounds(float x, float y, float width, float height);
 	void updateQuadTree();
+	void resizeQuadTree(float x, float y, float width, float height);
 
 	template <typename T, class... _Types>
 	std::shared_ptr<T> createGameObject(bool isGlobal, _Types&&... args)
@@ -95,5 +96,4 @@ private:
 	Game* m_game;
 	void fpsThrottle(int ticks);
 	void reinstantiateQuadTree(float x, float y, float width, float height); 
-	void resizeQuadTree(float x, float y, float width, float height);
 };

@@ -1,9 +1,9 @@
 #include "GhostCharacter.h"
-#include "BoxCollider.h"
+#include "GhostController.h"
 
-GhostCharacter::GhostCharacter() : SimpleSprite("ghost.png", 0, 0)
+GhostCharacter::GhostCharacter(BasePilot* pilot) : SimpleSprite("ghost.png", 0, 0)
 {
-
+	addComponent<GhostController>(this, pilot);
 }
 
 GhostCharacter::~GhostCharacter()

@@ -292,7 +292,6 @@ void SpriteRendererManager::prepareRenderingThread()
 		std::shared_ptr<Camera> camera = Camera::getActiveCamera();
 
 		std::vector<std::shared_ptr<SpriteRenderer>> renderers;
-		int toRender = 0;
 
 		//##Have Culled Objects. Find Ones To Render
 		auto objectsInBounds = GameManager::getInstance()->getObjectsInBounds(camera->getTransform()->getX(), camera->getTransform()->getY(), getGameWidth(), getGameHeight());
@@ -357,10 +356,8 @@ void SpriteRendererManager::prepareRenderingThread()
 			if (ro.isValid())
 			{
 				rg.children.push_back(ro);
-				toRender++;
 			}
 		}
-		std::cout << objectsInBounds.size() << " " << toRender << std::endl;
 		m_renderingGroups.push_back(rg);
 	}
 
