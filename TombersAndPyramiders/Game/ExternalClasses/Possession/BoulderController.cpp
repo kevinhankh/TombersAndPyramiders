@@ -51,14 +51,8 @@ void BoulderController::move(Vector2 direction)
 			//Where infront from non-rotation object
 			Vector2 dirMoving = Vector2(m_rigidBody->getVelocity().getX(), m_rigidBody->getVelocity().getY());
 			dirMoving.normalize();
-			float newX = gameObject->getTransform()->getX() + dirMoving.getX() / 2.0f;
-			float newY = gameObject->getTransform()->getY() + dirMoving.getY() / 2.0f;
-			Vector2 newPosition = Vector2(newX, newY);
-			//Rotate around
-			newPosition.rotateFromOrigin(Vector2(gameObject->getTransform()->getX(), gameObject->getTransform()->getY()), gameObject->getTransform()->getRotation());
-			//Set position/rotation
+			Vector2 newPosition = Vector2(gameObject->getTransform()->getX() + dirMoving.getX(), gameObject->getTransform()->getY() + dirMoving.getY());
 			m_damagingRegion->getTransform()->setPosition(newPosition.getX(), newPosition.getY());
-			m_damagingRegion->getTransform()->setRotation(gameObject->getTransform()->getRotation());
 		}
 	}
 }
@@ -74,7 +68,7 @@ void BoulderController::trigger(Vector2 direction)
 		if (m_damagingRegion == nullptr)
 		{
 			auto collider = gameObject->getComponent<BoxCollider>();
-			m_damagingRegion = GameManager::getInstance()->createGameObject<DamagingRegion>(false, "IceTile.png", collider->getWidth(), collider->getHeight(), 0, 0, gameObject->getTransform()->getScale());
+			m_damagingRegion = GameManager::getInstance()->createGameObject<DamagingRegion>(false, "IceTile.png", collider->getWidth(), collider->getHeight(), 0, 0, 0.0f);
 		}
 	}
 }
