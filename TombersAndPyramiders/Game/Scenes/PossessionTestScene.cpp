@@ -7,6 +7,17 @@
 
 std::shared_ptr<GhostCharacter> ghostCharacter;
 
+/*
+New Z Rule:
+
+-10	Floor
+-1	Behind-Default
+0	Default
+1	Above-Default
+10	Ceiling
+
+*/
+
 PossessionTestScene::PossessionTestScene()
 {
 }

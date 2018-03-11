@@ -2,8 +2,8 @@
 #include "InputManager.h"
 #include "Vector2.h"
 #include "GameManager.h"
-#include "BasePossessableController.h"
 #include "GhostController.h"
+#include "BasePossessableController.h"
 
 GhostPilot::GhostPilot() {
 	m_ghostController = nullptr;
@@ -47,6 +47,11 @@ void GhostPilot::onUpdate(int ticks)
 			m_possessableController = nullptr;
 			m_ghostController->getGameObject()->getTransform()->setScale(1.0f);
 			m_justSwapped = true;
+			GhostController* ghostControllerRaw = dynamic_cast<GhostController*>(m_controller);
+			if (ghostControllerRaw != nullptr)
+			{
+				ghostControllerRaw->stopPossessing();
+			}
 		}
 		else
 		{
@@ -59,10 +64,10 @@ void GhostPilot::onUpdate(int ticks)
 		if (m_ghostController != nullptr) //Regular controller for moving the Ghost
 		{
 			//Not Possessing + Movement = Move Ghost
-			GhostController* controller = dynamic_cast<GhostController*>(m_controller);
-			if (controller != nullptr)
+			GhostController* ghostControllerRaw = dynamic_cast<GhostController*>(m_controller);
+			if (ghostControllerRaw != nullptr)
 			{
-				controller->move(getMovement());
+				ghostControllerRaw->move(getMovement());
 				//Not Possessing + E = Try To Possess
 				if (checkShouldSwap())
 				{
@@ -73,7 +78,7 @@ void GhostPilot::onUpdate(int ticks)
 						std::shared_ptr<BasePossessableController> possessionController = (*it)->getComponent<BasePossessableController>();
 						if (possessionController != nullptr) //If we pressed E on something we can possess
 						{
-							m_ghostController->getGameObject()->getTransform()->setScale(0.0f);
+							ghostControllerRaw->possess(possessionController);
 							m_controller->swapPilots(possessionController.get());
 							m_possessableController = possessionController;
 							m_possessableController->onPossessionStart();
@@ -81,7 +86,6 @@ void GhostPilot::onUpdate(int ticks)
 							break;
 						}
 					}
-
 				}
 			}
 			else 
