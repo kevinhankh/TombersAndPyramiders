@@ -24,7 +24,6 @@
     <ClCompile Include="Engine\Manager\NetworkingManager.cpp" />
     <ClCompile Include="Engine\Manager\PhysicsManager.cpp" />
     <ClCompile Include="Engine\Manager\SceneManager.cpp" />
-    <ClCompile Include="Engine\Monster.cpp" />
     <ClCompile Include="Engine\PathFinding.cpp" />
     <ClCompile Include="Engine\Scene.cpp" />
     <ClCompile Include="Engine\Updateable.cpp" />
@@ -92,11 +91,10 @@
     <ClCompile Include="Game\Scenes\PossessionTestScene.cpp" />
     <ClCompile Include="Game\GameObjects\GhostCharacter.cpp" />
     <ClCompile Include="Game\ExternalClasses\Possession\GhostPilot.cpp" />
-    <ClCompile Include="Game\ExternalClasses\Possession\GhostController.h" />
-    <ClCompile Include="Game\ExternalClasses\Possession\GhostController.cpp" />
     <ClCompile Include="Game\ExternalClasses\Possession\BasePossessableController.cpp" />
     <ClCompile Include="Game\ExternalClasses\Possession\BoulderController.cpp" />
     <ClCompile Include="Game\GameObjects\Boulder.cpp" />
+    <ClCompile Include="Game\ExternalClasses\Possession\GhostController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Component\AI\AI.h" />
@@ -126,7 +124,6 @@
     <ClInclude Include="Engine\Manager\NetworkingManager.h" />
     <ClInclude Include="Engine\Manager\PhysicsManager.h" />
     <ClInclude Include="Engine\Manager\SceneManager.h" />
-    <ClInclude Include="Engine\Monster.h" />
     <ClInclude Include="Engine\PathFinding.h" />
     <ClInclude Include="Engine\Scene.h" />
     <ClInclude Include="Engine\SearchCell.h" />
@@ -200,6 +197,7 @@
     <ClInclude Include="Game\ExternalClasses\Possession\BasePossessableController.h" />
     <ClInclude Include="Game\ExternalClasses\Possession\BoulderController.h" />
     <ClInclude Include="Game\GameObjects\Boulder.h" />
+    <ClInclude Include="Game\ExternalClasses\Possession\GhostController.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Character.bmp" />

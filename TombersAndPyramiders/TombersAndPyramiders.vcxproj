@@ -84,6 +84,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)TombersAndPyramiders;$(SolutionDir)TombersAndPyramiders\Game\Managers;$(SolutionDir)TombersAndPyramiders\Game\GameObjects;$(SolutionDir)TombersAndPyramiders\Game\ExternalClasses\Possession;$(SolutionDir)TombersAndPyramiders\Game\ExternalClasses;$(SolutionDir)TombersAndPyramiders\Game\Scenes;$(SolutionDir)TombersAndPyramiders\Game\Scenes\MenuScenes;$(SolutionDir)TombersAndPyramiders\Game\Scenes\GameScenes;$(SolutionDir)TombersAndPyramiders\Game\Components;$(SolutionDir)TombersAndPyramiders\Game\GameObjects\Projectile;$(SolutionDir)TombersAndPyramiders\Game;$(SolutionDir)TombersAndPyramiders\Engine\Component\Collision;$(SolutionDir)TombersAndPyramiders\Engine\Component\Networking;$(SolutionDir)TombersAndPyramiders\Engine\Component\Transform;$(SolutionDir)TombersAndPyramiders\Engine\Component\Physics;$(SolutionDir)TombersAndPyramiders\Engine\Component\Render;$(SolutionDir)TombersAndPyramiders\Engine\External\Render;$(SolutionDir)TombersAndPyramiders\Engine\External\Math;$(SolutionDir)TombersAndPyramiders\Engine\External;$(SolutionDir)TombersAndPyramiders\Engine\Component;$(SolutionDir)TombersAndPyramiders\Engine\GameObjects;$(SolutionDir)TombersAndPyramiders\Engine\Manager;$(SolutionDir)TombersAndPyramiders\Engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
     </ClCompile>
     <Link>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32.lib;glew32s.lib;freeglut.lib;SDL2_image.lib;SDL2_net.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -154,7 +155,6 @@
     <ClCompile Include="Engine\Manager\NetworkingManager.cpp" />
     <ClCompile Include="Engine\Manager\PhysicsManager.cpp" />
     <ClCompile Include="Engine\Manager\SceneManager.cpp" />
-    <ClCompile Include="Engine\Monster.cpp" />
     <ClCompile Include="Engine\PathFinding.cpp" />
     <ClCompile Include="Engine\Scene.cpp" />
     <ClCompile Include="Engine\Updateable.cpp" />
@@ -184,7 +184,6 @@
     <ClCompile Include="Game\ExternalClasses\PlayerPilot.cpp" />
     <ClCompile Include="Game\ExternalClasses\Possession\BasePossessableController.cpp" />
     <ClCompile Include="Game\ExternalClasses\Possession\GhostController.cpp" />
-    <ClCompile Include="Game\ExternalClasses\Possession\GhostController.h" />
     <ClCompile Include="Game\ExternalClasses\Possession\GhostPilot.cpp" />
     <ClCompile Include="Game\ExternalClasses\Possession\BoulderController.cpp" />
     <ClCompile Include="Game\ExternalClasses\WoodenLongbow.cpp" />
@@ -256,7 +255,6 @@
     <ClInclude Include="Engine\Manager\NetworkingManager.h" />
     <ClInclude Include="Engine\Manager\PhysicsManager.h" />
     <ClInclude Include="Engine\Manager\SceneManager.h" />
-    <ClInclude Include="Engine\Monster.h" />
     <ClInclude Include="Engine\PathFinding.h" />
     <ClInclude Include="Engine\Scene.h" />
     <ClInclude Include="Engine\SearchCell.h" />
@@ -283,6 +281,7 @@
     <ClInclude Include="Game\ExternalClasses\DummyPilot.h" />
     <ClInclude Include="Game\ExternalClasses\PlayerPilot.h" />
     <ClInclude Include="Game\ExternalClasses\Possession\BasePossessableController.h" />
+    <ClInclude Include="Game\ExternalClasses\Possession\GhostController.h" />
     <ClInclude Include="Game\ExternalClasses\Possession\GhostPilot.h" />
     <ClInclude Include="Game\ExternalClasses\Possession\BoulderController.h" />
     <ClInclude Include="Game\ExternalClasses\UserDefinedRenderLayers.h" />
