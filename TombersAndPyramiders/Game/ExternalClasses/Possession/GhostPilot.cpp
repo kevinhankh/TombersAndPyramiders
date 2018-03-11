@@ -40,6 +40,8 @@ void GhostPilot::onUpdate(int ticks)
 		//Possessing + E = Stop Possessing
 		else if (checkShouldSwap())
 		{
+			Transform* possessTrans = m_possessableController->getGameObject()->getTransform();
+			m_ghostController->getGameObject()->getTransform()->setPosition(possessTrans->getX(), possessTrans->getY());
 			m_possessableController->swapPilots(m_ghostController);
 			m_possessableController->onPossessionEnd();
 			m_possessableController = nullptr;

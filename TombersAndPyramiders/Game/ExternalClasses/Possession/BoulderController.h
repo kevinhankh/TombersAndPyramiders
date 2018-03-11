@@ -2,6 +2,7 @@
 #include "BasePossessableController.h"
 
 extern class Rigidbody;
+extern class DamagingRegion;
 
 class BoulderController : public BasePossessableController {
 private:
@@ -9,6 +10,7 @@ private:
 	static const float FRICTION;
 	static const float COOLDOWN;
 	std::shared_ptr<Rigidbody> m_rigidBody;
+	std::shared_ptr<DamagingRegion> m_damagingRegion;
 	float m_cooldownTicker;
 
 public:
