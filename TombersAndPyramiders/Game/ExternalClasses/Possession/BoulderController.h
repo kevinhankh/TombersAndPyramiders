@@ -4,6 +4,7 @@
 extern class Rigidbody;
 extern class DamagingRegion;
 
+//Possessable Boulder that ghosts can control. WASD to move, Space to launch the boulder in the direction its traveling (it only does damage during launch)
 class BoulderController : public BasePossessableController {
 private:
 	static const float MAX_MOVESPEED;

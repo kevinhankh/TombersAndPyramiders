@@ -4,6 +4,7 @@
 extern class GameObject;
 extern class BasePilot;
 
+//Controller Component for objects which can be controlled via Possession
 class BasePossessableController : public BaseController {
 public:
 	BasePossessableController(GameObject* parentGameobject, BasePilot* pilot);

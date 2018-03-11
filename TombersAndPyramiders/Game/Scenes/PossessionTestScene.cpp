@@ -5,8 +5,6 @@
 #include "Camera.h"
 #include "GameManager.h"
 
-std::shared_ptr<GhostCharacter> ghostCharacter;
-
 /*
 New Z Rule:
 
@@ -29,11 +27,15 @@ void PossessionTestScene::onStart()
 		auto bg = SpawnManager::getInstance()->generateMiscSquare(x, 0, 0, 10, "stoneTile.png", false);
 		bg->getTransform()->setZ(-10);
 	}
+	for (int x = -20; x < 21; x += 10) {
+		auto bg = SpawnManager::getInstance()->generateMiscSquare(x, 0, 0, 10, "stoneTile.png", false);
+		bg->getTransform()->setZ(-10);
+	}
 	for (int x = -21; x < 21; x++) {
 		SpawnManager::getInstance()->generateMiscSquare(x, 5, 0, 1, "stoneTile.png", true, 1.0f);
 		SpawnManager::getInstance()->generateMiscSquare(x, -5, 0, 1, "stoneTile.png", true, 1.0f);
 	}
-	ghostCharacter = SpawnManager::getInstance()->generateGhost(0, 0);
+	auto ghostCharacter = SpawnManager::getInstance()->generateGhost(0, 0);
 	SpawnManager::getInstance()->generateBoulder(5, 0);
 	SpawnManager::getInstance()->generateAiCharacter(-10, 0);
 	SpawnManager::getInstance()->generateAiCharacter(15, 5);

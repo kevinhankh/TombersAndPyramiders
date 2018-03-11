@@ -10,6 +10,7 @@ Boulder::Boulder(BasePilot* pilot) : ComplexSprite(createSpriteInfo(), 0, 0, 1.0
 	addComponentAsParent<BoulderController, BasePossessableController>(this, pilot);
 }
 
+//Loads the boulder sprite sheet of the one rolling animation
 std::shared_ptr<ComplexSpriteinfo> Boulder::createSpriteInfo()
 {
 	auto spriteInfo = std::make_shared<ComplexSpriteinfo>();
@@ -31,6 +32,7 @@ void Boulder::onUpdate(int ticks)
 	float diffY = newY - m_lastY;
 	float distTraveled = sqrtf(diffX * diffX + diffY * diffY) * 150.0f;
 
+	//Update the boulders animation based on distance traveled rather than time
 	updateFrames(distTraveled);
 
 	if (diffX > 0 || diffY > 0)

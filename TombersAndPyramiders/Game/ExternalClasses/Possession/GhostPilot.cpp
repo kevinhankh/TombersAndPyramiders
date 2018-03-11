@@ -10,6 +10,7 @@ GhostPilot::GhostPilot() {
 	m_justSwapped = false;
 }
 
+//On loading in a controller, if it's our first time loading the m_ghostController, set it
 void GhostPilot::setController(BaseController* controller)
 {
 	BasePilot::setController(controller);
@@ -22,17 +23,19 @@ void GhostPilot::setController(BaseController* controller)
 
 void GhostPilot::onUpdate(int ticks)
 {
+	//If we swapped and no longer are in a swappable state, reset the flag
 	if (m_justSwapped && InputManager::getInstance()->onKeyReleased(SDLK_e))
 	{
 		m_justSwapped = false;
 	}
 
+	//Get WASD movement
 	Vector2 movement = getMovement();
 
 	//If we are possessing something
 	if (m_possessableController != nullptr)
 	{
-		//Possessing + Space = Trigger
+		//Possessing + Space = Attack with the possessable controller
 		if (InputManager::getInstance()->onKeyPressed(SDLK_SPACE))
 		{
 			m_possessableController->trigger(movement);
@@ -53,6 +56,7 @@ void GhostPilot::onUpdate(int ticks)
 				ghostControllerRaw->stopPossessing();
 			}
 		}
+		//Possessing + Anything else = Movement, which will be (0,0) if not moving
 		else
 		{
 			m_possessableController->move(movement);
@@ -61,7 +65,8 @@ void GhostPilot::onUpdate(int ticks)
 	//If we are not possessing anything
 	else
 	{
-		if (m_ghostController != nullptr) //Regular controller for moving the Ghost
+		//Regular controller for moving the Ghost
+		if (m_ghostController != nullptr)
 		{
 			//Not Possessing + Movement = Move Ghost
 			GhostController* ghostControllerRaw = dynamic_cast<GhostController*>(m_controller);
@@ -72,11 +77,11 @@ void GhostPilot::onUpdate(int ticks)
 				if (checkShouldSwap())
 				{
 					Transform* transform = m_controller->getGameObject()->getTransform();
-					std::vector<std::shared_ptr<GameObject>> gameObjects = GameManager::getInstance()->getObjectsInBounds(transform->getX(), transform->getY(), 2.0f, 2.0f);
+					std::vector<std::shared_ptr<GameObject>> gameObjects = GameManager::getInstance()->getObjectsInBounds(transform->getX(), transform->getY(), 2.0f, 2.0f); //Get all objects within 2x2 of our Ghost
 					for (auto it = gameObjects.begin(); it != gameObjects.end(); it++)
 					{
 						std::shared_ptr<BasePossessableController> possessionController = (*it)->getComponent<BasePossessableController>();
-						if (possessionController != nullptr && ghostControllerRaw->tryPossess(possessionController) ) //If we pressed E on something we can possess
+						if (possessionController != nullptr && ghostControllerRaw->tryPossess(possessionController) ) //Try and possess, should fail if the object is too far away
 						{
 							m_controller->swapPilots(possessionController.get());
 							m_possessableController = possessionController;

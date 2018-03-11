@@ -16,6 +16,7 @@ void GhostController::onStart()
 	std::cout << "GhostController::OnStart" << std::endl;
 }
 
+//Update the pilot, and if we're following someone, follow them
 void GhostController::onUpdate(int ticks)
 {
 	if (m_pilot != nullptr)
@@ -28,6 +29,7 @@ void GhostController::onUpdate(int ticks)
 	}
 }
 
+//Try to possess an object. If they are close enough to possess, possess them and follow the object
 bool GhostController::tryPossess(std::shared_ptr<BasePossessableController> toPossess)
 {
 	if (toPossess != nullptr)
@@ -50,6 +52,7 @@ bool GhostController::tryPossess(std::shared_ptr<BasePossessableController> toPo
 	return false;
 }
 
+//Stop possessing objects and stop following them
 void GhostController::stopPossessing()
 {
 	follow(nullptr);
@@ -60,11 +63,13 @@ void GhostController::stopPossessing()
 	}
 }
 
+//Follow an object
 void GhostController::follow(std::shared_ptr<BasePossessableController>  toFollow)
 {
 	m_toFollow = toFollow;
 }
 
+//Take in a delta vector, turn it into a direcitonal movespeed vector and determine which direction to move
 void GhostController::move(Vector2 delta)
 {
 	delta.setX(delta.getX() * m_movementSpeed.getX());

@@ -12,6 +12,7 @@ BoulderController::BoulderController(GameObject* parentGameobject, BasePilot* pi
 	m_cooldownTicker = 0.0f;
 }
 
+//Lazy-load rigidBody on possession and set our friction
 void BoulderController::onPossessionStart()
 {
 	m_rigidBody = gameObject->getComponent<Rigidbody>();
@@ -26,6 +27,7 @@ void BoulderController::onPossessionEnd()
 	m_rigidBody = nullptr;
 }
 
+//On movement, update rigid body, update the Boulders cooldown, and update the damagingRegion is the Boulder is in attack mode
 void BoulderController::move(Vector2 direction)
 {
 	if (m_rigidBody != nullptr && direction.getMagnitude() > 0)
@@ -57,6 +59,7 @@ void BoulderController::move(Vector2 direction)
 	}
 }
 
+//If the boulder isn't on cooldown, go into attack mode, launching it in the direction it's traveling, creating an invisible damaging region is none exists
 void BoulderController::trigger(Vector2 direction)
 {
 	if (m_cooldownTicker <= 0.0f && m_rigidBody != nullptr)
