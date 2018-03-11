@@ -4,6 +4,7 @@
 #include "SpawnManager.h"
 #include "GameManager.h"
 #include "AudioManager.h"
+#include "PossessionTestScene.h"
 
 LaunchScene::LaunchScene()
 {
@@ -27,6 +28,10 @@ void LaunchScene::onEnd()
 
 void LaunchScene::onUpdate(int ticks)
 {
+	if (InputManager::getInstance()->onKeyReleased(SDLK_p))
+	{
+		SceneManager::getInstance()->pushScene(new PossessionTestScene());
+	}
 	if (InputManager::getInstance()->onKeyReleased(SDLK_j))
 	{
 		NetworkingManager::getInstance()->createClient();
