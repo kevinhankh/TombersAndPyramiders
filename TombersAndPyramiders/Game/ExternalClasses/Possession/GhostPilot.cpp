@@ -27,13 +27,15 @@ void GhostPilot::onUpdate(int ticks)
 		m_justSwapped = false;
 	}
 
+	Vector2 movement = getMovement();
+
 	//If we are possessing something
 	if (m_possessableController != nullptr)
 	{
 		//Possessing + Space = Trigger
 		if (InputManager::getInstance()->onKeyPressed(SDLK_SPACE))
 		{
-			m_possessableController->trigger();
+			m_possessableController->trigger(movement);
 		}
 		//Possessing + E = Stop Possessing
 		else if (checkShouldSwap())
@@ -43,6 +45,10 @@ void GhostPilot::onUpdate(int ticks)
 			m_possessableController = nullptr;
 			m_ghostController->getGameObject()->getTransform()->setScale(1.0f);
 			m_justSwapped = true;
+		}
+		else
+		{
+			m_possessableController->move(movement);
 		}
 	}
 	//If we are not possessing anything
@@ -78,7 +84,7 @@ void GhostPilot::onUpdate(int ticks)
 			}
 			else 
 			{
-				std::cout << "ERROR::GHOSTPILOT::ONUPDATE::No GhostController or BasePossessableController attacked" << std::endl;
+				std::cout << "ERROR::GHOSTPILOT::ONUPDATE::No GhostController or BasePossessableController attached" << std::endl;
 			}
 		}
 		else {

@@ -133,7 +133,6 @@ std::vector<std::shared_ptr<GameObject>> GameManager::getObjectsInBounds(float x
 {
 	std::vector<std::shared_ptr<GameObject>> result;
 	m_quadTree->populateList(QuadTreeBounds(x, y, width, height), result);
-	//std::cout << x << " " << y << " | " << width << " " << height << " | " << result.size() << std::endl;
 	result.erase(std::unique(result.begin(), result.end()), result.end());
 	return result;
 }

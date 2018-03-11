@@ -158,6 +158,15 @@ std::shared_ptr<WorldItem> SpawnManager::generateWorldItem(float x, float y, std
 	return worldItem;
 }
 
+
+std::shared_ptr<Boulder> SpawnManager::generateBoulder(float x, float y)
+{
+	std::shared_ptr<Boulder> boulder = GameManager::getInstance()->createGameObject<Boulder>(false, nullptr);
+	boulder->getTransform()->setPosition(x, y);
+	return boulder;
+}
+
+
 std::shared_ptr<GhostCharacter> SpawnManager::generateGhost(float x, float y)
 {
 	std::shared_ptr<GhostCharacter> ghost = GameManager::getInstance()->createGameObject<GhostCharacter>(false, new GhostPilot());
@@ -165,14 +174,6 @@ std::shared_ptr<GhostCharacter> SpawnManager::generateGhost(float x, float y)
 	ghost->getTransform()->setZ(2);
 	return ghost;
 }
-
-std::shared_ptr<Tower> SpawnManager::generateTower(float x, float y)
-{
-	std::shared_ptr<Tower> tower = GameManager::getInstance()->createGameObject<Tower>(false);
-	tower->getTransform()->setPosition(x, y);
-	return tower;
-}
-
 //std::shared_ptr<Wall> SpawnManager::generateWall(float x, float y, float scale)
 //{
 //	std::shared_ptr<Wall> wall = GameManager::getInstance()->createGameObject<Wall>(false);

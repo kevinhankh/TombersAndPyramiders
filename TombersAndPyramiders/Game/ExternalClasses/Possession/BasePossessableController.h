@@ -9,5 +9,6 @@ public:
 	BasePossessableController(GameObject* parentGameobject, BasePilot* pilot);
 	virtual void onPossessionStart() = 0;
 	virtual void onPossessionEnd() = 0;
-	virtual void trigger() = 0;
+	virtual void move(Vector2 direction) = 0;
+	virtual void trigger(Vector2 direction) = 0;
 };

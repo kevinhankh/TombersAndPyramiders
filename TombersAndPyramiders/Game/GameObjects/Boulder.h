@@ -2,13 +2,13 @@
 
 #include "SimpleSprite.h"
 
-class Tower : public SimpleSprite
+class Boulder : public SimpleSprite
 {
 private:
 
 public:
-	Tower();
-	~Tower();
+	Boulder(BasePilot* pilot);
+	~Boulder();
 
 	void onStart() {};
 	void onUpdate(int ticks) {}

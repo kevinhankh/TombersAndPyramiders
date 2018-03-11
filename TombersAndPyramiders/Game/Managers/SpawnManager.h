@@ -10,7 +10,7 @@
 #include "HostCharacter.h"
 #include "ClientCharacter.h"
 #include "GhostCharacter.h"
-#include "Tower.h"
+#include "Boulder.h"
 
 class SpawnManager : public GameObject
 {
@@ -26,7 +26,7 @@ public:
 	std::shared_ptr<WorldItem> generateWorldItem(float x, float y, std::shared_ptr<BaseItem> item);
 	std::shared_ptr<Character> generateDummyCharacter(float x, float y);
 	std::shared_ptr<GhostCharacter> generateGhost(float x, float y);
-	std::shared_ptr<Tower> generateTower(float x, float y);
+	std::shared_ptr<Boulder> generateBoulder(float x, float y);
 
 
 	std::shared_ptr<HostCharacter> generateNetworkCharacter(Uint32 ip, float x, float y);

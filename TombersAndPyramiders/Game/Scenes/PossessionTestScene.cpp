@@ -18,7 +18,7 @@ void PossessionTestScene::onStart()
 		SpawnManager::getInstance()->generateMiscSquare(x, 0, 0, 10, "stoneTile.png", false);
 	}
 	ghostCharacter = SpawnManager::getInstance()->generateGhost(0, 0);
-	SpawnManager::getInstance()->generateTower(5, 0);
+	SpawnManager::getInstance()->generateBoulder(5, 0);
 	Camera::getActiveCamera()->addComponent<CameraFollow>((GameObject*)Camera::getActiveCamera().get())->setToFollow(ghostCharacter);
 }
 
