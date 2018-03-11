@@ -76,9 +76,8 @@ void GhostPilot::onUpdate(int ticks)
 					for (auto it = gameObjects.begin(); it != gameObjects.end(); it++)
 					{
 						std::shared_ptr<BasePossessableController> possessionController = (*it)->getComponent<BasePossessableController>();
-						if (possessionController != nullptr) //If we pressed E on something we can possess
+						if (possessionController != nullptr && ghostControllerRaw->tryPossess(possessionController) ) //If we pressed E on something we can possess
 						{
-							ghostControllerRaw->possess(possessionController);
 							m_controller->swapPilots(possessionController.get());
 							m_possessableController = possessionController;
 							m_possessableController->onPossessionStart();

@@ -10,6 +10,7 @@ extern class BasePossessableController;
 class GhostController : public BaseController
 {
 private:
+	static const float MAX_POSSESSION_DISTANCE;
 	Vector2 m_movementSpeed;
 	std::shared_ptr<BasePossessableController> m_toFollow;
 
@@ -20,6 +21,6 @@ public:
 	void onStart();
 	void move(Vector2 moveInput);
 	void follow(std::shared_ptr<BasePossessableController> toFollow);
-	void possess(std::shared_ptr<BasePossessableController> toPossess);
+	bool tryPossess(std::shared_ptr<BasePossessableController> toPossess);
 	void stopPossessing();
 };
