@@ -24,6 +24,7 @@ public:
 	void removeGameObject(int objectToRemove);
 	std::vector<std::shared_ptr<GameObject>> getObjectsInBounds(float x, float y, float width, float height);
 	void updateQuadTree();
+	void resizeQuadTree(float x, float y, float width, float height);
 
 	template <typename T, class... _Types>
 	std::shared_ptr<T> createGameObject(bool isGlobal, _Types&&... args)
@@ -46,6 +47,7 @@ public:
 				SceneManager::getInstance()->getCurrentScene()->addGameObject(id, gameObject);
 			}
 			m_quadTree->lazyInsert(gameObject);
+			m_toCallOnStart.push_back(gameObject);
 		} 
 		else 
 		{
@@ -74,6 +76,7 @@ public:
 				SceneManager::getInstance()->getCurrentScene()->addGameObject(id, gameObject);
 			}
 			m_quadTree->lazyInsert(gameObject);
+			m_toCallOnStart.push_back(gameObject);
 		}
 		else
 		{
@@ -85,6 +88,7 @@ public:
 
 private:
 	std::vector<int> m_gameObjectsToRemove;
+	std::vector<std::shared_ptr<GameObject>> m_toCallOnStart;
 	std::map<int, std::shared_ptr<GameObject>> m_globalGameObjects;
 	std::unique_ptr<QuadTree> m_quadTree = nullptr;
 
@@ -95,5 +99,4 @@ private:
 	Game* m_game;
 	void fpsThrottle(int ticks);
 	void reinstantiateQuadTree(float x, float y, float width, float height); 
-	void resizeQuadTree(float x, float y, float width, float height);
 };
