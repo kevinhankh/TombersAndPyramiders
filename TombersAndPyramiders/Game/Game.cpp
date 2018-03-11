@@ -22,7 +22,7 @@ Each GameObject cycles through and updates each one of their game components.
 
 void Game::onStart()
 {
-	SceneManager::getInstance()->pushScene(new PossessionTestScene());//NetworkedGameScene());
+	SceneManager::getInstance()->pushScene(new LaunchScene());//NetworkedGameScene());
 }
 
 void Game::onUpdate(int ticks)
