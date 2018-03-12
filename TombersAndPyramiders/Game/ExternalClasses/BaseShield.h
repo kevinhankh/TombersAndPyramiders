@@ -28,7 +28,7 @@ class BaseShield : public BaseEquippableItem, public Updateable, public std::ena
 	private:
 		std::shared_ptr<SimpleSprite> m_sprite;
 		Vector2 m_offsetFromHolder;
-		float m_defense;
+		float m_damageMultiplier;
 		bool m_isBlocking;
 		float m_blockCooldownTime;
 		float m_timeUntilNextBlock;
@@ -52,8 +52,8 @@ class BaseShield : public BaseEquippableItem, public Updateable, public std::ena
 		virtual void onUpdate(int ticks);
 		virtual void onEnd();
 
-
 		bool isBlocking();
+		int calculateRealDamage(int damage);
 
 	protected:
 		std::shared_ptr<BaseItem> addSubclassToInventory();

@@ -19,7 +19,7 @@
 ----------------------------------------------------------------------------------------*/
 BaseShield::BaseShield() :
 	m_isBlocking{ false }, 
-	m_defense{ 5 }, 
+	m_damageMultiplier{ 0.9f }, 
 	m_blockCooldownTime{ 0.5f }, 
 	m_offsetFromHolder{ Vector2(1, 0) }
 {
@@ -63,6 +63,16 @@ void BaseShield::onEnd()
 	m_sprite->getTransform()->setScale(0);
 }
 
+bool BaseShield::isBlocking()
+{
+	return m_isBlocking;
+}
+
+int BaseShield::calculateRealDamage(int damage)
+{
+	return (int)((float)damage * m_damageMultiplier);
+}
+
 void BaseShield::updatePosition()
 {
 	if (owner() != nullptr)
@@ -96,9 +106,4 @@ void BaseShield::updateBlock(int ticks)
 			onEnd();
 		}
 	}
-}
-
-bool BaseShield::isBlocking()
-{
-	return m_isBlocking;
 }

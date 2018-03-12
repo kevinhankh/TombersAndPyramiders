@@ -125,14 +125,22 @@ void CharacterController::useShield()
 	{
 		if (shield->use())
 		{
-
+			// TODO Shield SFX?
 		}
 	}
 }
 
 void CharacterController::takeDamage(int damage)
 {
-	Damageable::takeDamage(damage);
+	std::shared_ptr<BaseShield> shield = m_inventory->getShield();
+	auto realDamage = damage;
+	if (shield != nullptr && 
+		shield->isBlocking())
+	{
+		realDamage = shield->calculateRealDamage(damage);
+	}
+
+	Damageable::takeDamage(realDamage);
 	m_character->playHurtAnimation();
 	AudioManager::getInstance()->playHitSFX();
 }
