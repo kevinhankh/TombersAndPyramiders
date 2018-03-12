@@ -14,6 +14,7 @@
 #include "NetworkCharacter.h"
 #include "HostPilot.h"
 #include "WoodenShield.h"
+#include "WoodenGreaves.h"
 
 std::shared_ptr<SpawnManager> SpawnManager::s_instance;
 
@@ -91,6 +92,7 @@ std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(Uint32 ip
 	std::shared_ptr<ClientCharacter> simpleCharacter = GameManager::getInstance()->createGameObjectWithId<ClientCharacter>(false, id, new PlayerPilot(), id);
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenShield>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenGreaves>());
 	simpleCharacter->getTransform()->setPosition(x, y, 100);
 
 	return simpleCharacter;
@@ -101,6 +103,8 @@ std::shared_ptr<HostCharacter> SpawnManager::generateNetworkCharacter(Uint32 ip,
 	int id = ip;
 	std::shared_ptr<HostCharacter> simpleCharacter = GameManager::getInstance()->createGameObjectWithId<HostCharacter>(false, id, new HostPilot(), id);
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenShield>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenGreaves>());
 	simpleCharacter->getTransform()->setPosition(x, y, 100);
 	return simpleCharacter;
 }

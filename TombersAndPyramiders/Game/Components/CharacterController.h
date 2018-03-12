@@ -85,6 +85,11 @@ class CharacterController : public BaseController, public Damageable
 		void useShield();
 
 		/**
+			Use the character's greaves this frame.
+		*/
+		void useGreaves();
+
+		/**
 			Picks up the given WorldItem, extracting its BaseItem and equiping it. Returns the item we put down that was previously equipped, or nullptr if none were equipped prior.
 			If no item to pickup, it also returns nullptr, as its a failure to swap
 		*/

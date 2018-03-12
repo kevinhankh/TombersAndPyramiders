@@ -130,6 +130,19 @@ void CharacterController::useShield()
 	}
 }
 
+void CharacterController::useGreaves()
+{
+	std::shared_ptr<BaseGreaves> greaves = m_inventory->getGreaves();
+
+	if (greaves != nullptr)
+	{
+		if (greaves->use())
+		{
+			// TODO Greaves SFX?
+		}
+	}
+}
+
 void CharacterController::takeDamage(int damage)
 {
 	std::shared_ptr<BaseShield> shield = m_inventory->getShield();

@@ -90,6 +90,7 @@
     <ClCompile Include="Game\Scenes\LaunchScene.cpp" />
     <ClCompile Include="Engine\External\QuadTree.cpp" />
     <ClCompile Include="Game\ExternalClasses\WoodenShield.cpp" />
+    <ClCompile Include="Game\ExternalClasses\WoodenGreaves.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Component\AI\AI.h" />
@@ -188,6 +189,7 @@
     <ClInclude Include="Game\Scenes\LaunchScene.h" />
     <ClInclude Include="Engine\External\QuadTree.h" />
     <ClInclude Include="Game\ExternalClasses\WoodenShield.h" />
+    <ClInclude Include="Game\ExternalClasses\WoodenGreaves.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Character.bmp" />

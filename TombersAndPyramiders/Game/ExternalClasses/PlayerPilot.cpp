@@ -63,6 +63,12 @@ void PlayerPilot::onUpdate(int ticks)
 			m_characterController->useShield();
 		}
 
+		/* Use greaves. */
+		if (getGreavesInput())
+		{
+			m_characterController->useGreaves();
+		}
+
 		/* Pick up items. */
 		if (InputManager::getInstance()->onKeyPressed(SDLK_e))
 		{
@@ -113,4 +119,9 @@ bool PlayerPilot::getWeaponInput()
 bool PlayerPilot::getShieldInput()
 {
 	return InputManager::getInstance()->onKeyPressed(SDLK_o);
+}
+
+bool PlayerPilot::getGreavesInput()
+{
+	return InputManager::getInstance()->onKeyPressed(SDLK_p);
 }

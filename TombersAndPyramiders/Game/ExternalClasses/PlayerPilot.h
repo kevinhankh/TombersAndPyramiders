@@ -78,4 +78,9 @@ class PlayerPilot : public BasePilot
 			Returns whether there is input to use the character's shield.
 		*/
 		bool getShieldInput();
+
+		/**
+			Returns whether there is input to use the character's greaves.
+		*/
+		bool getGreavesInput();
 };

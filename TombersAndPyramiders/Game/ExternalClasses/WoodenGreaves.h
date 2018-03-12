@@ -1,7 +1,7 @@
 /*===================================================================================*//**
-	BaseGreaves
+	WoodenGreaves
 	
-	Abstract class for a base pair of greaves (leg armor).
+	A pair of simple wooden greaves.
 
     @author Erick Fernandez de Arteaga
 	
@@ -12,48 +12,32 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "Updateable.h"
-#include "BaseEquippableItem.h"
+#include "BaseGreaves.h"
 
 /*========================================================================================
-	BaseGreaves	
+	WoodenGreaves	
 ========================================================================================*/
-class BaseGreaves : public BaseEquippableItem, public Updateable, public std::enable_shared_from_this<BaseGreaves>
+class WoodenGreaves : public BaseGreaves
 
 {
     /*----------------------------------------------------------------------------------------
-		Instance Fields
+		Static Fields
     ----------------------------------------------------------------------------------------*/
 	private:
-		float m_cooldownTime;
-		bool m_isActive;
-		float m_timeUntilNextUse;
+		static const float WOODEN_GREAVES_COOLDOWN_TIME;
 
     /*----------------------------------------------------------------------------------------
 		Resource Management
     ----------------------------------------------------------------------------------------*/
     public:
         /** Default constructor. */
-        explicit BaseGreaves() = delete;
+        explicit WoodenGreaves();
 
-		explicit BaseGreaves(float cooldownTime);
-
-		virtual ~BaseGreaves() {};
+		~WoodenGreaves() {};
 
 	/*----------------------------------------------------------------------------------------
 		Instance Methods
 	----------------------------------------------------------------------------------------*/
     public:
-		virtual bool use();
-
-		virtual void onStart();
-		virtual void onUpdate(int ticks);
-		virtual void onEnd();
-
-		virtual void effect(int ticks) = 0;
-
-	protected:
-		std::shared_ptr<BaseItem> addSubclassToInventory();
-
-		virtual void updateEffect(int ticks);
+		void effect(int ticks);
 };
