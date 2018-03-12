@@ -17,14 +17,13 @@
 /*----------------------------------------------------------------------------------------
 	Instance Methods
 ----------------------------------------------------------------------------------------*/
-BaseShield::BaseShield() :
-	m_isBlocking{ false }, 
-	m_damageMultiplier{ 0.9f }, 
-	m_blockCooldownTime{ 0.5f }, 
+BaseShield::BaseShield(string imageName, float damageMultiplier, float cooldownTime) :
+	m_damageMultiplier{  }, 
+	m_blockCooldownTime{ 0.5f },
+	m_isBlocking{ false },
 	m_offsetFromHolder{ Vector2(1, 0) }
 {
-	m_sprite = GameManager::getInstance()->createGameObject<SimpleSprite>(false, "IceTile.png", 0, 0, 0, 1.0f);
-	m_sprite->getTransform()->setScale(0);
+	m_sprite = GameManager::getInstance()->createGameObject<SimpleSprite>(false, imageName, 0, 0, 0, 0);
 }
 
 std::shared_ptr<BaseItem> BaseShield::addSubclassToInventory()

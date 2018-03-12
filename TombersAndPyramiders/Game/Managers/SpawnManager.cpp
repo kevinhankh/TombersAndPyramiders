@@ -13,6 +13,7 @@
 #include "NetworkedGameScene.h"
 #include "NetworkCharacter.h"
 #include "HostPilot.h"
+#include "WoodenShield.h"
 
 std::shared_ptr<SpawnManager> SpawnManager::s_instance;
 
@@ -89,7 +90,7 @@ std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(Uint32 ip
 	int id = ip;
 	std::shared_ptr<ClientCharacter> simpleCharacter = GameManager::getInstance()->createGameObjectWithId<ClientCharacter>(false, id, new PlayerPilot(), id);
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseShield>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenShield>());
 	simpleCharacter->getTransform()->setPosition(x, y, 100);
 
 	return simpleCharacter;
