@@ -3,6 +3,7 @@
 Rigidbody::Rigidbody(GameObject* gameObject, BoxCollider* collider) : Component(gameObject)
 {
 	m_boxCollider = collider;
+	m_frictionCoefficient = 1.0f;
 }
 
 void Rigidbody::BlockMovement()
@@ -44,7 +45,32 @@ void Rigidbody::setVelocity(Vector2 v)
 	m_velocity = v;
 }
 
+Vector2 Rigidbody::getVelocity()
+{
+	return m_velocity;
+}
+
+void Rigidbody::setFrictionCoefficient(float friction)
+{
+	m_frictionCoefficient = friction;
+}
+
+void Rigidbody::addVelocity(Vector2 v)
+{
+	m_velocity.setX(m_velocity.getX() + v.getX());
+	m_velocity.setY(m_velocity.getY() + v.getY());
+}
+
 void Rigidbody::onUpdate(int ticks)
 {
 	BlockMovement();
+	gameObject->getTransform()->addTranslation(m_velocity.getX(), m_velocity.getY());
+
+	m_velocity.setX(m_velocity.getX() * m_frictionCoefficient);
+	m_velocity.setY(m_velocity.getY() * m_frictionCoefficient);
+	if (m_velocity.getMagnitude() < 0.001f)
+	{
+		m_velocity.setX(0);
+		m_velocity.setY(0);
+	}
 }

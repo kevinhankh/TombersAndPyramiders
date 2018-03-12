@@ -80,6 +80,15 @@ void GameManager::onUpdate(int ticks)
 		NetworkingManager::getInstance()->sendQueuedEvents();
 	}
 
+	for (auto it = m_toCallOnStart.begin(); it != m_toCallOnStart.end(); ++it)
+	{
+		if (*it != nullptr)
+		{
+			(*it)->onStart();
+		}
+	}
+	m_toCallOnStart.clear();
+
 	updateQuadTree();
 	PhysicsManager::getInstance()->onUpdate(ticks);
 	SpriteRendererManager::getInstance()->onUpdate(ticks);
@@ -119,11 +128,11 @@ void GameManager::updateQuadTree() {
 	}
 }
 
+
 std::vector<std::shared_ptr<GameObject>> GameManager::getObjectsInBounds(float x, float y, float width, float height)
 {
 	std::vector<std::shared_ptr<GameObject>> result;
 	m_quadTree->populateList(QuadTreeBounds(x, y, width, height), result);
-	//std::cout << x << " " << y << " | " << width << " " << height << " | " << result.size() << std::endl;
 	result.erase(std::unique(result.begin(), result.end()), result.end());
 	return result;
 }
