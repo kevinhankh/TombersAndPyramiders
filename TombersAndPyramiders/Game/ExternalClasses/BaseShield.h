@@ -14,6 +14,8 @@
 ========================================================================================*/
 #include "Updateable.h"
 #include "BaseEquippableItem.h"
+#include "SimpleSprite.h"
+#include "Vector2.h"
 
 /*========================================================================================
 	BaseShield	
@@ -24,6 +26,8 @@ class BaseShield : public BaseEquippableItem, public Updateable, public std::ena
 		Instance Fields
     ----------------------------------------------------------------------------------------*/
 	private:
+		std::shared_ptr<SimpleSprite> m_sprite;
+		Vector2 m_offsetFromHolder;
 		float m_defense;
 		bool m_isBlocking;
 		float m_blockCooldownTime;
@@ -48,8 +52,11 @@ class BaseShield : public BaseEquippableItem, public Updateable, public std::ena
 		virtual void onUpdate(int ticks);
 		virtual void onEnd();
 
+
 		bool isBlocking();
 
 	protected:
 		std::shared_ptr<BaseItem> addSubclassToInventory();
+		virtual void updatePosition();
+		virtual void updateBlock(int ticks);
 };
