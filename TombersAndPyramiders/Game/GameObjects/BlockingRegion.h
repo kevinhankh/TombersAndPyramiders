@@ -1,8 +1,9 @@
 /*===================================================================================*//**
-	BaseShield
+	DamagingRegion
 	
-	Abstract class for a base shield.
-
+	Prefab class for a GameObject that causes damage to damageable objects when it 
+	collides with them.
+    
     @author Erick Fernandez de Arteaga
 	
 *//*====================================================================================*/
@@ -12,44 +13,49 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "Updateable.h"
-#include "BaseEquippableItem.h"
+#include "GameObject.h"
+#include "SimpleSprite.h"
+#include "Vector2.h"
+#include <unordered_set>
+class BaseWeapon;
+class Collider;
 
 /*========================================================================================
-	BaseShield	
+	DamagingRegion	
 ========================================================================================*/
-class BaseShield : public BaseEquippableItem, public Updateable, public std::enable_shared_from_this<BaseShield>
+class DamagingRegion : public SimpleSprite
 {
     /*----------------------------------------------------------------------------------------
 		Instance Fields
     ----------------------------------------------------------------------------------------*/
-	private:
-		float m_defense;
-		bool m_isBlocking;
-		float m_blockCooldownTime;
-		float m_timeUntilNextBlock;
+    protected:
+		std::shared_ptr<Collider> m_collider;
+		int m_ownerId;
+		int m_damage;
+		bool m_destroyOnCollision;
+		std::unordered_set<int> m_hitList;
 
     /*----------------------------------------------------------------------------------------
 		Resource Management
     ----------------------------------------------------------------------------------------*/
     public:
         /** Default constructor. */
-		explicit BaseShield();
+		explicit DamagingRegion() = delete;
 
-		virtual ~BaseShield() {};
+		explicit DamagingRegion(int damage, string imageName, float colliderWidth,
+			float colliderHeight, bool destroyOnCollision, float xPosition = 0, float yPosition = 0, float spriteScale = 1);
 
-	/*----------------------------------------------------------------------------------------
+		virtual ~DamagingRegion() {};
+		
+    /*----------------------------------------------------------------------------------------
 		Instance Methods
-	----------------------------------------------------------------------------------------*/
-    public:
-		virtual bool use();
-
-		virtual void onStart();
+    ----------------------------------------------------------------------------------------*/
+	public:
+		virtual void setOwnerId(int id);
 		virtual void onUpdate(int ticks);
-		virtual void onEnd();
-
-		bool isBlocking();
+		virtual void clearHitList();
 
 	protected:
-		std::shared_ptr<BaseItem> addSubclassToInventory();
+		virtual void handleCollisions();
+		virtual void handleSingleCollision(GameObject* other);
 };

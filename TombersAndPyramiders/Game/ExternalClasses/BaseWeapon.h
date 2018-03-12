@@ -76,6 +76,8 @@ class BaseWeapon : public BaseEquippableItem, public Updateable, public std::ena
 		*/
 		virtual void onEnd() = 0;
 
+		bool isAttacking();
+
 	protected:
 		std::shared_ptr<BaseItem> addSubclassToInventory();
 };

@@ -30,3 +30,8 @@ std::shared_ptr<BaseItem> BaseWeapon::addSubclassToInventory()
 {
 	return m_inventory->setWeapon(shared_from_this());
 }
+
+bool BaseWeapon::isAttacking()
+{
+	return m_isAttacking;
+}

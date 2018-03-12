@@ -65,7 +65,11 @@ void Projectile::handleSingleCollision(GameObject* other)
 			return;
 		}
 
-		/* TODO Handle collisions with walls? */
+		/* In all other collisions, destroy if appropriate. */
+		if (m_destroyOnCollision)
+		{
+			destroy(getId());
+		}
 	}
 }
 

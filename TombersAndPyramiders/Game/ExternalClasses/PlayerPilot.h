@@ -73,4 +73,9 @@ class PlayerPilot : public BasePilot
 			Returns whether there is input to use the character's weapon.
 		*/
 		bool getWeaponInput();
+
+		/**
+			Returns whether there is input to use the character's shield.
+		*/
+		bool getShieldInput();
 };

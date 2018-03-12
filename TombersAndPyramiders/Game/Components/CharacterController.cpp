@@ -95,7 +95,10 @@ void CharacterController::move(Vector2 delta)
 void CharacterController::useWeapon()
 {
 	std::shared_ptr<BaseWeapon> weapon = m_inventory->getWeapon();
-	if (weapon != nullptr)
+	std::shared_ptr<BaseShield> shield = m_inventory->getShield();
+
+	if (weapon != nullptr && 
+		(shield == nullptr || !shield->isBlocking()))
 	{
 		if (weapon->use())
 		{
@@ -108,6 +111,21 @@ void CharacterController::useWeapon()
 				m_character->playRangeAttackAnimation();
 				AudioManager::getInstance()->playShootArrowSFX();
 			}
+		}
+	}
+}
+
+void CharacterController::useShield()
+{
+	std::shared_ptr<BaseWeapon> weapon = m_inventory->getWeapon();
+	std::shared_ptr<BaseShield> shield = m_inventory->getShield();
+
+	if (shield != nullptr && 
+		(weapon == nullptr || !weapon->isAttacking()))
+	{
+		if (shield->use())
+		{
+
 		}
 	}
 }

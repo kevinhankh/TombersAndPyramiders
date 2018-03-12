@@ -11,6 +11,8 @@
 #include "NetworkingManager.h"
 #include <memory>
 #include "WoodenShortsword.h"
+#include "Character.h"
+#include "Inventory.h";
 
 std::shared_ptr<Character> player = nullptr;
 std::shared_ptr<Character> player2 = nullptr;

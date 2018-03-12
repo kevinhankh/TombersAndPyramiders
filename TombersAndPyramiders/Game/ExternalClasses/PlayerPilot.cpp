@@ -45,20 +45,29 @@ void PlayerPilot::onUpdate(int ticks)
 {
 	if (m_characterController != nullptr)
 	{
+		/* Move the character. */
 		m_characterController->move(getMovement());
 
-		/* TODO Make this read from the mouse position. */
+		/* TODO Make character face mouse position. */
 
+		/* Use weapon. */
 		if (getWeaponInput())
 		{
 			m_characterController->useWeapon();
 			m_characterController->getGameObject()->getComponent<Sender>()->sendAttack();
 		}
-	}
-	if (InputManager::getInstance()->onKeyPressed(SDLK_e)) 
-	{
-		m_characterController->trySwapItem();
-		//Pickup/Drop items
+
+		/* Use shield. */
+		if (getShieldInput())
+		{
+			m_characterController->useShield();
+		}
+
+		/* Pick up items. */
+		if (InputManager::getInstance()->onKeyPressed(SDLK_e))
+		{
+			m_characterController->trySwapItem();
+		}
 	}
 }
 
@@ -99,4 +108,9 @@ Vector2 PlayerPilot::getMovement()
 bool PlayerPilot::getWeaponInput()
 {
 	return InputManager::getInstance()->onKeyPressed(SDLK_SPACE);
+}
+
+bool PlayerPilot::getShieldInput()
+{
+	return InputManager::getInstance()->onKeyPressed(SDLK_o);
 }

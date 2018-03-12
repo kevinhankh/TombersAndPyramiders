@@ -89,6 +89,7 @@ std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(Uint32 ip
 	int id = ip;
 	std::shared_ptr<ClientCharacter> simpleCharacter = GameManager::getInstance()->createGameObjectWithId<ClientCharacter>(false, id, new PlayerPilot(), id);
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseShield>());
 	simpleCharacter->getTransform()->setPosition(x, y, 100);
 
 	return simpleCharacter;

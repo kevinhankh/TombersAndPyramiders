@@ -79,6 +79,10 @@ class CharacterController : public BaseController, public Damageable
 		*/
 		void useWeapon();
 
+		/**
+			Uses the character's shield this frame.
+		*/
+		void useShield();
 
 		/**
 			Picks up the given WorldItem, extracting its BaseItem and equiping it. Returns the item we put down that was previously equipped, or nullptr if none were equipped prior.
