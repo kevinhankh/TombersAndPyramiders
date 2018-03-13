@@ -17,7 +17,9 @@
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-BaseWeapon::BaseWeapon() :
+BaseWeapon::BaseWeapon(int damage, float attackCooldownTime) :
+	m_damage{ damage }, 
+	m_attackCooldownTime{ attackCooldownTime }, 
 	m_isAttacking{ false }
 {}
 

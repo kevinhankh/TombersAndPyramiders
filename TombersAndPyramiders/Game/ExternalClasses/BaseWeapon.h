@@ -25,6 +25,8 @@ class BaseWeapon : public BaseEquippableItem, public Updateable, public std::ena
 		Instance Fields
     ----------------------------------------------------------------------------------------*/
 	protected:
+		int m_damage;
+		float m_attackCooldownTime;
 		bool m_isAttacking;
 		float m_timeUntilNextAttack;
 
@@ -33,7 +35,9 @@ class BaseWeapon : public BaseEquippableItem, public Updateable, public std::ena
     ----------------------------------------------------------------------------------------*/
     public:
         /** Default constructor. */
-        explicit BaseWeapon();
+        explicit BaseWeapon() = delete;
+
+		explicit BaseWeapon(int damage, float attackCooldownTime);
 
 		virtual ~BaseWeapon() {};
 
@@ -47,13 +51,15 @@ class BaseWeapon : public BaseEquippableItem, public Updateable, public std::ena
 			Uses the weapon.
 			This should be called every update that the controller gets input to use the weapon.
 
+			Returns true if the weapon began attacking as a result of the call and false otherwise.
+
 			Weapon classes that implement this will treat this either as a "trigger", 
 			starting the use of the weapon and ignoring subsequent calls until the weapon 
 			is ready for use again (e.g., swinging a sword), OR as a continuous "hold" for 
 			weapons that can be used continuously (e.g., a flail that is swung around for 
 			as long as the player holds the key).
 		*/
-		virtual void use() = 0;
+		virtual bool use() = 0;
 
 		/**
 			Called by the use() method on the update that the weapon begins attacking.

@@ -4,7 +4,7 @@
 
 Pyramid Panic is a 2.5D top down 16 person online ‘battle arena’ like game. Every player begins the game as an undead character with no weapons at the bottom of a pyramid. At the top of the pyramid is a treasure that brings your character back to life, but there is only one of these treasures and sixteen players. Players race to the top of the pyramid, solving puzzles, avoiding booby-traps and fighting other players along the way.
 
-The combat system allows for five types of equippable items. Weapons, Shields, Greaves, Helmets and Chestplates. Weapons, Shields and Greaves are activables, each with unique affects. The items equipped determines your characters fighting abilities. The pyramid is filled with other undead aggressive enemies that can kill players, as well as puzzle rooms which may require multiple characters to partake together. 
+The combat system allows for five types of equippable items: Weapons, Shields, Greaves, Helmets and Chestplates. Weapons, Shields and Greaves are activatables, each with unique affects. The items you equip determine what your character’s fighting abilities are. The pyramid is filled with other undead enemies that can kill players, as well as puzzle rooms which may require multiple characters working together to solve. 
 
 ### Engine
 
@@ -20,7 +20,7 @@ User testing will be done to determine changes required for the core mechanics i
 
 ## Technology Stack
 
-The game and engine are both written in C++ 11. It is intended to be compilable on both the Microsoft VC++ compiler as well as with g++, therefore strictly C++ 11 compliant code is only allowed. On Windows, SDK version 10> is used with ToolKit version 141. The only external dependency used is SDL in order to give us convenient access to cross-platform networking, audio and input, as well as OpenGL 3.3 being used for rendering.
+The game and engine are both written in C++ 11. It is intended to be compilable on both the Microsoft VC++ compiler as well as with g++, therefore strictly C++ 11 compliant code is only allowed. On Windows, SDK version 10 or greater is used with ToolKit version 141. The only external dependency used is SDL to give us convenient access to cross-platform networking, audio and input, as well as OpenGL 3.3 being used for rendering.
 
 ### How To Compile - Windows
 - git clone
@@ -32,7 +32,7 @@ The game and engine are both written in C++ 11. It is intended to be compilable 
 
 ### How  To Run - Windows
 
-Once built, go to the directory the .exe sits in and run the executible by double clicking it.
+Once built, go to the directory the .exe sits in and run the executable by double clicking it.
 
 ### Mac
 
@@ -42,11 +42,11 @@ Alpha does not include Mac support. The engine does support Mac, however current
 
 ### Beta
 
-Our next milestone, our beta, will be created over the next month. The beta includes many upgrades, turning our concept into the intended game. The networking component will be upgraded to support sixteen players in a server based LAN environment where one player acts as the server. Audio assets will be added (created or royalty free) for varying types of scene music, as well as sound effects for every intractable noisy action. The combat system will be extended in breadth, creating various weapons in order to expand the possibilities for combat. This includes creating multiple weapons, shields, greaves, helmets and chestplates, many of which will require unique activatable abilities. The first four floors will be created for the pyramid, randomly generating rooms, with sand slowly filling up the pyramid, acting as a pseudo-timer to escape each room. All visual assets will have their initial pass created, however not necessarily finalized, for characters, weapons, armour, rooms and UI. Simple bloom post-processing effects will be added, as well as potential other shaders. The clearly defined win state of reaching the top of the pyramid first will be added in order to complete the desired game loop. The game will also be runnable on both Windows and Mac (and theoretically Linux, however we do not promise such compatibility).
+Our next milestone, our beta, will be created over the next month. The beta includes many upgrades, turning our concept into the intended game. The networking component will be upgraded to support sixteen players in a server based LAN environment where one player acts as the server. Audio assets will be added (created or royalty free) for varying types of scene music, as well as sound effects for every intractable action. The combat system will be extended in breadth, creating various items in order to expand the possibilities for combat. This includes creating multiple weapons, shields, greaves, helmets and chestplates, many of which will require unique activatable abilities. The first four floors will be created for the pyramid, randomly generating rooms, with sand slowly filling up the pyramid, acting as a pseudo-timer to escape each room. All visual assets will have their initial pass created, however not necessarily finalized, for characters, weapons, armour, rooms and UI. Simple bloom post-processing effects will be added, as well as potential other shaders. The clearly defined win state of reaching the top of the pyramid first will be added in order to complete the desired game loop. The game will also be runnable on both Windows and Mac (and theoretically Linux, however we do not promise such compatibility).
 
 ### Final
 
-The final milestone will be for April. This final release will include completing all the flours of the pyramid, randomly generating the floors, creating both puzzle rooms and combat rooms. The combat system will showcase various items with various effects. A full polished UI will be available for the game lobby and HUD. Post processing effects will be in full force with finalized visual art assets and sound, creating a polished feel. Most of the work going into final will be determine by user-testing from beta on how to improve the raw gameplay itself.
+The final milestone will be for April. This final release will include completing all the floors of the pyramid, randomly generating the floors, creating both puzzle rooms and combat rooms. The combat system will showcase various items with various effects. A full polished UI will be available for the game lobby and HUD. Post processing effects will be in full force with finalized visual art assets and sound, creating a polished feel. Most of the work going into final will be determine by user-testing from beta on how to improve the raw gameplay itself.
 
 ## Team
 
