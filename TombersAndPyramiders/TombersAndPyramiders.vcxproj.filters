@@ -95,6 +95,9 @@
     <ClCompile Include="Game\ExternalClasses\Possession\BoulderController.cpp" />
     <ClCompile Include="Game\GameObjects\Boulder.cpp" />
     <ClCompile Include="Game\ExternalClasses\Possession\GhostController.cpp" />
+    <ClCompile Include="Game\GameObjects\Doors\SingleDoor.cpp" />
+    <ClCompile Include="Game\GameObjects\Doors\Door.cpp" />
+    <ClCompile Include="Game\Components\DoorController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Component\AI\AI.h" />
@@ -198,6 +201,10 @@
     <ClInclude Include="Game\ExternalClasses\Possession\BoulderController.h" />
     <ClInclude Include="Game\GameObjects\Boulder.h" />
     <ClInclude Include="Game\ExternalClasses\Possession\GhostController.h" />
+    <ClInclude Include="Game\ExternalClasses\Invokable.h" />
+    <ClInclude Include="Game\GameObjects\Doors\SingleDoor.h" />
+    <ClInclude Include="Game\GameObjects\Doors\Door.h" />
+    <ClInclude Include="Game\Components\DoorController.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Character.bmp" />

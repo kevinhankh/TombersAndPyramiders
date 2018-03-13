@@ -114,6 +114,8 @@ void NetworkedGameScene::onStart()
 	Ai3 = SpawnManager::getInstance()->generateAiCharacter(54, -40);
 	Ai4 = SpawnManager::getInstance()->generateAiCharacter(14, -35);
 
+	SpawnManager::getInstance()->generateSingleDoor(10, -10, Door::Direction::West, Door::Mode::Closed);
+
 	Camera::getActiveCamera ()->addComponent<CameraFollow> (Camera::getActiveCamera ().get ());	
 	if (NetworkingManager::getInstance ()->isHost ())
 	{

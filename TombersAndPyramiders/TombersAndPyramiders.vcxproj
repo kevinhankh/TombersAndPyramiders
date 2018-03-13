@@ -81,7 +81,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)TombersAndPyramiders;$(SolutionDir)TombersAndPyramiders\Game\Managers;$(SolutionDir)TombersAndPyramiders\Game\GameObjects;$(SolutionDir)TombersAndPyramiders\Game\ExternalClasses\Possession;$(SolutionDir)TombersAndPyramiders\Game\ExternalClasses;$(SolutionDir)TombersAndPyramiders\Game\Scenes;$(SolutionDir)TombersAndPyramiders\Game\Scenes\MenuScenes;$(SolutionDir)TombersAndPyramiders\Game\Scenes\GameScenes;$(SolutionDir)TombersAndPyramiders\Game\Components;$(SolutionDir)TombersAndPyramiders\Game\GameObjects\Projectile;$(SolutionDir)TombersAndPyramiders\Game;$(SolutionDir)TombersAndPyramiders\Engine\Component\Collision;$(SolutionDir)TombersAndPyramiders\Engine\Component\Networking;$(SolutionDir)TombersAndPyramiders\Engine\Component\Transform;$(SolutionDir)TombersAndPyramiders\Engine\Component\Physics;$(SolutionDir)TombersAndPyramiders\Engine\Component\Render;$(SolutionDir)TombersAndPyramiders\Engine\External\Render;$(SolutionDir)TombersAndPyramiders\Engine\External\Math;$(SolutionDir)TombersAndPyramiders\Engine\External;$(SolutionDir)TombersAndPyramiders\Engine\Component;$(SolutionDir)TombersAndPyramiders\Engine\GameObjects;$(SolutionDir)TombersAndPyramiders\Engine\Manager;$(SolutionDir)TombersAndPyramiders\Engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TombersAndPyramiders;$(SolutionDir)TombersAndPyramiders\Game\Managers;$(SolutionDir)TombersAndPyramiders\Game\GameObjects\Doors;$(SolutionDir)TombersAndPyramiders\Game\GameObjects;$(SolutionDir)TombersAndPyramiders\Game\ExternalClasses\Invokable;$(SolutionDir)TombersAndPyramiders\Game\ExternalClasses\Possession;$(SolutionDir)TombersAndPyramiders\Game\ExternalClasses;$(SolutionDir)TombersAndPyramiders\Game\Scenes;$(SolutionDir)TombersAndPyramiders\Game\Scenes\MenuScenes;$(SolutionDir)TombersAndPyramiders\Game\Scenes\GameScenes;$(SolutionDir)TombersAndPyramiders\Game\Components;$(SolutionDir)TombersAndPyramiders\Game\GameObjects\Projectile;$(SolutionDir)TombersAndPyramiders\Game;$(SolutionDir)TombersAndPyramiders\Engine\Component\Collision;$(SolutionDir)TombersAndPyramiders\Engine\Component\Networking;$(SolutionDir)TombersAndPyramiders\Engine\Component\Transform;$(SolutionDir)TombersAndPyramiders\Engine\Component\Physics;$(SolutionDir)TombersAndPyramiders\Engine\Component\Render;$(SolutionDir)TombersAndPyramiders\Engine\External\Render;$(SolutionDir)TombersAndPyramiders\Engine\External\Math;$(SolutionDir)TombersAndPyramiders\Engine\External;$(SolutionDir)TombersAndPyramiders\Engine\Component;$(SolutionDir)TombersAndPyramiders\Engine\GameObjects;$(SolutionDir)TombersAndPyramiders\Engine\Manager;$(SolutionDir)TombersAndPyramiders\Engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
@@ -164,6 +164,7 @@
     <ClCompile Include="Game\Components\BaseController.cpp" />
     <ClCompile Include="Game\Components\CameraFollow.cpp" />
     <ClCompile Include="Game\Components\CharacterController.cpp" />
+    <ClCompile Include="Game\Components\DoorController.cpp" />
     <ClCompile Include="Game\Components\Inventory.cpp" />
     <ClCompile Include="Game\ExternalClasses\AiPilot.cpp" />
     <ClCompile Include="Game\ExternalClasses\BaseChestplate.cpp" />
@@ -204,6 +205,8 @@
     <ClCompile Include="Game\GameObjects\Character.cpp" />
     <ClCompile Include="Game\GameObjects\ClientCharacter.cpp" />
     <ClCompile Include="Game\GameObjects\DamagingRegion.cpp" />
+    <ClCompile Include="Game\GameObjects\Doors\Door.cpp" />
+    <ClCompile Include="Game\GameObjects\Doors\SingleDoor.cpp" />
     <ClCompile Include="Game\GameObjects\GameObjectTemplate.cpp" />
     <ClCompile Include="Game\GameObjects\GhostCharacter.cpp" />
     <ClCompile Include="Game\GameObjects\HostCharacter.cpp" />
@@ -262,6 +265,7 @@
     <ClInclude Include="Game\Components\BaseController.h" />
     <ClInclude Include="Game\Components\CameraFollow.h" />
     <ClInclude Include="Game\Components\CharacterController.h" />
+    <ClInclude Include="Game\Components\DoorController.h" />
     <ClInclude Include="Game\Components\Inventory.h" />
     <ClInclude Include="Game\ExternalClasses\AiPilot.h" />
     <ClInclude Include="Game\ExternalClasses\BaseChestplate.h" />
@@ -279,6 +283,7 @@
     <ClInclude Include="Game\ExternalClasses\Damageable.h" />
     <ClInclude Include="Game\ExternalClasses\HostPilot.h" />
     <ClInclude Include="Game\ExternalClasses\DummyPilot.h" />
+    <ClInclude Include="Game\ExternalClasses\Invokable.h" />
     <ClInclude Include="Game\ExternalClasses\PlayerPilot.h" />
     <ClInclude Include="Game\ExternalClasses\Possession\BasePossessableController.h" />
     <ClInclude Include="Game\ExternalClasses\Possession\GhostController.h" />
@@ -306,6 +311,7 @@
     <ClInclude Include="Game\GameObjects\Character.h" />
     <ClInclude Include="Game\GameObjects\ClientCharacter.h" />
     <ClInclude Include="Game\GameObjects\DamagingRegion.h" />
+    <ClInclude Include="Game\GameObjects\Doors\Door.h" />
     <ClInclude Include="Game\GameObjects\GameObjectTemplate.h" />
     <ClInclude Include="Game\GameObjects\GhostCharacter.h" />
     <ClInclude Include="Game\GameObjects\HostCharacter.h" />
@@ -313,6 +319,7 @@
     <ClInclude Include="Game\GameObjects\PlayerCharacter.h" />
     <ClInclude Include="Game\GameObjects\Projectile.h" />
     <ClInclude Include="Game\GameObjects\Boulder.h" />
+    <ClInclude Include="Game\GameObjects\Doors\SingleDoor.h" />
     <ClInclude Include="Game\Scenes\LaunchScene.h" />
     <ClInclude Include="Game\Scenes\NetworkedGameScene.h" />
     <ClInclude Include="Game\GameObjects\MiscSquare.h" />

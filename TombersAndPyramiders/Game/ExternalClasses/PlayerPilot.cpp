@@ -15,6 +15,9 @@
 #include "InputManager.h"
 #include "Vector2.h"
 #include "Sender.h"
+#include "GameManager.h"
+#include "Invokable.h"
+#include "BasePossessableController.h"
 
 /*----------------------------------------------------------------------------------------
 	Instance Setter Methods
@@ -54,11 +57,25 @@ void PlayerPilot::onUpdate(int ticks)
 			m_characterController->useWeapon();
 			m_characterController->getGameObject()->getComponent<Sender>()->sendAttack();
 		}
+		else
+		{
+			tryInvokeTrigger();
+		}
 	}
 	if (InputManager::getInstance()->onKeyPressed(SDLK_e)) 
 	{
 		m_characterController->trySwapItem();
 		//Pickup/Drop items
+	}
+}
+
+void PlayerPilot::tryInvokeTrigger()
+{
+	if (InputManager::getInstance()->onKeyPressed(SDLK_z))
+	{
+		if (m_characterController->tryInvokeTrigger()) {
+			m_characterController->getGameObject()->getComponent<Sender>()->sendTrigger();
+		}
 	}
 }
 
