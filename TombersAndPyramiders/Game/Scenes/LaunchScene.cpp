@@ -15,7 +15,7 @@ void LaunchScene::onStart()
 	SpawnManager::getInstance();
 	GameManager::getInstance()->createGameObject<SimpleSprite>(false, "LandingPage.png", 0, 0, -1000, 42);
 	AudioManager::getInstance()->playMusic();
-	SpawnManager::getInstance()->sendStartPacket(); // Temporary: For testing local play in visual studio
+	//SpawnManager::getInstance()->sendStartPacket(); // Temporary: For testing local play in visual studio
 }
 
 void LaunchScene::onPause()

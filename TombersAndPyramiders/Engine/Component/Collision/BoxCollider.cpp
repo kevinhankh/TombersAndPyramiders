@@ -18,12 +18,12 @@ BoxCollider::BoxCollider(GameObject* parentGameObject, float width, float height
 
 float BoxCollider::getWidth()
 {
-	return m_width;
+	return m_width * gameObject->getTransform()->getScale();
 }
 
 float BoxCollider::getHeight()
 {
-	return m_height;
+	return m_height * gameObject->getTransform()->getScale();
 }
 
 void BoxCollider::setWidth(float width)

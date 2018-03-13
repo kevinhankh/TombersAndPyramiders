@@ -88,6 +88,9 @@
     <ClCompile Include="Paper.cpp" />
     <ClCompile Include="PathFinding.cpp" />
     <ClCompile Include="Game\Scenes\LaunchScene.cpp" />
+    <ClCompile Include="Game\Scenes\MainMenuScene.cpp" />
+    <ClCompile Include="Game\GameObjects\Button.cpp" />
+    <ClCompile Include="Game\GameObjects\CreateButton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Component\AI\AI.h" />
@@ -184,6 +187,9 @@
     <ClInclude Include="PathFinding.h" />
     <ClInclude Include="SearchCell.h" />
     <ClInclude Include="Game\Scenes\LaunchScene.h" />
+    <ClInclude Include="Game\Scenes\MainMenuScene.h" />
+    <ClInclude Include="Game\GameObjects\Button.h" />
+    <ClInclude Include="Game\GameObjects\CreateButton.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Character.bmp" />

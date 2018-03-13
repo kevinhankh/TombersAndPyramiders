@@ -6,7 +6,7 @@ MiscSquare::MiscSquare(string spriteName, bool hasCollider) : SimpleSprite(sprit
 	if (hasCollider)
 	{
 		//addComponent<BoxCollider>(this, getTransform()->getScale(), getTransform()->getScale());
-		addComponent<BoxCollider>(this, 5, 5);
+		addComponent<BoxCollider>(this, 1, 1);
 	}
 }
 
