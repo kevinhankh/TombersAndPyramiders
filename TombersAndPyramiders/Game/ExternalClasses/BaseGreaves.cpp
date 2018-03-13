@@ -62,7 +62,7 @@ void BaseGreaves::updateEffect(int ticks)
 {
 	if (m_isActive)
 	{
-		effect();
+		effect(ticks);
 		m_timeUntilNextUse -= (float)ticks / 1000.0f;
 
 		if (m_timeUntilNextUse <= 0)

@@ -13,6 +13,7 @@
 	Dependencies
 ========================================================================================*/
 #include "BaseGreaves.h"
+class Vector2;
 
 /*========================================================================================
 	WoodenGreaves	
@@ -25,6 +26,15 @@ class WoodenGreaves : public BaseGreaves
     ----------------------------------------------------------------------------------------*/
 	private:
 		static const float WOODEN_GREAVES_COOLDOWN_TIME;
+		static const float WOODEN_GREAVES_DASH_DURATION;
+		static const float WOODEN_GREAVES_MAX_DASH_SPEED;
+		
+    /*----------------------------------------------------------------------------------------
+		Instance Fields
+    ----------------------------------------------------------------------------------------*/
+	private:
+		float m_timeLeftInDash;
+		std::unique_ptr<Vector2> m_dashDirection;
 
     /*----------------------------------------------------------------------------------------
 		Resource Management
@@ -39,5 +49,6 @@ class WoodenGreaves : public BaseGreaves
 		Instance Methods
 	----------------------------------------------------------------------------------------*/
     public:
+		virtual void onStart();
 		void effect(int ticks);
 };

@@ -24,7 +24,7 @@ class BaseGreaves : public BaseEquippableItem, public Updateable, public std::en
     /*----------------------------------------------------------------------------------------
 		Instance Fields
     ----------------------------------------------------------------------------------------*/
-	private:
+	protected:
 		float m_cooldownTime;
 		bool m_isActive;
 		float m_timeUntilNextUse;
