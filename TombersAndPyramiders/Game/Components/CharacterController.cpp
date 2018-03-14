@@ -146,11 +146,20 @@ void CharacterController::useGreaves()
 void CharacterController::takeDamage(int damage)
 {
 	std::shared_ptr<BaseShield> shield = m_inventory->getShield();
+	std::shared_ptr<BaseChestplate> chestplate = m_inventory->getChestplate();
 	auto realDamage = damage;
+
+	/* Apply shield defense */
 	if (shield != nullptr && 
 		shield->isBlocking())
 	{
-		realDamage = shield->calculateRealDamage(damage);
+		realDamage = shield->calculateRealDamage(realDamage);
+	}
+
+	/* Apply chestplate defense */
+	if (chestplate != nullptr)
+	{
+		realDamage = chestplate->calculateRealDamage(realDamage);
 	}
 
 	Damageable::takeDamage(realDamage);

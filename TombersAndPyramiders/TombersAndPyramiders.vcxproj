@@ -182,6 +182,7 @@
     <ClCompile Include="Game\ExternalClasses\HostPilot.cpp" />
     <ClCompile Include="Game\ExternalClasses\DummyPilot.cpp" />
     <ClCompile Include="Game\ExternalClasses\PlayerPilot.cpp" />
+    <ClCompile Include="Game\ExternalClasses\WoodenChestplate.cpp" />
     <ClCompile Include="Game\ExternalClasses\WoodenGreaves.cpp" />
     <ClCompile Include="Game\ExternalClasses\WoodenLongbow.cpp" />
     <ClCompile Include="Game\ExternalClasses\WoodenShield.cpp" />
@@ -277,6 +278,7 @@
     <ClInclude Include="Game\ExternalClasses\DummyPilot.h" />
     <ClInclude Include="Game\ExternalClasses\PlayerPilot.h" />
     <ClInclude Include="Game\ExternalClasses\UserDefinedRenderLayers.h" />
+    <ClInclude Include="Game\ExternalClasses\WoodenChestplate.h" />
     <ClInclude Include="Game\ExternalClasses\WoodenGreaves.h" />
     <ClInclude Include="Game\ExternalClasses\WoodenLongbow.h" />
     <ClInclude Include="Game\ExternalClasses\WoodenShield.h" />
