@@ -74,7 +74,6 @@ void GameManager::onUpdate(int ticks)
 		{
 			NetworkingManager::getInstance()->handleParsingEvents(tmp);
 		}
-
 		NetworkingManager::getInstance()->sendQueuedEvents();
 	}
 

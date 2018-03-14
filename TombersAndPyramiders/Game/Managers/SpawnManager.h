@@ -24,13 +24,16 @@ public:
 	std::shared_ptr<WorldItem> generateWorldItem(float x, float y, std::shared_ptr<BaseItem> item);
 	std::shared_ptr<Character> generateDummyCharacter(float x, float y);
 
-	std::shared_ptr<HostCharacter> generateNetworkCharacter(Uint32 ip, float x, float y);
+	std::shared_ptr<HostCharacter> generateNetworkCharacter(int id, float x, float y);
 
-	std::shared_ptr<ClientCharacter> generatePlayerCharacter(Uint32 ip, float x, float y);
+	std::shared_ptr<ClientCharacter> generatePlayerCharacter(int id, float x, float y);
 	void sendStartPacket();
+	void listenForStartPacket ();
+	void stopListeningForStartPacket ();
 
 	static std::shared_ptr<SpawnManager> getInstance();
 
 private:
 	static std::shared_ptr<SpawnManager> s_instance;
+	int m_startPacketListenerID;
 };

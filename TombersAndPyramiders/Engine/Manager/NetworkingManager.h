@@ -19,7 +19,7 @@ struct Message
 class NetworkingManager
 {
 private:
-	int m_startPacketID;
+	int m_handshakeListenerID;
 	bool m_inLobby = false; //closeall will set both of these to false
 	bool m_gameStarted = false;
 	bool m_isHost = false;
@@ -40,21 +40,25 @@ private:
 	bool accept();
 	bool host();
 	bool join();
-	void pollMessages(Uint32 ip);
-	void pollMessagesThread(Uint32 ip);
+	void pollMessages(int id);
+	void pollMessagesThread(int id);
 	void pollMessagesUDP();
 	void pollMessagesThreadUDP();
 	std::string serializeMessage(Message message);
 	std::map<std::string, void*> deserializeMessage(std::string message);
 	void sendEventToReceiver(std::map<std::string, void*> data);
-	void sendAcceptPacket (Uint32 ip, int player_id);
+	void sendAcceptPacket (int id);
 
 public:
-	std::map<Uint32, TCPsocket> m_clients;
+	bool m_assignedID = -1;
+	std::map<int, std::pair<Uint32, TCPsocket>> m_clients;
 	void listenForStart();
 	void stopListeningForStart();
 	void sendStartPacket();
-	bool close(Uint32 IP);
+	void listenforAcceptPacket ();
+	void stopListeningForAcceptPacket ();
+	bool closeClientAsHost (int id);
+	bool closeClient ();
 	bool closeUDP();
 	NetworkingManager();
 	static NetworkingManager* getInstance();
@@ -63,7 +67,7 @@ public:
 	bool startGameClient();
 	bool createHost();
 	bool createClient();
-	void send(Uint32 ip, std::string *msg);
+	void send(int id, std::string *msg);
 	bool createUDPPacket(int packetSize);
 	void sendUDP(std::string *msg);
 	bool getMessage(std::string &msg);
@@ -71,6 +75,7 @@ public:
 	void sendQueuedEvents();
 	void handleParsingEvents(std::string packet);
 	bool isConnected();
+	bool isSelf (int id);
 	bool isHost();
 	bool inLobby () {
 		return m_inLobby;
@@ -80,6 +85,5 @@ public:
 	}
 	void setIP(char *ip, int port = DEFAULT_PORT);
 	int addPlayer(Uint32 ip, TCPsocket sock);
-	int removePlayer(Uint32 ip);
-	bool isSelf (Uint32 ip);
+	int removePlayer(int ip);
 };

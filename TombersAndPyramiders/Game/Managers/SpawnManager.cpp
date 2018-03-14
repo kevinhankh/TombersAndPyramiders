@@ -16,7 +16,7 @@
 
 std::shared_ptr<SpawnManager> SpawnManager::s_instance;
 
-void callback(std::map<std::string, void*> payload)
+void startGameCallback(std::map<std::string, void*> payload)
 {
 	std::cout << "Client Start." << std::endl;
 
@@ -38,6 +38,7 @@ void callback(std::map<std::string, void*> payload)
 	}
 
 	NetworkingManager::getInstance ()->startGameClient ();
+	SpawnManager::getInstance ()->stopListeningForStartPacket ();
 }
 
 void SpawnManager::sendStartPacket()
@@ -49,14 +50,14 @@ void SpawnManager::sendStartPacket()
 
 	payload["playerSpawns"] = std::to_string(NetworkingManager::getInstance()->m_clients.size());
 
-	int id = 1000, x = 0, y = 0;
+	int id = 0, x = 0, y = 0;
 	payload["playerSpawnIP0"] = std::to_string(id);
 	payload["playerSpawnX0"] = std::to_string(x);
 	payload["playerSpawnY0"] = std::to_string(y);
 	scene->setCameraFollow(SpawnManager::getInstance()->generatePlayerCharacter(id, x, y));
 
 	int i = 1;
-	for (auto it = NetworkingManager::getInstance()->m_clients.begin(); it != NetworkingManager::getInstance()->m_clients.end(); it++) {
+	for (auto it = ++NetworkingManager::getInstance()->m_clients.begin(); it != NetworkingManager::getInstance()->m_clients.end(); it++) {
 		id = it->first;
 		x = 2 * i;
 		y = 0;
@@ -69,6 +70,15 @@ void SpawnManager::sendStartPacket()
 	NetworkingManager::getInstance()->prepareMessageForSending("STARTGAME", payload);
 }
 
+void SpawnManager::listenForStartPacket()
+{
+	this->m_startPacketListenerID = MessageManager::subscribe("STARTGAME", startGameCallback, this);
+}
+
+void SpawnManager::stopListeningForStartPacket () {
+	MessageManager::unSubscribe ("STARTGAME", m_startPacketListenerID);
+}
+
 std::shared_ptr<SpawnManager> SpawnManager::getInstance()
 {
 	if (s_instance == nullptr)
@@ -79,13 +89,11 @@ std::shared_ptr<SpawnManager> SpawnManager::getInstance()
 SpawnManager::SpawnManager() : GameObject()
 {
 	auto receiver = addComponent<Receiver>(this, std::to_string(getId()));
-	MessageManager::subscribe("STARTGAME", callback, this);
 	auto sender = addComponent<Sender>(this, std::to_string(getId()));
 }
 
-std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(Uint32 ip, float x, float y)
+std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(int id, float x, float y)
 {
-	int id = ip;
 	std::shared_ptr<ClientCharacter> simpleCharacter = GameManager::getInstance()->createGameObjectWithId<ClientCharacter>(false, id, new PlayerPilot(), id);
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
 	simpleCharacter->getTransform()->setPosition(x, y, 100);
@@ -93,9 +101,8 @@ std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(Uint32 ip
 	return simpleCharacter;
 }
 
-std::shared_ptr<HostCharacter> SpawnManager::generateNetworkCharacter(Uint32 ip, float x, float y)
+std::shared_ptr<HostCharacter> SpawnManager::generateNetworkCharacter(int id, float x, float y)
 {
-	int id = ip;
 	std::shared_ptr<HostCharacter> simpleCharacter = GameManager::getInstance()->createGameObjectWithId<HostCharacter>(false, id, new HostPilot(), id);
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
 	simpleCharacter->getTransform()->setPosition(x, y, 100);

@@ -22,7 +22,7 @@ Receiver::Receiver(GameObject* gameObject, std::string netID) : Component(gameOb
 
 	this->m_onUpdateID = Subscribe("DESTROY", [](std::map<std::string, void*> data) -> void
 	{
-		int id = std::stoi(*(std::string*)data["playerId"]);
+		int id = std::stoi(*(std::string*)data["ID"]);
 		//destroy this
 	}, this);
 

@@ -22,7 +22,7 @@ void Sender::sendCreate()
 void Sender::sendDestroy()
 {
 	std::map<std::string, std::string> payload;
-	payload["playerId"] = std::to_string(gameObject->getId());
+	payload["ID"] = std::to_string(gameObject->getId());
 	sendNetworkMessage("DESTROY", payload);
 }
 
@@ -30,7 +30,6 @@ void Sender::sendUpdate()
 {
 	if (!NetworkingManager::getInstance ()->inGame ())
 		return;
-	std::cout << "SEND IT" << this->m_id << std::endl;
 	std::map<std::string, std::string> payload;
 	Transform* transform = gameObject->getTransform();
 	payload["x"] = std::to_string(transform->getX());
@@ -61,8 +60,10 @@ void Sender::sendAttack()
 
 void Sender::sendNetworkMessage(std::string messageKey, std::map<std::string, std::string> payload)
 {
-	std::remove_if(messageKey.begin(), messageKey.end(), isspace);
-	NetworkingManager::getInstance()->prepareMessageForSending(this->m_id + "|" + messageKey, payload);
+	if (NetworkingManager::getInstance ()->inGame ()) {
+		std::remove_if (messageKey.begin (), messageKey.end (), isspace);
+		NetworkingManager::getInstance ()->prepareMessageForSending (this->m_id + "|" + messageKey, payload);
+	}
 }
 
 Sender::~Sender()
