@@ -316,7 +316,7 @@ void NetworkingManager::pollMessagesThread(int id)
 
 
 void NetworkingManager::sendAcceptPacket (int id) {
-	std::string packet = "[{key:ACCEPT,ID:" + std::to_string (id) + "}]";
+	std::string packet = "[{key:ACCEPT,NetID:" + std::to_string (id) + "}]";
 	send (id, &packet);
 }
 
@@ -324,7 +324,7 @@ void NetworkingManager::listenforAcceptPacket ()
 {
 	this->m_handshakeListenerID = MessageManager::subscribe ("ACCEPT", [](std::map<std::string, void*> data) -> void
 	{
-		NetworkingManager::getInstance()->m_assignedID = std::stoi (*(std::string*)data["ID"]);
+		NetworkingManager::getInstance()->m_assignedID = std::stoi (*(std::string*)data["NetID"]);
 		NetworkingManager::getInstance ()->stopListeningForAcceptPacket ();
 		SpawnManager::getInstance ()->listenForStartPacket ();
 
