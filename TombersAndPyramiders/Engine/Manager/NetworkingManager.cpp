@@ -235,7 +235,7 @@ void NetworkingManager::send(int id, std::string *msg)
 	int result, len;
 	len = msg->length() + 1;
 
-	std::cout << "Sending: ID: " << id << " Packet: " << m_clients[id].first << " Message: " << *msg << std::endl;
+	//std::cout << "Sending: ID: " << id << " Packet: " << m_clients[id].first << " Message: " << *msg << std::endl;
 
 	if (m_clients.find (id) != m_clients.end ()) {
 		result = SDLNet_TCP_Send (m_clients[id].second, msg->c_str (), len);
@@ -303,7 +303,7 @@ void NetworkingManager::pollMessagesThread(int id)
 			continue;
 		}
 		std::string newMsg = msg;
-		std::cout << "RECIEVING: " << msg << std::endl;
+		//std::cout << "RECIEVING: " << msg << std::endl;
 		m_messageQueue->push(newMsg);
 	}
 	if (isHost ()) {
@@ -384,6 +384,7 @@ bool NetworkingManager::getMessage(std::string &msg)
 	if (!m_messageQueue->isEmpty())
 	{
 		m_messageQueue->pop(msg);
+		std::cout << "Msg: " << msg << std::endl;
 		return true;
 	}
 	return false;
@@ -391,7 +392,6 @@ bool NetworkingManager::getMessage(std::string &msg)
 
 void NetworkingManager::prepareMessageForSending(std::string key, std::map<std::string, std::string> data)
 {
-	std::cout << " Some more packets " << key << std::endl;
 	Message message;
 	message.key = key;
 	message.data = data;

@@ -65,6 +65,7 @@ void SpawnManager::sendStartPacket()
 		payload["playerSpawnX" + std::to_string(i)] = std::to_string(x);
 		payload["playerSpawnY" + std::to_string(i)] = std::to_string(y);
 		SpawnManager::getInstance()->generateNetworkCharacter(id, x, y);
+		i++;
 	}
 
 	NetworkingManager::getInstance()->prepareMessageForSending("STARTGAME", payload);
