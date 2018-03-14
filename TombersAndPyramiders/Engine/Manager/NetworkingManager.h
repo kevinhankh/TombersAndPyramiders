@@ -50,7 +50,7 @@ private:
 	void sendAcceptPacket (int id);
 
 public:
-	bool m_assignedID = -1;
+	int m_assignedID = -1;
 	std::map<int, std::pair<Uint32, TCPsocket>> m_clients;
 	void listenForStart();
 	void stopListeningForStart();

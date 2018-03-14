@@ -332,7 +332,7 @@ void NetworkingManager::listenforAcceptPacket ()
 }
 
 void NetworkingManager::stopListeningForAcceptPacket () {
-	std::cout << "Our Network ID: " << m_assignedID;
+	std::cout << "Our Network ID: " << m_assignedID << std::endl;
 	MessageManager::unSubscribe ("ACCEPT", m_handshakeListenerID);
 }
 
