@@ -64,6 +64,7 @@ void BaseProjectileWeapon::onStart()
 			m_projectileColliderSize.getX(), m_projectileColliderSize.getY(),
 			m_destroyProjectilesOnCollision,
 			spawnPoint.getX(), spawnPoint.getY(),
+			-owner()->getTransform()->getRotation(), 
 			m_projectileSpriteScale,
 			velocity.getX(), velocity.getY(),
 			m_projectileLifespan);

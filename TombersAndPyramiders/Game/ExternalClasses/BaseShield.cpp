@@ -89,8 +89,8 @@ void BaseShield::updatePosition()
 
 		m_sprite->getTransform()->setPosition(newPosition.getX(), newPosition.getY());
 
-		/* Set the weapon's rotation about its center. */
-		m_sprite->getTransform()->setRotation(owner()->getTransform()->getRotation());
+		/* Set the shield's rotation about its center. */
+		m_sprite->getTransform()->setRotation(-owner()->getTransform()->getRotation());
 	}
 }
 

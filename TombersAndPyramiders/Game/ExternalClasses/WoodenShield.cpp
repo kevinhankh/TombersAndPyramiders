@@ -15,7 +15,7 @@
 /*----------------------------------------------------------------------------------------
 	Static Fields
 ----------------------------------------------------------------------------------------*/
-const string WoodenShield::WOODEN_SHIELD_IMAGE_NAME = "IceTile.png";
+const string WoodenShield::WOODEN_SHIELD_IMAGE_NAME = "TempWoodenShield.png";
 const float WoodenShield::WOODEN_SHIELD_DAMAGE_MULT = 0.9f;
 const float WoodenShield::WOODEN_SHIELD_COOLDOWN_TIME = 0.5f;
 

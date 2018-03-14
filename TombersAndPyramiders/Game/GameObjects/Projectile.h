@@ -35,8 +35,8 @@ class Projectile : public DamagingRegion
 
 		explicit Projectile(int damage, string imageName, float colliderWidth, float colliderHeight, 
 			bool destroyOnCollision, 
-			float spawnXPosition, float spawnYPosition, float spriteScale, 
-			float xVelocity, float yVelocity, 
+			float spawnXPosition, float spawnYPosition, float spawnRotation, float spriteScale, 
+			float xVelocity, float yVelocity,
 			float lifespan);
 
 		virtual ~Projectile();

@@ -16,7 +16,7 @@
 	Static Fields
 ----------------------------------------------------------------------------------------*/
 const int WoodenShortsword::WOODEN_SHORTSWORD_DAMAGE = 20;
-const string WoodenShortsword::WOODEN_SHORTSWORD_IMAGE_NAME = "IceTile.png";
+const string WoodenShortsword::WOODEN_SHORTSWORD_IMAGE_NAME = "TempWoodenShortsword.png";
 const bool WoodenShortsword::WOODEN_SHORTSWORD_DESTROY_ON_COLLISION = false;
 
 /*----------------------------------------------------------------------------------------

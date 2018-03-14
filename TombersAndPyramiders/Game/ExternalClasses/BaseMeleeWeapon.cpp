@@ -89,7 +89,7 @@ void BaseMeleeWeapon::updatePosition()
 		m_damagingRegion->getTransform()->setPosition(newPosition.getX(), newPosition.getY());
 
 		/* Set the weapon's rotation about its center. */
-		m_damagingRegion->getTransform()->setRotation(owner()->getTransform()->getRotation());
+		m_damagingRegion->getTransform()->setRotation(-owner()->getTransform()->getRotation());
 	}
 }
 

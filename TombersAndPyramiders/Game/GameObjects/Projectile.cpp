@@ -20,11 +20,13 @@
 	Resource Management
 ----------------------------------------------------------------------------------------*/
 Projectile::Projectile(int damage, string imageName, float colliderWidth, float colliderHeight, bool destroyOnCollision, 
-	float spawnXPosition, float spawnYPosition, float spriteScale, float xVelociy, float yVelocity, float lifespan) :
+	float spawnXPosition, float spawnYPosition, float spawnRotation, float spriteScale, float xVelociy, float yVelocity, float lifespan) :
 	DamagingRegion{ damage, imageName, colliderWidth, colliderHeight, destroyOnCollision, spawnXPosition, spawnYPosition, spriteScale },
 	m_velocity{ Vector2(xVelociy, yVelocity) },
 	m_lifespan{ lifespan }
-{}
+{
+	GameObject::getTransform()->setRotation(spawnRotation);
+}
 
 Projectile::~Projectile()
 {}
