@@ -192,6 +192,7 @@
     <ClInclude Include="Game\ExternalClasses\WoodenShield.h" />
     <ClInclude Include="Game\ExternalClasses\WoodenGreaves.h" />
     <ClInclude Include="Game\ExternalClasses\WoodenChestplate.h" />
+    <ClInclude Include="Game\ExternalClasses\RandomHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Character.bmp" />

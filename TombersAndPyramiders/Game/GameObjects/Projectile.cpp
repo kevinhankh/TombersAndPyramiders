@@ -59,7 +59,7 @@ void Projectile::handleSingleCollision(GameObject* other)
 		{
 			m_hitList.insert(otherId);
 
-			ccOther->takeDamage(m_damage);
+			ccOther->takeDamage(m_damage, isCriticalHit());
 
 			if (m_destroyOnCollision)
 			{

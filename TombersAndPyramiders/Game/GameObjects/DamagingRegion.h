@@ -17,6 +17,7 @@
 #include "SimpleSprite.h"
 #include "Vector2.h"
 #include <unordered_set>
+#include "RandomHelper.h"
 class BaseWeapon;
 class Collider;
 
@@ -25,6 +26,13 @@ class Collider;
 ========================================================================================*/
 class DamagingRegion : public SimpleSprite
 {
+    /*----------------------------------------------------------------------------------------
+		Class Fields
+    ----------------------------------------------------------------------------------------*/
+	protected:
+		static RandomHelper s_random;
+		static const float CRITICAL_HIT_DAMAGE_MULTIPLIER;
+
     /*----------------------------------------------------------------------------------------
 		Instance Fields
     ----------------------------------------------------------------------------------------*/
@@ -59,4 +67,5 @@ class DamagingRegion : public SimpleSprite
 	protected:
 		virtual void handleCollisions();
 		virtual void handleSingleCollision(GameObject* other);
+		virtual bool isCriticalHit();
 };

@@ -16,6 +16,13 @@
 #include "BoxCollider.h"
 #include "CharacterController.h"
 #include "Damageable.h"
+#include "RandomHelper.h"
+
+/*----------------------------------------------------------------------------------------
+	Resource Management
+----------------------------------------------------------------------------------------*/
+RandomHelper DamagingRegion::s_random = RandomHelper();
+const float DamagingRegion::CRITICAL_HIT_DAMAGE_MULTIPLIER = 2.0f;
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
@@ -88,7 +95,7 @@ void DamagingRegion::handleSingleCollision(GameObject* other)
 		{
 			m_hitList.insert(otherId);
 
-			ccOther->takeDamage(m_damage);
+			ccOther->takeDamage(m_damage, isCriticalHit());
 
 			if (m_destroyOnCollision)
 			{
@@ -98,4 +105,10 @@ void DamagingRegion::handleSingleCollision(GameObject* other)
 			return;
 		}
 	}
+}
+
+bool DamagingRegion::isCriticalHit()
+{
+	auto hi = s_random.random0to1();
+	return (hi < m_criticalHitChance);
 }

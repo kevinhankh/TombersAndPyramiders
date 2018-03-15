@@ -97,11 +97,12 @@ class CharacterController : public BaseController, public Damageable
 
 		/**
 			Applies the given amount of damage to the character.
+			Applies double damage if isCriticalHit, unless an equipped item nullifies the critical damage.
 			
 			The character will handle applying any scaling of this value 
 			based on buffs and equipment.
 		*/
-		virtual void takeDamage(int damage);
+		virtual void takeDamage(int damage, bool isCriticalHit);
 
 	protected:
 		/**

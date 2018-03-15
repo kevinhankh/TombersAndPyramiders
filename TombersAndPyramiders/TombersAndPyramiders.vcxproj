@@ -277,6 +277,7 @@
     <ClInclude Include="Game\ExternalClasses\HostPilot.h" />
     <ClInclude Include="Game\ExternalClasses\DummyPilot.h" />
     <ClInclude Include="Game\ExternalClasses\PlayerPilot.h" />
+    <ClInclude Include="Game\ExternalClasses\RandomHelper.h" />
     <ClInclude Include="Game\ExternalClasses\UserDefinedRenderLayers.h" />
     <ClInclude Include="Game\ExternalClasses\WoodenChestplate.h" />
     <ClInclude Include="Game\ExternalClasses\WoodenGreaves.h" />

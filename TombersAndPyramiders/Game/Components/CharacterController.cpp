@@ -143,7 +143,7 @@ void CharacterController::useGreaves()
 	}
 }
 
-void CharacterController::takeDamage(int damage)
+void CharacterController::takeDamage(int damage, bool isCriticalHit)
 {
 	std::shared_ptr<BaseShield> shield = m_inventory->getShield();
 	std::shared_ptr<BaseChestplate> chestplate = m_inventory->getChestplate();
