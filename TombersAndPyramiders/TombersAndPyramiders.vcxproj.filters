@@ -92,6 +92,7 @@
     <ClCompile Include="Game\ExternalClasses\WoodenShield.cpp" />
     <ClCompile Include="Game\ExternalClasses\WoodenGreaves.cpp" />
     <ClCompile Include="Game\ExternalClasses\WoodenChestplate.cpp" />
+    <ClCompile Include="Game\ExternalClasses\WoodenHelmet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Component\AI\AI.h" />
@@ -193,6 +194,7 @@
     <ClInclude Include="Game\ExternalClasses\WoodenGreaves.h" />
     <ClInclude Include="Game\ExternalClasses\WoodenChestplate.h" />
     <ClInclude Include="Game\ExternalClasses\RandomHelper.h" />
+    <ClInclude Include="Game\ExternalClasses\WoodenHelmet.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Character.bmp" />

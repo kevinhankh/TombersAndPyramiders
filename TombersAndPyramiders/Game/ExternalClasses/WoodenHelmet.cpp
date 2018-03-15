@@ -1,7 +1,7 @@
 /*===================================================================================*//**
-	BaseHelmet
+	WoodenHelmet
 	
-	Abstract class for a base helmet.
+	A weak wooden helmet.
 
     @author Erick Fernandez de Arteaga
 	
@@ -10,31 +10,16 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include <stdexcept>
-#include "BaseHelmet.h"
-#include "Inventory.h"
+#include "WoodenHelmet.h"
+
+/*----------------------------------------------------------------------------------------
+	Class Fields
+----------------------------------------------------------------------------------------*/
+const float WoodenHelmet::WOODEN_HELMET_CRITICAL_RESIST_CHANCE = 0.05f;
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-BaseHelmet::BaseHelmet(float criticalResistChance) :
-	m_criticalResistChance{ criticalResistChance }
-{
-	if (m_criticalResistChance < 0)
-	{
-		throw std::invalid_argument("BaseHelmet::BaseHelmet(): m_criticalResistChance must be non-negative.");
-	}
-}
-
-/*----------------------------------------------------------------------------------------
-	Instance Methods
-----------------------------------------------------------------------------------------*/
-bool BaseHelmet::doesAvoidCriticalHit()
-{
-	return (m_criticalResistChance < s_random.random0to1());
-}
-
-std::shared_ptr<BaseItem> BaseHelmet::addSubclassToInventory()
-{
-	return m_inventory->setHelmet(shared_from_this());
-}
+WoodenHelmet::WoodenHelmet() :
+	BaseHelmet{ WOODEN_HELMET_CRITICAL_RESIST_CHANCE }
+{}

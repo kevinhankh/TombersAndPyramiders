@@ -109,6 +109,5 @@ void DamagingRegion::handleSingleCollision(GameObject* other)
 
 bool DamagingRegion::isCriticalHit()
 {
-	auto hi = s_random.random0to1();
-	return (hi < m_criticalHitChance);
+	return (s_random.random0to1() < m_criticalHitChance);
 }

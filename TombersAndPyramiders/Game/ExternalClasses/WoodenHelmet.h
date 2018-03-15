@@ -1,7 +1,7 @@
 /*===================================================================================*//**
-	BaseHelmet
+	WoodenHelmet
 	
-	Abstract class for a base helmet.
+	A weak wooden helmet.
 
     @author Erick Fernandez de Arteaga
 	
@@ -12,36 +12,25 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "BaseEquippableItem.h"
+#include "BaseHelmet.h"
 
 /*========================================================================================
-	BaseHelmet	
+	WoodenHelmet	
 ========================================================================================*/
-class BaseHelmet : public BaseEquippableItem, public std::enable_shared_from_this<BaseHelmet>
+class WoodenHelmet : public BaseHelmet
 {
     /*----------------------------------------------------------------------------------------
-		Instance Fields
+		Class Fields
     ----------------------------------------------------------------------------------------*/
     private:
-		float m_criticalResistChance;	/* Chance of ignoring the extra damage from a critical hit. */
+		static const float WOODEN_HELMET_CRITICAL_RESIST_CHANCE;
 
     /*----------------------------------------------------------------------------------------
 		Resource Management
     ----------------------------------------------------------------------------------------*/
     public:
         /** Default constructor. */
-        explicit BaseHelmet() = delete;
+        explicit WoodenHelmet();
 
-		explicit BaseHelmet(float criticalResistChance);
-
-		virtual ~BaseHelmet() {};
-
-	/*----------------------------------------------------------------------------------------
-		Instance Methods
-	----------------------------------------------------------------------------------------*/
-    public:
-		virtual bool doesAvoidCriticalHit();
-
-	protected:
-		std::shared_ptr<BaseItem> addSubclassToInventory();
+		virtual ~WoodenHelmet() {};
 };
