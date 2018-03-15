@@ -15,13 +15,24 @@
 #include <memory>
 
 /*----------------------------------------------------------------------------------------
+	Class Fields
+----------------------------------------------------------------------------------------*/
+const float BaseWeapon::CRITICAL_HIT_DAMAGE_MULTIPLIER = 2.0f;
+
+/*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-BaseWeapon::BaseWeapon(int damage, float attackCooldownTime) :
+BaseWeapon::BaseWeapon(int damage, float criticalHitChance, float attackCooldownTime) :
 	m_damage{ damage }, 
+	m_criticalHitChance{ criticalHitChance },
 	m_attackCooldownTime{ attackCooldownTime }, 
 	m_isAttacking{ false }
-{}
+{
+	if (m_criticalHitChance < 0)
+	{
+		throw std::invalid_argument("BaseWeapon::BaseWeapon(): m_criticalHitChanceMust be non-negative.");
+	}
+}
 
 /*----------------------------------------------------------------------------------------
 	Instance Methods
@@ -29,4 +40,9 @@ BaseWeapon::BaseWeapon(int damage, float attackCooldownTime) :
 std::shared_ptr<BaseItem> BaseWeapon::addSubclassToInventory()
 {
 	return m_inventory->setWeapon(shared_from_this());
+}
+
+bool BaseWeapon::isAttacking()
+{
+	return m_isAttacking;
 }

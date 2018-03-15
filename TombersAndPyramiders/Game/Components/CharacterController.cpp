@@ -95,7 +95,10 @@ void CharacterController::move(Vector2 delta)
 void CharacterController::useWeapon()
 {
 	std::shared_ptr<BaseWeapon> weapon = m_inventory->getWeapon();
-	if (weapon != nullptr)
+	std::shared_ptr<BaseShield> shield = m_inventory->getShield();
+
+	if (weapon != nullptr && 
+		(shield == nullptr || !shield->isBlocking()))
 	{
 		if (weapon->use())
 		{
@@ -112,9 +115,66 @@ void CharacterController::useWeapon()
 	}
 }
 
-void CharacterController::takeDamage(int damage)
+void CharacterController::useShield()
 {
-	Damageable::takeDamage(damage);
+	std::shared_ptr<BaseWeapon> weapon = m_inventory->getWeapon();
+	std::shared_ptr<BaseShield> shield = m_inventory->getShield();
+
+	if (shield != nullptr && 
+		(weapon == nullptr || !weapon->isAttacking()))
+	{
+		if (shield->use())
+		{
+			// TODO Shield SFX?
+		}
+	}
+}
+
+void CharacterController::useGreaves()
+{
+	std::shared_ptr<BaseGreaves> greaves = m_inventory->getGreaves();
+
+	if (greaves != nullptr)
+	{
+		if (greaves->use())
+		{
+			// TODO Greaves SFX?
+		}
+	}
+}
+
+void CharacterController::takeDamage(int damage, bool isCriticalHit)
+{
+	std::shared_ptr<BaseShield> shield = m_inventory->getShield();
+	std::shared_ptr<BaseChestplate> chestplate = m_inventory->getChestplate();
+	auto realDamage = damage;
+
+	/* Apply helmet defense. */
+	if (isCriticalHit)
+	{
+		std::shared_ptr<BaseHelmet> helmet = m_inventory->getHelmet();
+
+		if (helmet == nullptr || 
+			!helmet->doesAvoidCriticalHit())
+		{
+			realDamage *= BaseWeapon::CRITICAL_HIT_DAMAGE_MULTIPLIER;
+		}
+	}
+
+	/* Apply shield defense */
+	if (shield != nullptr && 
+		shield->isBlocking())
+	{
+		realDamage = shield->calculateRealDamage(realDamage);
+	}
+
+	/* Apply chestplate defense */
+	if (chestplate != nullptr)
+	{
+		realDamage = chestplate->calculateRealDamage(realDamage);
+	}
+
+	Damageable::takeDamage(realDamage);
 	m_character->playHurtAnimation();
 	AudioManager::getInstance()->playHitSFX();
 }

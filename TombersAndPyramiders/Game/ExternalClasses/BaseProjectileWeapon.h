@@ -41,7 +41,8 @@ class BaseProjectileWeapon : public BaseWeapon
         explicit BaseProjectileWeapon() = delete;
 
 		explicit BaseProjectileWeapon(int damage, std::string projectileImageName, 
-			Vector2 projectileColliderSize, bool destroyprojectilesOnCollision, float attackCooldownTime, 
+			Vector2 projectileColliderSize, bool destroyprojectilesOnCollision, float criticalHitChance, 
+			float attackCooldownTime, 
 			Vector2 projectileSpawnOffsetFromHolder, float projectileSpriteScale, 
 			Vector2 projectileVelocity, float projectileLifespan);
 

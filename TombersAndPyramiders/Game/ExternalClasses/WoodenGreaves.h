@@ -1,7 +1,7 @@
 /*===================================================================================*//**
-	BaseLongbow
+	WoodenGreaves
 	
-	Abstract class for a base longbow.
+	A pair of simple wooden greaves.
 
     @author Erick Fernandez de Arteaga
 	
@@ -12,40 +12,43 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "BaseProjectileWeapon.h"
-#include <string>
+#include "BaseGreaves.h"
+class Vector2;
 
 /*========================================================================================
-	BaseLongbow	
+	WoodenGreaves	
 ========================================================================================*/
-class BaseLongbow : public BaseProjectileWeapon
+class WoodenGreaves : public BaseGreaves
+
 {
     /*----------------------------------------------------------------------------------------
 		Static Fields
     ----------------------------------------------------------------------------------------*/
-	protected:
-		static const float LONGBOW_PROJECTILE_COLLIDER_WIDTH;
-		static const float LONGBOW_PROJECTILE_COLLIDER_HEIGHT;
-		static const float LONGBOW_PROJECTILE_SPRITE_SCALE;
-		static const float LONGBOW_PROJECTILE_SPAWN_X_OFFSET_FROM_HOLDER;
-		static const float LONGBOW_PROJECTILE_SPAWN_Y_OFFSET_FROM_HOLDER;
-		static const float LONGBOW_PROJECTILE_LIFESPAN;
-		static const float LONGBOW_PROJECTILE_X_VELOCITY;
-		static const float LONGBOW_PROJECTILE_Y_VELOCITY;
-		static const float LONGBOW_CRITICAL_HIT_CHANCE;
-		static const float LONGBOW_ATTACK_COOLDOWN_TIME;
+	private:
+		static const float WOODEN_GREAVES_COOLDOWN_TIME;
+		static const float WOODEN_GREAVES_DASH_DURATION;
+		static const float WOODEN_GREAVES_MAX_DASH_SPEED;
+		
+    /*----------------------------------------------------------------------------------------
+		Instance Fields
+    ----------------------------------------------------------------------------------------*/
+	private:
+		float m_timeLeftInDash;
+		std::unique_ptr<Vector2> m_dashDirection;
 
     /*----------------------------------------------------------------------------------------
 		Resource Management
     ----------------------------------------------------------------------------------------*/
     public:
         /** Default constructor. */
-        explicit BaseLongbow() = delete;
+        explicit WoodenGreaves();
 
-		explicit BaseLongbow(int damage, std::string projectileImageName,
-			Vector2 projectileColliderSize, bool destroyProjectilesOnCollision,
-			Vector2 projectileSpawnOffsetFromHolder, float projectileSpriteScale, 
-			Vector2 projectileVelocity, float projectileLifespan);
+		~WoodenGreaves() {};
 
-		virtual ~BaseLongbow() {};
+	/*----------------------------------------------------------------------------------------
+		Instance Methods
+	----------------------------------------------------------------------------------------*/
+    public:
+		virtual void onStart();
+		void effect(int ticks);
 };
