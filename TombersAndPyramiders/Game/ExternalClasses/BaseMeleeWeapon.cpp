@@ -20,13 +20,13 @@
 	Resource Management
 ----------------------------------------------------------------------------------------*/
 BaseMeleeWeapon::BaseMeleeWeapon(int damage, string imageName, float colliderWidth, float colliderHeight, 
-	bool destroyOnCollision, float attackCooldownTime, 
+	bool destroyOnCollision, float criticalHitChance, float attackCooldownTime, 
 	float xOffsetFromHolder, float yOffsetFromHolder, float colliderScale) :
-	BaseWeapon(damage, attackCooldownTime)
+	BaseWeapon(damage, criticalHitChance, attackCooldownTime)
 {
 	m_offsetFromHolder = Vector2(xOffsetFromHolder, yOffsetFromHolder);
 	m_damagingRegion = GameManager::getInstance()->createGameObject<DamagingRegion>(false, damage, imageName, 
-		colliderWidth, colliderHeight, destroyOnCollision, 0, 0, colliderScale);
+		colliderWidth, colliderHeight, criticalHitChance, destroyOnCollision, 0, 0, colliderScale);
 }
 
 /*----------------------------------------------------------------------------------------

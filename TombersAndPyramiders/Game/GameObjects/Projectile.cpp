@@ -1,7 +1,7 @@
 /*===================================================================================*//**
 	Projectile
 	
-	A Damaging region that is fired by a projectile weapon, moves, and destroys itself 
+	A DamagingRegion that is fired by a projectile weapon, moves, and destroys itself 
 	after a set duration or after hitting something.
     
     @author Erick Fernandez de Arteaga
@@ -19,9 +19,11 @@
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-Projectile::Projectile(int damage, string imageName, float colliderWidth, float colliderHeight, bool destroyOnCollision, 
+Projectile::Projectile(int damage, string imageName, float colliderWidth, float colliderHeight, 
+	float criticalHitChance, 
+	bool destroyOnCollision, 
 	float spawnXPosition, float spawnYPosition, float spawnRotation, float spriteScale, float xVelociy, float yVelocity, float lifespan) :
-	DamagingRegion{ damage, imageName, colliderWidth, colliderHeight, destroyOnCollision, spawnXPosition, spawnYPosition, spriteScale },
+	DamagingRegion{ damage, imageName, colliderWidth, colliderHeight, criticalHitChance, destroyOnCollision, spawnXPosition, spawnYPosition, spriteScale },
 	m_velocity{ Vector2(xVelociy, yVelocity) },
 	m_lifespan{ lifespan }
 {
