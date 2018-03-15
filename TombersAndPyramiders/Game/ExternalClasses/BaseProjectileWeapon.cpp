@@ -88,7 +88,7 @@ void BaseProjectileWeapon::updateAttack(int ticks)
 {
 	if (m_isAttacking)
 	{
-		m_timeUntilNextAttack -= ticks / TICKS_PER_SECOND;
+		m_timeUntilNextAttack -= (float)ticks / 1000.0f;
 
 		if (m_timeUntilNextAttack <= 0)
 		{

@@ -79,7 +79,7 @@ void Projectile::handleSingleCollision(GameObject* other)
 
 void Projectile::updatePosition(int ticks)
 {
-	float deltaTime = ticks / BaseItem::TICKS_PER_SECOND;
+	float deltaTime = (float)ticks / 1000.0f;
 	float xDelta = m_velocity.getX() * deltaTime;
 	float yDelta = m_velocity.getY() * deltaTime;
 
@@ -91,7 +91,7 @@ void Projectile::updatePosition(int ticks)
 
 void Projectile::updateLifespan(int ticks)
 {
-	m_lifespan -= ticks / BaseItem::TICKS_PER_SECOND;
+	m_lifespan -= (float) ticks / 1000.0f;
 
 	if (m_lifespan <= 0)
 	{

@@ -33,9 +33,6 @@ class BaseItem
 	/*----------------------------------------------------------------------------------------
 		Instance Fields
 	----------------------------------------------------------------------------------------*/
-	public:
-		static const float TICKS_PER_SECOND; /* Ha ha, I have no other place for this. */
-
 	protected:
 		Inventory* m_inventory;
 		std::string m_itemIcon;

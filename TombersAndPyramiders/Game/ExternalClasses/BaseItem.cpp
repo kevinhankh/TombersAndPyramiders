@@ -21,11 +21,6 @@ RandomHelper BaseItem::s_random = RandomHelper();
 /*----------------------------------------------------------------------------------------
 	Instance Methods
 ----------------------------------------------------------------------------------------*/
-const float BaseItem::TICKS_PER_SECOND = 60;
-
-/*----------------------------------------------------------------------------------------
-	Instance Methods
-----------------------------------------------------------------------------------------*/
 std::shared_ptr<BaseItem> BaseItem::addToInventory(Inventory* inventory)
 {
 	m_inventory = inventory;
