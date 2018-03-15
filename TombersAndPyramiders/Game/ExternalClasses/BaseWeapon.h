@@ -22,6 +22,12 @@
 class BaseWeapon : public BaseEquippableItem, public Updateable, public std::enable_shared_from_this<BaseWeapon>
 {
     /*----------------------------------------------------------------------------------------
+		Class Fields
+    ----------------------------------------------------------------------------------------*/
+	public:
+		static const float CRITICAL_HIT_DAMAGE_MULTIPLIER;
+
+    /*----------------------------------------------------------------------------------------
 		Instance Fields
     ----------------------------------------------------------------------------------------*/
 	protected:

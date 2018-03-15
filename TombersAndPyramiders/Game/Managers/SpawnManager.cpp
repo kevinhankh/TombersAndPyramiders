@@ -16,6 +16,7 @@
 #include "WoodenShield.h"
 #include "WoodenGreaves.h"
 #include "WoodenChestplate.h"
+#include "WoodenHelmet.h"
 
 std::shared_ptr<SpawnManager> SpawnManager::s_instance;
 
@@ -95,6 +96,7 @@ std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(Uint32 ip
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenShield>());
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenGreaves>());
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenChestplate>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenHelmet>());
 	simpleCharacter->getTransform()->setPosition(x, y, 100);
 
 	return simpleCharacter;
@@ -145,6 +147,7 @@ std::shared_ptr<Character> SpawnManager::generateAiCharacter(float x, float y)
 	std::shared_ptr<Character> simpleAi = GameManager::getInstance()->createGameObject<Character>(false, new AiPilot());
 	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
 	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenChestplate>());
+	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenHelmet>());
 	simpleAi->getTransform()->setPosition(x, y);
 
 	return simpleAi;
@@ -155,6 +158,7 @@ std::shared_ptr<Character> SpawnManager::generateDummyCharacter(float x, float y
 	std::shared_ptr<Character> simpleCharacter = GameManager::getInstance()->createGameObject<Character>(false, new DummyPilot());
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenShortsword>());
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenChestplate>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenHelmet>());
 	simpleCharacter->getTransform()->setPosition(x, y);
 
 	return simpleCharacter;

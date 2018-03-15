@@ -31,7 +31,7 @@ BaseHelmet::BaseHelmet(float criticalResistChance) :
 ----------------------------------------------------------------------------------------*/
 bool BaseHelmet::doesAvoidCriticalHit()
 {
-	return (m_criticalResistChance < s_random.random0to1());
+	return (s_random.random0to1() < m_criticalResistChance);
 }
 
 std::shared_ptr<BaseItem> BaseHelmet::addSubclassToInventory()

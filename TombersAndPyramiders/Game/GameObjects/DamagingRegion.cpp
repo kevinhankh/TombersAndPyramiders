@@ -22,7 +22,6 @@
 	Resource Management
 ----------------------------------------------------------------------------------------*/
 RandomHelper DamagingRegion::s_random = RandomHelper();
-const float DamagingRegion::CRITICAL_HIT_DAMAGE_MULTIPLIER = 2.0f;
 
 /*----------------------------------------------------------------------------------------
 	Resource Management

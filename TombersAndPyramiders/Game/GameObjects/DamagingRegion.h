@@ -31,7 +31,6 @@ class DamagingRegion : public SimpleSprite
     ----------------------------------------------------------------------------------------*/
 	protected:
 		static RandomHelper s_random;
-		static const float CRITICAL_HIT_DAMAGE_MULTIPLIER;
 
     /*----------------------------------------------------------------------------------------
 		Instance Fields
