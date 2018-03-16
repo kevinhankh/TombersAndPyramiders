@@ -89,8 +89,6 @@ std::shared_ptr<SpawnManager> SpawnManager::getInstance()
 
 SpawnManager::SpawnManager() : GameObject()
 {
-	auto receiver = addComponent<Receiver>(this, std::to_string(getId()));
-	auto sender = addComponent<Sender>(this, std::to_string(getId()));
 }
 
 std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(int id, float x, float y)
