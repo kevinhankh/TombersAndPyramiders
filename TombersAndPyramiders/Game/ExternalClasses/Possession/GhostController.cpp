@@ -2,7 +2,7 @@
 #include "BasePossessableController.h"
 #include "GhostCharacter.h"
 
-const float GhostController::MAX_POSSESSION_DISTANCE = 2.0f;
+const float GhostController::MAX_POSSESSION_DISTANCE = 3.0f;
 
 GhostController::GhostController(GameObject* parentGameobject, BasePilot* pilot) : BaseController(parentGameobject, pilot)
 {
@@ -34,11 +34,7 @@ bool GhostController::tryPossess(std::shared_ptr<BasePossessableController> toPo
 {
 	if (toPossess != nullptr)
 	{
-		Vector2 theirPos = Vector2(toPossess->getGameObject()->getTransform()->getX(), toPossess->getGameObject()->getTransform()->getY());
-		Vector2 ourPos = Vector2(gameObject->getTransform()->getX(), gameObject->getTransform()->getY());
-		Vector2 diffPos = *(theirPos - ourPos);
-		float distance = sqrtf(diffPos.getX() * diffPos.getX() + diffPos.getY() + diffPos.getY());
-		if (distance <= MAX_POSSESSION_DISTANCE)
+		if (gameObject->getTransform()->getDistance(toPossess->getGameObject()->getTransform()) <= MAX_POSSESSION_DISTANCE)
 		{
 			GhostCharacter* ghost = dynamic_cast<GhostCharacter*>(gameObject);
 			if (ghost != nullptr)

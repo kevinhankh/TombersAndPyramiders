@@ -39,6 +39,12 @@ void PossessionTestScene::onStart()
 	SpawnManager::getInstance()->generateBoulder(5, 0);
 	SpawnManager::getInstance()->generateAiCharacter(-10, 0);
 	SpawnManager::getInstance()->generateAiCharacter(15, 5);
+
+	SpawnManager::getInstance()->generateSingleDoor(-15, 0, Door::Direction::West, Door::Mode::Closed);
+	SpawnManager::getInstance()->generateSingleDoor(-5, 0, Door::Direction::East, Door::Mode::Closed);
+	SpawnManager::getInstance()->generateSingleDoor(5, 3, Door::Direction::North, Door::Mode::Closed);
+	SpawnManager::getInstance()->generateSingleDoor(15, -3, Door::Direction::South, Door::Mode::Closed);
+
 	Camera::getActiveCamera()->addComponent<CameraFollow>((GameObject*)Camera::getActiveCamera().get())->setToFollow(ghostCharacter);
 }
 

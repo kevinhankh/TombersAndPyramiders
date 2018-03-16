@@ -80,6 +80,11 @@ class CharacterController : public BaseController, public Damageable
 		void useWeapon();
 
 		/**
+			Tries to trigger around the player the closest available thing, returning true if something triggered
+		*/
+		bool tryInvokeTrigger();
+
+		/*
 			Uses the character's shield this frame.
 		*/
 		void useShield();
