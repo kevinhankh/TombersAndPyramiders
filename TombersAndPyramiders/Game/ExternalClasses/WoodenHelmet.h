@@ -1,7 +1,7 @@
 /*===================================================================================*//**
-	BaseChestplate
+	WoodenHelmet
 	
-	Abstract class for a base chestplate
+	A weak wooden helmet.
 
     @author Erick Fernandez de Arteaga
 	
@@ -12,42 +12,25 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "BaseEquippableItem.h"
+#include "BaseHelmet.h"
 
 /*========================================================================================
-	BaseChestplate	
+	WoodenHelmet	
 ========================================================================================*/
-class BaseChestplate : public BaseEquippableItem, public std::enable_shared_from_this<BaseChestplate>
+class WoodenHelmet : public BaseHelmet
 {
     /*----------------------------------------------------------------------------------------
-		Instance Fields
+		Class Fields
     ----------------------------------------------------------------------------------------*/
-	private:
-		float m_damageMultiplier;
+    private:
+		static const float WOODEN_HELMET_CRITICAL_RESIST_CHANCE;
 
     /*----------------------------------------------------------------------------------------
 		Resource Management
     ----------------------------------------------------------------------------------------*/
     public:
-        explicit BaseChestplate() = delete;
+        /** Default constructor. */
+        explicit WoodenHelmet();
 
-		explicit BaseChestplate(float damageMultiplier);
-
-		virtual ~BaseChestplate() {};
-
-	/*----------------------------------------------------------------------------------------
-		Instance Methods
-	----------------------------------------------------------------------------------------*/
-    public:
-		/**
-			Returns the actual amount of damage the character should take after absorption 
-			by the chestplate.
-		*/
-		virtual int calculateRealDamage(int damage);
-
-	protected:
-		std::shared_ptr<BaseItem> addSubclassToInventory();
-
-	private:
-
+		virtual ~WoodenHelmet() {};
 };

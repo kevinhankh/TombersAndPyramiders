@@ -37,7 +37,7 @@ class BaseMeleeWeapon : public BaseWeapon
 		explicit BaseMeleeWeapon() = delete;
 
 		explicit BaseMeleeWeapon(int damage, string imageName, float colliderWidth, float colliderHeight, 
-			bool destroyOnCollision, float attackCooldownTime, 
+			bool destroyOnCollision, float criticalHitChance, float attackCooldownTime, 
 			float xOffsetFromHolder, float yOffsetFromHolder, float colliderScale = 1);
 
 		virtual ~BaseMeleeWeapon() {};

@@ -22,10 +22,17 @@
 class BaseWeapon : public BaseEquippableItem, public Updateable, public std::enable_shared_from_this<BaseWeapon>
 {
     /*----------------------------------------------------------------------------------------
+		Class Fields
+    ----------------------------------------------------------------------------------------*/
+	public:
+		static const float CRITICAL_HIT_DAMAGE_MULTIPLIER;
+
+    /*----------------------------------------------------------------------------------------
 		Instance Fields
     ----------------------------------------------------------------------------------------*/
 	protected:
 		int m_damage;
+		float m_criticalHitChance;
 		float m_attackCooldownTime;
 		bool m_isAttacking;
 		float m_timeUntilNextAttack;
@@ -37,7 +44,7 @@ class BaseWeapon : public BaseEquippableItem, public Updateable, public std::ena
         /** Default constructor. */
         explicit BaseWeapon() = delete;
 
-		explicit BaseWeapon(int damage, float attackCooldownTime);
+		explicit BaseWeapon(int damage, float criticalHitChance, float attackCooldownTime);
 
 		virtual ~BaseWeapon() {};
 
@@ -75,6 +82,8 @@ class BaseWeapon : public BaseEquippableItem, public Updateable, public std::ena
 			Called by the weapon on the update that the weapon stops attacking.
 		*/
 		virtual void onEnd() = 0;
+
+		bool isAttacking();
 
 	protected:
 		std::shared_ptr<BaseItem> addSubclassToInventory();
