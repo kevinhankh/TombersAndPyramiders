@@ -24,11 +24,6 @@ NetworkedGameScene::NetworkedGameScene()
 
 }
 
-void NetworkedGameScene::setCameraFollow(std::shared_ptr<GameObject> toFollow)
-{
-	Camera::getActiveCamera()->getComponent<CameraFollow>()->setToFollow(toFollow);
-}
-
 void NetworkedGameScene::onStart()
 {
 	const float size = 12;
