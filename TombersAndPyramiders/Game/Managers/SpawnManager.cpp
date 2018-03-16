@@ -64,7 +64,7 @@ void SpawnManager::sendStartPacket()
 		payload["playerSpawnIP" + std::to_string(i)] = std::to_string(id);
 		payload["playerSpawnX" + std::to_string(i)] = std::to_string(x);
 		payload["playerSpawnY" + std::to_string(i)] = std::to_string(y);
-		SpawnManager::getInstance()->generateNetworkCharacter(id, x, y);
+		SpawnManager::getInstance()->generateHostCharacter(id, x, y);
 		i++;
 	}
 
@@ -91,6 +91,9 @@ SpawnManager::SpawnManager() : GameObject()
 {
 }
 
+/*
+This is the type of character of YOU when you are playing. It is a client character. It will only send messages out.
+*/
 std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(int id, float x, float y)
 {
 	std::shared_ptr<ClientCharacter> simpleCharacter = GameManager::getInstance()->createGameObjectWithId<ClientCharacter>(false, id, new PlayerPilot(), id);
@@ -100,11 +103,25 @@ std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(int id, f
 	return simpleCharacter;
 }
 
-std::shared_ptr<HostCharacter> SpawnManager::generateNetworkCharacter(int id, float x, float y)
+/*
+This is the type of character for everyone else IF YOU ARE HOST. They take messages and relay them back out.
+*/
+std::shared_ptr<HostCharacter> SpawnManager::generateHostCharacter (int id, float x, float y)
 {
-	std::shared_ptr<HostCharacter> simpleCharacter = GameManager::getInstance()->createGameObjectWithId<HostCharacter>(false, id, new HostPilot(), id);
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
-	simpleCharacter->getTransform()->setPosition(x, y, 100);
+	std::shared_ptr<HostCharacter> simpleCharacter = GameManager::getInstance ()->createGameObjectWithId<HostCharacter> (false, id, new HostPilot (), id);
+	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenLongbow> ());
+	simpleCharacter->getTransform ()->setPosition (x, y, 100);
+	return simpleCharacter;
+}
+
+/*
+This is the type of character for everyone else if you are NOT host. They recieve messages and send none out.
+*/
+std::shared_ptr<NetworkCharacter> SpawnManager::generateNetworkCharacter (int id, float x, float y)
+{
+	std::shared_ptr<NetworkCharacter> simpleCharacter = GameManager::getInstance ()->createGameObjectWithId<NetworkCharacter> (false, id, new HostPilot (), id);
+	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenLongbow> ());
+	simpleCharacter->getTransform ()->setPosition (x, y, 100);
 	return simpleCharacter;
 }
 

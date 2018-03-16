@@ -24,9 +24,11 @@ public:
 	std::shared_ptr<WorldItem> generateWorldItem(float x, float y, std::shared_ptr<BaseItem> item);
 	std::shared_ptr<Character> generateDummyCharacter(float x, float y);
 
-	std::shared_ptr<HostCharacter> generateNetworkCharacter(int id, float x, float y);
+	std::shared_ptr<HostCharacter> generateHostCharacter(int id, float x, float y);
+	std::shared_ptr<ClientCharacter> generatePlayerCharacter (int id, float x, float y);
+	std::shared_ptr<NetworkCharacter> generateNetworkCharacter (int id, float x, float y);
 
-	std::shared_ptr<ClientCharacter> generatePlayerCharacter(int id, float x, float y);
+
 	void sendStartPacket();
 	void listenForStartPacket ();
 	void stopListeningForStartPacket ();
