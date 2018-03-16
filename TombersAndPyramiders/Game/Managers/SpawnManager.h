@@ -9,6 +9,7 @@
 #include "WorldItem.h"
 #include "HostCharacter.h"
 #include "ClientCharacter.h"
+#include "NetworkCharacter.h"
 
 class SpawnManager : public GameObject
 {
