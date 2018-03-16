@@ -19,5 +19,5 @@ public:
 	virtual void onPossessionStart();
 	virtual void onPossessionEnd();
 	virtual void move(Vector2 direction);
-	virtual void trigger(Vector2 direction);
+	virtual void trigger();
 };

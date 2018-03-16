@@ -14,6 +14,7 @@
 #include "NetworkCharacter.h"
 #include "HostPilot.h"
 #include "GhostPilot.h"
+#include "SingleDoor.h"
 #include "WoodenShield.h"
 #include "WoodenGreaves.h"
 #include "WoodenChestplate.h"
@@ -188,6 +189,15 @@ std::shared_ptr<GhostCharacter> SpawnManager::generateGhost(float x, float y)
 	ghost->getTransform()->setZ(2);
 	return ghost;
 }
+
+std::shared_ptr<SingleDoor> SpawnManager::generateSingleDoor(float x, float y, Door::Direction direction, Door::Mode startState)
+{
+	std::shared_ptr<SingleDoor> door = GameManager::getInstance()->createGameObject<SingleDoor>(false, direction, startState, x, y);
+	door->getTransform()->setZ(5);
+	door->getTransform()->setScale(3.0f);
+	return door;
+}
+
 //std::shared_ptr<Wall> SpawnManager::generateWall(float x, float y, float scale)
 //{
 //	std::shared_ptr<Wall> wall = GameManager::getInstance()->createGameObject<Wall>(false);

@@ -15,6 +15,9 @@
 #include "InputManager.h"
 #include "Vector2.h"
 #include "Sender.h"
+#include "GameManager.h"
+#include "Invokable.h"
+#include "BasePossessableController.h"
 
 /*----------------------------------------------------------------------------------------
 	Instance Setter Methods
@@ -56,23 +59,36 @@ void PlayerPilot::onUpdate(int ticks)
 			m_characterController->useWeapon();
 			m_characterController->getGameObject()->getComponent<Sender>()->sendAttack();
 		}
-
-		/* Use shield. */
-		if (getShieldInput())
+		else
 		{
-			m_characterController->useShield();
+			tryInvokeTrigger();
 		}
+	}
+	/* Use shield. */
+	if (getShieldInput())
+	{
+		m_characterController->useShield();
+	}
 
-		/* Use greaves. */
-		if (getGreavesInput())
-		{
-			m_characterController->useGreaves();
-		}
+	/* Use greaves. */
+	if (getGreavesInput())
+	{
+		m_characterController->useGreaves();
+	}
 
-		/* Pick up items. */
-		if (InputManager::getInstance()->onKeyPressed(SDLK_e))
-		{
-			m_characterController->trySwapItem();
+	/* Pick up items. */
+	if (InputManager::getInstance()->onKeyPressed(SDLK_e))
+	{
+		m_characterController->trySwapItem();
+	}
+}
+
+void PlayerPilot::tryInvokeTrigger()
+{
+	if (InputManager::getInstance()->onKeyPressed(SDLK_z))
+	{
+		if (m_characterController->tryInvokeTrigger()) {
+			m_characterController->getGameObject()->getComponent<Sender>()->sendTrigger();
 		}
 	}
 }

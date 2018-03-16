@@ -29,16 +29,13 @@ void GhostPilot::onUpdate(int ticks)
 		m_justSwapped = false;
 	}
 
-	//Get WASD movement
-	Vector2 movement = getMovement();
-
 	//If we are possessing something
 	if (m_possessableController != nullptr)
 	{
 		//Possessing + Space = Attack with the possessable controller
 		if (InputManager::getInstance()->onKeyPressed(SDLK_SPACE))
 		{
-			m_possessableController->trigger(movement);
+			m_possessableController->trigger();
 		}
 		//Possessing + E = Stop Possessing
 		else if (checkShouldSwap())
@@ -59,6 +56,7 @@ void GhostPilot::onUpdate(int ticks)
 		//Possessing + Anything else = Movement, which will be (0,0) if not moving
 		else
 		{
+			Vector2 movement = getMovement();
 			m_possessableController->move(movement);
 		}
 	}
@@ -77,18 +75,30 @@ void GhostPilot::onUpdate(int ticks)
 				if (checkShouldSwap())
 				{
 					Transform* transform = m_controller->getGameObject()->getTransform();
-					std::vector<std::shared_ptr<GameObject>> gameObjects = GameManager::getInstance()->getObjectsInBounds(transform->getX(), transform->getY(), 2.0f, 2.0f); //Get all objects within 2x2 of our Ghost
+					std::vector<std::shared_ptr<GameObject>> gameObjects = GameManager::getInstance()->getObjectsInBounds(transform->getX(), transform->getY(), 3.0f, 3.0f); //Get all objects within 2x2 of our Ghost
+					std::shared_ptr<BasePossessableController> closest = nullptr;
+					float distance = 1000;
+					
 					for (auto it = gameObjects.begin(); it != gameObjects.end(); it++)
 					{
 						std::shared_ptr<BasePossessableController> possessionController = (*it)->getComponent<BasePossessableController>();
-						if (possessionController != nullptr && ghostControllerRaw->tryPossess(possessionController) ) //Try and possess, should fail if the object is too far away
+						if (possessionController != nullptr)
 						{
-							m_controller->swapPilots(possessionController.get());
-							m_possessableController = possessionController;
-							m_possessableController->onPossessionStart();
-							m_justSwapped = true;
-							break;
+							float newDistance = (*it)->getTransform()->getDistance(transform);
+							if (newDistance < distance)
+							{
+								distance = newDistance;
+								closest = possessionController;
+							}
 						}
+					}
+
+					if (closest != nullptr && ghostControllerRaw->tryPossess(closest)) //Try and possess, make sure its close enough
+					{
+						m_controller->swapPilots(closest.get());
+						m_possessableController = closest;
+						m_possessableController->onPossessionStart();
+						m_justSwapped = true;
 					}
 				}
 			}

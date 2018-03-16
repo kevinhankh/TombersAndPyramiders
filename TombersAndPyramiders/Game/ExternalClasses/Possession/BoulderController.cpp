@@ -60,7 +60,7 @@ void BoulderController::move(Vector2 direction)
 }
 
 //If the boulder isn't on cooldown, go into attack mode, launching it in the direction it's traveling, creating an invisible damaging region is none exists
-void BoulderController::trigger(Vector2 direction)
+void BoulderController::trigger()
 {
 	if (m_cooldownTicker <= 0.0f && m_rigidBody != nullptr)
 	{
