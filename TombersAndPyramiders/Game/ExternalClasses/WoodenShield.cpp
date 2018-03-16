@@ -1,7 +1,7 @@
 /*===================================================================================*//**
-	WoodenShortsword
-
-	Abstract class for a base shortsword.
+	WoodenShield
+	
+	A weak wooden shield.
 
     @author Erick Fernandez de Arteaga
 	
@@ -10,20 +10,18 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "WoodenShortsword.h"
+#include "WoodenShield.h"
 
 /*----------------------------------------------------------------------------------------
 	Static Fields
 ----------------------------------------------------------------------------------------*/
-const int WoodenShortsword::WOODEN_SHORTSWORD_DAMAGE = 20;
-const string WoodenShortsword::WOODEN_SHORTSWORD_IMAGE_NAME = "TempWoodenShortsword.png";
-const bool WoodenShortsword::WOODEN_SHORTSWORD_DESTROY_ON_COLLISION = false;
+const string WoodenShield::WOODEN_SHIELD_IMAGE_NAME = "TempWoodenShield.png";
+const float WoodenShield::WOODEN_SHIELD_DAMAGE_MULT = 0.9f;
+const float WoodenShield::WOODEN_SHIELD_COOLDOWN_TIME = 0.5f;
 
 /*----------------------------------------------------------------------------------------
-	Resource Management
+	Instance Methods
 ----------------------------------------------------------------------------------------*/
-WoodenShortsword::WoodenShortsword() :
-	BaseShortsword{ WOODEN_SHORTSWORD_DAMAGE, WOODEN_SHORTSWORD_IMAGE_NAME, WOODEN_SHORTSWORD_DESTROY_ON_COLLISION }
-{
-	m_itemIcon = "WoodenShortsword.png";
-}
+WoodenShield::WoodenShield() :
+	BaseShield(WOODEN_SHIELD_IMAGE_NAME, WOODEN_SHIELD_DAMAGE_MULT, WOODEN_SHIELD_COOLDOWN_TIME)
+{}

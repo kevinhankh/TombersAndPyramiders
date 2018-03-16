@@ -1,7 +1,7 @@
 /*===================================================================================*//**
 	Projectile
 	
-	A Damaging region that is fired by a projectile weapon, moves, and destroys itself 
+	A DamagingRegion that is fired by a projectile weapon, moves, and destroys itself 
 	after a set duration or after hitting something.
     
     @author Erick Fernandez de Arteaga
@@ -19,12 +19,16 @@
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-Projectile::Projectile(int damage, string imageName, float colliderWidth, float colliderHeight, bool destroyOnCollision, 
-	float spawnXPosition, float spawnYPosition, float spriteScale, float xVelociy, float yVelocity, float lifespan) :
-	DamagingRegion{ damage, imageName, colliderWidth, colliderHeight, destroyOnCollision, spawnXPosition, spawnYPosition, spriteScale },
+Projectile::Projectile(int damage, string imageName, float colliderWidth, float colliderHeight, 
+	float criticalHitChance, 
+	bool destroyOnCollision, 
+	float spawnXPosition, float spawnYPosition, float spawnRotation, float spriteScale, float xVelociy, float yVelocity, float lifespan) :
+	DamagingRegion{ damage, imageName, colliderWidth, colliderHeight, criticalHitChance, destroyOnCollision, spawnXPosition, spawnYPosition, spriteScale },
 	m_velocity{ Vector2(xVelociy, yVelocity) },
 	m_lifespan{ lifespan }
-{}
+{
+	GameObject::getTransform()->setRotation(spawnRotation);
+}
 
 Projectile::~Projectile()
 {}
@@ -55,7 +59,7 @@ void Projectile::handleSingleCollision(GameObject* other)
 		{
 			m_hitList.insert(otherId);
 
-			ccOther->takeDamage(m_damage);
+			ccOther->takeDamage(m_damage, isCriticalHit());
 
 			if (m_destroyOnCollision)
 			{
@@ -65,13 +69,17 @@ void Projectile::handleSingleCollision(GameObject* other)
 			return;
 		}
 
-		/* TODO Handle collisions with walls? */
+		/* In all other collisions, destroy if appropriate. */
+		if (m_destroyOnCollision)
+		{
+			destroy(getId());
+		}
 	}
 }
 
 void Projectile::updatePosition(int ticks)
 {
-	float deltaTime = ticks / BaseItem::TICKS_PER_SECOND;
+	float deltaTime = (float)ticks / 1000.0f;
 	float xDelta = m_velocity.getX() * deltaTime;
 	float yDelta = m_velocity.getY() * deltaTime;
 
@@ -83,7 +91,7 @@ void Projectile::updatePosition(int ticks)
 
 void Projectile::updateLifespan(int ticks)
 {
-	m_lifespan -= ticks / BaseItem::TICKS_PER_SECOND;
+	m_lifespan -= (float) ticks / 1000.0f;
 
 	if (m_lifespan <= 0)
 	{

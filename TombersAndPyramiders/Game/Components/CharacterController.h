@@ -84,6 +84,15 @@ class CharacterController : public BaseController, public Damageable
 		*/
 		bool tryInvokeTrigger();
 
+		/*
+			Uses the character's shield this frame.
+		*/
+		void useShield();
+
+		/**
+			Use the character's greaves this frame.
+		*/
+		void useGreaves();
 
 		/**
 			Picks up the given WorldItem, extracting its BaseItem and equiping it. Returns the item we put down that was previously equipped, or nullptr if none were equipped prior.
@@ -93,11 +102,12 @@ class CharacterController : public BaseController, public Damageable
 
 		/**
 			Applies the given amount of damage to the character.
+			Applies double damage if isCriticalHit, unless an equipped item nullifies the critical damage.
 			
 			The character will handle applying any scaling of this value 
 			based on buffs and equipment.
 		*/
-		virtual void takeDamage(int damage);
+		virtual void takeDamage(int damage, bool isCriticalHit);
 
 	protected:
 		/**

@@ -16,7 +16,7 @@
 	Static Fields
 ----------------------------------------------------------------------------------------*/
 const int WoodenLongbow::WOODEN_LONGBOW_DAMAGE = 20;
-const std::string WoodenLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME = "IceTile.png";
+const std::string WoodenLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME = "TempWoodenArrow.png";
 const bool WoodenLongbow::WOODEN_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION = true;
 
 /*----------------------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 /*===================================================================================*//**
-	WoodenShortsword
-
-	Abstract class for a base shortsword.
+	WoodenHelmet
+	
+	A weak wooden helmet.
 
     @author Erick Fernandez de Arteaga
 	
@@ -10,20 +10,16 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "WoodenShortsword.h"
+#include "WoodenHelmet.h"
 
 /*----------------------------------------------------------------------------------------
-	Static Fields
+	Class Fields
 ----------------------------------------------------------------------------------------*/
-const int WoodenShortsword::WOODEN_SHORTSWORD_DAMAGE = 20;
-const string WoodenShortsword::WOODEN_SHORTSWORD_IMAGE_NAME = "TempWoodenShortsword.png";
-const bool WoodenShortsword::WOODEN_SHORTSWORD_DESTROY_ON_COLLISION = false;
+const float WoodenHelmet::WOODEN_HELMET_CRITICAL_RESIST_CHANCE = 0.05f;
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-WoodenShortsword::WoodenShortsword() :
-	BaseShortsword{ WOODEN_SHORTSWORD_DAMAGE, WOODEN_SHORTSWORD_IMAGE_NAME, WOODEN_SHORTSWORD_DESTROY_ON_COLLISION }
-{
-	m_itemIcon = "WoodenShortsword.png";
-}
+WoodenHelmet::WoodenHelmet() :
+	BaseHelmet{ WOODEN_HELMET_CRITICAL_RESIST_CHANCE }
+{}

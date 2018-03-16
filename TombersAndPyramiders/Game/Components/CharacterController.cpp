@@ -37,7 +37,7 @@
 	Static Fields
 ----------------------------------------------------------------------------------------*/
 const int CharacterController::DEFAULT_CHARACTER_MAX_HP = 100;
-const Vector2 CharacterController::DEFAULT_CHARACTER_MOVEMENT_SPEED = Vector2(0.2, 0.2);
+const Vector2 CharacterController::DEFAULT_CHARACTER_MOVEMENT_SPEED = Vector2(0.15, 0.15);
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
@@ -98,7 +98,10 @@ void CharacterController::move(Vector2 delta)
 void CharacterController::useWeapon()
 {
 	std::shared_ptr<BaseWeapon> weapon = m_inventory->getWeapon();
-	if (weapon != nullptr)
+	std::shared_ptr<BaseShield> shield = m_inventory->getShield();
+
+	if (weapon != nullptr && 
+		(shield == nullptr || !shield->isBlocking()))
 	{
 		if (weapon->use())
 		{
@@ -127,7 +130,7 @@ bool CharacterController::tryInvokeTrigger()
 	{
 		std::shared_ptr<Invokable> invokable = (*it)->getComponent<Invokable>();
 		std::shared_ptr<BasePossessableController> possessable = nullptr;
-		float minDistance = transform->getScale() / 2.0f + (*it)->getTransform()->getScale() / 2.0f;
+		float maxDistance = transform->getScale() / 2.0f + (*it)->getTransform()->getScale() / 2.0f;
 
 		if (invokable == nullptr)
 		{
@@ -138,7 +141,7 @@ bool CharacterController::tryInvokeTrigger()
 		if (invokable != nullptr || possessable != nullptr)
 		{
 			float newDistance = (*it)->getTransform()->getDistance(transform);
-			if (newDistance >= minDistance && newDistance < distance)
+			if (newDistance <= maxDistance && newDistance < distance)
 			{
 				distance = newDistance;
 				closest = invokable;
@@ -154,9 +157,67 @@ bool CharacterController::tryInvokeTrigger()
 	return false;
 }
 
-void CharacterController::takeDamage(int damage)
+
+void CharacterController::useShield()
 {
-	Damageable::takeDamage(damage);
+	std::shared_ptr<BaseWeapon> weapon = m_inventory->getWeapon();
+	std::shared_ptr<BaseShield> shield = m_inventory->getShield();
+
+	if (shield != nullptr && 
+		(weapon == nullptr || !weapon->isAttacking()))
+	{
+		if (shield->use())
+		{
+			// TODO Shield SFX?
+		}
+	}
+}
+
+void CharacterController::useGreaves()
+{
+	std::shared_ptr<BaseGreaves> greaves = m_inventory->getGreaves();
+
+	if (greaves != nullptr)
+	{
+		if (greaves->use())
+		{
+			// TODO Greaves SFX?
+		}
+	}
+}
+
+void CharacterController::takeDamage(int damage, bool isCriticalHit)
+{
+	std::shared_ptr<BaseShield> shield = m_inventory->getShield();
+	std::shared_ptr<BaseChestplate> chestplate = m_inventory->getChestplate();
+	auto realDamage = damage;
+
+	/* Apply helmet defense. */
+	if (isCriticalHit)
+	{
+		std::shared_ptr<BaseHelmet> helmet = m_inventory->getHelmet();
+
+		if (helmet == nullptr || 
+			!helmet->doesAvoidCriticalHit())
+		{
+			realDamage *= BaseWeapon::CRITICAL_HIT_DAMAGE_MULTIPLIER;
+		}
+	}
+
+	/* Apply shield defense */
+	if (shield != nullptr && 
+		shield->isBlocking())
+	{
+		realDamage = shield->calculateRealDamage(realDamage);
+	}
+
+	/* Apply chestplate defense */
+	if (chestplate != nullptr)
+	{
+		realDamage = chestplate->calculateRealDamage(realDamage);
+	}
+
+	Damageable::takeDamage(realDamage);
 	m_character->playHurtAnimation();
 	AudioManager::getInstance()->playHitSFX();
 }

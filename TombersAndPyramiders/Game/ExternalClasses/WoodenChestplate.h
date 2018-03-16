@@ -1,7 +1,7 @@
 /*===================================================================================*//**
-	BaseChestplate
+	WoodenChestplate
 	
-	Abstract class for a base chestplate
+	A weak wooden chestplate.
 
     @author Erick Fernandez de Arteaga
 	
@@ -12,42 +12,24 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "BaseEquippableItem.h"
+#include "BaseChestplate.h"
 
 /*========================================================================================
-	BaseChestplate	
+	WoodenChestplate	
 ========================================================================================*/
-class BaseChestplate : public BaseEquippableItem, public std::enable_shared_from_this<BaseChestplate>
+class WoodenChestplate : public BaseChestplate
 {
     /*----------------------------------------------------------------------------------------
-		Instance Fields
+		Static Fields
     ----------------------------------------------------------------------------------------*/
 	private:
-		float m_damageMultiplier;
+		const static float WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER;
 
     /*----------------------------------------------------------------------------------------
 		Resource Management
     ----------------------------------------------------------------------------------------*/
     public:
-        explicit BaseChestplate() = delete;
+        explicit WoodenChestplate();
 
-		explicit BaseChestplate(float damageMultiplier);
-
-		virtual ~BaseChestplate() {};
-
-	/*----------------------------------------------------------------------------------------
-		Instance Methods
-	----------------------------------------------------------------------------------------*/
-    public:
-		/**
-			Returns the actual amount of damage the character should take after absorption 
-			by the chestplate.
-		*/
-		virtual int calculateRealDamage(int damage);
-
-	protected:
-		std::shared_ptr<BaseItem> addSubclassToInventory();
-
-	private:
-
+		virtual ~WoodenChestplate() {};
 };

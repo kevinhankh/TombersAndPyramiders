@@ -20,13 +20,13 @@
 	Resource Management
 ----------------------------------------------------------------------------------------*/
 BaseMeleeWeapon::BaseMeleeWeapon(int damage, string imageName, float colliderWidth, float colliderHeight, 
-	bool destroyOnCollision, float attackCooldownTime, 
+	bool destroyOnCollision, float criticalHitChance, float attackCooldownTime, 
 	float xOffsetFromHolder, float yOffsetFromHolder, float colliderScale) :
-	BaseWeapon(damage, attackCooldownTime)
+	BaseWeapon(damage, criticalHitChance, attackCooldownTime)
 {
 	m_offsetFromHolder = Vector2(xOffsetFromHolder, yOffsetFromHolder);
 	m_damagingRegion = GameManager::getInstance()->createGameObject<DamagingRegion>(false, damage, imageName, 
-		colliderWidth, colliderHeight, destroyOnCollision, 0, 0, colliderScale);
+		colliderWidth, colliderHeight, criticalHitChance, destroyOnCollision, 0, 0, colliderScale);
 }
 
 /*----------------------------------------------------------------------------------------
@@ -89,7 +89,7 @@ void BaseMeleeWeapon::updatePosition()
 		m_damagingRegion->getTransform()->setPosition(newPosition.getX(), newPosition.getY());
 
 		/* Set the weapon's rotation about its center. */
-		m_damagingRegion->getTransform()->setRotation(owner()->getTransform()->getRotation());
+		m_damagingRegion->getTransform()->setRotation(-owner()->getTransform()->getRotation());
 	}
 }
 
@@ -97,7 +97,7 @@ void BaseMeleeWeapon::updateAttack(int ticks)
 {
 	if (m_isAttacking)
 	{
-		m_timeUntilNextAttack -= ticks / BaseItem::TICKS_PER_SECOND;
+		m_timeUntilNextAttack -= (float) ticks / 1000.0f;
 
 		if (m_timeUntilNextAttack <= 0)
 		{
