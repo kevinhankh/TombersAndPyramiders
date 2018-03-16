@@ -35,7 +35,6 @@ void NetworkedGameScene::onStart ()
 
 	SpawnManager::getInstance ()->generateMiscSquare (25, -25, -100, 115, "sandBG.png", false);
 
-
 	for (float x = 0; x <= size; x++)
 	{
 		for (float y = 0; y >= -size; y--)
@@ -115,6 +114,7 @@ void NetworkedGameScene::onStart ()
 	Ai4 = SpawnManager::getInstance ()->generateAiCharacter (14, -35);
 
 	Camera::getActiveCamera ()->addComponent<CameraFollow> (Camera::getActiveCamera ().get ());
+	SpawnManager::getInstance()->generateSingleDoor(10, -10, Door::Direction::West, Door::Mode::Closed);
 }
 
 void NetworkedGameScene::onPause ()

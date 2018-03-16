@@ -18,6 +18,7 @@ public:
 	void sendDestroy();
 	void sendUpdate();
 	void sendAttack();
+	void sendTrigger();
 	void sendNetworkMessage(std::string messageKey, std::map<std::string, std::string> payload);
 	void spawnPlayers(float p1x, float p1y, float p2x, float p2y);
 	void onStart() {};

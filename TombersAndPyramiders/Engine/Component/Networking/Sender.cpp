@@ -58,6 +58,12 @@ void Sender::sendAttack()
 	sendNetworkMessage("ATTACK", payload);
 }
 
+void Sender::sendTrigger()
+{
+	std::map<std::string, std::string> payload;
+	sendNetworkMessage("TRIGGER", payload);
+}
+
 void Sender::sendNetworkMessage(std::string messageKey, std::map<std::string, std::string> payload)
 {
 	if (NetworkingManager::getInstance ()->inGame ()) {

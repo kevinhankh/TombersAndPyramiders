@@ -24,7 +24,6 @@
     <ClCompile Include="Engine\Manager\NetworkingManager.cpp" />
     <ClCompile Include="Engine\Manager\PhysicsManager.cpp" />
     <ClCompile Include="Engine\Manager\SceneManager.cpp" />
-    <ClCompile Include="Engine\Monster.cpp" />
     <ClCompile Include="Engine\PathFinding.cpp" />
     <ClCompile Include="Engine\Scene.cpp" />
     <ClCompile Include="Engine\Updateable.cpp" />
@@ -88,6 +87,21 @@
     <ClCompile Include="Paper.cpp" />
     <ClCompile Include="PathFinding.cpp" />
     <ClCompile Include="Game\Scenes\LaunchScene.cpp" />
+    <ClCompile Include="Engine\External\QuadTree.cpp" />
+    <ClCompile Include="Game\Scenes\PossessionTestScene.cpp" />
+    <ClCompile Include="Game\GameObjects\GhostCharacter.cpp" />
+    <ClCompile Include="Game\ExternalClasses\Possession\GhostPilot.cpp" />
+    <ClCompile Include="Game\ExternalClasses\Possession\BasePossessableController.cpp" />
+    <ClCompile Include="Game\ExternalClasses\Possession\BoulderController.cpp" />
+    <ClCompile Include="Game\GameObjects\Boulder.cpp" />
+    <ClCompile Include="Game\ExternalClasses\Possession\GhostController.cpp" />
+    <ClCompile Include="Game\GameObjects\Doors\SingleDoor.cpp" />
+    <ClCompile Include="Game\GameObjects\Doors\Door.cpp" />
+    <ClCompile Include="Game\Components\DoorController.cpp" />
+    <ClCompile Include="Game\ExternalClasses\WoodenShield.cpp" />
+    <ClCompile Include="Game\ExternalClasses\WoodenGreaves.cpp" />
+    <ClCompile Include="Game\ExternalClasses\WoodenChestplate.cpp" />
+    <ClCompile Include="Game\ExternalClasses\WoodenHelmet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Component\AI\AI.h" />
@@ -117,7 +131,6 @@
     <ClInclude Include="Engine\Manager\NetworkingManager.h" />
     <ClInclude Include="Engine\Manager\PhysicsManager.h" />
     <ClInclude Include="Engine\Manager\SceneManager.h" />
-    <ClInclude Include="Engine\Monster.h" />
     <ClInclude Include="Engine\PathFinding.h" />
     <ClInclude Include="Engine\Scene.h" />
     <ClInclude Include="Engine\SearchCell.h" />
@@ -184,6 +197,23 @@
     <ClInclude Include="PathFinding.h" />
     <ClInclude Include="SearchCell.h" />
     <ClInclude Include="Game\Scenes\LaunchScene.h" />
+    <ClInclude Include="Engine\External\QuadTree.h" />
+    <ClInclude Include="Game\Scenes\PossessionTestScene.h" />
+    <ClInclude Include="Game\GameObjects\GhostCharacter.h" />
+    <ClInclude Include="Game\ExternalClasses\Possession\GhostPilot.h" />
+    <ClInclude Include="Game\ExternalClasses\Possession\BasePossessableController.h" />
+    <ClInclude Include="Game\ExternalClasses\Possession\BoulderController.h" />
+    <ClInclude Include="Game\GameObjects\Boulder.h" />
+    <ClInclude Include="Game\ExternalClasses\Possession\GhostController.h" />
+    <ClInclude Include="Game\ExternalClasses\Invokable.h" />
+    <ClInclude Include="Game\GameObjects\Doors\SingleDoor.h" />
+    <ClInclude Include="Game\GameObjects\Doors\Door.h" />
+    <ClInclude Include="Game\Components\DoorController.h" />
+    <ClInclude Include="Game\ExternalClasses\WoodenShield.h" />
+    <ClInclude Include="Game\ExternalClasses\WoodenGreaves.h" />
+    <ClInclude Include="Game\ExternalClasses\WoodenChestplate.h" />
+    <ClInclude Include="Game\ExternalClasses\RandomHelper.h" />
+    <ClInclude Include="Game\ExternalClasses\WoodenHelmet.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Character.bmp" />
