@@ -2,11 +2,13 @@
 #include "CharacterController.h"
 #include "Inventory.h"
 #include "Receiver.h"
+#include "Sender.h"
 
 HostCharacter::HostCharacter(BasePilot* basePilot, int networkingID) :
 	Character(basePilot)
 {
-	std::shared_ptr<Receiver> receiver = addComponent<Receiver>(this, std::to_string(networkingID));
+	std::shared_ptr<Receiver> receiver = addComponent<Receiver> (this, std::to_string (networkingID));
+	std::shared_ptr<Sender> sender = addComponent<Sender> (this, std::to_string (networkingID));
 	receiver->Subscribe("ATTACK", [](std::map<std::string, void*> data) -> void 
 	{
 		((HostCharacter*)data["this"])->getComponent<CharacterController>()->useWeapon();
