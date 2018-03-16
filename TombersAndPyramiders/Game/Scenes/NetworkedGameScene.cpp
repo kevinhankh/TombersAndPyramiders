@@ -11,8 +11,6 @@
 #include "NetworkingManager.h"
 #include <memory>
 #include "WoodenShortsword.h"
-#include "Character.h"
-#include "Inventory.h";
 
 std::shared_ptr<Character> player = nullptr;
 std::shared_ptr<Character> player2 = nullptr;
@@ -115,6 +113,8 @@ void NetworkedGameScene::onStart()
 	Ai2 = SpawnManager::getInstance()->generateAiCharacter(44, -20);
 	Ai3 = SpawnManager::getInstance()->generateAiCharacter(54, -40);
 	Ai4 = SpawnManager::getInstance()->generateAiCharacter(14, -35);
+
+	SpawnManager::getInstance()->generateSingleDoor(10, -10, Door::Direction::West, Door::Mode::Closed);
 
 	Camera::getActiveCamera ()->addComponent<CameraFollow> (Camera::getActiveCamera ().get ());	
 	if (NetworkingManager::getInstance ()->isHost ())
