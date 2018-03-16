@@ -32,6 +32,9 @@
 #include "GameManager.h"
 #include "Invokable.h"
 #include "BasePossessableController.h"
+#include "GhostPilot.h"
+#include "NetworkCharacter.h"
+#include "PlayerPilot.h"
 
 /*----------------------------------------------------------------------------------------
 	Static Fields
@@ -249,6 +252,16 @@ void CharacterController::updateGreaves(int ticks)
 void CharacterController::death()
 {
 	destroy(gameObject->getId());
+
+	/* Spawn the character's ghost. */
+	auto localPlayer = dynamic_cast<PlayerPilot*>(m_pilot.get());	// Check this is not an enemy.
+	
+	if (localPlayer != nullptr)
+	{
+		auto ghost = GameManager::getInstance()->createGameObject<GhostCharacter>(false, new GhostPilot());
+		ghost->getTransform()->setPosition(gameObject->getTransform()->getX(), gameObject->getTransform()->getY());
+		SceneManager::getInstance()->getCurrentScene()->setCameraFollow(ghost);
+	}
 }
 
 std::shared_ptr<WorldItem> CharacterController::trySwapItem()
