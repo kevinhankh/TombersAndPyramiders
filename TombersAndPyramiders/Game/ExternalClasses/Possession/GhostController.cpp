@@ -3,11 +3,10 @@
 #include "GhostCharacter.h"
 
 const float GhostController::MAX_POSSESSION_DISTANCE = 3.0f;
+Vector2 GhostController::DEFAULT_MOVE_SPEED = Vector2(0.2f, 0.2f);
 
 GhostController::GhostController(GameObject* parentGameobject, BasePilot* pilot) : BaseController(parentGameobject, pilot)
 {
-	m_movementSpeed.setX(0.15f);
-	m_movementSpeed.setY(0.15f);
 	m_toFollow = nullptr;
 }
 
@@ -68,8 +67,8 @@ void GhostController::follow(std::shared_ptr<BasePossessableController>  toFollo
 //Take in a delta vector, turn it into a direcitonal movespeed vector and determine which direction to move
 void GhostController::move(Vector2 delta)
 {
-	delta.setX(delta.getX() * m_movementSpeed.getX());
-	delta.setY(delta.getY() * m_movementSpeed.getY());
+	delta.setX(delta.getX() * DEFAULT_MOVE_SPEED.getX());
+	delta.setY(delta.getY() * DEFAULT_MOVE_SPEED.getY());
 
 	if (delta.getMagnitude() == 0)
 	{

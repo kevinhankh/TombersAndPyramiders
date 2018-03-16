@@ -11,7 +11,7 @@ class GhostController : public BaseController
 {
 private:
 	static const float MAX_POSSESSION_DISTANCE;
-	Vector2 m_movementSpeed;
+	static Vector2 DEFAULT_MOVE_SPEED;
 	std::shared_ptr<BasePossessableController> m_toFollow;
 
 public:
