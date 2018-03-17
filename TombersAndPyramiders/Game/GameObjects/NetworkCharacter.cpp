@@ -9,8 +9,19 @@ NetworkCharacter::NetworkCharacter(BasePilot* basePilot, int networkingID) :
 {
 	setFPS(12);
 	addComponent<Inventory>(this);
-	addComponent<Sender> (this, std::to_string (networkingID));
-	addComponent<Receiver>(this, std::to_string (networkingID));
+	std::shared_ptr<Receiver> receiver = addComponent<Receiver> (this, networkingID);
+	receiver->Subscribe ("ATTACK", [](std::map<std::string, void*> data) -> void
+	{
+		((NetworkCharacter*)data["this"])->getComponent<CharacterController> ()->useWeapon ();
+	}, this);
+
+	receiver->Subscribe ("TRIGGER", [](std::map<std::string, void*> data) -> void
+	{
+		if (!((NetworkCharacter*)data["this"])->getComponent<CharacterController> ()->tryInvokeTrigger ())
+		{
+			std::cout << "Sync Error on character receiving Trigger event. Should only be called on successful triggering, however receiver could not invoke a trigger." << std::endl;
+		}
+	}, this);
 }
 
 /*----------------------------------------------------------------------------------------
@@ -29,4 +40,7 @@ Instance Methods
 void NetworkCharacter::onUpdate(int ticks)
 {
 	updateFrames(ticks);
+}
+
+void NetworkCharacter::onEnd () {
 }

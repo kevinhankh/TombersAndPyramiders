@@ -74,16 +74,16 @@ void SpawnManager::sendStartPacket()
 		i++;
 	}
 
-	NetworkingManager::getInstance()->prepareMessageForSending("STARTGAME", payload);
+	NetworkingManager::getInstance()->prepareMessageForSending(0, "STARTGAME", payload);
 }
 
 void SpawnManager::listenForStartPacket()
 {
-	this->m_startPacketListenerID = MessageManager::subscribe("STARTGAME", startGameCallback, this);
+	this->m_startPacketListenerID = MessageManager::subscribe("0|STARTGAME", startGameCallback, this);
 }
 
 void SpawnManager::stopListeningForStartPacket () {
-	MessageManager::unSubscribe ("STARTGAME", m_startPacketListenerID);
+	MessageManager::unSubscribe ("0|STARTGAME", m_startPacketListenerID);
 }
 
 std::shared_ptr<SpawnManager> SpawnManager::getInstance()
@@ -122,6 +122,8 @@ std::shared_ptr<HostCharacter> SpawnManager::generateHostCharacter (int id, floa
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenLongbow> ());
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenShield> ());
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenGreaves> ());
+	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenChestplate> ());
+	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenHelmet> ());
 	simpleCharacter->getTransform ()->setPosition (x, y, 100);
 	return simpleCharacter;
 }
@@ -132,9 +134,11 @@ This is the type of character for everyone else if you are NOT host. They reciev
 std::shared_ptr<NetworkCharacter> SpawnManager::generateNetworkCharacter (int id, float x, float y)
 {
 	std::shared_ptr<NetworkCharacter> simpleCharacter = GameManager::getInstance ()->createGameObjectWithId<NetworkCharacter> (false, id, new HostPilot (), id);
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenShield>());
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenGreaves>());
+	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenLongbow> ());
+	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenShield> ());
+	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenGreaves> ());
+	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenChestplate> ());
+	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenHelmet> ());
 	simpleCharacter->getTransform()->setPosition(x, y, 100);
 	return simpleCharacter;
 }

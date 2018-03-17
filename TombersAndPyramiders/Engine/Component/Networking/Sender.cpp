@@ -1,7 +1,7 @@
 #include "Sender.h"
 #include "NetworkingManager.h"
 
-Sender::Sender(GameObject* gameObject, std::string ID) : Component(gameObject)
+Sender::Sender(GameObject* gameObject, int ID) : Component(gameObject)
 {
 	this->m_id = ID;
 }
@@ -52,10 +52,31 @@ void Sender::spawnPlayers(float p1x, float p1y, float p2x, float p2y)
 	sendNetworkMessage("SPAWN", payload);
 }
 
-void Sender::sendAttack()
+void Sender::sendAttack ()
 {
 	std::map<std::string, std::string> payload;
-	sendNetworkMessage("ATTACK", payload);
+	sendNetworkMessage ("ATTACK", payload);
+}
+
+void Sender::sendAnimation (int animID, int animReturn)
+{
+	std::cout << "ANIMATE SENT " << std::endl;
+	std::map<std::string, std::string> payload;
+	payload["animID"] = std::to_string (animID);
+	payload["animReturn"] = std::to_string (animReturn);
+	sendNetworkMessage ("ANIMATE", payload);
+}
+
+void Sender::sendTrySwapItem ()
+{
+	std::map<std::string, std::string> payload;
+	sendNetworkMessage ("TRYSWAPITEM", payload);
+}
+
+void Sender::sendSwappedItem ()
+{
+	std::map<std::string, std::string> payload;
+	sendNetworkMessage ("SWAPPEDITEM", payload);
 }
 
 void Sender::sendTrigger()
@@ -68,7 +89,7 @@ void Sender::sendNetworkMessage(std::string messageKey, std::map<std::string, st
 {
 	if (NetworkingManager::getInstance ()->inGame ()) {
 		std::remove_if (messageKey.begin (), messageKey.end (), isspace);
-		NetworkingManager::getInstance ()->prepareMessageForSending (this->m_id + "|" + messageKey, payload);
+		NetworkingManager::getInstance ()->prepareMessageForSending (m_id, messageKey, payload);
 	}
 }
 

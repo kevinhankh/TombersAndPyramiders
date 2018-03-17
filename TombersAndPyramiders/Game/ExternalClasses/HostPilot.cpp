@@ -37,36 +37,10 @@ void HostPilot::onEnd()
 
 Vector2 HostPilot::getMovement()
 {
-	Vector2 movement = Vector2(0, 0);
-
-	/* Move up. */
-	if (InputManager::getInstance()->onKey(SDLK_w))
-	{
-		movement.setY(movement.getY() + 1);
-	}
-
-	/* Move down. */
-	if (InputManager::getInstance()->onKey(SDLK_s))
-	{
-		movement.setY(movement.getY() - 1);
-	}
-
-	/* Move left. */
-	if (InputManager::getInstance()->onKey(SDLK_a))
-	{
-		movement.setX(movement.getX() - 1);
-	}
-
-	/* Move right. */
-	if (InputManager::getInstance()->onKey(SDLK_d))
-	{
-		movement.setX(movement.getX() + 1);
-	}
-
-	return movement;
+	return Vector2(0, 0);
 }
 
 bool HostPilot::getWeaponInput()
 {
-	return InputManager::getInstance()->onKey(SDLK_i);
+	return false;
 }

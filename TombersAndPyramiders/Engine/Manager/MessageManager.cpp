@@ -11,6 +11,7 @@ MessageManager* MessageManager::getInstance()
 
 int MessageManager::subscribe(std::string event, Callback callback, void* owner)
 {
+	std::cout << "Event subbed: " << event << std::endl;
 	MessageManager* self = MessageManager::getInstance();
 	CallbackReceiver callbackReceiver;
 	callbackReceiver.callback = callback;

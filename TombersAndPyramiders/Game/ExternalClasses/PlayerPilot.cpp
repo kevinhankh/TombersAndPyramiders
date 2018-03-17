@@ -18,6 +18,7 @@
 #include "GameManager.h"
 #include "Invokable.h"
 #include "BasePossessableController.h"
+#include "NetworkingManager.h"
 
 /*----------------------------------------------------------------------------------------
 	Instance Setter Methods
@@ -79,7 +80,20 @@ void PlayerPilot::onUpdate(int ticks)
 	/* Pick up items. */
 	if (InputManager::getInstance()->onKeyPressed(SDLK_e))
 	{
-		m_characterController->trySwapItem();
+		if (NetworkingManager::getInstance ()->isConnected ()) {
+			if (!NetworkingManager::getInstance ()->isHost ())
+				m_characterController->getGameObject ()->getComponent<Sender> ()->sendTrySwapItem ();
+			else {
+				m_characterController->trySwapItem ();
+				std::shared_ptr<Sender> sender = m_characterController->getGameObject ()->getComponent<Sender>();
+				if (sender != nullptr) {
+					sender->sendSwappedItem ();
+				}
+			}
+		}
+		else {
+			m_characterController->trySwapItem ();
+		}
 	}
 }
 

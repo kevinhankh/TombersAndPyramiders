@@ -316,15 +316,15 @@ void NetworkingManager::pollMessagesThread(int id)
 
 
 void NetworkingManager::sendAcceptPacket (int id) {
-	std::string packet = "[{key:ACCEPT,NetID:" + std::to_string (id) + "}]";
+	std::string packet = "[{key:ACCEPT,netID:0,myNetID:" + std::to_string (id) + "}]";
 	send (id, &packet);
 }
 
 void NetworkingManager::listenforAcceptPacket ()
 {
-	this->m_handshakeListenerID = MessageManager::subscribe ("ACCEPT", [](std::map<std::string, void*> data) -> void
+	this->m_handshakeListenerID = MessageManager::subscribe ("0|ACCEPT", [](std::map<std::string, void*> data) -> void
 	{
-		NetworkingManager::getInstance()->m_assignedID = std::stoi (*(std::string*)data["NetID"]);
+		NetworkingManager::getInstance()->m_assignedID = std::stoi (*(std::string*)data["myNetID"]);
 		NetworkingManager::getInstance ()->stopListeningForAcceptPacket ();
 		SpawnManager::getInstance ()->listenForStartPacket ();
 
@@ -333,7 +333,7 @@ void NetworkingManager::listenforAcceptPacket ()
 
 void NetworkingManager::stopListeningForAcceptPacket () {
 	std::cout << "Our Network ID: " << m_assignedID << std::endl;
-	MessageManager::unSubscribe ("ACCEPT", m_handshakeListenerID);
+	MessageManager::unSubscribe ("0|ACCEPT", m_handshakeListenerID);
 }
 
 //void NetworkingManager::sendStartPacket (Uint32 ip) {
@@ -384,15 +384,16 @@ bool NetworkingManager::getMessage(std::string &msg)
 	if (!m_messageQueue->isEmpty())
 	{
 		m_messageQueue->pop(msg);
-		std::cout << "Msg: " << msg << std::endl;
+		//std::cout << "Msg: " << msg << std::endl;
 		return true;
 	}
 	return false;
 }
 
-void NetworkingManager::prepareMessageForSending(std::string key, std::map<std::string, std::string> data)
+void NetworkingManager::prepareMessageForSending(int netID, std::string key, std::map<std::string, std::string> data)
 {
 	Message message;
+	message.netID = netID;
 	message.key = key;
 	message.data = data;
 	m_messagesToSend.push_back(message);
@@ -428,14 +429,17 @@ void NetworkingManager::sendQueuedEvents()
 void NetworkingManager::sendEventToReceiver(std::map<std::string, void*> data)
 {
 	std::string* key = (std::string*)data["key"];
-	std::string value = *key;
+	std::string netID = *(std::string*)data["netID"];
+	std::string value = netID + "|" + *key;
+	//std::cout << "Event: " << value << " NetID: " << netID << std::endl;
 	MessageManager::sendEvent(value, data);
 }
 
 std::string NetworkingManager::serializeMessage(Message message)
 {
 	std::string result = "{";
-	message.data["key"] = message.key.c_str();
+	message.data["netID"] = std::to_string(message.netID).c_str();
+	message.data["key"] = message.key.c_str ();
 
 	for (const auto tuple : message.data)
 	{

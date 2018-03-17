@@ -12,6 +12,7 @@
 
 struct Message
 {
+	int netID;
 	std::string key;
 	std::map<std::string, std::string> data;
 };
@@ -71,7 +72,7 @@ public:
 	bool createUDPPacket(int packetSize);
 	void sendUDP(std::string *msg);
 	bool getMessage(std::string &msg);
-	void prepareMessageForSending(std::string key, std::map<std::string, std::string> data);
+	void prepareMessageForSending(int netID, std::string key, std::map<std::string, std::string> data);
 	void sendQueuedEvents();
 	void handleParsingEvents(std::string packet);
 	bool isConnected();
