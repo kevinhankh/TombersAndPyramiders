@@ -108,10 +108,10 @@ void NetworkedGameScene::onStart ()
 	}
 	SpawnManager::getInstance ()->generateWorldItem (5, -5, std::make_shared<WoodenShortsword> ());
 
-	Ai = SpawnManager::getInstance ()->generateAiCharacter (14, -15);
-	Ai2 = SpawnManager::getInstance ()->generateAiCharacter (44, -20);
-	Ai3 = SpawnManager::getInstance ()->generateAiCharacter (54, -40);
-	Ai4 = SpawnManager::getInstance ()->generateAiCharacter (14, -35);
+	//Ai = SpawnManager::getInstance ()->generateAiCharacter (14, -15);
+	//Ai2 = SpawnManager::getInstance ()->generateAiCharacter (44, -20);
+	//Ai3 = SpawnManager::getInstance ()->generateAiCharacter (54, -40);
+	//Ai4 = SpawnManager::getInstance ()->generateAiCharacter (14, -35);
 
 	Camera::getActiveCamera ()->addComponent<CameraFollow> (Camera::getActiveCamera ().get ());
 	SpawnManager::getInstance()->generateSingleDoor(10, -10, Door::Direction::West, Door::Mode::Closed);

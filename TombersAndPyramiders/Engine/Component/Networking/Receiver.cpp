@@ -27,6 +27,12 @@ Receiver::Receiver(GameObject* gameObject, int netID) : Component(gameObject)
 		transform->setScale(scale);
 	}, this);
 
+	Subscribe ("SWAPPEDITEM", [](std::map<std::string, void*> data) -> void
+	{
+		Receiver* self = (Receiver*)data["this"];
+		self->getGameObject()->getComponent<CharacterController> ()->trySwapItem ();
+	}, this);
+
 	Subscribe ("TRYSWAPITEM", [](std::map<std::string, void*> data) -> void {
 		float netID = std::stoi (*(std::string*)data["netID"]);
 		if (NetworkingManager::getInstance ()->isSelf (netID))

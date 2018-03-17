@@ -10,6 +10,8 @@ ClientCharacter::ClientCharacter(BasePilot* basePilot, int networkingID) :
 	addComponent<Sender>(this, networkingID);
 	MessageManager::subscribe (std::to_string (networkingID) + "|" + "SWAPPEDITEM", [](std::map<std::string, void*> data) -> void
 	{
+		ClientCharacter* self = (ClientCharacter*)data["this"];
+		self->getComponent<CharacterController> ()->trySwapItem ();
 	}, this);
 }
 

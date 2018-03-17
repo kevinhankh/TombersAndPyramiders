@@ -267,7 +267,7 @@ std::shared_ptr<WorldItem> CharacterController::trySwapItem()
 
 				std::shared_ptr<BaseItem> removedItem = m_inventory->addItem(extractedItem);
 				if (removedItem != nullptr) {
-					return SpawnManager::getInstance()->generateWorldItem(m_character->getTransform()->getX(), m_character->getTransform()->getY(), removedItem);
+					return SpawnManager::getInstance()->generateWorldItem(worldItem->getTransform()->getX(), worldItem->getTransform()->getY(), removedItem);
 				}
 
 				break;
