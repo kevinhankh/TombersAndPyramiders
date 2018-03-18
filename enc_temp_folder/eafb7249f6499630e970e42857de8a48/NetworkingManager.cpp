@@ -177,7 +177,7 @@ bool NetworkingManager::join ()
 		return false;
 	}
 	
-	m_udpSocket = SDLNet_UDP_Open(0);
+	m_udpSocket = SDLNet_UDP_Open(m_port);
 	if (!m_udpSocket)
 	{
 	printf("SDLNet_UDP_Open: %s\n", SDLNet_GetError());
@@ -365,10 +365,8 @@ void NetworkingManager::pollMessagesThreadUDP()
 	while (m_udpSocket != NULL)
 	{ //replace with on connection lost
 
-		UDPpacket *recPacket = SDLNet_AllocPacket(MAXLEN);
-
 		if (m_udpSocket != NULL)
-			result = SDLNet_UDP_Recv(m_udpSocket, recPacket);
+			result = SDLNet_UDP_Recv(m_udpSocket, &m_udpReceivedPacket);
 		if (result == -1)
 		{
 			//closeUDP();
@@ -380,7 +378,7 @@ void NetworkingManager::pollMessagesThreadUDP()
 		}
 		else if (result == 1)
 		{
-			std::string newMsg (recPacket->data, recPacket->data + recPacket->len);
+			std::string newMsg (m_udpReceivedPacket.data, m_udpReceivedPacket.data + MAXLEN);
 			m_messageQueue->push (newMsg);
 		}
 	}
