@@ -11,6 +11,7 @@ private:
 	Mix_Chunk* m_shootArrow;
 	Mix_Chunk* m_swordSwing;
 	Mix_Chunk* m_valiantWind;
+	Mix_Chunk* m_ignite;
 
 	AudioManager();
 	~AudioManager();
@@ -24,6 +25,7 @@ public:
 	void playHitSFX(int loop = -1, float volumeFactor = 1.0f);
 	void playShootArrowSFX(int loop = -1, float volumeFactor = 1.0f);
 	void playSwordSwingSFX(int loop = -1, float volumeFactor = 1.0f);
+	void playIgniteSFX(int loop = -1, float volumeFactor = 1.0f);
 	//Pauses the current music
 	void pauseMusic();
 	//Resume playing the music

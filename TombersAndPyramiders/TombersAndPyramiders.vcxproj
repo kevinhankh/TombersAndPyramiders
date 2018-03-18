@@ -199,7 +199,6 @@
     <ClCompile Include="Game\GameObjects\Button.cpp" />
     <ClCompile Include="Game\GameObjects\Character.cpp" />
     <ClCompile Include="Game\GameObjects\ClientCharacter.cpp" />
-    <ClCompile Include="Game\GameObjects\CreateButton.cpp" />
     <ClCompile Include="Game\GameObjects\DamagingRegion.cpp" />
     <ClCompile Include="Game\GameObjects\GameObjectTemplate.cpp" />
     <ClCompile Include="Game\GameObjects\HostCharacter.cpp" />
@@ -297,7 +296,6 @@
     <ClInclude Include="Game\GameObjects\Button.h" />
     <ClInclude Include="Game\GameObjects\Character.h" />
     <ClInclude Include="Game\GameObjects\ClientCharacter.h" />
-    <ClInclude Include="Game\GameObjects\CreateButton.h" />
     <ClInclude Include="Game\GameObjects\DamagingRegion.h" />
     <ClInclude Include="Game\GameObjects\GameObjectTemplate.h" />
     <ClInclude Include="Game\GameObjects\HostCharacter.h" />

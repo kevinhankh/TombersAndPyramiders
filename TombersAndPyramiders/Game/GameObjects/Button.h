@@ -1,23 +1,48 @@
 #pragma once
 
-#include "SimpleSprite.h"
+#include "ComplexSprite.h"
 #include "ComponentTemplate.h"
+#include "InputManager.h"
+#include "AudioManager.h"
 
-class Button : public SimpleSprite
+#define BUTTON 0
+#define BUTTON_HOVER 1
+
+class Button : public ComplexSprite
 {
 private:
-	string m_text;
+	float m_x, m_y, m_width, m_height;
+	string m_type;
 public:
-	Button(string text, string spriteName, float x, float y, float z, float scale);
+	Button(float x, float y, float width, float height, string type);
 	~Button();
-	void setText(string text);
-	string getText();
+	std::shared_ptr<ComplexSpriteinfo> generateComplexSpriteInfo(string type);
 	void virtual OnClicked();
-	void OnHover();
-	void OnUnhover();
+	bool CheckHovering();
 
 	void onStart() {};
-	void onUpdate(int ticks) {};
+	void onUpdate(int ticks) {
+
+		std::ostringstream message;
+		if (CheckHovering())
+		{
+			message << "True" << endl;
+			changeSprite(BUTTON_HOVER);
+		}
+		else
+		{
+			message << "False" << endl;
+			changeSprite(BUTTON);
+			AudioManager::getInstance()->playIgniteSFX();
+		}
+		OutputDebugString(message.str().c_str());
+
+		if (CheckHovering() && (GetKeyState(VK_LBUTTON) & 0x80) != 0)
+		{
+			// Do something when clicked
+			OnClicked();
+		}
+	};
 	void onEnd() {};
 
 };

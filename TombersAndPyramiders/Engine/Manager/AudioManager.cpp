@@ -29,6 +29,7 @@ AudioManager::AudioManager()
 	m_shootArrow = Mix_LoadWAV(BuildPath("Game/Assets/Audio/shootarrow.mp3").c_str());
 	m_swordSwing = Mix_LoadWAV(BuildPath("Game/Assets/Audio/swordswing.mp3").c_str());
 	m_valiantWind = Mix_LoadWAV(BuildPath("Game/Assets/Audio/valiantwind.mp3").c_str());
+	m_ignite = Mix_LoadWAV(BuildPath("Game/Assets/Audio/ignite.mp3").c_str());
 }
 
 AudioManager::~AudioManager()
@@ -59,6 +60,12 @@ void AudioManager::playSwordSwingSFX(int loop, float volumeFactor)
 {
 	Mix_PlayChannel(4, m_swordSwing, 0);
 	Mix_Volume(4, 128 * volumeFactor);
+}
+
+void AudioManager::playIgniteSFX(int loop, float volumeFactor)
+{
+	Mix_PlayChannel(5, m_ignite, 0);
+	Mix_Volume(5, 128 * volumeFactor);
 }
 
 /*void AudioManager::playMusic(std::string filename, int loops, float volumeFactor)
