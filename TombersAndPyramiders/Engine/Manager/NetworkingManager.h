@@ -8,7 +8,9 @@
 #include <memory>
 #define DEFAULT_IP "127.0.0.1"
 #define DEFAULT_PORT 9999
-#define DEFAULT_CHANNEL 1
+#define DEFAULT_CHANNEL -1
+#define MAXLEN_UDP 1024
+#define MAXLEN_TCP 16384
 
 struct Message
 {

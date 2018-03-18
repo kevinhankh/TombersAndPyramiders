@@ -158,6 +158,7 @@ bool NetworkingManager::join ()
 	IPaddress ip;
 	int channel;
 
+	
 
 	if (SDLNet_ResolveHost (&ip, IP, m_port) == -1)
 	{
@@ -176,8 +177,8 @@ bool NetworkingManager::join ()
 		SDLNet_TCP_Close (m_socket);
 		return false;
 	}
-	
-	m_udpSocket = SDLNet_UDP_Open(0);
+		
+	m_udpSocket = SDLNet_UDP_Open(m_port);
 	if (!m_udpSocket)
 	{
 	printf("SDLNet_UDP_Open: %s\n", SDLNet_GetError());
@@ -185,7 +186,7 @@ bool NetworkingManager::join ()
 	return false;
 	}
 
-	if (!SDLNet_UDP_Bind (m_udpSocket, DEFAULT_CHANNEL, &ip))
+	if (SDLNet_UDP_Bind (m_udpSocket, DEFAULT_CHANNEL, &ip) != -1)
 	{
 		printf ("SDLNet_UDP_Bind: %s\n", SDLNet_GetError ());
 	}
@@ -282,16 +283,16 @@ void NetworkingManager::pollMessagesTCP(int id)
 
 void NetworkingManager::pollMessagesThreadTCP(int id)
 {
-#define MAXLEN 16384
+
 	int result;
-	char msg[MAXLEN];
+	char msg[MAXLEN_TCP];
 
 	while (m_socket != NULL)
 	{ 
 		if (m_clients.find(id) != m_clients.end())
-			result = SDLNet_TCP_Recv(m_clients[id].second, msg, MAXLEN);
+			result = SDLNet_TCP_Recv(m_clients[id].second, msg, MAXLEN_TCP);
 		else if (m_socket != NULL)
-			result = SDLNet_TCP_Recv(m_socket, msg, MAXLEN);
+			result = SDLNet_TCP_Recv(m_socket, msg, MAXLEN_TCP);
 		if (result <= 0)
 		{
 			if (isHost ()) {
@@ -358,20 +359,19 @@ void NetworkingManager::pollMessagesUDP()
 
 void NetworkingManager::pollMessagesThreadUDP()
 {
-#define MAXLEN 16384
 	int result;
-	char msg[MAXLEN];
+	char msg[MAXLEN_UDP];
 
 	while (m_udpSocket != NULL)
 	{ //replace with on connection lost
 
-		UDPpacket *recPacket = SDLNet_AllocPacket(MAXLEN);
+		UDPpacket *recPacket = SDLNet_AllocPacket(MAXLEN_UDP);
 
 		if (m_udpSocket != NULL)
 			result = SDLNet_UDP_Recv(m_udpSocket, recPacket);
 		if (result == -1)
 		{
-			//error
+
 		}
 		else if (result == 0)
 		{
@@ -382,7 +382,8 @@ void NetworkingManager::pollMessagesThreadUDP()
 			std::string newMsg (recPacket->data, recPacket->data + recPacket->len);
 			m_messageQueue->push (newMsg);
 		}
-		SDLNet_FreePacket (recPacket);
+
+		SDLNet_FreePacket(recPacket);
 		recPacket = NULL;
 	}
 	closeUDP();
