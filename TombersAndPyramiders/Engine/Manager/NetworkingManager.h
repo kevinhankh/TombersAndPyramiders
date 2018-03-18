@@ -37,7 +37,6 @@ private:
 	UDPpacket *m_udpPacket;
 	UDPpacket m_udpReceivedPacket;
 	UDPsocket m_udpSocket = NULL;
-	UDPsocket m_udpClient = NULL;
 	TCPsocket m_socket = NULL;
 	bool accept();
 	bool host();
