@@ -15,7 +15,7 @@ void Sender::sendCreate()
 	payload["z"] = std::to_string(transform->getZ());
 	payload["rotation"] = std::to_string(transform->getRotation());
 	payload["scale"] = std::to_string(transform->getScale());
-	sendNetworkMessage("CREATE", payload, false);
+	sendNetworkMessage("CREATE", payload);
 
 }
 
@@ -37,7 +37,7 @@ void Sender::sendUpdate()
 	payload["z"] = std::to_string(transform->getZ());
 	payload["rotation"] = std::to_string(transform->getRotation());
 	payload["scale"] = std::to_string(transform->getScale());
-	sendNetworkMessage("UPDATE", payload);
+	sendNetworkMessage("UPDATE", payload, false);
 }
 
 void Sender::spawnPlayers(float p1x, float p1y, float p2x, float p2y)

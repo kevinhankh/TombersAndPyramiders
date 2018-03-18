@@ -96,12 +96,12 @@ bool NetworkingManager::host()
 	m_inLobby = true;
 	m_gameStarted = false;
 	m_isHost = true;
-	//channel = SDLNet_UDP_Bind(m_udpSocket, DEFAULT_CHANNEL, &ip);
 
 	std::cout << "Hosting server." << std::endl;
 	addPlayer (ip.host, m_socket);
 	m_assignedID = 0;
 	pollSocketAccept ();
+	pollMessagesUDP ();
 }
 
 void NetworkingManager::pollSocketAccept ()
@@ -138,6 +138,12 @@ bool NetworkingManager::accept()
 		return false;
 	}
 	pollMessagesTCP(newID);
+
+	if (!SDLNet_UDP_Bind (m_udpSocket, DEFAULT_CHANNEL, ip))
+	{
+		printf ("SDLNet_UDP_Bind: %s\n", SDLNet_GetError ());
+	}
+
 	sendAcceptPacket (newID);
 	// communicate over new_tcpsock
 	std::cout << "Accepted a client." << std::endl;
@@ -170,7 +176,7 @@ bool NetworkingManager::join ()
 		SDLNet_TCP_Close (m_socket);
 		return false;
 	}
-	/*
+	
 	m_udpSocket = SDLNet_UDP_Open(m_port);
 	if (!m_udpSocket)
 	{
@@ -179,13 +185,16 @@ bool NetworkingManager::join ()
 	return false;
 	}
 
-	channel = SDLNet_UDP_Bind(m_udpSocket, DEFAULT_CHANNEL, &ip);*/
+	if (!SDLNet_UDP_Bind (m_udpSocket, DEFAULT_CHANNEL, &ip))
+	{
+		printf ("SDLNet_UDP_Bind: %s\n", SDLNet_GetError ());
+	}
 
 	m_inLobby = true;
 	m_gameStarted = false;
 
 	std::cout << "Joined as a client." << std::endl;
-	//pollMessagesUDP(ip.host);
+	pollMessagesUDP();
 	return true;
 }
 
@@ -255,6 +264,7 @@ bool NetworkingManager::createUDPPacket(int packetSize)
 	}
 
 	m_udpPacket->address.port = m_port;
+	m_udpPacket->channel = DEFAULT_CHANNEL;
 
 	return true;
 }
