@@ -35,7 +35,7 @@ public:
 	{
 		return m_id;
 	}
-	void GameObject::setInitialState(bool isGlobal, int id);
+	void setInitialState(bool isGlobal, int id);
 
 
 	template <class T>
@@ -96,12 +96,6 @@ public:
 	template <typename T>
 	void removeComponents()
 	{
-		std::vector<std::shared_ptr<Component>> componentList = m_components[getClassName<T>()];
-		for (size_t i = componentList.size() - 1; i >= 0; i--)
-		{
-			delete componentList[i];
-		}
-
 		m_components[getClassName<T>()].clear();
 	}
 

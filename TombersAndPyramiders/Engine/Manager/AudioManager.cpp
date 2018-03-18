@@ -1,6 +1,4 @@
 #include "AudioManager.h"
-#include <SDL.h>
-#include <SDL_mixer.h>
 #include <iostream>
 #include <string>
 #include "SpriteRendererManager.h"

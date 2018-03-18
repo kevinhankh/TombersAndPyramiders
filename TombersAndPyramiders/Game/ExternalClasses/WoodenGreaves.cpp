@@ -14,6 +14,7 @@
 #include "GameObject.h"
 #include "Vector2.h"
 #include "CharacterController.h"
+#include <memory>
 
 /*----------------------------------------------------------------------------------------
 Static Fields
@@ -28,7 +29,7 @@ const float WoodenGreaves::WOODEN_GREAVES_MAX_DASH_SPEED = 50.0f;
 WoodenGreaves::WoodenGreaves() :
 	BaseGreaves(WOODEN_GREAVES_COOLDOWN_TIME), 
 	m_timeLeftInDash{ 0.0f }, 
-	m_dashDirection{ std::make_unique<Vector2>() }
+	m_dashDirection{ make_unique<Vector2>() }
 {}
 
 /*----------------------------------------------------------------------------------------
