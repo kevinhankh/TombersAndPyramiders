@@ -26,6 +26,7 @@
                 "${workspaceRoot}/TombersAndPyramiders/Game/ExternalClasses",
                 "${workspaceRoot}/TombersAndPyramiders/Game/ExternalClasses/Possession",
                 "${workspaceRoot}/TombersAndPyramiders/Game/GameObjects",
+                "${workspaceRoot}/TombersAndPyramiders/Game/GameObjects/Doors",
                 "${workspaceRoot}/TombersAndPyramiders/Game/Managers",
                 "${workspaceRoot}/TombersAndPyramiders/Game/Scenes"
             ],
