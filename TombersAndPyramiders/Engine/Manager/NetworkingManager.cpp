@@ -137,7 +137,7 @@ bool NetworkingManager::accept()
 		std::cout << "Too many players." << std::endl;
 		return false;
 	}
-	pollMessages(newID);
+	pollMessagesTCP(newID);
 	sendAcceptPacket (newID);
 	// communicate over new_tcpsock
 	std::cout << "Accepted a client." << std::endl;
@@ -162,7 +162,7 @@ bool NetworkingManager::join ()
 	listenforAcceptPacket ();
 
 	m_socket = SDLNet_TCP_Open (&ip);
-	pollMessages (addPlayer (ip.host, m_socket));
+	pollMessagesTCP (addPlayer (ip.host, m_socket));
 	if (!m_socket)
 	{
 		printf ("SDLNet_TCP_Open: %s\n", SDLNet_GetError ());
@@ -268,14 +268,14 @@ void NetworkingManager::sendUDP(std::string *msg)
 		std::cout << "SDLNET_UDP_SEND failed: " << SDLNet_GetError() << "\n";
 }
 
-void NetworkingManager::pollMessages(int id)
+void NetworkingManager::pollMessagesTCP(int id)
 {
-	m_messagesToSend.clear();
-	m_receiverThread = std::thread(&NetworkingManager::pollMessagesThread, this, id);
+	m_messagesToSendTCP.clear();
+	m_receiverThread = std::thread(&NetworkingManager::pollMessagesThreadTCP, this, id);
 	m_receiverThread.detach();
 }
 
-void NetworkingManager::pollMessagesThread(int id)
+void NetworkingManager::pollMessagesThreadTCP(int id)
 {
 #define MAXLEN 16384
 	int result;
@@ -346,7 +346,7 @@ void NetworkingManager::stopListeningForAcceptPacket () {
 
 void NetworkingManager::pollMessagesUDP()
 {
-	m_messagesToSend.clear();
+	m_messagesToSendUDP.clear();
 	m_udpReceiverThread = std::thread(&NetworkingManager::pollMessagesThreadUDP, this);
 	m_udpReceiverThread.detach();
 }
@@ -384,32 +384,45 @@ bool NetworkingManager::getMessage(std::string &msg)
 	return false;
 }
 
-void NetworkingManager::prepareMessageForSending(int netID, std::string key, std::map<std::string, std::string> data)
+void NetworkingManager::prepareMessageForSendingUDP (int netID, std::string key, std::map<std::string, std::string> data)
 {
 	Message message;
 	message.netID = netID;
 	message.key = key;
 	message.data = data;
-	m_messagesToSend.push_back(message);
+	m_messagesToSendUDP.push_back (message);
 }
 
-//TODO: Do over time
-void NetworkingManager::sendQueuedEvents()
+void NetworkingManager::prepareMessageForSendingTCP (int netID, std::string key, std::map<std::string, std::string> data)
 {
-	if (m_messagesToSend.size() < 1)
+	Message message;
+	message.netID = netID;
+	message.key = key;
+	message.data = data;
+	m_messagesToSendTCP.push_back (message);
+}
+
+void NetworkingManager::sendQueuedEvents () {
+	sendQueuedEventsTCP ();
+	sendQueuedEventsUDP ();
+}
+
+void NetworkingManager::sendQueuedEventsTCP ()
+{
+	if (m_messagesToSendTCP.size () < 1)
 		return;
 	std::string packet = "[";
-	for (size_t i = 0; i < m_messagesToSend.size(); i++)
+	for (size_t i = 0; i < m_messagesToSendTCP.size (); i++)
 	{
-		packet += serializeMessage(m_messagesToSend[i]);
+		packet += serializeMessage (m_messagesToSendTCP[i]);
 		packet += ",";
 	}
-	packet.pop_back();
+	packet.pop_back ();
 	packet += "]";
 	//Submit it
-	m_messagesToSend.clear();
+	m_messagesToSendTCP.clear ();
 
-	for (auto it = m_clients.begin(); it != m_clients.end(); it++) {
+	for (auto it = m_clients.begin (); it != m_clients.end (); it++) {
 		if ((it->second).first == -1) {
 			m_clients.erase (it);
 			--it;
@@ -418,6 +431,24 @@ void NetworkingManager::sendQueuedEvents()
 			send (it->first, new std::string (packet));
 		}
 	}
+}
+
+void NetworkingManager::sendQueuedEventsUDP ()
+{
+	if (m_messagesToSendUDP.size () < 1)
+		return;
+	std::string packet = "[";
+	for (size_t i = 0; i < m_messagesToSendUDP.size (); i++)
+	{
+		packet += serializeMessage (m_messagesToSendUDP[i]);
+		packet += ",";
+	}
+	packet.pop_back ();
+	packet += "]";
+	//Submit it
+	m_messagesToSendUDP.clear ();
+
+	sendUDP (new std::string (packet));
 }
 
 void NetworkingManager::sendEventToReceiver(std::map<std::string, void*> data)

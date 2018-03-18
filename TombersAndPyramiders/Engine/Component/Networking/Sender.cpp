@@ -15,7 +15,7 @@ void Sender::sendCreate()
 	payload["z"] = std::to_string(transform->getZ());
 	payload["rotation"] = std::to_string(transform->getRotation());
 	payload["scale"] = std::to_string(transform->getScale());
-	sendNetworkMessage("CREATE", payload);
+	sendNetworkMessage("CREATE", payload, false);
 
 }
 
@@ -85,11 +85,14 @@ void Sender::sendTrigger()
 	sendNetworkMessage("TRIGGER", payload);
 }
 
-void Sender::sendNetworkMessage(std::string messageKey, std::map<std::string, std::string> payload)
+void Sender::sendNetworkMessage(std::string messageKey, std::map<std::string, std::string> payload, bool useTCP)
 {
 	if (NetworkingManager::getInstance ()->inGame ()) {
 		std::remove_if (messageKey.begin (), messageKey.end (), isspace);
-		NetworkingManager::getInstance ()->prepareMessageForSending (m_id, messageKey, payload);
+		if (useTCP)
+			NetworkingManager::getInstance ()->prepareMessageForSendingTCP (m_id, messageKey, payload);
+		else
+			NetworkingManager::getInstance ()->prepareMessageForSendingUDP (m_id, messageKey, payload);
 	}
 }
 

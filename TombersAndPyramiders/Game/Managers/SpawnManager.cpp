@@ -74,7 +74,7 @@ void SpawnManager::sendStartPacket()
 		i++;
 	}
 
-	NetworkingManager::getInstance()->prepareMessageForSending(0, "STARTGAME", payload);
+	NetworkingManager::getInstance()->prepareMessageForSendingTCP(0, "STARTGAME", payload);
 }
 
 void SpawnManager::listenForStartPacket()

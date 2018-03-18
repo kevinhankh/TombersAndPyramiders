@@ -28,7 +28,8 @@ private:
 	ThreadQueue<std::string> *m_messageQueue;
 	std::thread m_receiverThread;
 	std::thread m_udpReceiverThread;
-	std::vector<Message> m_messagesToSend;
+	std::vector<Message> m_messagesToSendTCP;
+	std::vector<Message> m_messagesToSendUDP;
 	char *IP = DEFAULT_IP;
 	int m_port = DEFAULT_PORT;
 
@@ -41,8 +42,8 @@ private:
 	bool accept();
 	bool host();
 	bool join();
-	void pollMessages(int id);
-	void pollMessagesThread(int id);
+	void pollMessagesTCP(int id);
+	void pollMessagesThreadTCP(int id);
 	void pollMessagesUDP();
 	void pollMessagesThreadUDP();
 	std::string serializeMessage(Message message);
@@ -53,7 +54,6 @@ private:
 	std::thread m_socketAcceptThread;
 	void pollSocketAccept ();
 	void socketAcceptThread ();
-	ThreadQueue<int> m_socketAcceptQueue;
 
 public:
 	int m_assignedID = -1;
@@ -77,8 +77,11 @@ public:
 	bool createUDPPacket(int packetSize);
 	void sendUDP(std::string *msg);
 	bool getMessage(std::string &msg);
-	void prepareMessageForSending(int netID, std::string key, std::map<std::string, std::string> data);
-	void sendQueuedEvents();
+	void prepareMessageForSendingUDP (int netID, std::string key, std::map<std::string, std::string> data);
+	void prepareMessageForSendingTCP (int netID, std::string key, std::map<std::string, std::string> data);
+	void sendQueuedEvents ();
+	void sendQueuedEventsTCP ();
+	void sendQueuedEventsUDP ();
 	void handleParsingEvents(std::string packet);
 	bool isConnected();
 	bool isSelf (int id);
