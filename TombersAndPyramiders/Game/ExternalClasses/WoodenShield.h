@@ -1,7 +1,7 @@
 /*===================================================================================*//**
-	BaseLongbow
+	WoodenShield
 	
-	Abstract class for a base longbow.
+	A weak wooden shield.
 
     @author Erick Fernandez de Arteaga
 	
@@ -12,40 +12,32 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "BaseProjectileWeapon.h"
-#include <string>
+#include "BaseShield.h"
 
 /*========================================================================================
-	BaseLongbow	
+	BaseShield	
 ========================================================================================*/
-class BaseLongbow : public BaseProjectileWeapon
+class WoodenShield : public BaseShield
 {
     /*----------------------------------------------------------------------------------------
 		Static Fields
     ----------------------------------------------------------------------------------------*/
-	protected:
-		static const float LONGBOW_PROJECTILE_COLLIDER_WIDTH;
-		static const float LONGBOW_PROJECTILE_COLLIDER_HEIGHT;
-		static const float LONGBOW_PROJECTILE_SPRITE_SCALE;
-		static const float LONGBOW_PROJECTILE_SPAWN_X_OFFSET_FROM_HOLDER;
-		static const float LONGBOW_PROJECTILE_SPAWN_Y_OFFSET_FROM_HOLDER;
-		static const float LONGBOW_PROJECTILE_LIFESPAN;
-		static const float LONGBOW_PROJECTILE_X_VELOCITY;
-		static const float LONGBOW_PROJECTILE_Y_VELOCITY;
-		static const float LONGBOW_CRITICAL_HIT_CHANCE;
-		static const float LONGBOW_ATTACK_COOLDOWN_TIME;
+	private:
+		static const string WOODEN_SHIELD_IMAGE_NAME;
+		static const float WOODEN_SHIELD_DAMAGE_MULT;
+		static const float WOODEN_SHIELD_COOLDOWN_TIME;
 
     /*----------------------------------------------------------------------------------------
 		Resource Management
     ----------------------------------------------------------------------------------------*/
     public:
         /** Default constructor. */
-        explicit BaseLongbow() = delete;
+		explicit WoodenShield();
 
-		explicit BaseLongbow(int damage, std::string projectileImageName,
-			Vector2 projectileColliderSize, bool destroyProjectilesOnCollision,
-			Vector2 projectileSpawnOffsetFromHolder, float projectileSpriteScale, 
-			Vector2 projectileVelocity, float projectileLifespan);
+		~WoodenShield() = default;
 
-		virtual ~BaseLongbow() {};
+	/*----------------------------------------------------------------------------------------
+		Instance Methods
+	----------------------------------------------------------------------------------------*/
+    
 };

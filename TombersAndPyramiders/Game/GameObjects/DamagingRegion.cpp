@@ -16,14 +16,21 @@
 #include "BoxCollider.h"
 #include "CharacterController.h"
 #include "Damageable.h"
+#include "RandomHelper.h"
+
+/*----------------------------------------------------------------------------------------
+	Resource Management
+----------------------------------------------------------------------------------------*/
+RandomHelper DamagingRegion::s_random = RandomHelper();
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
 DamagingRegion::DamagingRegion(int damage, string imageName, float colliderWidth, 
-	float colliderHeight, bool destroyOnCollision, float xPosition, float yPosition, float spriteScale) :
+	float colliderHeight, float criticalHitChance, bool destroyOnCollision, float xPosition, float yPosition, float spriteScale) :
 	SimpleSprite{ imageName, xPosition, yPosition, 0, spriteScale },
 	m_damage{ damage }, 
+	m_criticalHitChance{ criticalHitChance },
 	m_destroyOnCollision{ destroyOnCollision },
 	m_hitList { std::unordered_set<int>() }
 {
@@ -87,7 +94,7 @@ void DamagingRegion::handleSingleCollision(GameObject* other)
 		{
 			m_hitList.insert(otherId);
 
-			ccOther->takeDamage(m_damage);
+			ccOther->takeDamage(m_damage, isCriticalHit());
 
 			if (m_destroyOnCollision)
 			{
@@ -97,4 +104,9 @@ void DamagingRegion::handleSingleCollision(GameObject* other)
 			return;
 		}
 	}
+}
+
+bool DamagingRegion::isCriticalHit()
+{
+	return (s_random.random0to1() < m_criticalHitChance);
 }
