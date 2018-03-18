@@ -371,8 +371,7 @@ void NetworkingManager::pollMessagesThreadUDP()
 			result = SDLNet_UDP_Recv(m_udpSocket, recPacket);
 		if (result == -1)
 		{
-			//closeUDP();
-			continue;
+			//error
 		}
 		else if (result == 0)
 		{
@@ -383,6 +382,8 @@ void NetworkingManager::pollMessagesThreadUDP()
 			std::string newMsg (recPacket->data, recPacket->data + recPacket->len);
 			m_messageQueue->push (newMsg);
 		}
+		SDLNet_FreePacket (recPacket);
+		recPacket = NULL;
 	}
 	closeUDP();
 }
