@@ -29,6 +29,12 @@
 #include "Collider.h"
 #include "SpawnManager.h"
 #include "AudioManager.h"
+#include "GameManager.h"
+#include "Invokable.h"
+#include "BasePossessableController.h"
+#include "GhostPilot.h"
+#include "NetworkCharacter.h"
+#include "PlayerPilot.h"
 
 /*----------------------------------------------------------------------------------------
 	Static Fields
@@ -114,6 +120,46 @@ void CharacterController::useWeapon()
 		}
 	}
 }
+
+bool CharacterController::tryInvokeTrigger()
+{
+	auto transform = getGameObject()->getTransform();
+	auto closeObjects = GameManager::getInstance()->getObjectsInBounds(transform->getX(), transform->getY(), transform->getScale(), transform->getScale());
+
+	std::shared_ptr<Invokable> closest = nullptr;
+	float distance = 1000;
+
+	for (auto it = closeObjects.begin(); it != closeObjects.end(); it++)
+	{
+		std::shared_ptr<Invokable> invokable = (*it)->getComponent<Invokable>();
+		std::shared_ptr<BasePossessableController> possessable = nullptr;
+		float maxDistance = transform->getScale() / 2.0f + (*it)->getTransform()->getScale() / 2.0f;
+
+		if (invokable == nullptr)
+		{
+			possessable = (*it)->getComponent<BasePossessableController>();
+			invokable = dynamic_pointer_cast<Invokable>(possessable);
+		}
+
+		if (invokable != nullptr || possessable != nullptr)
+		{
+			float newDistance = (*it)->getTransform()->getDistance(transform);
+			if (newDistance <= maxDistance && newDistance < distance)
+			{
+				distance = newDistance;
+				closest = invokable;
+			}
+		}
+	}
+
+	if (closest != nullptr)
+	{
+		closest->trigger();
+		return true;
+	}
+	return false;
+}
+
 
 void CharacterController::useShield()
 {
@@ -206,6 +252,16 @@ void CharacterController::updateGreaves(int ticks)
 void CharacterController::death()
 {
 	destroy(gameObject->getId());
+
+	/* Spawn the character's ghost. */
+	auto localPlayer = dynamic_cast<PlayerPilot*>(m_pilot.get());	// Check this is not an enemy.
+	
+	if (localPlayer != nullptr)
+	{
+		auto ghost = GameManager::getInstance()->createGameObject<GhostCharacter>(false, new GhostPilot());
+		ghost->getTransform()->setPosition(gameObject->getTransform()->getX(), gameObject->getTransform()->getY());
+		SceneManager::getInstance()->getCurrentScene()->setCameraFollow(ghost);
+	}
 }
 
 std::shared_ptr<WorldItem> CharacterController::trySwapItem()
