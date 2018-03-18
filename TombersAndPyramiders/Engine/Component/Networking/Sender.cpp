@@ -104,7 +104,7 @@ Sender::~Sender()
 void Sender::onUpdate (int ticks)
 {
 	m_lastUpdate += ticks;
-	if (m_lastUpdate >= 500) {
+	if (m_lastUpdate >= 125) {
 		sendUpdate ();
 		m_lastUpdate = 0;
 	}
