@@ -11,6 +11,7 @@
 #include "NetworkingManager.h"
 #include <memory>
 #include "WoodenShortsword.h"
+#include "GeneratorManager.h"
 
 std::shared_ptr<Character> player = nullptr;
 std::shared_ptr<Character> player2 = nullptr;
@@ -31,10 +32,76 @@ void NetworkedGameScene::setCameraFollow(std::shared_ptr<GameObject> toFollow)
 
 void NetworkedGameScene::onStart()
 {
+	GeneratorManager::getInstance()->generateLevel(1000,1000,3);
+	/*
+	const float scale = 1;
+
+	SpawnManager::getInstance()->generateMiscSquare(25, -25, -100, 115, "sandBG.png", false);
+
+	/*std::vector<std::vector<int>> level{ {0,0,0,0},
+	{0,0,0,0},
+	{0,0,0,0},
+	{0,0,0,0} };
+
+	std::vector<std::vector<int>> level{{ 1,5,5,5,5,2,9,1,5,5,5,5,5,5,5,5,5,2 } ,
+										{ 7,0,0,0,0,3,5,4,0,0,0,0,0,0,0,0,0,8 } ,
+										{ 7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8 } ,
+										{ 7,0,0,0,0,1,6,2,0,0,0,0,0,0,0,0,0,8 } ,
+										{ 3,6,2,0,1,4,9,7,0,0,0,0,0,0,0,0,0,8 } ,
+										{ 9,9,7,0,8,9,9,7,0,0,0,0,0,0,0,0,0,8 } ,
+										{ 1,5,4,0,3,5,2,7,0,0,0,0,0,0,0,0,0,8 } ,
+										{ 7,0,0,0,0,0,8,7,0,0,0,0,0,0,0,0,0,8 } ,
+										{ 7,0,0,0,0,0,8,3,6,6,6,6,6,2,0,0,0,8 } ,
+										{ 7,0,0,0,0,0,8,9,9,9,9,9,9,7,0,0,0,8 } ,
+										{ 3,6,6,6,6,6,4,9,9,9,9,9,9,7,0,0,0,8 } ,
+										{ 1,5,5,5,5,5,5,5,5,5,5,5,5,4,0,0,0,8 } ,
+										{ 7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8 } ,
+										{ 7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8 } ,
+										{ 3,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,4 } };
+
+	for (int i = 0; i < level.size(); i++)
+	{
+		for (int j = 0; j < level[i].size(); j++)
+		{
+			switch (level[i][j]) {
+			case 0:
+				SpawnManager::getInstance()->generateMiscSquare(j, -i, -10, scale, "stoneTile.png", true);
+				break;
+			case 1:
+				SpawnManager::getInstance()->generateMiscSquare(j, -i, -10, scale, "wallTopLeft.png", true);
+				break;
+			case 2:
+				SpawnManager::getInstance()->generateMiscSquare(j, -i, -10, scale, "wallTopRight.png", true);
+				break;
+			case 3:
+				SpawnManager::getInstance()->generateMiscSquare(j, -i, -10, scale, "wallBottomLeft.png", true);
+				break;
+			case 4:
+				SpawnManager::getInstance()->generateMiscSquare(j, -i, -10, scale, "wallBottomRight.png", true);
+				break;
+			case 5:
+				SpawnManager::getInstance()->generateMiscSquare(j, -i, -10, scale, "wallTop.png", true);
+				break;
+			case 6:
+				SpawnManager::getInstance()->generateMiscSquare(j, -i, -10, scale, "wallBottom.png", true);
+				break;
+			case 7:
+				SpawnManager::getInstance()->generateMiscSquare(j, -i, -10, scale, "wallLeft.png", true);
+				break;
+			case 8:
+				SpawnManager::getInstance()->generateMiscSquare(j, -i, -10, scale, "wallRight.png", true);
+				break;
+			}
+		}
+	}
+
+	*/
+
+	/*
 	const float size = 12;
 	const float scale = 5;
 
-
+	
 
 	SpawnManager::getInstance()->generateMiscSquare(25, -25, -100, 115, "sandBG.png", false);
 
@@ -109,6 +176,7 @@ void NetworkedGameScene::onStart()
 			}
 		}
 	}
+	*/
 	SpawnManager::getInstance()->generateWorldItem(5, -5, std::make_shared<WoodenShortsword>());
 
 	Ai = SpawnManager::getInstance()->generateAiCharacter(14, -15);
