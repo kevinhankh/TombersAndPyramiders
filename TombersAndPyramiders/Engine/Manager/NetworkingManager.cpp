@@ -72,10 +72,6 @@ bool NetworkingManager::host()
 	IPaddress ip;
 	int channel;
 
-	int startConnTime = SDL_GetTicks();
-	int timeoutTime = SDL_GetTicks();
-	const int TIMEOUT = 10000;
-
 	if (SDLNet_ResolveHost(&ip, NULL, m_port) == -1)
 	{
 		printf("SDLNet_ResolveHost: %s\n", SDLNet_GetError());
@@ -105,70 +101,23 @@ bool NetworkingManager::host()
 	std::cout << "Hosting server." << std::endl;
 	addPlayer (ip.host, m_socket);
 	m_assignedID = 0;
+	pollSocketAccept ();
+}
 
-	bool result = false;
-	while (/*!(result = accept ()) &&*/ SDL_GetTicks () - startConnTime < TIMEOUT) {
-		if (accept())
+void NetworkingManager::pollSocketAccept ()
+{
+	m_socketAcceptThread = std::thread (&NetworkingManager::socketAcceptThread, this);
+	m_socketAcceptThread.detach ();
+}
+
+void NetworkingManager::socketAcceptThread ()
+{
+	while (m_inLobby) {
+		if (accept ())
 		{
-			result = true;
 			std::cout << "Connection established." << std::endl;
 		}
 	}
-	if (result)
-	{
-		return true;
-	}
-	else
-	{
-		std::cout << "No peer found, destroying server." << std::endl;
-		SDLNet_TCP_Close (m_socket);
-		return false;
-	}
-}
-
-bool NetworkingManager::join()
-{
-	if (m_inLobby || m_gameStarted)
-		return false;
-
-	IPaddress ip;
-	int channel;
-
-
-	if (SDLNet_ResolveHost(&ip, IP, m_port) == -1)
-	{
-		printf("SDLNet_ResolveHost: %s\n", SDLNet_GetError());
-		return false;
-	}
-
-	listenforAcceptPacket ();
-
-	m_socket = SDLNet_TCP_Open(&ip);
-	pollMessages (addPlayer (ip.host, m_socket));
-	if (!m_socket)
-	{
-		printf("SDLNet_TCP_Open: %s\n", SDLNet_GetError());
-		stopListeningForAcceptPacket ();
-		SDLNet_TCP_Close (m_socket);
-		return false;
-	}
-	/*
-	m_udpSocket = SDLNet_UDP_Open(m_port);
-	if (!m_udpSocket)
-	{
-		printf("SDLNet_UDP_Open: %s\n", SDLNet_GetError());
-		closeUDP();
-		return false;
-	}
-	
-	channel = SDLNet_UDP_Bind(m_udpSocket, DEFAULT_CHANNEL, &ip);*/
-
-	m_inLobby = true;
-	m_gameStarted = false;
-
-	std::cout << "Joined as a client." << std::endl;
-	//pollMessagesUDP(ip.host);
-	return true;
 }
 
 bool NetworkingManager::accept()
@@ -192,6 +141,51 @@ bool NetworkingManager::accept()
 	sendAcceptPacket (newID);
 	// communicate over new_tcpsock
 	std::cout << "Accepted a client." << std::endl;
+	return true;
+}
+
+bool NetworkingManager::join ()
+{
+	if (m_inLobby || m_gameStarted)
+		return false;
+
+	IPaddress ip;
+	int channel;
+
+
+	if (SDLNet_ResolveHost (&ip, IP, m_port) == -1)
+	{
+		printf ("SDLNet_ResolveHost: %s\n", SDLNet_GetError ());
+		return false;
+	}
+
+	listenforAcceptPacket ();
+
+	m_socket = SDLNet_TCP_Open (&ip);
+	pollMessages (addPlayer (ip.host, m_socket));
+	if (!m_socket)
+	{
+		printf ("SDLNet_TCP_Open: %s\n", SDLNet_GetError ());
+		stopListeningForAcceptPacket ();
+		SDLNet_TCP_Close (m_socket);
+		return false;
+	}
+	/*
+	m_udpSocket = SDLNet_UDP_Open(m_port);
+	if (!m_udpSocket)
+	{
+	printf("SDLNet_UDP_Open: %s\n", SDLNet_GetError());
+	closeUDP();
+	return false;
+	}
+
+	channel = SDLNet_UDP_Bind(m_udpSocket, DEFAULT_CHANNEL, &ip);*/
+
+	m_inLobby = true;
+	m_gameStarted = false;
+
+	std::cout << "Joined as a client." << std::endl;
+	//pollMessagesUDP(ip.host);
 	return true;
 }
 

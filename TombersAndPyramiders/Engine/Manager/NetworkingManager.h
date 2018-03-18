@@ -50,6 +50,11 @@ private:
 	void sendEventToReceiver(std::map<std::string, void*> data);
 	void sendAcceptPacket (int id);
 
+	std::thread m_socketAcceptThread;
+	void pollSocketAccept ();
+	void socketAcceptThread ();
+	ThreadQueue<int> m_socketAcceptQueue;
+
 public:
 	int m_assignedID = -1;
 	std::map<int, std::pair<Uint32, TCPsocket>> m_clients;
