@@ -101,7 +101,11 @@ Sender::~Sender()
 	std::map<std::string, std::string> payload;
 }
 
-void Sender::onUpdate(int ticks)
+void Sender::onUpdate (int ticks)
 {
-	sendUpdate();
+	m_lastUpdate += ticks;
+	if (m_lastUpdate >= 500) {
+		sendUpdate ();
+		m_lastUpdate = 0;
+	}
 }

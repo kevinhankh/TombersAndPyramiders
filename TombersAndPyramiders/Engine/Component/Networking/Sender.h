@@ -11,6 +11,7 @@ class Sender : public Component
 {
 private:
 	int m_id;
+	int m_lastUpdate;
 
 public:
 	Sender(GameObject* gameObject, int ID);
