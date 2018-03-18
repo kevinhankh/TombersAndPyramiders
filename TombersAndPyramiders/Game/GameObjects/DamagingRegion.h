@@ -17,6 +17,7 @@
 #include "SimpleSprite.h"
 #include "Vector2.h"
 #include <unordered_set>
+#include "RandomHelper.h"
 class BaseWeapon;
 class Collider;
 
@@ -26,12 +27,19 @@ class Collider;
 class DamagingRegion : public SimpleSprite
 {
     /*----------------------------------------------------------------------------------------
+		Class Fields
+    ----------------------------------------------------------------------------------------*/
+	protected:
+		static RandomHelper s_random;
+
+    /*----------------------------------------------------------------------------------------
 		Instance Fields
     ----------------------------------------------------------------------------------------*/
     protected:
 		std::shared_ptr<Collider> m_collider;
 		int m_ownerId;
 		int m_damage;
+		float m_criticalHitChance;
 		bool m_destroyOnCollision;
 		std::unordered_set<int> m_hitList;
 
@@ -43,7 +51,7 @@ class DamagingRegion : public SimpleSprite
 		explicit DamagingRegion() = delete;
 
 		explicit DamagingRegion(int damage, string imageName, float colliderWidth,
-			float colliderHeight, bool destroyOnCollision, float xPosition = 0, float yPosition = 0, float spriteScale = 1);
+			float colliderHeight, float criticalHitChance, bool destroyOnCollision, float xPosition = 0, float yPosition = 0, float spriteScale = 1);
 
 		virtual ~DamagingRegion() {};
 		
@@ -58,4 +66,5 @@ class DamagingRegion : public SimpleSprite
 	protected:
 		virtual void handleCollisions();
 		virtual void handleSingleCollision(GameObject* other);
+		virtual bool isCriticalHit();
 };

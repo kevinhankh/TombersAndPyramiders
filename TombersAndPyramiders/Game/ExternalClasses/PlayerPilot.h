@@ -73,4 +73,19 @@ class PlayerPilot : public BasePilot
 			Returns whether there is input to use the character's weapon.
 		*/
 		bool getWeaponInput();
+		
+		/**
+			Tries to see if there is a triggerable object within range and trigger it if so
+		*/
+		void tryInvokeTrigger();
+
+		/**
+			Returns whether there is input to use the character's shield.
+		*/
+		bool getShieldInput();
+
+		/**
+			Returns whether there is input to use the character's greaves.
+		*/
+		bool getGreavesInput();
 };

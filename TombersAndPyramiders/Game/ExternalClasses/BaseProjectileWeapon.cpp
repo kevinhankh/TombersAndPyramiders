@@ -18,10 +18,11 @@
 	Resource Management
 ----------------------------------------------------------------------------------------*/
 BaseProjectileWeapon::BaseProjectileWeapon(int damage, std::string projectileImageName,
-	Vector2 projectileColliderSize, bool destroyProjectilesOnCollision, float attackCooldownTime, 
+	Vector2 projectileColliderSize, bool destroyProjectilesOnCollision, float criticalHitChance, 
+	float attackCooldownTime, 
 	Vector2 projectileSpawnOffsetFromHolder,
 	float projectileSpriteScale, Vector2 projectileVelocity, float projectileLifespan) :
-	BaseWeapon(damage, attackCooldownTime),
+	BaseWeapon(damage, criticalHitChance, attackCooldownTime),
 	m_projectileImageName{ projectileImageName }, 
 	m_projectileColliderSize{ projectileColliderSize }, 
 	m_destroyProjectilesOnCollision{ destroyProjectilesOnCollision }, 
@@ -62,8 +63,10 @@ void BaseProjectileWeapon::onStart()
 			m_damage,
 			m_projectileImageName,
 			m_projectileColliderSize.getX(), m_projectileColliderSize.getY(),
+			m_criticalHitChance, 
 			m_destroyProjectilesOnCollision,
 			spawnPoint.getX(), spawnPoint.getY(),
+			-owner()->getTransform()->getRotation(), 
 			m_projectileSpriteScale,
 			velocity.getX(), velocity.getY(),
 			m_projectileLifespan);
@@ -85,7 +88,7 @@ void BaseProjectileWeapon::updateAttack(int ticks)
 {
 	if (m_isAttacking)
 	{
-		m_timeUntilNextAttack -= ticks / TICKS_PER_SECOND;
+		m_timeUntilNextAttack -= (float)ticks / 1000.0f;
 
 		if (m_timeUntilNextAttack <= 0)
 		{

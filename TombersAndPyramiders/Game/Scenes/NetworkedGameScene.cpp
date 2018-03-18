@@ -25,16 +25,12 @@ NetworkedGameScene::NetworkedGameScene()
 
 }
 
-void NetworkedGameScene::setCameraFollow(std::shared_ptr<GameObject> toFollow)
-{
-	Camera::getActiveCamera()->getComponent<CameraFollow>()->setToFollow(toFollow);
-}
-
 void NetworkedGameScene::onStart()
 {
 	GeneratorManager::getInstance()->generateLevel(1000,1000,3);
+	
 	/*
-	const float scale = 1;
+	const float scale = 5;
 
 	SpawnManager::getInstance()->generateMiscSquare(25, -25, -100, 115, "sandBG.png", false);
 
@@ -65,31 +61,31 @@ void NetworkedGameScene::onStart()
 		{
 			switch (level[i][j]) {
 			case 0:
-				SpawnManager::getInstance()->generateMiscSquare(j, -i, -10, scale, "stoneTile.png", true);
+				SpawnManager::getInstance()->generateMiscSquare(j*scale, -i*scale, -10, scale, "stoneTile.png", true);
 				break;
 			case 1:
-				SpawnManager::getInstance()->generateMiscSquare(j, -i, -10, scale, "wallTopLeft.png", true);
+				SpawnManager::getInstance()->generateMiscSquare(j*scale, -i*scale, -10, scale, "wallTopLeft.png", true);
 				break;
 			case 2:
-				SpawnManager::getInstance()->generateMiscSquare(j, -i, -10, scale, "wallTopRight.png", true);
+				SpawnManager::getInstance()->generateMiscSquare(j*scale, -i*scale, -10, scale, "wallTopRight.png", true);
 				break;
 			case 3:
-				SpawnManager::getInstance()->generateMiscSquare(j, -i, -10, scale, "wallBottomLeft.png", true);
+				SpawnManager::getInstance()->generateMiscSquare(j*scale, -i*scale, -10, scale, "wallBottomLeft.png", true);
 				break;
 			case 4:
-				SpawnManager::getInstance()->generateMiscSquare(j, -i, -10, scale, "wallBottomRight.png", true);
+				SpawnManager::getInstance()->generateMiscSquare(j*scale, -i*scale, -10, scale, "wallBottomRight.png", true);
 				break;
 			case 5:
-				SpawnManager::getInstance()->generateMiscSquare(j, -i, -10, scale, "wallTop.png", true);
+				SpawnManager::getInstance()->generateMiscSquare(j*scale, -i*scale, -10, scale, "wallTop.png", true);
 				break;
 			case 6:
-				SpawnManager::getInstance()->generateMiscSquare(j, -i, -10, scale, "wallBottom.png", true);
+				SpawnManager::getInstance()->generateMiscSquare(j*scale, -i*scale, -10, scale, "wallBottom.png", true);
 				break;
 			case 7:
-				SpawnManager::getInstance()->generateMiscSquare(j, -i, -10, scale, "wallLeft.png", true);
+				SpawnManager::getInstance()->generateMiscSquare(j*scale, -i*scale, -10, scale, "wallLeft.png", true);
 				break;
 			case 8:
-				SpawnManager::getInstance()->generateMiscSquare(j, -i, -10, scale, "wallRight.png", true);
+				SpawnManager::getInstance()->generateMiscSquare(j*scale, -i*scale, -10, scale, "wallRight.png", true);
 				break;
 			}
 		}
@@ -183,6 +179,8 @@ void NetworkedGameScene::onStart()
 	Ai2 = SpawnManager::getInstance()->generateAiCharacter(44, -20);
 	Ai3 = SpawnManager::getInstance()->generateAiCharacter(54, -40);
 	Ai4 = SpawnManager::getInstance()->generateAiCharacter(14, -35);
+
+	SpawnManager::getInstance()->generateSingleDoor(10, -10, Door::Direction::West, Door::Mode::Closed);
 
 	Camera::getActiveCamera ()->addComponent<CameraFollow> (Camera::getActiveCamera ().get ());	
 	if (NetworkingManager::getInstance ()->isHost ())
