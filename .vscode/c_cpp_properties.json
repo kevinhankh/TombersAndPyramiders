@@ -20,6 +20,7 @@
                 "${workspaceRoot}/TombersAndPyramiders/Engine/External",
                 "${workspaceRoot}/TombersAndPyramiders/Engine/External/Math",
                 "${workspaceRoot}/TombersAndPyramiders/Engine/External/Render",
+                "${workspaceRoot}/TombersAndPyramiders/Engine/External/LevelGeneration",
                 "${workspaceRoot}/TombersAndPyramiders/Engine/GameObjects",
                 "${workspaceRoot}/TombersAndPyramiders/Engine/Manager",
                 "${workspaceRoot}/TombersAndPyramiders/Game",
