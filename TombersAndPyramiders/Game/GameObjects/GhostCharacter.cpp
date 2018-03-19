@@ -10,6 +10,7 @@ const float GhostCharacter::SIZE_CHANGE_RATE = 0.05f;
 GhostCharacter::GhostCharacter(BasePilot* pilot) : ComplexSprite(createSpriteInfo(), 0, 0, 1.0f, 1.0f, nullptr, 16)
 {
 	addComponent<GhostController>(this, pilot);
+	addComponent<AudioListener>(this);
 	m_mode = ghost;
 }
 

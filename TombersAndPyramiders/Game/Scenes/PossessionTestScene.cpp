@@ -4,6 +4,7 @@
 #include "SpawnManager.h"
 #include "Camera.h"
 #include "GameManager.h"
+#include "AudioManager.h"
 
 /*
 New Z Rule:
@@ -38,7 +39,7 @@ void PossessionTestScene::onStart()
 	auto ghostCharacter = SpawnManager::getInstance()->generateGhost(0, 0);
 	SpawnManager::getInstance()->generateBoulder(5, 0);
 	SpawnManager::getInstance()->generateAiCharacter(-10, 0);
-	SpawnManager::getInstance()->generateAiCharacter(15, 5);
+	//SpawnManager::getInstance()->generateAiCharacter(15, 5);
 
 	SpawnManager::getInstance()->generateSingleDoor(-15, 0, Door::Direction::West, Door::Mode::Closed);
 	SpawnManager::getInstance()->generateSingleDoor(-5, 0, Door::Direction::East, Door::Mode::Closed);
@@ -46,6 +47,7 @@ void PossessionTestScene::onStart()
 	SpawnManager::getInstance()->generateSingleDoor(15, -3, Door::Direction::South, Door::Mode::Closed);
 
 	Camera::getActiveCamera()->addComponent<CameraFollow>((GameObject*)Camera::getActiveCamera().get())->setToFollow(ghostCharacter);
+	AudioManager::getInstance()->playMusic(MUSIC_LEVEL_1);
 }
 
 void PossessionTestScene::onPause()

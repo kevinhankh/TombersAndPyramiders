@@ -136,6 +136,8 @@
     <ClCompile Include="Engine\Component\AI\NeuralNet.cpp" />
     <ClCompile Include="Engine\Component\AI\Neuron.cpp" />
     <ClCompile Include="Engine\Component\AI\TrainingData.cpp" />
+    <ClCompile Include="Engine\Component\Audio\AudioListener.cpp" />
+    <ClCompile Include="Engine\Component\Audio\AudioSource.cpp" />
     <ClCompile Include="Engine\Component\Collision\BoxCollider.cpp" />
     <ClCompile Include="Engine\Component\Collision\CircleCollider.cpp" />
     <ClCompile Include="Engine\Component\Collision\Collider.cpp" />
@@ -239,6 +241,9 @@
     <ClInclude Include="Engine\Component\AI\NeuralNet.h" />
     <ClInclude Include="Engine\Component\AI\Neuron.h" />
     <ClInclude Include="Engine\Component\AI\TrainingData.h" />
+    <ClInclude Include="Engine\Component\Audio\AudioBank.h" />
+    <ClInclude Include="Engine\Component\Audio\AudioListener.h" />
+    <ClInclude Include="Engine\Component\Audio\AudioSource.h" />
     <ClInclude Include="Engine\Component\Collision\BoxCollider.h" />
     <ClInclude Include="Engine\Component\Collision\CircleCollider.h" />
     <ClInclude Include="Engine\Component\Collision\Collider.h" />
