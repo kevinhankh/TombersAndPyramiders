@@ -36,7 +36,7 @@ private:
 	char *IP = DEFAULT_IP;
 	int m_port = DEFAULT_PORT;
 	
-	IPaddress hostAddress;
+	IPaddress m_hostAddress;
 	int m_udpChannel = -1;
 
 
