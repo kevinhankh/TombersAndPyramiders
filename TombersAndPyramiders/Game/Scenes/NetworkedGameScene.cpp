@@ -110,6 +110,7 @@ void NetworkedGameScene::onStart()
 	
 
 	SpawnManager::getInstance()->generateMiscSquare(25, -25, -100, 115, "sandBG.png", false);
+	AudioManager::getInstance()->playMusic(MUSIC_LEVEL_1);
 
 	for (float x = 0; x <= size; x++)
 	{

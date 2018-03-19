@@ -63,6 +63,11 @@ CharacterController::CharacterController(GameObject* parentGameobject, Inventory
 	}
 	m_boxCollider = gameObject->addComponent<BoxCollider>(gameObject, gameObject->getTransform()->getScale(), gameObject->getTransform()->getScale());
 	m_rigidbody = gameObject->addComponent<Rigidbody>(gameObject, m_boxCollider.get());
+	m_audioSource = gameObject->addComponent<AudioSource>(gameObject);
+	if (dynamic_cast<PlayerPilot*>(m_pilot.get()) != nullptr)
+	{
+		m_audioListener = gameObject->addComponent<AudioListener>(gameObject);
+	}
 }
 
 /*----------------------------------------------------------------------------------------
@@ -111,11 +116,11 @@ void CharacterController::useWeapon()
 			std::shared_ptr<BaseMeleeWeapon> melee = dynamic_pointer_cast<BaseMeleeWeapon>(weapon);
 			if (melee != nullptr) {
 				m_character->playMeleeAttackAnimation();
-				AudioManager::getInstance()->playSwordSwingSFX();
+				m_audioSource->playSFX(SFX_SWORD);
 			}
 			else {
 				m_character->playRangeAttackAnimation();
-				AudioManager::getInstance()->playShootArrowSFX();
+				m_audioSource->playSFX(SFX_BOW);
 			}
 		}
 	}
@@ -185,6 +190,7 @@ void CharacterController::useGreaves()
 		if (greaves->use())
 		{
 			// TODO Greaves SFX?
+			m_audioSource->playSFX(SFX_DASH);
 		}
 	}
 }
@@ -212,6 +218,7 @@ void CharacterController::takeDamage(int damage, bool isCriticalHit)
 		shield->isBlocking())
 	{
 		realDamage = shield->calculateRealDamage(realDamage);
+		m_audioSource->playSFX(SFX_SHIELD);
 	}
 
 	/* Apply chestplate defense */
@@ -222,7 +229,7 @@ void CharacterController::takeDamage(int damage, bool isCriticalHit)
 
 	Damageable::takeDamage(realDamage);
 	m_character->playHurtAnimation();
-	AudioManager::getInstance()->playHitSFX();
+	m_audioSource->playSFX(SFX_HIT);
 }
 
 void CharacterController::updateWeapon(int ticks)
