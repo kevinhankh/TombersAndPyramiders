@@ -19,12 +19,12 @@ void HostPilot::onStart()
 
 void HostPilot::onUpdate(int ticks)
 {
-	/*
+	
 	if (m_characterController != nullptr)
 	{
 		m_characterController->move(getMovement());
 	}
-
+	/*
 	if (getWeaponInput())
 	{
 		m_characterController->useWeapon();
@@ -37,7 +37,7 @@ void HostPilot::onEnd()
 
 Vector2 HostPilot::getMovement()
 {
-	return Vector2(0, 0);
+	return m_lastNetworkVector;
 }
 
 bool HostPilot::getWeaponInput()

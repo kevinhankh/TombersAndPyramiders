@@ -1,5 +1,6 @@
 #include "Sender.h"
 #include "NetworkingManager.h"
+#include "PlayerPilot.h"
 
 Sender::Sender(GameObject* gameObject, int ID) : Component(gameObject)
 {
@@ -12,7 +13,7 @@ void Sender::sendCreate()
 	Transform* transform = gameObject->getTransform();
 	payload["x"] = std::to_string(transform->getX());
 	payload["y"] = std::to_string(transform->getY());
-	payload["z"] = std::to_string(transform->getZ());
+	payload["z"] = std::to_string (transform->getZ ());
 	payload["rotation"] = std::to_string(transform->getRotation());
 	payload["scale"] = std::to_string(transform->getScale());
 	sendNetworkMessage("CREATE", payload);
@@ -31,10 +32,13 @@ void Sender::sendUpdate()
 	if (!NetworkingManager::getInstance ()->inGame ())
 		return;
 	std::map<std::string, std::string> payload;
-	Transform* transform = gameObject->getTransform();
+	Transform* transform = gameObject->getTransform ();
+	std::shared_ptr<PlayerPilot> pilot = gameObject->getComponent<PlayerPilot> ();
 	payload["x"] = std::to_string(transform->getX());
 	payload["y"] = std::to_string(transform->getY());
-	payload["z"] = std::to_string(transform->getZ());
+	payload["z"] = std::to_string (transform->getZ ());
+	payload["vecX"] = std::to_string (pilot->m_lastMoveVector.getX());
+	payload["vecY"] = std::to_string (pilot->m_lastMoveVector.getY());
 	payload["rotation"] = std::to_string(transform->getRotation());
 	payload["scale"] = std::to_string(transform->getScale());
 	sendNetworkMessage("UPDATE", payload, false);

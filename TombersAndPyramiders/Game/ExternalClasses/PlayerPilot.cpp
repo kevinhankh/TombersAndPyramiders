@@ -50,7 +50,8 @@ void PlayerPilot::onUpdate (int ticks)
 	if (m_characterController != nullptr)
 	{
 		/* Move the character. */
-		m_characterController->move (getMovement ());
+		m_lastMoveVector = getMovement ();
+		m_characterController->move (m_lastMoveVector);
 
 		/* TODO Make character face mouse position. */
 

@@ -1,8 +1,8 @@
 #pragma once
 
 #include "BasePilot.h"
+#include "Vector2.h"
 class CharacterController;
-class Vector2;
 
 /*========================================================================================
 PlayerPilot
@@ -32,6 +32,7 @@ public:
 	/*----------------------------------------------------------------------------------------
 	Instance Setter Methods
 	----------------------------------------------------------------------------------------*/
+	Vector2 m_lastNetworkVector;
 public:
 	/**
 	This method assumes that the controller being passed is a CharacterController.

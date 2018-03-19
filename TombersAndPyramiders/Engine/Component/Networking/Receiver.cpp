@@ -3,6 +3,7 @@
 #include "NetworkingManager.h"
 #include "CharacterController.h"
 #include "Sender.h"
+#include "HostPilot.h"
 
 Receiver::Receiver(GameObject* gameObject, int netID) : Component(gameObject)
 {
@@ -72,7 +73,9 @@ Receiver::Receiver(GameObject* gameObject, int netID) : Component(gameObject)
 			return;
 		float x = std::stof(*(std::string*)data["x"]);
 		float y = std::stof(*(std::string*)data["y"]);
-		float z = std::stof(*(std::string*)data["z"]);
+		float z = std::stof (*(std::string*)data["z"]);
+		float vecX = std::stof (*(std::string*)data["vecX"]);
+		float vecY = std::stof (*(std::string*)data["vecY"]);
 		float angle = std::stof(*(std::string*)data["rotation"]);
 		float scale = std::stof(*(std::string*)data["scale"]);
 		Receiver* self = (Receiver*)data["this"];
@@ -80,6 +83,7 @@ Receiver::Receiver(GameObject* gameObject, int netID) : Component(gameObject)
 		transform->setPosition(x, y, z);
 		transform->setRotation(angle);
 		transform->setScale(scale);
+		self->gameObject->getComponent<HostPilot> ()->m_lastNetworkVector = Vector2 (vecX, vecY);
 	}, this);
 
 	/*this->m_onUpdateID = Subscribe("ATTACK", [](std::map<std::string, void*> data) -> void
