@@ -59,6 +59,16 @@ std::shared_ptr<Character> SpawnManager::generateAiCharacter(float x, float y)
 
 	return simpleAi;
 }
+/*std::shared_ptr<Character> SpawnManager::generateAiCharacter1(float x, float y)
+{
+	std::shared_ptr<Character> simpleAi = GameManager::getInstance()->createGameObject<Character>(false, new AiPilot());
+	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
+	simpleAi->getTransform()->setPosition(x, y);
+
+	return simpleAi;
+}*/
+
+
 
 std::shared_ptr<Character> SpawnManager::generateDummyCharacter(float x, float y)
 {

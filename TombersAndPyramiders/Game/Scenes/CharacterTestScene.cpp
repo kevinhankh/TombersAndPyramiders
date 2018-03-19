@@ -13,6 +13,7 @@
 #include <WoodenLongbow.h>
 #include "AudioManager.h"
 
+using namespace std;
 std::shared_ptr<Character> player = nullptr;
 std::shared_ptr<Character> Ai = nullptr;
 std::shared_ptr<Character> Ai2 = nullptr;
@@ -29,9 +30,21 @@ void CharacterTestScene::onStart()
 
 	const float size = 12;
 	const float scale = 5;
-
+	const int ai = 100;
 	SpawnManager::getInstance()->generateMiscSquare(25, -25, -100, 115, "sandBG.png", false);
 
+	/*for (int x = 0; x <= ai; x++)
+	{
+		
+			SpawnManager::getInstance()->generateAiCharacter(x, 0);
+			for (int y = 0; y <= ai; y++)
+			{
+				SpawnManager::getInstance()->generateAiCharacter(0, y);
+			}
+	
+
+	}*/
+	
 
 	for (float x = 0; x <= size; x++)
 	{
@@ -107,10 +120,10 @@ void CharacterTestScene::onStart()
 	SpawnManager::getInstance()->generateWorldItem(5, -5, std::make_shared<WoodenLongbow>());
 
 	player = SpawnManager::getInstance()->generatePlayerCharacter(15, -10);
-	Ai = SpawnManager::getInstance()->generateAiCharacter(14, -15);
-	Ai2 = SpawnManager::getInstance()->generateAiCharacter(44, -20);
-	Ai3 = SpawnManager::getInstance()->generateAiCharacter(54, -40);
-	Ai4 = SpawnManager::getInstance()->generateAiCharacter(14, -35);
+	Ai = SpawnManager::getInstance()->generateAiCharacter(14, -18);
+	Ai2 = SpawnManager::getInstance()->generateAiCharacter(13, -40);
+	Ai3 = SpawnManager::getInstance()->generateAiCharacter(50, -50);
+	Ai4 = SpawnManager::getInstance()->generateAiCharacter(50, -20);
 
 	setCameraFollow(player);
 }
