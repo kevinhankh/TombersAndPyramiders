@@ -18,6 +18,43 @@ void BinaryTree::partition(int depth)
 void BinaryTree::makeCorridors(std::vector<std::shared_ptr<Room>> rooms)
 {
 	makeCorridors(m_root);
+	std::vector<std::shared_ptr<Corridor>> cors = GeneratorManager::getInstance()->corridors;
+	fixRooms(cors, rooms);
+}
+
+void BinaryTree::fixRooms(std::vector<std::shared_ptr<Corridor>> corridors, std::vector<std::shared_ptr<Room>> rooms)
+{
+	for (int i = 0; i < corridors.size(); i++)
+	{
+		for (int j = 0; j < rooms.size(); j++)
+		{
+			if (corridors[i]->m_width == 3)
+			{
+				for (int k = 0; k < corridors[i]->m_height; k++)
+				{
+					if (corridors[i]->m_yCoord - k == (rooms[j]->m_yCoord - rooms[j]->m_height + 1) || corridors[i]->m_yCoord - k == (rooms[j]->m_yCoord))
+					{
+						//add coord set to room so door drawn there and adjacent walls become corners
+						rooms[j]->doorsX.push_back(corridors[i]->m_xCoord + 1);
+						rooms[j]->doorsY.push_back(corridors[i]->m_yCoord - k);
+					}
+				}
+			}
+			else
+			{
+				for (int k = 0; k < corridors[i]->m_width; k++)
+				{
+					if (corridors[i]->m_xCoord + k == (rooms[j]->m_xCoord + rooms[j]->m_width - 1) || corridors[i]->m_xCoord + k == (rooms[j]->m_xCoord))
+					{
+						//add coord set to room so door drawn there and adjacent walls become corners
+						rooms[j]->doorsX.push_back(corridors[i]->m_xCoord + k);
+						rooms[j]->doorsY.push_back(corridors[i]->m_yCoord - 1);
+					}
+				}
+			}
+		}
+	}
+
 }
 
 void BinaryTree::makeCorridors(std::shared_ptr<BTNode> node)

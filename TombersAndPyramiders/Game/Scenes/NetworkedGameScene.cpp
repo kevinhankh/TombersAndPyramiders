@@ -30,7 +30,7 @@ void NetworkedGameScene::onStart()
 {
 	GameManager::getInstance()->resizeQuadTree(0, 0, 200, 200);
 	srand(time(NULL));
-	GeneratorManager::getInstance()->generateLevel(30,30,3);
+	GeneratorManager::getInstance()->generateLevel(30,30,2);
 	GeneratorManager::getInstance()->drawLevel();
 	SpawnManager::getInstance()->generateMiscSquare(25, -25, -100, 115, "sandBG.png", false);
 	/*

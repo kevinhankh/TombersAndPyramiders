@@ -38,7 +38,7 @@ private:
 	};
 
 	void partition(int depth, std::shared_ptr<BTNode> node);
-	void makeRooms(std::shared_ptr<BTNode> node);
+	void fixRooms(std::vector<std::shared_ptr<Corridor>> corridors, std::vector<std::shared_ptr<Room>> rooms);
 	void makeCorridors(std::shared_ptr<BTNode> node);
 	std::shared_ptr<BTNode> m_root;
 

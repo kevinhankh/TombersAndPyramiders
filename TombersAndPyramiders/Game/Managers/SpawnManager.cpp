@@ -193,7 +193,7 @@ std::shared_ptr<SingleDoor> SpawnManager::generateSingleDoor(float x, float y, D
 {
 	std::shared_ptr<SingleDoor> door = GameManager::getInstance()->createGameObject<SingleDoor>(false, direction, startState, x, y);
 	door->getTransform()->setZ(5);
-	door->getTransform()->setScale(3.0f);
+	door->getTransform()->setScale(10.0f);
 	return door;
 }
 

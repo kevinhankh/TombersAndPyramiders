@@ -12,6 +12,9 @@ public:
 	int m_scale;
 	bool m_exit;
 
+	std::vector<int> doorsX;
+	std::vector<int> doorsY;
+
 	Room(int width, int height, int xCoord, int yCoord, bool exit);
 	void draw();
 

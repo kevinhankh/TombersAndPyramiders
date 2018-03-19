@@ -36,13 +36,15 @@ void GeneratorManager::generateLevel(int width, int height, int detailLevel)
 }
 
 void GeneratorManager::drawLevel() {
+	
+	for (int i = 0; i < corridors.size(); i++) {
+		//corridors[i]->draw();
+	}
+
 	int exitRoom = rand() % rooms.size();
 	rooms[exitRoom]->m_exit = true;
 	for (int i = 0; i < rooms.size(); i++) {
 		rooms[i]->draw();
 	}
 
-	for (int i = 0; i < corridors.size(); i++) {
-		corridors[i]->draw();
-	}
 }
