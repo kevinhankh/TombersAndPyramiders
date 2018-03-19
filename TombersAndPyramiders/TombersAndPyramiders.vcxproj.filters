@@ -100,6 +100,8 @@
     <ClCompile Include="Game\ExternalClasses\WoodenGreaves.cpp" />
     <ClCompile Include="Game\ExternalClasses\WoodenChestplate.cpp" />
     <ClCompile Include="Game\ExternalClasses\WoodenHelmet.cpp" />
+    <ClCompile Include="Engine\Component\Audio\AudioListener.cpp" />
+    <ClCompile Include="Engine\Component\Audio\AudioSource.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Component\AI\AI.h" />
@@ -209,6 +211,9 @@
     <ClInclude Include="Game\ExternalClasses\WoodenChestplate.h" />
     <ClInclude Include="Game\ExternalClasses\RandomHelper.h" />
     <ClInclude Include="Game\ExternalClasses\WoodenHelmet.h" />
+    <ClInclude Include="Engine\Component\Audio\AudioBank.h" />
+    <ClInclude Include="Engine\Component\Audio\AudioListener.h" />
+    <ClInclude Include="Engine\Component\Audio\AudioSource.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Character.bmp" />

@@ -15,8 +15,8 @@ void LaunchScene::onStart()
 {
 	SpawnManager::getInstance();
 	GameManager::getInstance()->createGameObject<SimpleSprite>(false, "LandingPage.png", 0, 0, -1000, 42);
-	AudioManager::getInstance()->playMusic();
-	//SpawnManager::getInstance()->sendStartPacket(); // TODO Comment this out before pushing.
+	AudioManager::getInstance()->playMusic(MUSIC_MENU);
+	SpawnManager::getInstance()->sendStartPacket(); // TODO Comment this out before pushing.
 }
 
 void LaunchScene::onPause()
