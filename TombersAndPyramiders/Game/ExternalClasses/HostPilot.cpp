@@ -5,6 +5,7 @@
 
 void HostPilot::setController(BaseController* controller)
 {
+	m_lastNetworkVector = Vector2 (0, 0);
 	BasePilot::setController(controller);
 
 	/* Store a correctly typed pointer to the controller for convenience. */
