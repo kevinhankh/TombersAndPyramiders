@@ -138,8 +138,8 @@ bool NetworkingManager::accept()
 		return false;
 	}
 	pollMessagesTCP(newID);
-	
-	if (!SDLNet_UDP_Bind (m_udpSocket, DEFAULT_CHANNEL, ip))
+
+	if (-1 == SDLNet_UDP_Bind (m_udpSocket, DEFAULT_CHANNEL, ip))
 	{
 		printf ("SDLNet_UDP_Bind: %s\n", SDLNet_GetError ());
 	}
@@ -159,12 +159,12 @@ bool NetworkingManager::join ()
 	int channel;
 
 	
-
 	if (SDLNet_ResolveHost (&ip, IP, m_port) == -1)
 	{
 		printf ("SDLNet_ResolveHost: %s\n", SDLNet_GetError ());
 		return false;
 	}
+
 
 	listenforAcceptPacket ();
 
@@ -186,9 +186,9 @@ bool NetworkingManager::join ()
 	return false;
 	}
 
-	if (SDLNet_UDP_Bind (m_udpSocket, DEFAULT_CHANNEL, &ip) != -1)
+	if (-1 == SDLNet_UDP_Bind(m_udpSocket, DEFAULT_CHANNEL, &ip))
 	{
-		printf ("SDLNet_UDP_Bind: %s\n", SDLNet_GetError ());
+		printf("SDLNet_UDP_Bind: %s\n", SDLNet_GetError());
 	}
 
 	m_inLobby = true;
@@ -259,8 +259,8 @@ bool NetworkingManager::createUDPPacket(int packetSize)
 		return false;
 	}
 
-	m_udpPacket->channel = DEFAULT_CHANNEL;
-	m_udpPacket->len = packetSize+1;
+	m_udpPacket->len = packetSize + 1;
+	m_udpPacket->maxlen = packetSize + 1;
 
 	return true;
 }
