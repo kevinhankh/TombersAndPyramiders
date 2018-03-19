@@ -13,6 +13,7 @@
                 "${workspaceRoot}/TombersAndPyramiders/Engine",
                 "${workspaceRoot}/TombersAndPyramiders/Engine/Component",
                 "${workspaceRoot}/TombersAndPyramiders/Engine/Component/AI",
+                "${workspaceRoot}/TombersAndPyramiders/Engine/Component/Audio",
                 "${workspaceRoot}/TombersAndPyramiders/Engine/Component/Collision",
                 "${workspaceRoot}/TombersAndPyramiders/Engine/Component/Networking",
                 "${workspaceRoot}/TombersAndPyramiders/Engine/Component/Render",
