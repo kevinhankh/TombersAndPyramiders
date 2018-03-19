@@ -52,6 +52,8 @@ public:
 
 	void onEnd();
 
+	void setMovement (Vector2 vec, int updates);
+
 private:
 	/**
 	Determine how the character should move this frame based on player input.
@@ -62,4 +64,7 @@ private:
 	Returns whether there is input to use the character's weapon.
 	*/
 	bool getWeaponInput();
+
+	int updatesSinceNewMovement = 0;
+	int updatesUntilInvalid = 0;
 };

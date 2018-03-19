@@ -21,9 +21,10 @@ void HostPilot::onStart()
 void HostPilot::onUpdate(int ticks)
 {
 	
-	if (m_characterController != nullptr)
+	if (m_characterController != nullptr && updatesSinceNewMovement < updatesUntilInvalid)
 	{
 		m_characterController->move(getMovement());
+		updatesSinceNewMovement++;
 	}
 	/*
 	if (getWeaponInput())
@@ -35,6 +36,12 @@ void HostPilot::onUpdate(int ticks)
 
 void HostPilot::onEnd()
 {}
+
+void HostPilot::setMovement (Vector2 vec, int updates) {
+	m_lastNetworkVector = vec;
+	updatesUntilInvalid = updates;
+	updatesSinceNewMovement = 0;
+}
 
 Vector2 HostPilot::getMovement()
 {

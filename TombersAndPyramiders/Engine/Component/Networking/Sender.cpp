@@ -35,6 +35,7 @@ void Sender::sendUpdate()
 	Transform* transform = gameObject->getTransform ();
 	std::shared_ptr<CharacterController> cc = gameObject->getComponent<CharacterController> ();
 	PlayerPilot* pp = (PlayerPilot*)cc->getPilot ();
+	std::cout << "our vec: (" << pp->m_lastMoveVector.getX () << ", " << pp->m_lastMoveVector.getY () << ")" << std::endl;
 	payload["x"] = std::to_string(transform->getX());
 	payload["y"] = std::to_string(transform->getY());
 	payload["z"] = std::to_string (transform->getZ ());
