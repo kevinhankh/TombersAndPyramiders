@@ -85,7 +85,7 @@ bool NetworkingManager::host()
 		std::string error = SDLNet_GetError();
 		return false;
 	}
-	
+	m_udpChannel = DEFAULT_CHANNEL;
 	m_udpSocket = SDLNet_UDP_Open(m_port);
 	if (!m_udpSocket)
 	{
@@ -265,7 +265,6 @@ bool NetworkingManager::createUDPPacket(int packetSize)
 	}
 	m_udpPacket->channel = m_udpChannel;
 	m_udpPacket->len = packetSize + 1;
-	m_udpPacket->maxlen = packetSize + 1;
 
 	return true;
 }
