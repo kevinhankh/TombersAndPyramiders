@@ -6,3 +6,6 @@
 #define SFX_HIT 2
 #define SFX_SWORD 3
 #define SFX_BOW 4
+#define SFX_SHIELD 5
+#define SFX_DASH 6
+#define SFX_DOOR 7

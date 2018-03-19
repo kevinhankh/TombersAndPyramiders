@@ -10,7 +10,6 @@
 
 #include "AudioManager.h"
 
-
 AudioManager* AudioManager::s_instance;
 
 AudioManager* AudioManager::getInstance()
@@ -37,6 +36,9 @@ AudioManager::AudioManager()
 	m_audioFiles[SFX_BOW] = Mix_LoadWAV(BuildPath(PATH_SFX_BOW).c_str());
 	m_audioFiles[SFX_HIT] = Mix_LoadWAV(BuildPath(PATH_SFX_HIT).c_str());
 	m_audioFiles[SFX_SWORD] = Mix_LoadWAV(BuildPath(PATH_SFX_SWORD).c_str());
+	m_audioFiles[SFX_SHIELD] = Mix_LoadWAV(BuildPath(PATH_SFX_SHIELD).c_str());
+	m_audioFiles[SFX_DASH] = Mix_LoadWAV(BuildPath(PATH_SFX_DASH).c_str());
+	m_audioFiles[SFX_DOOR] = Mix_LoadWAV(BuildPath(PATH_SFX_DASH).c_str());
 
 }
 
@@ -92,6 +94,7 @@ void AudioManager::playSound(int sfxInput, float sourceX, float sourceY)
 			}
 			else
 			{
+				std::cout << "No listener found!" << endl;
 				break;
 			}
 

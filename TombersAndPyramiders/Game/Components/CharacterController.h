@@ -22,7 +22,8 @@
 #include "BasePilot.h"
 #include "WorldItem.h"
 #include "Rigidbody.h"
-#include "Audio/AudioSource.h"
+#include "Audio\AudioSource.h"
+#include "Audio\AudioListener.h"
 
 class Inventory;
 
@@ -44,6 +45,7 @@ class CharacterController : public BaseController, public Damageable
 		std::shared_ptr<Rigidbody> m_rigidbody;
 		std::shared_ptr<BoxCollider> m_boxCollider;
 		std::shared_ptr<AudioSource> m_audioSource;
+		std::shared_ptr<AudioListener> m_audioListener;
 		std::shared_ptr<Character> m_character;
     /*----------------------------------------------------------------------------------------
 		Resource Management

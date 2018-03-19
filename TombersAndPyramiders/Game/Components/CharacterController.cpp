@@ -64,6 +64,10 @@ CharacterController::CharacterController(GameObject* parentGameobject, Inventory
 	m_boxCollider = gameObject->addComponent<BoxCollider>(gameObject, gameObject->getTransform()->getScale(), gameObject->getTransform()->getScale());
 	m_rigidbody = gameObject->addComponent<Rigidbody>(gameObject, m_boxCollider.get());
 	m_audioSource = gameObject->addComponent<AudioSource>(gameObject);
+	if (dynamic_cast<PlayerPilot*>(m_pilot.get()) != nullptr)
+	{
+		m_audioListener = gameObject->addComponent<AudioListener>(gameObject);
+	}
 }
 
 /*----------------------------------------------------------------------------------------
@@ -186,6 +190,7 @@ void CharacterController::useGreaves()
 		if (greaves->use())
 		{
 			// TODO Greaves SFX?
+			m_audioSource->playSFX(SFX_DASH);
 		}
 	}
 }
@@ -213,6 +218,7 @@ void CharacterController::takeDamage(int damage, bool isCriticalHit)
 		shield->isBlocking())
 	{
 		realDamage = shield->calculateRealDamage(realDamage);
+		m_audioSource->playSFX(SFX_SHIELD);
 	}
 
 	/* Apply chestplate defense */

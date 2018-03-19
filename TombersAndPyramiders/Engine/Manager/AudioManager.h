@@ -29,9 +29,12 @@
 #define PATH_MUSIC_MENU "Game/Assets/Audio/SpectralSands.mp3"
 #define PATH_MUSIC_LEVEL_1 "Game/Assets/Audio/MystifyingTombs.mp3"
 
-#define PATH_SFX_HIT "Game/Assets/Audio/hit.mp3"
-#define PATH_SFX_SWORD "Game/Assets/Audio/swordswing.mp3"
-#define PATH_SFX_BOW "Game/Assets/Audio/shootarrow.mp3"
+#define PATH_SFX_HIT "Game/Assets/Audio/Hit.mp3"
+#define PATH_SFX_SWORD "Game/Assets/Audio/Sword.mp3"
+#define PATH_SFX_BOW "Game/Assets/Audio/Arrow.mp3"
+#define PATH_SFX_SHIELD "Game/Assets/Audio/Shield.mp3"
+#define PATH_SFX_DASH "Game/Assets/Audio/Dash.mp3"
+#define PATH_SFX_DOOR "Game/Assets/Audio/Door.mp3"
 
 class AudioManager
 {
