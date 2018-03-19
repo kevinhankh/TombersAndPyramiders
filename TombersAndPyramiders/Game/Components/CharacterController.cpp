@@ -29,12 +29,18 @@
 #include "Collider.h"
 #include "SpawnManager.h"
 #include "AudioManager.h"
+#include "GameManager.h"
+#include "Invokable.h"
+#include "BasePossessableController.h"
+#include "GhostPilot.h"
+#include "NetworkCharacter.h"
+#include "PlayerPilot.h"
 
 /*----------------------------------------------------------------------------------------
 	Static Fields
 ----------------------------------------------------------------------------------------*/
 const int CharacterController::DEFAULT_CHARACTER_MAX_HP = 100;
-const Vector2 CharacterController::DEFAULT_CHARACTER_MOVEMENT_SPEED = Vector2(0.2, 0.2);
+const Vector2 CharacterController::DEFAULT_CHARACTER_MOVEMENT_SPEED = Vector2(0.15, 0.15);
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
@@ -95,7 +101,10 @@ void CharacterController::move(Vector2 delta)
 void CharacterController::useWeapon()
 {
 	std::shared_ptr<BaseWeapon> weapon = m_inventory->getWeapon();
-	if (weapon != nullptr)
+	std::shared_ptr<BaseShield> shield = m_inventory->getShield();
+
+	if (weapon != nullptr && 
+		(shield == nullptr || !shield->isBlocking()))
 	{
 		if (weapon->use())
 		{
@@ -112,9 +121,106 @@ void CharacterController::useWeapon()
 	}
 }
 
-void CharacterController::takeDamage(int damage)
+bool CharacterController::tryInvokeTrigger()
 {
-	Damageable::takeDamage(damage);
+	auto transform = getGameObject()->getTransform();
+	auto closeObjects = GameManager::getInstance()->getObjectsInBounds(transform->getX(), transform->getY(), transform->getScale(), transform->getScale());
+
+	std::shared_ptr<Invokable> closest = nullptr;
+	float distance = 1000;
+
+	for (auto it = closeObjects.begin(); it != closeObjects.end(); it++)
+	{
+		std::shared_ptr<Invokable> invokable = (*it)->getComponent<Invokable>();
+		std::shared_ptr<BasePossessableController> possessable = nullptr;
+		float maxDistance = transform->getScale() / 2.0f + (*it)->getTransform()->getScale() / 2.0f;
+
+		if (invokable == nullptr)
+		{
+			possessable = (*it)->getComponent<BasePossessableController>();
+			invokable = dynamic_pointer_cast<Invokable>(possessable);
+		}
+
+		if (invokable != nullptr || possessable != nullptr)
+		{
+			float newDistance = (*it)->getTransform()->getDistance(transform);
+			if (newDistance <= maxDistance && newDistance < distance)
+			{
+				distance = newDistance;
+				closest = invokable;
+			}
+		}
+	}
+
+	if (closest != nullptr)
+	{
+		closest->trigger();
+		return true;
+	}
+	return false;
+}
+
+
+void CharacterController::useShield()
+{
+	std::shared_ptr<BaseWeapon> weapon = m_inventory->getWeapon();
+	std::shared_ptr<BaseShield> shield = m_inventory->getShield();
+
+	if (shield != nullptr && 
+		(weapon == nullptr || !weapon->isAttacking()))
+	{
+		if (shield->use())
+		{
+			// TODO Shield SFX?
+		}
+	}
+}
+
+void CharacterController::useGreaves()
+{
+	std::shared_ptr<BaseGreaves> greaves = m_inventory->getGreaves();
+
+	if (greaves != nullptr)
+	{
+		if (greaves->use())
+		{
+			// TODO Greaves SFX?
+		}
+	}
+}
+
+void CharacterController::takeDamage(int damage, bool isCriticalHit)
+{
+	std::shared_ptr<BaseShield> shield = m_inventory->getShield();
+	std::shared_ptr<BaseChestplate> chestplate = m_inventory->getChestplate();
+	auto realDamage = damage;
+
+	/* Apply helmet defense. */
+	if (isCriticalHit)
+	{
+		std::shared_ptr<BaseHelmet> helmet = m_inventory->getHelmet();
+
+		if (helmet == nullptr || 
+			!helmet->doesAvoidCriticalHit())
+		{
+			realDamage *= BaseWeapon::CRITICAL_HIT_DAMAGE_MULTIPLIER;
+		}
+	}
+
+	/* Apply shield defense */
+	if (shield != nullptr && 
+		shield->isBlocking())
+	{
+		realDamage = shield->calculateRealDamage(realDamage);
+	}
+
+	/* Apply chestplate defense */
+	if (chestplate != nullptr)
+	{
+		realDamage = chestplate->calculateRealDamage(realDamage);
+	}
+
+	Damageable::takeDamage(realDamage);
 	m_character->playHurtAnimation();
 	AudioManager::getInstance()->playHitSFX();
 }
@@ -146,6 +252,16 @@ void CharacterController::updateGreaves(int ticks)
 void CharacterController::death()
 {
 	destroy(gameObject->getId());
+
+	/* Spawn the character's ghost. */
+	auto localPlayer = dynamic_cast<PlayerPilot*>(m_pilot.get());	// Check this is not an enemy.
+	
+	if (localPlayer != nullptr)
+	{
+		auto ghost = GameManager::getInstance()->createGameObject<GhostCharacter>(false, new GhostPilot());
+		ghost->getTransform()->setPosition(gameObject->getTransform()->getX(), gameObject->getTransform()->getY());
+		SceneManager::getInstance()->getCurrentScene()->setCameraFollow(ghost);
+	}
 }
 
 std::shared_ptr<WorldItem> CharacterController::trySwapItem()

@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include <SDL_mixer.h>
+#include "GLHeaders.h"
 
 class AudioManager
 {

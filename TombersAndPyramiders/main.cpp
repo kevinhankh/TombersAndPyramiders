@@ -6,8 +6,7 @@
 #include "SpriteRendererManager.h"
 #include "GameObject.h"
 #include "AudioManager.h"
-#include <SDL.h>
-#include <SDL_mixer.h>
+#include "GLHeaders.h"
 #include "NetworkingManager.h"
 
 void RunGame();
