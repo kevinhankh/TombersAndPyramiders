@@ -139,7 +139,12 @@ bool NetworkingManager::accept()
 	}
 	pollMessagesTCP(newID);
 
-	if (-1 == SDLNet_UDP_Bind (m_udpSocket, DEFAULT_CHANNEL, ip))
+	IPaddress udpIP;
+	if (SDLNet_ResolveHost (&udpIP, SDLNet_ResolveIP (ip), m_port) == -1) {
+		std::cout << "Couldn't find resolved client IP " << SDLNet_ResolveIP (ip) << std::endl;
+	}
+
+	if (!SDLNet_UDP_Bind (m_udpSocket, DEFAULT_CHANNEL, &udpIP))
 	{
 		printf ("SDLNet_UDP_Bind: %s\n", SDLNet_GetError ());
 	}
@@ -269,6 +274,17 @@ void NetworkingManager::sendUDP(std::string *msg)
 {
 	createUDPPacket(msg->length());
 	memcpy(m_udpPacket->data, msg->c_str(), msg->length());
+
+	IPaddress *address;
+
+	address = SDLNet_UDP_GetPeerAddress (m_udpSocket, DEFAULT_CHANNEL);
+	if (!address) {
+		printf ("SDLNet_UDP_GetPeerAddress: %s\n", SDLNet_GetError ());
+		// do something because we failed to get the address
+	}
+	else {
+		// perhaps print out address->host and address->port
+	}
 
 	if (SDLNet_UDP_Send(m_udpSocket, DEFAULT_CHANNEL, m_udpPacket) == 0)
 		std::cout << "SDLNET_UDP_SEND failed: " << SDLNet_GetError() << "\n";
