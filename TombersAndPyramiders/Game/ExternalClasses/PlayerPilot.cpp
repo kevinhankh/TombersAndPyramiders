@@ -14,6 +14,10 @@
 #include "CharacterController.h"
 #include "InputManager.h"
 #include "Vector2.h"
+#include "Sender.h"
+#include "GameManager.h"
+#include "Invokable.h"
+#include "BasePossessableController.h"
 
 /*----------------------------------------------------------------------------------------
 	Instance Setter Methods
@@ -44,18 +48,48 @@ void PlayerPilot::onUpdate(int ticks)
 {
 	if (m_characterController != nullptr)
 	{
+		/* Move the character. */
 		m_characterController->move(getMovement());
 
-		/* TODO Make this read from the mouse position. */
+		/* TODO Make character face mouse position. */
 
+		/* Use weapon. */
 		if (getWeaponInput())
 		{
 			m_characterController->useWeapon();
+			m_characterController->getGameObject()->getComponent<Sender>()->sendAttack();
+		}
+		else
+		{
+			tryInvokeTrigger();
 		}
 	}
-	if (InputManager::getInstance()->onKeyPressed(SDLK_e)) 
+	/* Use shield. */
+	if (getShieldInput())
+	{
+		m_characterController->useShield();
+	}
+
+	/* Use greaves. */
+	if (getGreavesInput())
+	{
+		m_characterController->useGreaves();
+	}
+
+	/* Pick up items. */
+	if (InputManager::getInstance()->onKeyPressed(SDLK_e))
 	{
 		m_characterController->trySwapItem();
+	}
+}
+
+void PlayerPilot::tryInvokeTrigger()
+{
+	if (InputManager::getInstance()->onKeyPressed(SDLK_z))
+	{
+		if (m_characterController->tryInvokeTrigger()) {
+			m_characterController->getGameObject()->getComponent<Sender>()->sendTrigger();
+		}
 	}
 }
 
@@ -96,4 +130,14 @@ Vector2 PlayerPilot::getMovement()
 bool PlayerPilot::getWeaponInput()
 {
 	return InputManager::getInstance()->onKeyPressed(SDLK_SPACE);
+}
+
+bool PlayerPilot::getShieldInput()
+{
+	return InputManager::getInstance()->onKeyPressed(SDLK_o);
+}
+
+bool PlayerPilot::getGreavesInput()
+{
+	return InputManager::getInstance()->onKeyPressed(SDLK_p);
 }

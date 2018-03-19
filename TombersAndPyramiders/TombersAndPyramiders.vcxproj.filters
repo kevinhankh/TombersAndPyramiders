@@ -24,7 +24,6 @@
     <ClCompile Include="Engine\Manager\NetworkingManager.cpp" />
     <ClCompile Include="Engine\Manager\PhysicsManager.cpp" />
     <ClCompile Include="Engine\Manager\SceneManager.cpp" />
-    <ClCompile Include="Engine\Monster.cpp" />
     <ClCompile Include="Engine\PathFinding.cpp" />
     <ClCompile Include="Engine\Scene.cpp" />
     <ClCompile Include="Engine\Updateable.cpp" />
@@ -35,6 +34,7 @@
     <ClCompile Include="Game\Components\CameraFollow.cpp" />
     <ClCompile Include="Game\Components\CharacterController.cpp" />
     <ClCompile Include="Game\Components\Inventory.cpp" />
+    <ClCompile Include="Game\ExternalClasses\AiPilot.cpp" />
     <ClCompile Include="Game\ExternalClasses\BaseChestplate.cpp" />
     <ClCompile Include="Game\ExternalClasses\BaseEquippableItem.cpp" />
     <ClCompile Include="Game\ExternalClasses\BaseGreaves.cpp" />
@@ -48,6 +48,8 @@
     <ClCompile Include="Game\ExternalClasses\BaseShortsword.cpp" />
     <ClCompile Include="Game\ExternalClasses\BaseWeapon.cpp" />
     <ClCompile Include="Game\ExternalClasses\Damageable.cpp" />
+    <ClCompile Include="Game\ExternalClasses\HostPilot.cpp" />
+    <ClCompile Include="Game\ExternalClasses\DummyPilot.cpp" />
     <ClCompile Include="Game\ExternalClasses\PlayerPilot.cpp" />
     <ClCompile Include="Game\ExternalClasses\WoodenLongbow.cpp" />
     <ClCompile Include="Game\ExternalClasses\WoodenShortsword.cpp" />
@@ -65,11 +67,15 @@
     <ClCompile Include="Engine\Manager\SpriteRendererManager.cpp" />
     <ClCompile Include="Game\Components\ComponentTemplate.cpp" />
     <ClCompile Include="Game\GameObjects\Character.cpp" />
+    <ClCompile Include="Game\GameObjects\ClientCharacter.cpp" />
     <ClCompile Include="Game\GameObjects\DamagingRegion.cpp" />
     <ClCompile Include="Game\GameObjects\GameObjectTemplate.cpp" />
+    <ClCompile Include="Game\GameObjects\HostCharacter.cpp" />
+    <ClCompile Include="Game\GameObjects\NetworkCharacter.cpp" />
+    <ClCompile Include="Game\GameObjects\Projectile.cpp" />
+    <ClCompile Include="Game\Scenes\NetworkedGameScene.cpp" />
     <ClCompile Include="Game\GameObjects\MiscSquare.cpp" />
     <ClCompile Include="Game\GameObjects\MovingSquare.cpp" />
-    <ClCompile Include="Game\GameObjects\Projectile.cpp" />
     <ClCompile Include="Game\GameObjects\Wall.cpp" />
     <ClCompile Include="Game\GameObjects\WorldItem.cpp" />
     <ClCompile Include="Game\Managers\SpawnManager.cpp" />
@@ -77,13 +83,27 @@
     <ClCompile Include="Game\Scenes\CharacterTestScene.cpp" />
     <ClCompile Include="Game\Scenes\SceneTemplate.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Paper.cpp" />
-    <ClCompile Include="PathFinding.cpp" />
-    <ClCompile Include="Game\ExternalClasses\AiPilot.cpp" />
     <ClCompile Include="Game\GameObjects\Monster.cpp" />
+    <ClCompile Include="Game\Scenes\LaunchScene.cpp" />
+    <ClCompile Include="Engine\External\QuadTree.cpp" />
+    <ClCompile Include="Game\Scenes\PossessionTestScene.cpp" />
+    <ClCompile Include="Game\GameObjects\GhostCharacter.cpp" />
+    <ClCompile Include="Game\ExternalClasses\Possession\GhostPilot.cpp" />
+    <ClCompile Include="Game\ExternalClasses\Possession\BasePossessableController.cpp" />
+    <ClCompile Include="Game\ExternalClasses\Possession\BoulderController.cpp" />
+    <ClCompile Include="Game\GameObjects\Boulder.cpp" />
+    <ClCompile Include="Game\ExternalClasses\Possession\GhostController.cpp" />
+    <ClCompile Include="Game\GameObjects\Doors\SingleDoor.cpp" />
+    <ClCompile Include="Game\GameObjects\Doors\Door.cpp" />
+    <ClCompile Include="Game\Components\DoorController.cpp" />
+    <ClCompile Include="Game\ExternalClasses\WoodenShield.cpp" />
+    <ClCompile Include="Game\ExternalClasses\WoodenGreaves.cpp" />
+    <ClCompile Include="Game\ExternalClasses\WoodenChestplate.cpp" />
+    <ClCompile Include="Game\ExternalClasses\WoodenHelmet.cpp" />
+    <ClCompile Include="Engine\Component\Audio\AudioListener.cpp" />
+    <ClCompile Include="Engine\Component\Audio\AudioSource.cpp" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <ClInclude Include="Engine\Component\AI\AI.h" />
     <ClInclude Include="Engine\Component\AI\AILearning.h" />
     <ClInclude Include="Engine\Component\AI\NeuralNet.h" />
@@ -111,7 +131,6 @@
     <ClInclude Include="Engine\Manager\NetworkingManager.h" />
     <ClInclude Include="Engine\Manager\PhysicsManager.h" />
     <ClInclude Include="Engine\Manager\SceneManager.h" />
-    <ClInclude Include="Engine\Monster.h" />
     <ClInclude Include="Engine\PathFinding.h" />
     <ClInclude Include="Engine\Scene.h" />
     <ClInclude Include="Engine\SearchCell.h" />
@@ -120,6 +139,7 @@
     <ClInclude Include="Game\Components\CameraFollow.h" />
     <ClInclude Include="Game\Components\CharacterController.h" />
     <ClInclude Include="Game\Components\Inventory.h" />
+    <ClInclude Include="Game\ExternalClasses\AiPilot.h" />
     <ClInclude Include="Game\ExternalClasses\BaseChestplate.h" />
     <ClInclude Include="Game\ExternalClasses\BaseEquippableItem.h" />
     <ClInclude Include="Game\ExternalClasses\BaseHelmet.h" />
@@ -133,6 +153,8 @@
     <ClInclude Include="Game\ExternalClasses\BaseShortsword.h" />
     <ClInclude Include="Game\ExternalClasses\BaseWeapon.h" />
     <ClInclude Include="Game\ExternalClasses\Damageable.h" />
+    <ClInclude Include="Game\ExternalClasses\HostPilot.h" />
+    <ClInclude Include="Game\ExternalClasses\DummyPilot.h" />
     <ClInclude Include="Game\ExternalClasses\PlayerPilot.h" />
     <ClInclude Include="Game\ExternalClasses\UserDefinedRenderLayers.h" />
     <ClInclude Include="Game\ExternalClasses\WoodenLongbow.h" />
@@ -154,546 +176,89 @@
     <ClInclude Include="Engine\Manager\SpriteRendererManager.h" />
     <ClInclude Include="Game\Components\ComponentTemplate.h" />
     <ClInclude Include="Game\GameObjects\Character.h" />
+    <ClInclude Include="Game\GameObjects\ClientCharacter.h" />
     <ClInclude Include="Game\GameObjects\DamagingRegion.h" />
     <ClInclude Include="Game\GameObjects\GameObjectTemplate.h" />
+    <ClInclude Include="Game\GameObjects\HostCharacter.h" />
+    <ClInclude Include="Game\GameObjects\NetworkCharacter.h" />
+    <ClInclude Include="Game\GameObjects\PlayerCharacter.h" />
+    <ClInclude Include="Game\GameObjects\Projectile.h" />
+    <ClInclude Include="Game\Scenes\NetworkedGameScene.h" />
     <ClInclude Include="Game\GameObjects\MiscSquare.h" />
     <ClInclude Include="Game\GameObjects\MovingSquare.h" />
-    <ClInclude Include="Game\GameObjects\Projectile.h" />
     <ClInclude Include="Game\GameObjects\Wall.h" />
     <ClInclude Include="Game\GameObjects\WorldItem.h" />
     <ClInclude Include="Game\Managers\SpawnManager.h" />
     <ClInclude Include="Game\Scenes\CameraTestScene.h" />
     <ClInclude Include="Game\Scenes\CharacterTestScene.h" />
     <ClInclude Include="Game\Scenes\SceneTemplate.h" />
-    <ClInclude Include="Paper.h" />
-    <ClInclude Include="PathFinding.h" />
-    <ClInclude Include="SearchCell.h" />
-    <ClInclude Include="Game\ExternalClasses\AiPilot.h" />
     <ClInclude Include="Game\GameObjects\Monster.h" />
+    <ClInclude Include="Game\Scenes\LaunchScene.h" />
+    <ClInclude Include="Engine\External\QuadTree.h" />
+    <ClInclude Include="Game\Scenes\PossessionTestScene.h" />
+    <ClInclude Include="Game\GameObjects\GhostCharacter.h" />
+    <ClInclude Include="Game\ExternalClasses\Possession\GhostPilot.h" />
+    <ClInclude Include="Game\ExternalClasses\Possession\BasePossessableController.h" />
+    <ClInclude Include="Game\ExternalClasses\Possession\BoulderController.h" />
+    <ClInclude Include="Game\GameObjects\Boulder.h" />
+    <ClInclude Include="Game\ExternalClasses\Possession\GhostController.h" />
+    <ClInclude Include="Game\ExternalClasses\Invokable.h" />
+    <ClInclude Include="Game\GameObjects\Doors\SingleDoor.h" />
+    <ClInclude Include="Game\GameObjects\Doors\Door.h" />
+    <ClInclude Include="Game\Components\DoorController.h" />
+    <ClInclude Include="Game\ExternalClasses\WoodenShield.h" />
+    <ClInclude Include="Game\ExternalClasses\WoodenGreaves.h" />
+    <ClInclude Include="Game\ExternalClasses\WoodenChestplate.h" />
+    <ClInclude Include="Game\ExternalClasses\RandomHelper.h" />
+    <ClInclude Include="Game\ExternalClasses\WoodenHelmet.h" />
+    <ClInclude Include="Engine\Component\Audio\AudioBank.h" />
+    <ClInclude Include="Engine\Component\Audio\AudioListener.h" />
+    <ClInclude Include="Engine\Component\Audio\AudioSource.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Character.bmp" />
     <Image Include="Assets\Character.png" />
-=======
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Engine.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Component\GameObject.cpp">
-      <Filter>Source Files\Engine\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Component\Render\SpriteRenderer.cpp">
-      <Filter>Source Files\Engine\Component\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\External\HelperFunctions.cpp">
-      <Filter>Source Files\Engine\External</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\External\Render\Shader.cpp">
-      <Filter>Source Files\Engine\External\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Manager\GameManager.cpp">
-      <Filter>Source Files\Engine\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Manager\SpriteRendererManager.cpp">
-      <Filter>Source Files\Engine\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Components\ComponentTemplate.cpp">
-      <Filter>Source Files\Game\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameObjects\GameObjectTemplate.cpp">
-      <Filter>Source Files\Game\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\External\Math\Vector2.cpp">
-      <Filter>Source Files\Engine\External\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Manager\MessageManager.cpp">
-      <Filter>Source Files\Engine\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Component\Transform.cpp">
-      <Filter>Source Files\Engine\Component\Transform</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Component\Networking\Receiver.cpp">
-      <Filter>Source Files\Engine\Component\Networking</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Component\Networking\Sender.cpp">
-      <Filter>Source Files\Engine\Component\Networking</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\External\Render\SpriteSheet.cpp">
-      <Filter>Source Files\Engine\External\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\External\Render\Sprite.cpp">
-      <Filter>Source Files\Engine\External\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Component\Render\Renderer.cpp">
-      <Filter>Source Files\Engine\Component\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Manager\InputManager.cpp">
-      <Filter>Source Files\Engine\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Component\Physics.cpp">
-      <Filter>Source Files\Engine\Component\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Component\Component.cpp">
-      <Filter>Source Files\Engine\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Component\Physics.cpp">
-      <Filter>Source Files\Engine\Component\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Component\Component.cpp">
-      <Filter>Source Files\Engine\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Scenes\SceneTemplate.cpp">
-      <Filter>Source Files\Game\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Manager\NetworkingManager.cpp">
-      <Filter>Source Files\Engine\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Game.cpp">
-      <Filter>Source Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Manager\SceneManager.cpp">
-      <Filter>Source Files\Engine\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Updateable.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Scene.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Manager\SceneManager.cpp">
-      <Filter>Source Files\Engine\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Scene.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Updateable.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Game.cpp">
-      <Filter>Source Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Manager\NetworkingManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Scenes\SceneTemplate.cpp">
-      <Filter>Source Files\Game\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Manager\PhysicsManager.cpp">
-      <Filter>Source Files\Engine\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Component\Collision\Collider.cpp">
-      <Filter>Source Files\Engine\Component\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Component\Collision\Collider.cpp">
-      <Filter>Source Files\Engine\Component\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\GameObjects\SimpleSprite.cpp">
-      <Filter>Source Files\Engine\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\External\Render\ISprite.cpp">
-      <Filter>Source Files\Engine\External\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\GameObjects\Camera.cpp">
-      <Filter>Source Files\Engine\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\GameObjects\ComplexSprite.cpp">
-      <Filter>Source Files\Engine\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\GameObjects\DayNightCamera.cpp">
-      <Filter>Source Files\Engine\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\External\Render\FrameBufferObject.cpp">
-      <Filter>Source Files\Engine\External\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Manager\AudioManager.cpp">
-      <Filter>Source Files\Engine\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Component\Collision\BoxCollider.cpp">
-      <Filter>Source Files\Engine\Component\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Component\Collision\CircleCollider.cpp">
-      <Filter>Source Files\Engine\Component\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Components\Inventory.cpp">
-      <Filter>Source Files\Game\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\Damageable.cpp">
-      <Filter>Source Files\Game\ExternalClasses</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\BasePilot.cpp">
-      <Filter>Source Files\Game\ExternalClasses</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Components\BaseController.cpp">
-      <Filter>Source Files\Game\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\PlayerPilot.cpp">
-      <Filter>Source Files\Game\ExternalClasses</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Components\CharacterController.cpp">
-      <Filter>Source Files\Game\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\BaseChestplate.cpp">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\BaseEquippableItem.cpp">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\BaseGreaves.cpp">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\BaseHelmet.cpp">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\BaseItem.cpp">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\BaseShield.cpp">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\BaseWeapon.cpp">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameObjects\DamagingRegion.cpp">
-      <Filter>Source Files\Game\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\BaseMeleeWeapon.cpp">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\BaseShortsword.cpp">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\WoodenShortsword.cpp">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\BaseProjectileWeapon.cpp">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\BaseLongbow.cpp">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\WoodenLongbow.cpp">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameObjects\Projectile.cpp">
-      <Filter>Source Files\Game\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameObjects\Character.cpp">
-      <Filter>Source Files\Game\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Component\AI\AI.cpp">
-      <Filter>Source Files\Engine\Component\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Component\AI\AILearning.cpp">
-      <Filter>Source Files\Engine\Component\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Component\AI\NeuralNet.cpp">
-      <Filter>Source Files\Engine\Component\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Component\AI\Neuron.cpp">
-      <Filter>Source Files\Engine\Component\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Component\AI\TrainingData.cpp">
-      <Filter>Source Files\Engine\Component\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Scenes\CameraTestScene.cpp">
-      <Filter>Source Files\Game\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Scenes\CharacterTestScene.cpp">
-      <Filter>Source Files\Game\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameObjects\MiscSquare.cpp">
-      <Filter>Source Files\Game\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameObjects\MovingSquare.cpp">
-      <Filter>Source Files\Game\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Components\CameraFollow.cpp">
-      <Filter>Source Files\Game\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Managers\SpawnManager.cpp">
-      <Filter>Source Files\Game\Managers</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameObjects\WorldItem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Component\Collision\Rigidbody.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameObjects\Wall.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ExternalClasses\DummyPilot.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Engine\Engine.h">
-      <Filter>Source Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Component\GameObject.h">
-      <Filter>Source Files\Engine\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Component\Component.h">
-      <Filter>Source Files\Engine\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Component\Render\SpriteRenderer.h">
-      <Filter>Source Files\Engine\Component\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\External\GLHeaders.h">
-      <Filter>Source Files\Engine\External</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\External\SharedConstants.h">
-      <Filter>Source Files\Engine\External</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\External\HelperFunctions.h">
-      <Filter>Source Files\Engine\External</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\External\Render\Shader.h">
-      <Filter>Source Files\Engine\External\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Manager\GameManager.h">
-      <Filter>Source Files\Engine\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Manager\InputManager.h">
-      <Filter>Source Files\Engine\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Manager\SpriteRendererManager.h">
-      <Filter>Source Files\Engine\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Components\ComponentTemplate.h">
-      <Filter>Source Files\Game\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameObjects\GameObjectTemplate.h">
-      <Filter>Source Files\Game\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\External\Math\Vector2.h">
-      <Filter>Source Files\Engine\External\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Manager\MessageManager.h">
-      <Filter>Source Files\Engine\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Component\Transform.h">
-      <Filter>Source Files\Engine\Component\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Component\Networking\Receiver.h">
-      <Filter>Source Files\Engine\Component\Networking</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Component\Networking\Sender.h">
-      <Filter>Source Files\Engine\Component\Networking</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\External\Render\SpriteSheet.h">
-      <Filter>Source Files\Engine\External\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\External\Render\ISprite.h">
-      <Filter>Source Files\Engine\External\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\External\Render\Sprite.h">
-      <Filter>Source Files\Engine\External\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\UserDefinedRenderLayers.h">
-      <Filter>Source Files\Game\ExternalClasses</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Component\Render\Renderer.h">
-      <Filter>Source Files\Engine\Component\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\External\TransformState.h">
-      <Filter>Source Files\Engine\External</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Component\Physics.h">
-      <Filter>Source Files\Engine\Component\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Component\Physics.h">
-      <Filter>Source Files\Engine\Component\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Component\Physics.h">
-      <Filter>Source Files\Engine\Component\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Scenes\SceneTemplate.h">
-      <Filter>Source Files\Game\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Manager\NetworkingManager.h">
-      <Filter>Source Files\Engine\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Game.h">
-      <Filter>Source Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Manager\SceneManager.h">
-      <Filter>Source Files\Engine\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Updateable.h">
-      <Filter>Source Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Scene.h">
-      <Filter>Source Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Manager\SceneManager.h">
-      <Filter>Source Files\Engine\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Scene.h">
-      <Filter>Source Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Updateable.h">
-      <Filter>Source Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Game.h">
-      <Filter>Source Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Manager\NetworkingManager.h">
-      <Filter>Source Files\Engine\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Manager\PhysicsManager.h">
-      <Filter>Source Files\Engine\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Component\Collision\Collider.h">
-      <Filter>Source Files\Engine\Component\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Component\Collision\Collider.h">
-      <Filter>Source Files\Engine\Component\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\GameObjects\SimpleSprite.h">
-      <Filter>Source Files\Engine\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\GameObjects\Camera.h">
-      <Filter>Source Files\Engine\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\GameObjects\ComplexSprite.h">
-      <Filter>Source Files\Engine\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\GameObjects\DayNightCamera.h">
-      <Filter>Source Files\Engine\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\External\Render\FrameBufferObject.h">
-      <Filter>Source Files\Engine\External\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Manager\AudioManager.h">
-      <Filter>Source Files\Engine\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\External\ThreadQueue.h">
-      <Filter>Source Files\Engine\External</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Component\Collision\BoxCollider.h">
-      <Filter>Source Files\Engine\Component\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Component\Collision\CircleCollider.h">
-      <Filter>Source Files\Engine\Component\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Components\Inventory.h">
-      <Filter>Source Files\Game\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\Damageable.h">
-      <Filter>Source Files\Game\ExternalClasses</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\BasePilot.h">
-      <Filter>Source Files\Game\ExternalClasses</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Components\BaseController.h">
-      <Filter>Source Files\Game\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\PlayerPilot.h">
-      <Filter>Source Files\Game\ExternalClasses</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Components\CharacterController.h">
-      <Filter>Source Files\Game\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\BaseChestplate.h">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\BaseEquippableItem.h">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\BaseGreaves.h">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\BaseHelmet.h">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\BaseItem.h">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\BaseShield.h">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\BaseWeapon.h">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameObjects\DamagingRegion.h">
-      <Filter>Source Files\Game\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\BaseMeleeWeapon.h">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\BaseShortsword.h">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\WoodenShortsword.h">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\BaseProjectileWeapon.h">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\BaseLongbow.h">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\WoodenLongbow.h">
-      <Filter>Source Files\Game\ExternalClasses\Items</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameObjects\Projectile.h">
-      <Filter>Source Files\Game\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameObjects\Character.h">
-      <Filter>Source Files\Game\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Component\AI\AI.h">
-      <Filter>Source Files\Engine\Component\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Component\AI\AILearning.h">
-      <Filter>Source Files\Engine\Component\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Component\AI\NeuralNet.h">
-      <Filter>Source Files\Engine\Component\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Component\AI\Neuron.h">
-      <Filter>Source Files\Engine\Component\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Component\AI\TrainingData.h">
-      <Filter>Source Files\Engine\Component\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Scenes\CameraTestScene.h">
-      <Filter>Source Files\Game\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Scenes\CharacterTestScene.h">
-      <Filter>Source Files\Game\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameObjects\MiscSquare.h">
-      <Filter>Source Files\Game\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameObjects\MovingSquare.h">
-      <Filter>Source Files\Game\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Components\CameraFollow.h">
-      <Filter>Source Files\Game\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Managers\SpawnManager.h">
-      <Filter>Source Files\Game\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameObjects\WorldItem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Component\Collision\Rigidbody.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameObjects\Wall.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ExternalClasses\DummyPilot.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
->>>>>>> cfaa7307718c8259664fdf080573623949132950
   </ItemGroup>
   <ItemGroup>
     <Text Include="Engine\External\Render\contrastFragment.txt" />
     <Text Include="Engine\External\Render\contrastVertex.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Game\Assets\Audio\hit.mp3" />
+    <Media Include="Game\Assets\Audio\hit1.mp3" />
+    <Media Include="Game\Assets\Audio\hit2.mp3" />
+    <Media Include="Game\Assets\Audio\hit3.mp3" />
+    <Media Include="Game\Assets\Audio\mario_.mp3" />
+    <Media Include="Game\Assets\Audio\mario_.wav" />
+    <Media Include="Game\Assets\Audio\shootarrow.mp3" />
+    <Media Include="Game\Assets\Audio\swordswing.mp3" />
+    <Media Include="Game\Assets\Audio\valiantwind.mp3" />
+    <Media Include="Game\Assets\Audio\victory.wav" />
+    <Media Include="Game\Assets\hit.wav" />
+    <Media Include="Game\Assets\mario_.wav" />
+    <Media Include="Game\Assets\shoot.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Game\Assets\Shaders\fragment_shader.fs" />
+    <None Include="Game\Assets\Shaders\glow.fs" />
+    <None Include="Game\Assets\Shaders\glow.vs" />
+    <None Include="Game\Assets\Shaders\ppAmbientColour.fs" />
+    <None Include="Game\Assets\Shaders\ppBloom.fs" />
+    <None Include="Game\Assets\Shaders\ppExtractBrightness.fs" />
+    <None Include="Game\Assets\Shaders\ppExtractBrightnessDirectional.fs" />
+    <None Include="Game\Assets\Shaders\ppExtractBrightnessDirectional.vs" />
+    <None Include="Game\Assets\Shaders\ppGaussianBlur.fs" />
+    <None Include="Game\Assets\Shaders\ppHorizontalGaussianBlur.vs" />
+    <None Include="Game\Assets\Shaders\ppPassThrough.fs" />
+    <None Include="Game\Assets\Shaders\ppPassThrough.vs" />
+    <None Include="Game\Assets\Shaders\ppVerticalGaussianBlur.vs" />
+    <None Include="Game\Assets\Shaders\shadow.fs" />
+    <None Include="Game\Assets\Shaders\shadow.vs" />
+    <None Include="Game\Assets\Shaders\shadow_SpriteSheet.vs" />
+    <None Include="Game\Assets\Shaders\sprite_sheet.vs" />
+    <None Include="Game\Assets\Shaders\tile.vs" />
+    <None Include="Game\Assets\Shaders\vertex_shader.vs" />
+    <None Include="Game\Assets\Shaders\voxel.fs" />
+    <None Include="Game\Assets\.DS_Store" />
   </ItemGroup>
 </Project>

@@ -14,11 +14,7 @@
 #include "AudioManager.h"
 
 using namespace std;
-std::shared_ptr<Character> player = nullptr;
-std::shared_ptr<Character> Ai = nullptr;
-std::shared_ptr<Character> Ai2 = nullptr;
-std::shared_ptr<Character> Ai3 = nullptr;
-std::shared_ptr<Character> Ai4 = nullptr;
+
 
 CharacterTestScene::CharacterTestScene()
 {
@@ -125,7 +121,7 @@ void CharacterTestScene::onStart()
 	Ai3 = SpawnManager::getInstance()->generateAiCharacter(50, -50);
 	Ai4 = SpawnManager::getInstance()->generateAiCharacter(50, -20);
 
-	setCameraFollow(player);
+	//setCameraFollow(player);
 }
 
 void CharacterTestScene::setCameraFollow(std::shared_ptr<GameObject> toFollow)

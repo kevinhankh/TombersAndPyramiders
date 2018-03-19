@@ -29,12 +29,18 @@
 #include "Collider.h"
 #include "SpawnManager.h"
 #include "AudioManager.h"
+#include "GameManager.h"
+#include "Invokable.h"
+#include "BasePossessableController.h"
+#include "GhostPilot.h"
+#include "NetworkCharacter.h"
+#include "PlayerPilot.h"
 
 /*----------------------------------------------------------------------------------------
 	Static Fields
 ----------------------------------------------------------------------------------------*/
 const int CharacterController::DEFAULT_CHARACTER_MAX_HP = 100;
-const Vector2 CharacterController::DEFAULT_CHARACTER_MOVEMENT_SPEED = Vector2(0.25, 0.25);
+const Vector2 CharacterController::DEFAULT_CHARACTER_MOVEMENT_SPEED = Vector2(0.15, 0.15);
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
@@ -55,20 +61,20 @@ CharacterController::CharacterController(GameObject* parentGameobject, Inventory
 	{
 		m_character = std::shared_ptr<Character>(character);
 	}
-	m_boxCollider = gameObject->addComponent<BoxCollider>(gameObject, 1, 1);
-	//m_boxCollider = gameObject->addComponent<BoxCollider>(gameObject, gameObject->getTransform()->getScale(), gameObject->getTransform()->getScale());
+	m_boxCollider = gameObject->addComponent<BoxCollider>(gameObject, gameObject->getTransform()->getScale(), gameObject->getTransform()->getScale());
 	m_rigidbody = gameObject->addComponent<Rigidbody>(gameObject, m_boxCollider.get());
+	m_audioSource = gameObject->addComponent<AudioSource>(gameObject);
+	if (dynamic_cast<PlayerPilot*>(m_pilot.get()) != nullptr)
+	{
+		m_audioListener = gameObject->addComponent<AudioListener>(gameObject);
+	}
 }
 
 /*----------------------------------------------------------------------------------------
 	Instance Methods
 ----------------------------------------------------------------------------------------*/
 void CharacterController::onStart()
-{
-	//m_boxCollider = gameObject->addComponent<BoxCollider>(gameObject, 10, 10);
-	//m_boxCollider = gameObject->addComponent<BoxCollider>(gameObject, gameObject->getTransform()->getScale(), gameObject->getTransform()->getScale());
-	//m_rigidbody = gameObject->addComponent<Rigidbody>(gameObject, m_boxCollider.get());
-}
+{}
 
 void CharacterController::onUpdate(int ticks)
 {
@@ -81,7 +87,6 @@ void CharacterController::onUpdate(int ticks)
 
 void CharacterController::move(Vector2 delta)
 {
-	//std::cout << "X: " << delta.getX() << ", Y: " << delta.getY() << "\n";
 	delta.setX(delta.getX() * m_movementSpeed.getX());
 	delta.setY(delta.getY() * m_movementSpeed.getY());
 
@@ -101,29 +106,130 @@ void CharacterController::move(Vector2 delta)
 void CharacterController::useWeapon()
 {
 	std::shared_ptr<BaseWeapon> weapon = m_inventory->getWeapon();
-	if (weapon != nullptr)
-	{
-		weapon->use(); //What if this returned a bool for whether the attack fired or not? So the rest didn't fire for just trying to call useWeapon and let us let weapons determine then things likecooldown
-		//m_inventory->getWeapon()->use();
+	std::shared_ptr<BaseShield> shield = m_inventory->getShield();
 
-		std::shared_ptr<BaseMeleeWeapon> melee = dynamic_pointer_cast<BaseMeleeWeapon>(weapon);
-		if (melee != nullptr) {
-			m_character->playMeleeAttackAnimation();
-			AudioManager::getInstance()->playSwordSwingSFX();
-		} else{
-			m_character->playRangeAttackAnimation();
-			AudioManager::getInstance()->playShootArrowSFX();
+	if (weapon != nullptr && 
+		(shield == nullptr || !shield->isBlocking()))
+	{
+		if (weapon->use())
+		{
+			std::shared_ptr<BaseMeleeWeapon> melee = dynamic_pointer_cast<BaseMeleeWeapon>(weapon);
+			if (melee != nullptr) {
+				m_character->playMeleeAttackAnimation();
+				m_audioSource->playSFX(SFX_SWORD);
+			}
+			else {
+				m_character->playRangeAttackAnimation();
+				m_audioSource->playSFX(SFX_BOW);
+			}
 		}
-		 
-		//dynamic_cast<BaseMeleeWeapon>(weapon);
 	}
 }
 
-void CharacterController::takeDamage(int damage)
+bool CharacterController::tryInvokeTrigger()
 {
-	Damageable::takeDamage(damage);
+	auto transform = getGameObject()->getTransform();
+	auto closeObjects = GameManager::getInstance()->getObjectsInBounds(transform->getX(), transform->getY(), transform->getScale(), transform->getScale());
+
+	std::shared_ptr<Invokable> closest = nullptr;
+	float distance = 1000;
+
+	for (auto it = closeObjects.begin(); it != closeObjects.end(); it++)
+	{
+		std::shared_ptr<Invokable> invokable = (*it)->getComponent<Invokable>();
+		std::shared_ptr<BasePossessableController> possessable = nullptr;
+		float maxDistance = transform->getScale() / 2.0f + (*it)->getTransform()->getScale() / 2.0f;
+
+		if (invokable == nullptr)
+		{
+			possessable = (*it)->getComponent<BasePossessableController>();
+			invokable = dynamic_pointer_cast<Invokable>(possessable);
+		}
+
+		if (invokable != nullptr || possessable != nullptr)
+		{
+			float newDistance = (*it)->getTransform()->getDistance(transform);
+			if (newDistance <= maxDistance && newDistance < distance)
+			{
+				distance = newDistance;
+				closest = invokable;
+			}
+		}
+	}
+
+	if (closest != nullptr)
+	{
+		closest->trigger();
+		return true;
+	}
+	return false;
+}
+
+
+void CharacterController::useShield()
+{
+	std::shared_ptr<BaseWeapon> weapon = m_inventory->getWeapon();
+	std::shared_ptr<BaseShield> shield = m_inventory->getShield();
+
+	if (shield != nullptr && 
+		(weapon == nullptr || !weapon->isAttacking()))
+	{
+		if (shield->use())
+		{
+			// TODO Shield SFX?
+		}
+	}
+}
+
+void CharacterController::useGreaves()
+{
+	std::shared_ptr<BaseGreaves> greaves = m_inventory->getGreaves();
+
+	if (greaves != nullptr)
+	{
+		if (greaves->use())
+		{
+			// TODO Greaves SFX?
+			m_audioSource->playSFX(SFX_DASH);
+		}
+	}
+}
+
+void CharacterController::takeDamage(int damage, bool isCriticalHit)
+{
+	std::shared_ptr<BaseShield> shield = m_inventory->getShield();
+	std::shared_ptr<BaseChestplate> chestplate = m_inventory->getChestplate();
+	auto realDamage = damage;
+
+	/* Apply helmet defense. */
+	if (isCriticalHit)
+	{
+		std::shared_ptr<BaseHelmet> helmet = m_inventory->getHelmet();
+
+		if (helmet == nullptr || 
+			!helmet->doesAvoidCriticalHit())
+		{
+			realDamage *= BaseWeapon::CRITICAL_HIT_DAMAGE_MULTIPLIER;
+		}
+	}
+
+	/* Apply shield defense */
+	if (shield != nullptr && 
+		shield->isBlocking())
+	{
+		realDamage = shield->calculateRealDamage(realDamage);
+		m_audioSource->playSFX(SFX_SHIELD);
+	}
+
+	/* Apply chestplate defense */
+	if (chestplate != nullptr)
+	{
+		realDamage = chestplate->calculateRealDamage(realDamage);
+	}
+
+	Damageable::takeDamage(realDamage);
 	m_character->playHurtAnimation();
-	AudioManager::getInstance()->playHitSFX();
+	m_audioSource->playSFX(SFX_HIT);
 }
 
 void CharacterController::updateWeapon(int ticks)
@@ -153,6 +259,16 @@ void CharacterController::updateGreaves(int ticks)
 void CharacterController::death()
 {
 	destroy(gameObject->getId());
+
+	/* Spawn the character's ghost. */
+	auto localPlayer = dynamic_cast<PlayerPilot*>(m_pilot.get());	// Check this is not an enemy.
+	
+	if (localPlayer != nullptr)
+	{
+		auto ghost = GameManager::getInstance()->createGameObject<GhostCharacter>(false, new GhostPilot());
+		ghost->getTransform()->setPosition(gameObject->getTransform()->getX(), gameObject->getTransform()->getY());
+		SceneManager::getInstance()->getCurrentScene()->setCameraFollow(ghost);
+	}
 }
 
 std::shared_ptr<WorldItem> CharacterController::trySwapItem()
@@ -166,14 +282,11 @@ std::shared_ptr<WorldItem> CharacterController::trySwapItem()
 
 			if (worldItem != nullptr) 
 			{
-				float oldX = worldItem->getTransform()->getX();
-				float oldY = worldItem->getTransform()->getY();
-
 				std::shared_ptr<BaseItem> extractedItem = worldItem->pickupItem();
 
 				std::shared_ptr<BaseItem> removedItem = m_inventory->addItem(extractedItem);
 				if (removedItem != nullptr) {
-					return SpawnManager::getInstance()->generateWorldItem(oldX, oldY, removedItem);
+					return SpawnManager::getInstance()->generateWorldItem(m_character->getTransform()->getX(), m_character->getTransform()->getY(), removedItem);
 				}
 
 				break;
