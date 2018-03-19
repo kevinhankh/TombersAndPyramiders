@@ -223,8 +223,6 @@
     <ClCompile Include="Game\Scenes\SceneTemplate.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Game\GameObjects\Monster.cpp" />
-    <ClCompile Include="Paper.cpp" />
-    <ClCompile Include="PathFinding.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Component\AI\AI.h" />
@@ -325,9 +323,6 @@
     <ClInclude Include="Game\Scenes\PossessionTestScene.h" />
     <ClInclude Include="Game\Scenes\SceneTemplate.h" />
     <ClInclude Include="Game\GameObjects\Monster.h" />
-    <ClInclude Include="Paper.h" />
-    <ClInclude Include="PathFinding.h" />
-    <ClInclude Include="SearchCell.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Character.bmp" />

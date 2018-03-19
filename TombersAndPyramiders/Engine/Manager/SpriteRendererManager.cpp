@@ -199,6 +199,7 @@ bool SpriteRendererManager::init()
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (GLvoid *)0);
 	glBindVertexArray(0); //Unbind VAO
+	glEnable(GL_NORMALIZE);
 
 	m_fboPlainPass.init();
 	m_fboGaussianBlur.init();

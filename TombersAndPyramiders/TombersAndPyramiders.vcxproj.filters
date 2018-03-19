@@ -84,8 +84,6 @@
     <ClCompile Include="Game\Scenes\SceneTemplate.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Game\GameObjects\Monster.cpp" />
-    <ClCompile Include="Paper.cpp" />
-    <ClCompile Include="PathFinding.cpp" />
     <ClCompile Include="Game\Scenes\LaunchScene.cpp" />
     <ClCompile Include="Engine\External\QuadTree.cpp" />
     <ClCompile Include="Game\Scenes\PossessionTestScene.cpp" />
@@ -186,9 +184,6 @@
     <ClInclude Include="Game\Scenes\CharacterTestScene.h" />
     <ClInclude Include="Game\Scenes\SceneTemplate.h" />
     <ClInclude Include="Game\GameObjects\Monster.h" />
-    <ClInclude Include="Paper.h" />
-    <ClInclude Include="PathFinding.h" />
-    <ClInclude Include="SearchCell.h" />
     <ClInclude Include="Game\Scenes\LaunchScene.h" />
     <ClInclude Include="Engine\External\QuadTree.h" />
     <ClInclude Include="Game\Scenes\PossessionTestScene.h" />
