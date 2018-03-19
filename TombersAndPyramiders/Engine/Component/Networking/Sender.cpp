@@ -1,6 +1,6 @@
 #include "Sender.h"
 #include "NetworkingManager.h"
-#include "PlayerPilot.h"
+#include "CharacterController.h"
 
 Sender::Sender(GameObject* gameObject, int ID) : Component(gameObject)
 {
@@ -33,12 +33,13 @@ void Sender::sendUpdate()
 		return;
 	std::map<std::string, std::string> payload;
 	Transform* transform = gameObject->getTransform ();
-	std::shared_ptr<PlayerPilot> pilot = gameObject->getComponent<PlayerPilot> ();
+	std::shared_ptr<CharacterController> cc = gameObject->getComponent<CharacterController> ();
+	PlayerPilot* pp = (PlayerPilot*)cc->getPilot ();
 	payload["x"] = std::to_string(transform->getX());
 	payload["y"] = std::to_string(transform->getY());
 	payload["z"] = std::to_string (transform->getZ ());
-	payload["vecX"] = std::to_string (pilot->m_lastMoveVector.getX());
-	payload["vecY"] = std::to_string (pilot->m_lastMoveVector.getY());
+	payload["vecX"] = std::to_string (pp->m_lastMoveVector.getX());
+	payload["vecY"] = std::to_string (pp->m_lastMoveVector.getY());
 	payload["rotation"] = std::to_string(transform->getRotation());
 	payload["scale"] = std::to_string(transform->getScale());
 	sendNetworkMessage("UPDATE", payload, false);

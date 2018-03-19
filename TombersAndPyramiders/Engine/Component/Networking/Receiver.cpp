@@ -83,7 +83,10 @@ Receiver::Receiver(GameObject* gameObject, int netID) : Component(gameObject)
 		transform->setPosition(x, y, z);
 		transform->setRotation(angle);
 		transform->setScale(scale);
-		self->gameObject->getComponent<HostPilot> ()->m_lastNetworkVector = Vector2 (vecX, vecY);
+
+
+		std::shared_ptr<CharacterController> cc = self->gameObject->getComponent<CharacterController> ();
+		((HostPilot*)cc->getPilot ())->m_lastNetworkVector = Vector2 (vecX, vecY);
 	}, this);
 
 	/*this->m_onUpdateID = Subscribe("ATTACK", [](std::map<std::string, void*> data) -> void
