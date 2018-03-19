@@ -159,12 +159,8 @@ bool NetworkingManager::join ()
 {
 	if (m_inLobby || m_gameStarted)
 		return false;
-
-	IPaddress ip;
-	int channel;
-
 	
-	if (SDLNet_ResolveHost (&ip, IP, m_port) == -1)
+	if (SDLNet_ResolveHost (&m_hostAddress, IP, m_port) == -1)
 	{
 		printf ("SDLNet_ResolveHost: %s\n", SDLNet_GetError ());
 		return false;
@@ -173,8 +169,8 @@ bool NetworkingManager::join ()
 
 	listenforAcceptPacket ();
 
-	m_socket = SDLNet_TCP_Open (&ip);
-	pollMessagesTCP (addPlayer (ip.host, m_socket));
+	m_socket = SDLNet_TCP_Open (&m_hostAddress);
+	pollMessagesTCP (addPlayer (m_hostAddress.host, m_socket));
 	if (!m_socket)
 	{
 		printf ("SDLNet_TCP_Open: %s\n", SDLNet_GetError ());
@@ -186,15 +182,15 @@ bool NetworkingManager::join ()
 	m_udpSocket = SDLNet_UDP_Open(m_port);
 	if (!m_udpSocket)
 	{
-	printf("SDLNet_UDP_Open: %s\n", SDLNet_GetError());
-	closeUDP();
-	return false;
+		printf("SDLNet_UDP_Open: %s\n", SDLNet_GetError());
+		closeUDP();
+		return false;
 	}
 
-	if (-1 == SDLNet_UDP_Bind(m_udpSocket, DEFAULT_CHANNEL, &ip))
-	{
-		printf("SDLNet_UDP_Bind: %s\n", SDLNet_GetError());
-	}
+	//if (-1 == SDLNet_UDP_Bind(m_udpSocket, DEFAULT_CHANNEL, &m_hostAddress))
+	//{
+	//	printf("SDLNet_UDP_Bind: %s\n", SDLNet_GetError());
+	//}
 
 	m_inLobby = true;
 	m_gameStarted = false;
@@ -264,6 +260,10 @@ bool NetworkingManager::createUDPPacket(int packetSize)
 		return false;
 	}
 
+	if (!isHost ()) {
+		m_udpPacket->address = m_hostAddress;
+	}
+	m_udpPacket->channel = m_udpChannel;
 	m_udpPacket->len = packetSize + 1;
 	m_udpPacket->maxlen = packetSize + 1;
 
@@ -275,18 +275,7 @@ void NetworkingManager::sendUDP(std::string *msg)
 	createUDPPacket(msg->length());
 	memcpy(m_udpPacket->data, msg->c_str(), msg->length());
 
-	IPaddress *address;
-
-	address = SDLNet_UDP_GetPeerAddress (m_udpSocket, DEFAULT_CHANNEL);
-	if (!address) {
-		printf ("SDLNet_UDP_GetPeerAddress: %s\n", SDLNet_GetError ());
-		// do something because we failed to get the address
-	}
-	else {
-		// perhaps print out address->host and address->port
-	}
-
-	if (SDLNet_UDP_Send(m_udpSocket, DEFAULT_CHANNEL, m_udpPacket) == 0)
+	if (!SDLNet_UDP_Send (m_udpSocket, m_udpChannel, m_udpPacket))
 		std::cout << "SDLNET_UDP_SEND failed: " << SDLNet_GetError() << "\n";
 }
 

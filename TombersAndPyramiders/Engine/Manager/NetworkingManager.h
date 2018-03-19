@@ -35,6 +35,9 @@ private:
 	std::vector<Message> m_messagesToSendUDP;
 	char *IP = DEFAULT_IP;
 	int m_port = DEFAULT_PORT;
+	
+	IPaddress m_hostAddress;
+	int m_udpChannel = -1;
 
 
 	UDPpacket *m_udpPacket;
