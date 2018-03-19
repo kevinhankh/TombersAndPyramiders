@@ -10,9 +10,9 @@ class BinaryTree {
 
 public:
 	int m_depth;
-
+	int m_level;
 	BinaryTree(int width, int height);
-	void partition(int depth);
+	void partition(int level, int depth);
 	void makeRooms();
 	void makeCorridors(std::vector<std::shared_ptr<Room>> rooms);
 private:

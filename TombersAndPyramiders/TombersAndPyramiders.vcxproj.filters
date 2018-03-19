@@ -80,8 +80,6 @@
     <ClCompile Include="Game\Scenes\SceneTemplate.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Game\GameObjects\Monster.cpp" />
-    <ClCompile Include="Paper.cpp" />
-    <ClCompile Include="PathFinding.cpp" />
     <ClCompile Include="Game\Scenes\LaunchScene.cpp" />
     <ClCompile Include="Engine\External\QuadTree.cpp" />
     <ClCompile Include="Game\Scenes\PossessionTestScene.cpp" />
@@ -199,9 +197,6 @@
     <ClInclude Include="Game\Scenes\CharacterTestScene.h" />
     <ClInclude Include="Game\Scenes\SceneTemplate.h" />
     <ClInclude Include="Game\GameObjects\Monster.h" />
-    <ClInclude Include="Paper.h" />
-    <ClInclude Include="PathFinding.h" />
-    <ClInclude Include="SearchCell.h" />
     <ClInclude Include="Game\Scenes\LaunchScene.h" />
     <ClInclude Include="Engine\External\QuadTree.h" />
     <ClInclude Include="Game\Scenes\PossessionTestScene.h" />
@@ -242,9 +237,48 @@
   <ItemGroup>
     <Image Include="Assets\Character.bmp" />
     <Image Include="Assets\Character.png" />
+    <Image Include="Game\Assets\Beauty.png" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Engine\External\Render\contrastFragment.txt" />
     <Text Include="Engine\External\Render\contrastVertex.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Game\Assets\Audio\hit.mp3" />
+    <Media Include="Game\Assets\Audio\hit1.mp3" />
+    <Media Include="Game\Assets\Audio\hit2.mp3" />
+    <Media Include="Game\Assets\Audio\hit3.mp3" />
+    <Media Include="Game\Assets\Audio\mario_.mp3" />
+    <Media Include="Game\Assets\Audio\mario_.wav" />
+    <Media Include="Game\Assets\Audio\shootarrow.mp3" />
+    <Media Include="Game\Assets\Audio\swordswing.mp3" />
+    <Media Include="Game\Assets\Audio\valiantwind.mp3" />
+    <Media Include="Game\Assets\Audio\victory.wav" />
+    <Media Include="Game\Assets\hit.wav" />
+    <Media Include="Game\Assets\mario_.wav" />
+    <Media Include="Game\Assets\shoot.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Game\Assets\Shaders\fragment_shader.fs" />
+    <None Include="Game\Assets\Shaders\glow.fs" />
+    <None Include="Game\Assets\Shaders\glow.vs" />
+    <None Include="Game\Assets\Shaders\ppAmbientColour.fs" />
+    <None Include="Game\Assets\Shaders\ppBloom.fs" />
+    <None Include="Game\Assets\Shaders\ppExtractBrightness.fs" />
+    <None Include="Game\Assets\Shaders\ppExtractBrightnessDirectional.fs" />
+    <None Include="Game\Assets\Shaders\ppExtractBrightnessDirectional.vs" />
+    <None Include="Game\Assets\Shaders\ppGaussianBlur.fs" />
+    <None Include="Game\Assets\Shaders\ppHorizontalGaussianBlur.vs" />
+    <None Include="Game\Assets\Shaders\ppPassThrough.fs" />
+    <None Include="Game\Assets\Shaders\ppPassThrough.vs" />
+    <None Include="Game\Assets\Shaders\ppVerticalGaussianBlur.vs" />
+    <None Include="Game\Assets\Shaders\shadow.fs" />
+    <None Include="Game\Assets\Shaders\shadow.vs" />
+    <None Include="Game\Assets\Shaders\shadow_SpriteSheet.vs" />
+    <None Include="Game\Assets\Shaders\sprite_sheet.vs" />
+    <None Include="Game\Assets\Shaders\tile.vs" />
+    <None Include="Game\Assets\Shaders\vertex_shader.vs" />
+    <None Include="Game\Assets\Shaders\voxel.fs" />
+    <None Include="Game\Assets\.DS_Store" />
   </ItemGroup>
 </Project>

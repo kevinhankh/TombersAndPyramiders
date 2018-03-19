@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ComplexSprite.h"
+#include "Vector2.h"
 
 class Door : public ComplexSprite
 {
@@ -9,7 +10,7 @@ public:
 	enum Mode { Open = 0, Closed = 1};
 	enum Animation { Opening = 2, Closing = 3 };
 
-	Door(std::shared_ptr<ComplexSpriteinfo> spriteInfo, Direction direction, Mode mode = Closed, float startX = 0.0f, float startY = 0.0f);
+	Door(std::shared_ptr<ComplexSpriteinfo> spriteInfo, Vector2* colliderOffset, Direction direction, Mode mode = Closed, float startX = 0.0f, float startY = 0.0f, float scale = 1.0f);
 	
 	void onStart() {};
 	void onUpdate(int ticks);
@@ -20,6 +21,7 @@ public:
 
 protected:
 	virtual std::shared_ptr<ComplexSpriteinfo> createSpriteInfo(Direction direction) = 0;
+	virtual Vector2* createColliderOffset(Direction direction, float scale) = 0;
 
 private:
 	Mode m_mode;

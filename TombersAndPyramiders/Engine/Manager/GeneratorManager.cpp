@@ -27,24 +27,26 @@ GeneratorManager::GeneratorManager()
 
 }
 
-void GeneratorManager::generateLevel(int width, int height, int detailLevel) 
+void GeneratorManager::generateLevel(int width, int height, int detailLevel, int level) 
 {
+	std::shared_ptr<Level> temp = std::make_shared<Level>();
+	levels.push_back(temp);
 	m_worldTree = std::make_shared<BinaryTree>(width, height);
-	m_worldTree->partition(detailLevel);
-	m_worldTree->makeCorridors(rooms);
+	m_worldTree->partition(level, detailLevel);
+	m_worldTree->makeCorridors(levels[level]->rooms);
 
 }
 
-void GeneratorManager::drawLevel() {
+void GeneratorManager::drawLevel(int level) {
 	
-	for (int i = 0; i < corridors.size(); i++) {
-		//corridors[i]->draw();
+	for (int i = 0; i < levels[level]->corridors.size(); i++) {
+		levels[level]->corridors[i]->draw();
 	}
 
-	int exitRoom = rand() % rooms.size();
-	rooms[exitRoom]->m_exit = true;
-	for (int i = 0; i < rooms.size(); i++) {
-		rooms[i]->draw();
+	int exitRoom = rand() % levels[level]->rooms.size();
+	levels[level]->rooms[exitRoom]->m_exit = true;
+	for (int i = 0; i < levels[level]->rooms.size(); i++) {
+		levels[level]->rooms[i]->draw();
 	}
 
 }

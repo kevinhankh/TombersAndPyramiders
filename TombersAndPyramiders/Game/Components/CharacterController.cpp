@@ -133,7 +133,7 @@ bool CharacterController::tryInvokeTrigger()
 	{
 		std::shared_ptr<Invokable> invokable = (*it)->getComponent<Invokable>();
 		std::shared_ptr<BasePossessableController> possessable = nullptr;
-		float maxDistance = transform->getScale() / 2.0f + (*it)->getTransform()->getScale() / 2.0f;
+		float maxDistance = transform->getScale() / 4.0f + (*it)->getTransform()->getScale() / 4.0f;
 
 		if (invokable == nullptr)
 		{
