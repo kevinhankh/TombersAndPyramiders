@@ -1,8 +1,30 @@
 #include "SingleDoor.h"
 
-SingleDoor::SingleDoor(Door::Direction direction, Door::Mode mode, float startX, float startY) : Door(createSpriteInfo(direction), direction, mode, startX, startY)
+SingleDoor::SingleDoor(Door::Direction direction, Door::Mode mode, float startX, float startY, float scale) : Door(createSpriteInfo(direction), createColliderOffset(direction, scale), direction, mode, startX, startY, scale)
 {
+}
 
+Vector2* SingleDoor::createColliderOffset(Direction direction, float scale)
+{
+	Vector2* offset;
+	switch(direction)
+	{
+	case Door::West:
+		offset = new Vector2();
+		break;
+	case Door::East:
+		offset = new Vector2();
+		break;
+	case Door::North:
+		offset = new Vector2(0.0f, -0.5f);
+		break;
+	case Door::South:
+		offset = new Vector2(0.0f, 0.5f);
+		break;
+	default:
+		throw "ERROR::SingleDoor::createColliderOffset:: Not a valid direciton";
+	}
+	return offset;
 }
 
 std::shared_ptr<ComplexSpriteinfo> SingleDoor::createSpriteInfo(Direction direction)
