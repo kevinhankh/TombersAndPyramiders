@@ -31,5 +31,18 @@ void GeneratorManager::generateLevel(int width, int height, int detailLevel)
 {
 	m_worldTree = std::make_shared<BinaryTree>(width, height);
 	m_worldTree->partition(detailLevel);
-	m_worldTree->makeRooms();
+	m_worldTree->makeCorridors(rooms);
+
+}
+
+void GeneratorManager::drawLevel() {
+	int exitRoom = rand() % rooms.size();
+	rooms[exitRoom]->m_exit = true;
+	for (int i = 0; i < rooms.size(); i++) {
+		rooms[i]->draw();
+	}
+
+	for (int i = 0; i < corridors.size(); i++) {
+		corridors[i]->draw();
+	}
 }

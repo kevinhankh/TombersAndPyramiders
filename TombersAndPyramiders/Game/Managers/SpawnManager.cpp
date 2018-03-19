@@ -44,7 +44,6 @@ void callback(std::map<std::string, void*> payload)
 		scene->setCameraFollow(SpawnManager::getInstance()->generatePlayerCharacter(id, x, y));
 	}
 
-
 }
 
 void SpawnManager::sendStartPacket()

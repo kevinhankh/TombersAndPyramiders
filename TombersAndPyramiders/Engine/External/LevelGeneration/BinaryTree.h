@@ -1,13 +1,20 @@
 #pragma once
 
 #include <memory>
+#include "Room.h"
+#include <vector>
+#include "Doorway.h"
+#include "Corridor.h"
 
 class BinaryTree {
 
 public:
+	int m_depth;
+
 	BinaryTree(int width, int height);
 	void partition(int depth);
 	void makeRooms();
+	void makeCorridors(std::vector<std::shared_ptr<Room>> rooms);
 private:
 	struct BTNode {
 	public:
@@ -21,6 +28,9 @@ private:
 
 		std::shared_ptr<BTNode> left;
 		std::shared_ptr<BTNode> right;
+		std::shared_ptr<Room> room;
+		std::shared_ptr<Corridor> corridor;
+		std::vector<std::shared_ptr<Doorway>> doorways;
 
 		BTNode(int width, int height, int cornerX, int cornerY);
 		
@@ -29,6 +39,7 @@ private:
 
 	void partition(int depth, std::shared_ptr<BTNode> node);
 	void makeRooms(std::shared_ptr<BTNode> node);
+	void makeCorridors(std::shared_ptr<BTNode> node);
 	std::shared_ptr<BTNode> m_root;
 
 };

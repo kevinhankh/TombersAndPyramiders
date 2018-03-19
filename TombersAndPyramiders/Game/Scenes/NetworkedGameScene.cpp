@@ -12,6 +12,7 @@
 #include <memory>
 #include "WoodenShortsword.h"
 #include "GeneratorManager.h"
+#include "GameManager.h"
 
 std::shared_ptr<Character> player = nullptr;
 std::shared_ptr<Character> player2 = nullptr;
@@ -27,8 +28,11 @@ NetworkedGameScene::NetworkedGameScene()
 
 void NetworkedGameScene::onStart()
 {
-	GeneratorManager::getInstance()->generateLevel(1000,1000,3);
-	
+	GameManager::getInstance()->resizeQuadTree(0, 0, 200, 200);
+	srand(time(NULL));
+	GeneratorManager::getInstance()->generateLevel(30,30,3);
+	GeneratorManager::getInstance()->drawLevel();
+	SpawnManager::getInstance()->generateMiscSquare(25, -25, -100, 115, "sandBG.png", false);
 	/*
 	const float scale = 5;
 

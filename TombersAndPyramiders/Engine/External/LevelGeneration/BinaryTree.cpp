@@ -2,6 +2,7 @@
 #include "BinaryTree.h"
 #include <time.h>
 #include <math.h>
+#include "GeneratorManager.h"
 
 BinaryTree::BinaryTree(int width, int height)
 {
@@ -10,51 +11,110 @@ BinaryTree::BinaryTree(int width, int height)
 
 void BinaryTree::partition(int depth)
 {
+	m_depth = depth;
 	partition(depth, m_root);
 }
 
-void BinaryTree::makeRooms()
+void BinaryTree::makeCorridors(std::vector<std::shared_ptr<Room>> rooms)
 {
-	makeRooms(m_root);
+	makeCorridors(m_root);
 }
 
-void BinaryTree::makeRooms(std::shared_ptr<BTNode> node) {
+void BinaryTree::makeCorridors(std::shared_ptr<BTNode> node)
+{
+	if (node != nullptr)
+	{
+		if (node->left != nullptr && node->right != nullptr)
+		{
+			int width = 0;
+			int height = 0;
+			int xCoord = 0;
+			int yCoord = 0;
+			if (node->left->m_boundsHeight - node->right->m_boundsHeight == 0)
+			{
+				//horizontal corridor
+				width = node->left->m_boundsWidth / 2 + node->right->m_boundsWidth / 2;
+				height = 3;
+			}
+			else if (node->left->m_boundsWidth - node->right->m_boundsWidth == 0)
+			{
+				//vertical corridor
+				height = node->left->m_boundsHeight / 2 + node->right->m_boundsHeight/ 2;
+				width = 3;
+			}
+			xCoord = node->left->m_cornerX + node->left->m_boundsWidth / 2;
+			yCoord = node->left->m_cornerY - node->left->m_boundsHeight / 2;
+			node->corridor = std::make_shared<Corridor>(width, height, xCoord, yCoord);
+			GeneratorManager::getInstance()->corridors.push_back(node->corridor);
+			makeCorridors(node->left);
+			makeCorridors(node->right);
+			//connect center
 
+		}
+	}
 }
 
 void BinaryTree::partition(int depth, std::shared_ptr<BTNode> node)
 {
-	//TODO: fix bug that crashes with very small area size and large depth
-	srand(time(NULL));
 	if (depth == 0)
 	{
 		// make room
-		//70%-90% of box
-		int roomHeight = rand() % (int)ceil((0.2f * node->m_boundsHeight)) + (int)ceil((0.7f * node->m_boundsHeight));
-		int roomWidth = rand() % (int)ceil((0.2f * node->m_boundsWidth)) + (int)ceil((0.7f * node->m_boundsWidth));
-		int yOffset = rand() % (node->m_boundsHeight - roomHeight);
-		int xOffset = rand() % (node->m_boundsWidth - roomWidth);
+		//60%-80% of box
+		int roomHeight = rand() % (int)ceil((0.2f * node->m_boundsHeight)) + (int)ceil((0.6f * node->m_boundsHeight));
+		int roomWidth = rand() % (int)ceil((0.2f * node->m_boundsWidth)) + (int)ceil((0.6f * node->m_boundsWidth));
+		int xOffset = 0;
+		int yOffset = 0;
+		if (node->m_boundsHeight - roomHeight != 0) 
+		{
+			yOffset = rand() % (node->m_boundsHeight - roomHeight);
+		}
+		if (node->m_boundsWidth - roomWidth != 0)
+		{
+			xOffset = rand() % (node->m_boundsWidth - roomWidth);
+		}
+		node->room = std::make_shared<Room>(roomWidth, roomHeight, node->m_cornerX + xOffset, node->m_cornerY - yOffset, false);
+		GeneratorManager::getInstance()->rooms.push_back(node->room);
 		return;
 	}
 
 	if (node != nullptr)
 	{
-		//choose random direction
-		int direction = rand() % 2;
-		
+		//can be improved
+		int direction = 0;
+		if (node->m_boundsHeight * 2 < node->m_boundsWidth)
+		{
+			direction = 0;
+		}
+		else if (node->m_boundsWidth * 2 < node->m_boundsHeight)
+		{
+			direction = 1;
+		}
+		else if (node->m_boundsHeight / 2 < 4)
+		{
+			direction = 0;
+		} 
+		else if (node->m_boundsWidth / 2 < 4)
+		{
+			direction = 1;
+		}
+		else
+		{
+			//choose random direction
+			direction = rand() % 2;
+		}
+
 		//choose random position x for vertical, y for horizontal
 		if (direction == 1)
 		{ //horizontal split
-			
-			int position = rand() % (int)ceil((0.6f * node->m_boundsHeight)) + (int)ceil((0.2f * node->m_boundsHeight));
+			int position = rand() % (int)ceil((0.4f * node->m_boundsHeight)) + (int)ceil((0.3f * node->m_boundsHeight));
 			node->left = std::make_shared<BTNode>(node->m_boundsWidth, position, node->m_cornerX, node->m_cornerY);
-			node->right = std::make_shared<BTNode>(node->m_boundsWidth, node->m_boundsHeight - position, node->m_cornerX, node->m_cornerY + position);
+			node->right = std::make_shared<BTNode>(node->m_boundsWidth, node->m_boundsHeight - position, node->m_cornerX, node->m_cornerY - position);
 			partition(depth - 1, node->left);
 			partition(depth - 1, node->right);
 		}
 		else if (direction == 0)
 		{ //vertical split
-			int position = rand() % (int)ceil((0.6f * node->m_boundsWidth)) + (int)ceil((0.2f * node->m_boundsWidth));
+			int position = rand() % (int)ceil((0.4f * node->m_boundsWidth)) + (int)ceil((0.3f * node->m_boundsWidth));
 			node->left = std::make_shared<BTNode>(position, node->m_boundsHeight, node->m_cornerX, node->m_cornerY);
 			node->right = std::make_shared<BTNode>(node->m_boundsWidth - position, node->m_boundsHeight, node->m_cornerX + position, node->m_cornerY);
 			partition(depth - 1, node->left);

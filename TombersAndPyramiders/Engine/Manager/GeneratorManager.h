@@ -19,5 +19,6 @@ public:
 
 	static GeneratorManager* getInstance();
 	void generateLevel(int width, int height, int detailLevel);
+	void drawLevel();
 	GeneratorManager();
 };
