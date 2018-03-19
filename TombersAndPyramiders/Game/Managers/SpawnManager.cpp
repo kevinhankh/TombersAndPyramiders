@@ -44,7 +44,6 @@ void callback(std::map<std::string, void*> payload)
 		scene->setCameraFollow(SpawnManager::getInstance()->generatePlayerCharacter(id, x, y));
 	}
 
-
 }
 
 void SpawnManager::sendStartPacket()
@@ -120,9 +119,9 @@ SpawnManager::~SpawnManager()
 
 }
 
-std::shared_ptr<MiscSquare> SpawnManager::generateMiscSquare(float x, float y, float z, float scale, string spriteName, bool hasCollider, float colliderSize)
+std::shared_ptr<MiscSquare> SpawnManager::generateMiscSquare(float x, float y, float z, float scale, string spriteName, bool hasCollider, float colliderSize_x, float colliderSize_y)
 {
-	std::shared_ptr<MiscSquare> miscSquare = GameManager::getInstance()->createGameObject<MiscSquare>(false, spriteName, hasCollider, colliderSize);
+	std::shared_ptr<MiscSquare> miscSquare = GameManager::getInstance()->createGameObject<MiscSquare>(false, spriteName, hasCollider, colliderSize_x, colliderSize_y);
 	miscSquare->getTransform()->setPosition(x, y, z);
 	miscSquare->getTransform()->setScale(scale);
 	return miscSquare;
@@ -194,7 +193,12 @@ std::shared_ptr<SingleDoor> SpawnManager::generateSingleDoor(float x, float y, D
 {
 	auto scale = 9.0f;
 	std::shared_ptr<SingleDoor> door = GameManager::getInstance()->createGameObject<SingleDoor>(false, direction, startState, x, y, scale);
-	door->getTransform()->setZ(5);
+	door->getTransform()->setZ(1000);
+	door->getTransform()->setScale(10.0f);
+	if (direction == Door::Direction::West || direction == Door::Direction::East)
+	{
+		door->getTransform()->addRotation(180);
+	}
 	return door;
 }
 
