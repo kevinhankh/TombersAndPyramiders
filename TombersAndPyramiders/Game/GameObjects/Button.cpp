@@ -13,6 +13,8 @@ Button::Button(float x, float y, float width, float height, string type) : Compl
 	m_width = width;
 	m_height = height;
 	m_type = type;
+	if (type == "Info")
+		m_controlPanel = dynamic_pointer_cast<Panel>(GameManager::getInstance()->createGameObject<Panel>(false, 0, 0, 512, 384, "Controls"));
 }
 
 Button::~Button()
@@ -23,10 +25,8 @@ Button::~Button()
 std::shared_ptr<ComplexSpriteinfo> Button::generateComplexSpriteInfo(string type)
 {
 	std::shared_ptr<ComplexSpriteinfo> spriteInfo = std::make_shared<ComplexSpriteinfo>();
-
 	spriteInfo->addInfo(type + "Button.png", 1, 1);
 	spriteInfo->addInfo(type + "ButtonHover.png", 1, 1);
-
 	return spriteInfo;
 }
 
@@ -44,8 +44,7 @@ void Button::OnClicked()
 	else if (m_type == "Join")
 		NetworkingManager::getInstance()->createClient();
 
-	else if (m_type == "Options")
-		AudioManager::getInstance()->playMusic();
+	else if (m_type == "Info") { }
 
 	else if (m_type == "Exit")
 		exit(0);
@@ -75,9 +74,4 @@ bool Button::CheckHovering()
 			MousePosition.x <= m_x + m_width / 2 &&
 			MousePosition.y >= m_y - m_height / 2 &&
 			MousePosition.y <= m_y + m_height / 2;
-
-	/*return	MousePosition.x >= getTransform()->getX() - m_width / 2 &&
-			MousePosition.x <= getTransform()->getX() + m_width / 2 &&
-			MousePosition.y >= getTransform()->getY() - m_height / 2 &&
-			MousePosition.y <= getTransform()->getY() + m_height / 2;*/
 }

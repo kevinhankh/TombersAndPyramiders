@@ -4,6 +4,9 @@
 #include "ComponentTemplate.h"
 #include "InputManager.h"
 #include "AudioManager.h"
+#include "SpawnManager.h"
+#include "GameManager.h"
+#include "Panel.h"
 
 #define BUTTON 0
 #define BUTTON_HOVER 1
@@ -13,6 +16,7 @@ class Button : public ComplexSprite
 private:
 	float m_x, m_y, m_width, m_height;
 	string m_type;
+	std::shared_ptr<Panel> m_controlPanel;
 public:
 	Button(float x, float y, float width, float height, string type);
 	~Button();
@@ -28,12 +32,20 @@ public:
 		{
 			message << "True" << endl;
 			changeSprite(BUTTON_HOVER);
+			if (m_type == "Info")
+			{
+				m_controlPanel->setVisible(true);
+			}
 		}
 		else
 		{
 			message << "False" << endl;
 			changeSprite(BUTTON);
-			AudioManager::getInstance()->playIgniteSFX();
+			//AudioManager::getInstance()->playIgniteSFX();
+			if (m_type == "Info")
+			{
+				m_controlPanel->setVisible(false);
+			}
 		}
 		OutputDebugString(message.str().c_str());
 

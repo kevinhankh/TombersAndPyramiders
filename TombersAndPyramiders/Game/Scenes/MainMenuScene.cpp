@@ -11,6 +11,7 @@
 #include "GameManager.h"
 #include "AudioManager.h"
 #include "Button.h"
+#include "Panel.h"
 
 MainMenuScene::MainMenuScene()
 {
@@ -19,13 +20,14 @@ MainMenuScene::MainMenuScene()
 
 void MainMenuScene::onStart()
 {
+	AudioManager::getInstance()->playMusic();
 	GameManager::getInstance()->createGameObject<SimpleSprite>(false, "MainMenu.png", 0, 0, -1000, 42);
 	//GameManager::getInstance()->createGameObject<CreateButton>(false, "Create", 100, 100, "ButtonHover.png", 0, 0, 0, 10);
-	GameManager::getInstance()->createGameObject<Button>(false, -400, 200, 200, 80, "Start");
-	GameManager::getInstance()->createGameObject<Button>(false, -400, 100, 200, 80, "Host");
-	GameManager::getInstance()->createGameObject<Button>(false, -400, 0, 200, 80, "Join");
-	GameManager::getInstance()->createGameObject<Button>(false, -400, -100, 200, 80, "Options");
-	GameManager::getInstance()->createGameObject<Button>(false, -400, -200, 200, 80, "Exit");
+	GameManager::getInstance()->createGameObject<Button>(false, -400, -350, 200, 80, "Start");
+	GameManager::getInstance()->createGameObject<Button>(false, -200, -350, 200, 80, "Host");
+	GameManager::getInstance()->createGameObject<Button>(false, 0, -350, 200, 80, "Join");
+	GameManager::getInstance()->createGameObject<Button>(false, 200, -350, 200, 80, "Info");
+	GameManager::getInstance()->createGameObject<Button>(false, 400, -350, 200, 80, "Exit");
 }
 
 void MainMenuScene::onPause()
