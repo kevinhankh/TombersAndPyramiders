@@ -19,7 +19,6 @@ void main() {
 
 	//Must flip texCoord.y 
 	TexCoord = (currentPos + vec2(texCoord.x, 1.0 - texCoord.y)) / vec2(texData.x, texData.y);
-	//TexCoord = (currentPos + vec2(texCoord.x, texCoord.y)) / vec2(texData.x, texData.y);
 
 	//Hacky fix. TODO please fix this it's so ugly
 	//if (texCoord.x == 0) {
