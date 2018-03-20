@@ -39,7 +39,7 @@ AudioManager::AudioManager()
 	m_audioFiles[SFX_SHIELD] = Mix_LoadWAV(BuildPath(PATH_SFX_SHIELD).c_str());
 	m_audioFiles[SFX_DASH] = Mix_LoadWAV(BuildPath(PATH_SFX_DASH).c_str());
 	m_audioFiles[SFX_DOOR] = Mix_LoadWAV(BuildPath(PATH_SFX_DASH).c_str());
-
+	m_audioFiles[SFX_BUTTON_HOVER] = Mix_LoadWAV(BuildPath(PATH_SFX_BUTTON_HOVER).c_str());
 }
 
 AudioManager::~AudioManager()
@@ -94,8 +94,9 @@ void AudioManager::playSound(int sfxInput, float sourceX, float sourceY)
 			}
 			else
 			{
-				std::cout << "No listener found!" << endl;
-				break;
+				//std::cout << "No listener found!" << endl;
+				m_distance = 0;
+				//break;
 			}
 
 			//play normally when source is withing range of the player
