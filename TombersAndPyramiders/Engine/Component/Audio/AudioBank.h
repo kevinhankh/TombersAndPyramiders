@@ -9,3 +9,4 @@
 #define SFX_SHIELD 5
 #define SFX_DASH 6
 #define SFX_DOOR 7
+#define SFX_BUTTON_HOVER 8

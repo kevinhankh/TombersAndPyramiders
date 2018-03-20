@@ -5,6 +5,7 @@
 #include <iostream>
 #include "CharacterTestScene.h"
 #include "LaunchScene.h"
+#include "MainMenuScene.h"
 #include "NetworkedGameScene.h"
 #include "PossessionTestScene.h"
 
@@ -22,7 +23,7 @@ Each GameObject cycles through and updates each one of their game components.
 
 void Game::onStart()
 {
-	SceneManager::getInstance()->pushScene(new LaunchScene());//NetworkedGameScene());
+	SceneManager::getInstance()->pushScene(new MainMenuScene());
 }
 
 void Game::onUpdate(int ticks)

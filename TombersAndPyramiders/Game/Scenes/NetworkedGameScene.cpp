@@ -14,30 +14,21 @@
 #include "GeneratorManager.h"
 #include "GameManager.h"
 
-std::shared_ptr<Character> player = nullptr;
-std::shared_ptr<Character> player2 = nullptr;
+std::map<int, shared_ptr<Character>> players;
 std::shared_ptr<Character> Ai = nullptr;
 std::shared_ptr<Character> Ai2 = nullptr;
 std::shared_ptr<Character> Ai3 = nullptr;
 std::shared_ptr<Character> Ai4 = nullptr;
 
-NetworkedGameScene::NetworkedGameScene()
+NetworkedGameScene::NetworkedGameScene ()
 {
 
 }
 
-void NetworkedGameScene::onStart()
+void NetworkedGameScene::onStart ()
 {
 	GameManager::getInstance()->resizeQuadTree(0, 0, 200, 200);
 
-	for (int i = 0; i < 4; i++)
-	{
-		mapSeeds.push_back(time(NULL));
-		srand(mapSeeds[i]);
-		GeneratorManager::getInstance()->generateLevel(30, 30, 2, i);
-	}
-
-	GeneratorManager::getInstance()->drawLevel(0);
 	SpawnManager::getInstance()->generateMiscSquare(25, -25, -100, 200, "sandBG.png", false);
 	/*
 	const float scale = 5;
@@ -107,8 +98,6 @@ void NetworkedGameScene::onStart()
 	const float size = 12;
 	const float scale = 5;
 
-	
-
 	SpawnManager::getInstance()->generateMiscSquare(25, -25, -100, 115, "sandBG.png", false);
 	AudioManager::getInstance()->playMusic(MUSIC_LEVEL_1);
 
@@ -133,6 +122,7 @@ void NetworkedGameScene::onStart()
 				// Create top right wall.
 				else if (x == size)
 				{
+
 					SpawnManager::getInstance()->generateMiscSquare(column, row, y * -1, scale, "wallTopRight_Edge.png", true);
 				}
 				else
@@ -166,6 +156,13 @@ void NetworkedGameScene::onStart()
 			{
 				float wallHorizontalOffset = 0.0f;
 
+
+				SpawnManager::getInstance ()->generateMiscSquare (column + scale - wallOffset, row + floorOffset + scale / 2, y * -1, scale, "wallRight.png", true);
+				SpawnManager::getInstance ()->generateMiscSquare (column + scale - wallOffset, row + floorOffset, (y * -1) + 0.5, scale, "wallRight.png", true);
+			}
+		}
+	}
+	SpawnManager::getInstance ()->generateWorldItem (5, -5, std::make_shared<WoodenShortsword> ());
 				SpawnManager::getInstance()->generateMiscSquare(column, row, y * -1, scale, "wallVerticalBothEdge.png", true);
 			}
 		}
@@ -173,33 +170,25 @@ void NetworkedGameScene::onStart()
 	*/
 	SpawnManager::getInstance()->generateWorldItem(5, -5, std::make_shared<WoodenShortsword>());
 
-	Ai = SpawnManager::getInstance()->generateAiCharacter(14, -15);
-	Ai2 = SpawnManager::getInstance()->generateAiCharacter(44, -20);
-	Ai3 = SpawnManager::getInstance()->generateAiCharacter(54, -40);
-	Ai4 = SpawnManager::getInstance()->generateAiCharacter(14, -35);
+	//Ai = SpawnManager::getInstance ()->generateAiCharacter (14, -15);
+	//Ai2 = SpawnManager::getInstance ()->generateAiCharacter (44, -20);
+	//Ai3 = SpawnManager::getInstance ()->generateAiCharacter (54, -40);
+	//Ai4 = SpawnManager::getInstance ()->generateAiCharacter (14, -35);
 
-	//SpawnManager::getInstance()->generateSingleDoor(10, -10, Door::Direction::East, Door::Mode::Closed);
-
-	Camera::getActiveCamera ()->addComponent<CameraFollow> (Camera::getActiveCamera ().get ());	
-	if (NetworkingManager::getInstance ()->isHost ())
-	{
-		setCameraFollow (player);
-	}
-	else {
-		setCameraFollow (player2);
-	}
+	Camera::getActiveCamera ()->addComponent<CameraFollow> (Camera::getActiveCamera ().get ());
+	AudioManager::getInstance ()->playMusic (MUSIC_LEVEL_1);
 }
 
-void NetworkedGameScene::onPause()
+void NetworkedGameScene::onPause ()
 {
 
 }
 
-void NetworkedGameScene::onEnd()
+void NetworkedGameScene::onEnd ()
 {
 
 }
 
-void NetworkedGameScene::onUpdate(int ticks)
+void NetworkedGameScene::onUpdate (int ticks)
 {
 }

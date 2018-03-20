@@ -58,9 +58,14 @@ void BaseController::swapPilots(BaseController* otherController)
 	}
 }
 
-BasePilot* BaseController::getAndReleasePilot()
+BasePilot* BaseController::getAndReleasePilot ()
 {
-	return m_pilot.release();
+	return m_pilot.release ();
+}
+
+BasePilot* BaseController::getPilot ()
+{
+	return m_pilot.get();
 }
 
 /*----------------------------------------------------------------------------------------
