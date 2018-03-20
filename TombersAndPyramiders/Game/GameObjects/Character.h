@@ -33,6 +33,9 @@
 #define ANIMATION_ATTACK_MELEE 8
 #define ANIMATION_ATTACK_RANGE 9
 #define ANIMATION_HURT 10
+#define ANIMATION_WALK 11
+#define ANIMATION_IDLE 12
+
 
 /*========================================================================================
 	Character	
@@ -69,14 +72,14 @@ class Character : public ComplexSprite
 	----------------------------------------------------------------------------------------*/
     public:
 		void onUpdate(int ticks);
-		void playRunAnimation(float rotation);
-		void endRunAnimation(float rotation);
-		void playMeleeAttackAnimation(float rotation);
-		void playRangeAttackAnimation(float rotation);
-		void playHurtAnimation(float rotation);
+		bool playAnimation(int animID, int animReturn = -1);
+		bool playRunAnimation();
+		bool endRunAnimation();
+		bool playMeleeAttackAnimation();
+		bool playRangeAttackAnimation();
+		bool playHurtAnimation();
 		virtual void onEnd () {};
 		virtual void onNetworkEnd () {};
-		bool playAnimation (int animID, int animReturn = -1);
 
 
     private:

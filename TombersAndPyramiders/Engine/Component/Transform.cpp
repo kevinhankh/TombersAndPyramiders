@@ -53,7 +53,7 @@ float Transform::getDistance(Transform* otherTransform)
 	Vector2 theirPos = Vector2(otherTransform->getX(), otherTransform->getY());
 	Vector2 ourPos = Vector2(getX(), getY());
 	Vector2 diffPos = *(theirPos - ourPos);
-	return sqrtf(diffPos.getX() * diffPos.getX() + diffPos.getY() + diffPos.getY());
+	return sqrtf(diffPos.getX() * diffPos.getX() + diffPos.getY() * diffPos.getY());
 }
 
 void Transform::addTranslation(float xToAdd, float yToAdd)
