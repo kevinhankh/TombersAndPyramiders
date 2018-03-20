@@ -34,6 +34,7 @@
 #define PATH_SFX_SHIELD "Game/Assets/Audio/Shield.mp3"
 #define PATH_SFX_DASH "Game/Assets/Audio/Dash.mp3"
 #define PATH_SFX_DOOR "Game/Assets/Audio/Door.mp3"
+#define PATH_SFX_BUTTON_HOVER "Game/Assets/Audio/Torch.mp3"
 
 class AudioManager
 {
@@ -47,6 +48,7 @@ private:
 	Mix_Chunk* m_shootArrow;
 	Mix_Chunk* m_swordSwing;
 	Mix_Chunk* m_valiantWind;
+	Mix_Chunk* m_ignite;
 
 	float m_distance;
 	float m_listenerX;
@@ -58,9 +60,7 @@ private:
 public:
 	static AudioManager* getInstance();
 	static void release();
-
 	void setListener(GameObject* listenerObject);
-
 	void playMusic(int musicInput);
 	void pauseMusic();
 	void resumeMusic();
