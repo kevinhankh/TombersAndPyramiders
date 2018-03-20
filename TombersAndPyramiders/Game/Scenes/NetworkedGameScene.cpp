@@ -226,6 +226,7 @@ void NetworkedGameScene::onStart ()
 	//Ai4 = SpawnManager::getInstance ()->generateAiCharacter (14, -35);
 
 	Camera::getActiveCamera ()->addComponent<CameraFollow> (Camera::getActiveCamera ().get ());
+	AudioManager::getInstance ()->playMusic (MUSIC_LEVEL_1);
 }
 
 void NetworkedGameScene::onPause ()
