@@ -28,7 +28,11 @@ NetworkedGameScene::NetworkedGameScene ()
 void NetworkedGameScene::onStart ()
 {
 	GameManager::getInstance()->resizeQuadTree(0, 0, 200, 200);
-
+	//time_t mapSeedID = time(NULL);
+	//srand(mapSeedID);
+	//GeneratorManager::getInstance()->generateLevel(30, 30, 2, 0);
+	
+	//GeneratorManager::getInstance()->drawLevel(0);
 	SpawnManager::getInstance()->generateMiscSquare(25, -25, -100, 200, "sandBG.png", false);
 	SpawnManager::getInstance()->generateWorldItem(5, -5, std::make_shared<WoodenShortsword>());
 

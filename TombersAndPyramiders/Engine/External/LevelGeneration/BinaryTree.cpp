@@ -98,8 +98,8 @@ void BinaryTree::partition(int depth, std::shared_ptr<BTNode> node)
 	{
 		// make room
 		//60%-80% of box
-		int roomHeight = rand() % (int)ceil((0.2f * node->m_boundsHeight)) + (int)ceil((0.6f * node->m_boundsHeight));
-		int roomWidth = rand() % (int)ceil((0.2f * node->m_boundsWidth)) + (int)ceil((0.6f * node->m_boundsWidth));
+		int roomHeight = rand() % (int)ceil((0.1f * node->m_boundsHeight)) + (int)ceil((0.8f * node->m_boundsHeight));
+		int roomWidth = rand() % (int)ceil((0.1f * node->m_boundsWidth)) + (int)ceil((0.8f * node->m_boundsWidth));
 		int xOffset = 0;
 		int yOffset = 0;
 		if (node->m_boundsHeight - roomHeight != 0) 
