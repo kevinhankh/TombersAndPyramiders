@@ -71,9 +71,9 @@ void AiPilot::onEnd()
 Vector2 AiPilot::getMovement()
 {
 	coun++;
-	if (coun == 40)
+	if (coun == 30)
 	{
-		randomNumber = rand() % 25;
+		randomNumber = rand() % 22;
 		coun = 0;
 	}
 	if (randomNumber == 1)

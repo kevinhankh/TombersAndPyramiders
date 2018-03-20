@@ -13,8 +13,8 @@
 	Dependencies
 ========================================================================================*/
 #include "BasePilot.h"
+#include "Vector2.h"
 class CharacterController;
-class Vector2;
 
 /*========================================================================================
 	PlayerPilot	
@@ -40,7 +40,7 @@ class PlayerPilot : public BasePilot
         /** Default constructor. */
         explicit PlayerPilot() = default;
 
-	
+		Vector2 m_lastMoveVector;
 	/*----------------------------------------------------------------------------------------
 		Instance Setter Methods
 	----------------------------------------------------------------------------------------*/

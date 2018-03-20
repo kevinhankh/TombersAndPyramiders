@@ -25,19 +25,19 @@ void Room::draw()
 				{
 					if (i == 0)
 					{
-						SpawnManager::getInstance()->generateSingleDoor(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, Door::Direction::West, Door::Mode::Closed);
+						SpawnManager::getInstance()->generateSingleDoor(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 1 - i * 5, Door::Direction::West, Door::Mode::Closed);
 					}
 					else if (j == 0)
 					{
-						SpawnManager::getInstance()->generateSingleDoor(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, Door::Direction::South, Door::Mode::Closed);
+						SpawnManager::getInstance()->generateSingleDoor(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 1 - i * 5, Door::Direction::South, Door::Mode::Closed);
 					}
 					else if (i == m_height - 1)
 					{
-						SpawnManager::getInstance()->generateSingleDoor(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, Door::Direction::West, Door::Mode::Closed);
+						SpawnManager::getInstance()->generateSingleDoor(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 1 - i * 5, Door::Direction::West, Door::Mode::Closed);
 					}
 					else if (j == m_width - 1)
 					{
-						SpawnManager::getInstance()->generateSingleDoor(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, Door::Direction::North, Door::Mode::Closed);
+						SpawnManager::getInstance()->generateSingleDoor(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 1 - i * 5, Door::Direction::North, Door::Mode::Closed);
 					}
 					
 					skip = true;
@@ -99,7 +99,7 @@ void Room::draw()
 		//draw stairs
 		int x = rand() % m_width/2 + ceil(m_width/4);
 		int y = rand() % m_height/2 + ceil(m_height/4);
-		SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + x * 5, m_yCoord * 5 - 2 - y * 5, 0, m_scale, "spiralStairs.png", true, 3.0f);
+		SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + x * 5, m_yCoord * 5 - 2 - y * 5, 0, m_scale, "spiralStairs.png", true, 3.0f, 3.0f);
 
 	}
 }
