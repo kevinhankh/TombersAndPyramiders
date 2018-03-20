@@ -59,6 +59,11 @@ void SpriteRendererManager::onUpdate(int ticks)
 	//renderReadingStick.unlock();
 }
 
+SDL_Window* SpriteRendererManager::getWindow()
+{
+	return m_mainWindow;
+}
+
 SpriteRendererManager::SpriteRendererManager()
 {
 	m_quadVertices = {
