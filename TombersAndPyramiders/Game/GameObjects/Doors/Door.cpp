@@ -8,7 +8,7 @@ Door::Door(std::shared_ptr<ComplexSpriteinfo> spriteInfo, Vector2* colliderOffse
 	m_mode = mode;
 	changeSprite(mode);
 	addComponentAsParent<DoorController, BasePossessableController>(this, new DummyPilot());
-	addComponent<BoxCollider>(this, 1.0f, 1.0f); //Offset of colliderOffset->getX(), colliderOffset->getY() when offset added
+	addComponent<BoxCollider>(this, colliderOffset->getX(), colliderOffset->getY()); //Offset of colliderOffset->getX(), colliderOffset->getY() when offset added
 	delete colliderOffset;
 }
 

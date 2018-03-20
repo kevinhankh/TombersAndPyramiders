@@ -40,12 +40,8 @@
     <ClCompile Include="Game\ExternalClasses\BaseGreaves.cpp" />
     <ClCompile Include="Game\ExternalClasses\BaseHelmet.cpp" />
     <ClCompile Include="Game\ExternalClasses\BaseItem.cpp" />
-    <ClCompile Include="Game\ExternalClasses\BaseLongbow.cpp" />
-    <ClCompile Include="Game\ExternalClasses\BaseMeleeWeapon.cpp" />
     <ClCompile Include="Game\ExternalClasses\BasePilot.cpp" />
-    <ClCompile Include="Game\ExternalClasses\BaseProjectileWeapon.cpp" />
     <ClCompile Include="Game\ExternalClasses\BaseShield.cpp" />
-    <ClCompile Include="Game\ExternalClasses\BaseShortsword.cpp" />
     <ClCompile Include="Game\ExternalClasses\BaseWeapon.cpp" />
     <ClCompile Include="Game\ExternalClasses\Damageable.cpp" />
     <ClCompile Include="Game\ExternalClasses\HostPilot.cpp" />
@@ -93,6 +89,22 @@
     <ClCompile Include="Game\ExternalClasses\Possession\BoulderController.cpp" />
     <ClCompile Include="Game\GameObjects\Boulder.cpp" />
     <ClCompile Include="Game\ExternalClasses\Possession\GhostController.cpp" />
+    <ClCompile Include="Engine\GameObjects\Tiles\ConnectorTile.cpp" />
+    <ClCompile Include="Engine\GameObjects\Tiles\CornerTile.cpp" />
+    <ClCompile Include="Engine\GameObjects\Tiles\DoorTile.cpp" />
+    <ClCompile Include="Engine\GameObjects\Tiles\FloorTile.cpp" />
+    <ClCompile Include="Engine\GameObjects\Tiles\Tile.cpp" />
+    <ClCompile Include="Engine\GameObjects\Tiles\WallTile.cpp" />
+    <ClCompile Include="Game\ExternalClasses\BaseShortsword.cpp" />
+    <ClCompile Include="Game\ExternalClasses\BaseLongbow.cpp" />
+    <ClCompile Include="Game\ExternalClasses\BaseMeleeWeapon.cpp" />
+    <ClCompile Include="Game\ExternalClasses\BaseProjectileWeapon.cpp" />
+    <ClCompile Include="Engine\Manager\GeneratorManager.cpp" />
+    <ClCompile Include="Engine\External\LevelGeneration\BinaryTree.cpp" />
+    <ClCompile Include="Engine\External\LevelGeneration\Codec.cpp" />
+    <ClCompile Include="Engine\External\LevelGeneration\Corridor.cpp" />
+    <ClCompile Include="Engine\External\LevelGeneration\Doorway.cpp" />
+    <ClCompile Include="Engine\External\LevelGeneration\Room.cpp" />
     <ClCompile Include="Game\GameObjects\Doors\SingleDoor.cpp" />
     <ClCompile Include="Game\GameObjects\Doors\Door.cpp" />
     <ClCompile Include="Game\Components\DoorController.cpp" />
@@ -100,6 +112,8 @@
     <ClCompile Include="Game\ExternalClasses\WoodenGreaves.cpp" />
     <ClCompile Include="Game\ExternalClasses\WoodenChestplate.cpp" />
     <ClCompile Include="Game\ExternalClasses\WoodenHelmet.cpp" />
+    <ClCompile Include="Engine\Component\Audio\AudioListener.cpp" />
+    <ClCompile Include="Engine\Component\Audio\AudioSource.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Component\AI\AI.h" />
@@ -143,20 +157,14 @@
     <ClInclude Include="Game\ExternalClasses\BaseHelmet.h" />
     <ClInclude Include="Game\ExternalClasses\BaseItem.h" />
     <ClInclude Include="Game\ExternalClasses\BaseGreaves.h" />
-    <ClInclude Include="Game\ExternalClasses\BaseLongbow.h" />
-    <ClInclude Include="Game\ExternalClasses\BaseMeleeWeapon.h" />
     <ClInclude Include="Game\ExternalClasses\BasePilot.h" />
-    <ClInclude Include="Game\ExternalClasses\BaseProjectileWeapon.h" />
     <ClInclude Include="Game\ExternalClasses\BaseShield.h" />
-    <ClInclude Include="Game\ExternalClasses\BaseShortsword.h" />
     <ClInclude Include="Game\ExternalClasses\BaseWeapon.h" />
     <ClInclude Include="Game\ExternalClasses\Damageable.h" />
     <ClInclude Include="Game\ExternalClasses\HostPilot.h" />
     <ClInclude Include="Game\ExternalClasses\DummyPilot.h" />
     <ClInclude Include="Game\ExternalClasses\PlayerPilot.h" />
     <ClInclude Include="Game\ExternalClasses\UserDefinedRenderLayers.h" />
-    <ClInclude Include="Game\ExternalClasses\WoodenLongbow.h" />
-    <ClInclude Include="Game\ExternalClasses\WoodenShortsword.h" />
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="Engine\Component\Component.h" />
     <ClInclude Include="Engine\Component\GameObject.h" />
@@ -200,6 +208,24 @@
     <ClInclude Include="Game\ExternalClasses\Possession\BoulderController.h" />
     <ClInclude Include="Game\GameObjects\Boulder.h" />
     <ClInclude Include="Game\ExternalClasses\Possession\GhostController.h" />
+    <ClInclude Include="Engine\GameObjects\Tiles\ConnectorTile.h" />
+    <ClInclude Include="Engine\GameObjects\Tiles\CornerTile.h" />
+    <ClInclude Include="Engine\GameObjects\Tiles\DoorTile.h" />
+    <ClInclude Include="Engine\GameObjects\Tiles\FloorTile.h" />
+    <ClInclude Include="Engine\GameObjects\Tiles\Tile.h" />
+    <ClInclude Include="Engine\GameObjects\Tiles\WallTile.h" />
+    <ClInclude Include="Game\ExternalClasses\BaseShortsword.h" />
+    <ClInclude Include="Game\ExternalClasses\BaseLongbow.h" />
+    <ClInclude Include="Game\ExternalClasses\BaseMeleeWeapon.h" />
+    <ClInclude Include="Game\ExternalClasses\BaseProjectileWeapon.h" />
+    <ClInclude Include="Game\ExternalClasses\WoodenLongbow.h" />
+    <ClInclude Include="Game\ExternalClasses\WoodenShortsword.h" />
+    <ClInclude Include="Engine\Manager\GeneratorManager.h" />
+    <ClInclude Include="Engine\External\LevelGeneration\BinaryTree.h" />
+    <ClInclude Include="Engine\External\LevelGeneration\Codec.h" />
+    <ClInclude Include="Engine\External\LevelGeneration\Corridor.h" />
+    <ClInclude Include="Engine\External\LevelGeneration\Doorway.h" />
+    <ClInclude Include="Engine\External\LevelGeneration\Room.h" />
     <ClInclude Include="Game\ExternalClasses\Invokable.h" />
     <ClInclude Include="Game\GameObjects\Doors\SingleDoor.h" />
     <ClInclude Include="Game\GameObjects\Doors\Door.h" />
@@ -209,6 +235,9 @@
     <ClInclude Include="Game\ExternalClasses\WoodenChestplate.h" />
     <ClInclude Include="Game\ExternalClasses\RandomHelper.h" />
     <ClInclude Include="Game\ExternalClasses\WoodenHelmet.h" />
+    <ClInclude Include="Engine\Component\Audio\AudioBank.h" />
+    <ClInclude Include="Engine\Component\Audio\AudioListener.h" />
+    <ClInclude Include="Engine\Component\Audio\AudioSource.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Character.bmp" />

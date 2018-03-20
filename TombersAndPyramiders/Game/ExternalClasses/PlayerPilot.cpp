@@ -57,7 +57,11 @@ void PlayerPilot::onUpdate(int ticks)
 		if (getWeaponInput())
 		{
 			m_characterController->useWeapon();
-			m_characterController->getGameObject()->getComponent<Sender>()->sendAttack();
+			auto sender = m_characterController->getGameObject()->getComponent<Sender>();
+			if (sender != nullptr)
+			{
+				sender->sendAttack();
+			}
 		}
 		else
 		{
@@ -88,7 +92,11 @@ void PlayerPilot::tryInvokeTrigger()
 	if (InputManager::getInstance()->onKeyPressed(SDLK_z))
 	{
 		if (m_characterController->tryInvokeTrigger()) {
-			m_characterController->getGameObject()->getComponent<Sender>()->sendTrigger();
+			auto sender = m_characterController->getGameObject()->getComponent<Sender>();
+			if (sender != nullptr)
+			{
+				sender->sendTrigger();
+			}
 		}
 	}
 }

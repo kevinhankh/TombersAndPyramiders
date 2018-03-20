@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ComplexSprite.h"
+#include "AudioListener.h"
 
 extern class BasePilot;
 
