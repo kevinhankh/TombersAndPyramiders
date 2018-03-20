@@ -30,6 +30,7 @@ public:
 	void addZ(float zToAdd);
 	void setX(float newX);
 	float getX();
+	bool renderRotation = true;
 
 	//__declspec (property (put = setY, get = getY)) float y;
 	void setY(float newY);
