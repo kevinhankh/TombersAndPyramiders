@@ -65,8 +65,20 @@ std::shared_ptr<ComplexSpriteinfo> Character::generateComplexSpriteInfo()
 	return spriteInfo;
 }
 
+// Changes the sprite to the specified ID
+bool Character::playAnimation (int animID, int animReturn)
+{
+	if (animReturn != -1) {
+		changeSprite (animID, animReturn);
+	}
+	else {
+		changeSprite (animID);
+	}
+	return true;
+}
+
 // Changes the sprite animation to running
-void Character::playRunAnimation(float rotation)
+bool Character::playRunAnimation ()
 {
 	if (rotation < 90)
 	{
@@ -88,7 +100,7 @@ void Character::playRunAnimation(float rotation)
 
 
 // Changes the sprite animation to idling
-void Character::endRunAnimation(float rotation)
+bool Character::endRunAnimation()
 {
 	switch (getCurrentSprite())
 	{
@@ -105,6 +117,7 @@ void Character::endRunAnimation(float rotation)
 		changeSprite(ANIMATION_IDLE_LEFT);
 		break;
 	}
+	return false;
 }
 
 
@@ -127,6 +140,10 @@ void Character::playMeleeAttackAnimation(float rotation)
 	{
 		changeSprite(ANIMATION_ATTACK_MELEE, ANIMATION_WALK_UP);
 	}
+bool Character::playMeleeAttackAnimation()
+{
+	changeSprite(ANIMATION_ATTACK_MELEE, ANIMATION_IDLE);
+	return true;
 }
 
 
@@ -149,6 +166,10 @@ void Character::playRangeAttackAnimation(float rotation)
 	{
 		changeSprite(ANIMATION_ATTACK_RANGE, ANIMATION_WALK_UP);
 	}
+bool Character::playRangeAttackAnimation()
+{
+	changeSprite(ANIMATION_ATTACK_RANGE, ANIMATION_IDLE);
+	return true;
 }
 
 void Character::playHurtAnimation(float rotation)
@@ -169,4 +190,8 @@ void Character::playHurtAnimation(float rotation)
 	{
 		changeSprite(ANIMATION_HURT, ANIMATION_WALK_UP);
 	}
+bool Character::playHurtAnimation()
+{
+	changeSprite(ANIMATION_HURT, ANIMATION_IDLE);
+	return true;
 }

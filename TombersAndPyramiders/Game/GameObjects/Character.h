@@ -74,6 +74,10 @@ class Character : public ComplexSprite
 		void playMeleeAttackAnimation(float rotation);
 		void playRangeAttackAnimation(float rotation);
 		void playHurtAnimation(float rotation);
+		virtual void onEnd () {};
+		virtual void onNetworkEnd () {};
+		bool playAnimation (int animID, int animReturn = -1);
+
 
     private:
 		/*--------------------

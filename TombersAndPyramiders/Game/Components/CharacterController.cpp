@@ -32,6 +32,7 @@
 #include "GameManager.h"
 #include "Invokable.h"
 #include "BasePossessableController.h"
+#include "Sender.h"
 #include "GhostPilot.h"
 #include "NetworkCharacter.h"
 #include "PlayerPilot.h"
@@ -138,7 +139,7 @@ bool CharacterController::tryInvokeTrigger()
 	{
 		std::shared_ptr<Invokable> invokable = (*it)->getComponent<Invokable>();
 		std::shared_ptr<BasePossessableController> possessable = nullptr;
-		float maxDistance = transform->getScale() / 2.0f + (*it)->getTransform()->getScale() / 2.0f;
+		float maxDistance = transform->getScale() / 4.0f + (*it)->getTransform()->getScale() / 4.0f;
 
 		if (invokable == nullptr)
 		{
@@ -228,6 +229,9 @@ void CharacterController::takeDamage(int damage, bool isCriticalHit)
 	}
 
 	Damageable::takeDamage(realDamage);
+	std::shared_ptr<Sender> s = gameObject->getComponent<Sender> ();
+	if (s != nullptr)
+		s->sendHurt (Damageable::getHealth());
 	m_character->playHurtAnimation(gameObject->getTransform()->getRotation());
 	m_audioSource->playSFX(SFX_HIT);
 }
@@ -258,17 +262,17 @@ void CharacterController::updateGreaves(int ticks)
 
 void CharacterController::death()
 {
-	destroy(gameObject->getId());
+	m_character->onEnd ();
 
-	/* Spawn the character's ghost. */
-	auto localPlayer = dynamic_cast<PlayerPilot*>(m_pilot.get());	// Check this is not an enemy.
-	
-	if (localPlayer != nullptr)
-	{
-		auto ghost = GameManager::getInstance()->createGameObject<GhostCharacter>(false, new GhostPilot());
-		ghost->getTransform()->setPosition(gameObject->getTransform()->getX(), gameObject->getTransform()->getY());
-		SceneManager::getInstance()->getCurrentScene()->setCameraFollow(ghost);
-	}
+	///* Spawn the character's ghost. */
+	//auto localPlayer = dynamic_cast<PlayerPilot*>(m_pilot.get());	// Check this is not an enemy.
+	//
+	//if (localPlayer != nullptr)
+	//{
+	//	auto ghost = GameManager::getInstance()->createGameObject<GhostCharacter>(false, new GhostPilot());
+	//	ghost->getTransform()->setPosition(gameObject->getTransform()->getX(), gameObject->getTransform()->getY());
+	//	SceneManager::getInstance()->getCurrentScene()->setCameraFollow(ghost);
+	//}
 }
 
 std::shared_ptr<WorldItem> CharacterController::trySwapItem()
@@ -286,7 +290,7 @@ std::shared_ptr<WorldItem> CharacterController::trySwapItem()
 
 				std::shared_ptr<BaseItem> removedItem = m_inventory->addItem(extractedItem);
 				if (removedItem != nullptr) {
-					return SpawnManager::getInstance()->generateWorldItem(m_character->getTransform()->getX(), m_character->getTransform()->getY(), removedItem);
+					return SpawnManager::getInstance()->generateWorldItem(worldItem->getTransform()->getX(), worldItem->getTransform()->getY(), removedItem);
 				}
 
 				break;

@@ -95,6 +95,8 @@ public:
 	//void UnSubscribe(int id);
 	void onUpdate(int ticks);
 
+	SDL_Window* getWindow();
+
 	SpriteRendererManager();
 	bool init();
 	void cleanup();
