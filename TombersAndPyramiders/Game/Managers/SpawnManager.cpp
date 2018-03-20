@@ -75,10 +75,19 @@ void SpawnManager::sendStartPacket()
 	//}
 	GeneratorManager::getInstance ()->drawLevel (0);
 
+	int id = 0, x = 0, y = 0;
+	int room = rand() % (GeneratorManager::getInstance()->levels[0]->rooms.size() - 1);
+
+	for (int i = 0; i < 5; i++) {
+		x = ((rand() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_width - 2) + 1) + GeneratorManager::getInstance()->levels[0]->rooms[room]->m_xCoord) * 5;
+		y = (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_yCoord - (rand() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_height - 2) + 1)) * 5;
+		SpawnManager::getInstance()->generateAiCharacter(x, y);
+	}
+
 	payload["playerSpawns"] = std::to_string(NetworkingManager::getInstance()->m_clients.size());
 
-	int id = 0, x = 0, y = 0;
-	int room = rand() % (GeneratorManager::getInstance()->levels[0]->rooms.size()-1);
+	id = 0, x = 0, y = 0;
+	room = rand() % (GeneratorManager::getInstance()->levels[0]->rooms.size()-1);
 	x = ((rand() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_width - 2) + 1) + GeneratorManager::getInstance()->levels[0]->rooms[room]->m_xCoord) * 5;
 	y = (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_yCoord - (rand() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_height - 2) + 1)) * 5;
 
@@ -215,6 +224,16 @@ std::shared_ptr<Character> SpawnManager::generateAiCharacter(float x, float y)
 
 	return simpleAi;
 }
+/*std::shared_ptr<Character> SpawnManager::generateAiCharacter1(float x, float y)
+{
+	std::shared_ptr<Character> simpleAi = GameManager::getInstance()->createGameObject<Character>(false, new AiPilot());
+	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
+	simpleAi->getTransform()->setPosition(x, y);
+
+	return simpleAi;
+}*/
+
+
 
 std::shared_ptr<Character> SpawnManager::generateDummyCharacter(float x, float y)
 {

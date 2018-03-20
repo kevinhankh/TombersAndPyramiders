@@ -41,6 +41,7 @@ void Room::draw()
 					}
 					
 					skip = true;
+					break;
 				}
 			}
 			if (!skip)
