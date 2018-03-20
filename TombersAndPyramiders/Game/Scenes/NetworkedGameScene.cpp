@@ -34,7 +34,7 @@ void NetworkedGameScene::onStart()
 	{
 		mapSeeds.push_back(time(NULL));
 		srand(mapSeeds[i]);
-		GeneratorManager::getInstance()->generateLevel(30, 30, 2, i);
+		GeneratorManager::getInstance()->generateLevel(30, 30, 3, i);
 	}
 
 	GeneratorManager::getInstance()->drawLevel(0);
@@ -173,10 +173,10 @@ void NetworkedGameScene::onStart()
 	*/
 	SpawnManager::getInstance()->generateWorldItem(5, -5, std::make_shared<WoodenShortsword>());
 
-	Ai = SpawnManager::getInstance()->generateAiCharacter(14, -15);
-	Ai2 = SpawnManager::getInstance()->generateAiCharacter(44, -20);
-	Ai3 = SpawnManager::getInstance()->generateAiCharacter(54, -40);
-	Ai4 = SpawnManager::getInstance()->generateAiCharacter(14, -35);
+	Ai = SpawnManager::getInstance()->generateAiCharacter(14, -18);
+	Ai2 = SpawnManager::getInstance()->generateAiCharacter(13, -40);
+	Ai3 = SpawnManager::getInstance()->generateAiCharacter(50, -50);
+	Ai4 = SpawnManager::getInstance()->generateAiCharacter(50, -20);
 
 	//SpawnManager::getInstance()->generateSingleDoor(10, -10, Door::Direction::East, Door::Mode::Closed);
 
