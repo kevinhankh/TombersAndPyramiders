@@ -35,6 +35,7 @@ void ClientCharacter::onUpdate(int ticks)
 
 void ClientCharacter::onEnd () {
 	getComponent<Sender> ()->sendDestroy ();
+	destroy (getId ());
 }
 
 bool ClientCharacter::playRunAnimation () {

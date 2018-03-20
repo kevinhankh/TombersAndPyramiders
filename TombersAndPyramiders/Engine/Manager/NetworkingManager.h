@@ -37,8 +37,7 @@ private:
 	int m_port = DEFAULT_PORT;
 	
 	IPaddress m_hostAddress;
-	int m_udpChannel = -1;
-
+	bool channels[4] = { false, false, false, false };
 
 	UDPpacket *m_udpPacket;
 	UDPpacket m_udpReceivedPacket;

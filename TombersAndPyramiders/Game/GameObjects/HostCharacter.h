@@ -35,7 +35,7 @@ public:
 	----------------------------------------------------------------------------------------*/
 public:
 	void onUpdate(int ticks);
-	void onEnd ();
+	void onNetworkEnd ();
 	bool playRunAnimation ();
 	bool endRunAnimation ();
 	bool playMeleeAttackAnimation ();

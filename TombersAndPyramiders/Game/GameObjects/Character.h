@@ -63,6 +63,8 @@ class Character : public ComplexSprite
 	----------------------------------------------------------------------------------------*/
     public:
 		void onUpdate(int ticks);
+		virtual void onEnd () {};
+		virtual void onNetworkEnd () {};
 		bool playAnimation (int animID, int animReturn = -1);
 		bool playRunAnimation ();
 		bool endRunAnimation();

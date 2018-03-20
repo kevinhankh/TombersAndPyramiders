@@ -37,6 +37,6 @@ public:
 	----------------------------------------------------------------------------------------*/
 public:
 	void onUpdate(int ticks);
-	void onEnd ();
+	void onNetworkEnd ();
 private:
 };

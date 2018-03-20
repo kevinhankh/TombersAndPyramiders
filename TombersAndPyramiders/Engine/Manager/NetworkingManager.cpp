@@ -85,7 +85,6 @@ bool NetworkingManager::host()
 		std::string error = SDLNet_GetError();
 		return false;
 	}
-	m_udpChannel = DEFAULT_CHANNEL;
 	m_udpSocket = SDLNet_UDP_Open(m_port);
 	if (!m_udpSocket)
 	{
@@ -143,11 +142,13 @@ bool NetworkingManager::accept()
 	if (SDLNet_ResolveHost (&udpIP, SDLNet_ResolveIP (ip), m_port) == -1) {
 		std::cout << "Couldn't find resolved client IP " << SDLNet_ResolveIP (ip) << std::endl;
 	}
-
-	if (!SDLNet_UDP_Bind (m_udpSocket, DEFAULT_CHANNEL, &udpIP))
+	int channel = -1;
+	if ((channel = SDLNet_UDP_Bind (m_udpSocket, -1, &udpIP)) == -1)
 	{
-		printf ("SDLNet_UDP_Bind: %s\n", SDLNet_GetError ());
+		printf ("SDLNet_UDP_Bind to channel: %s\n", SDLNet_GetError ());
 	}
+	if (channel >= 0 && channel <= 3) //16 max connections
+		channels[channel] = true;
 	
 	sendAcceptPacket (newID);
 	// communicate over new_tcpsock
@@ -263,7 +264,6 @@ bool NetworkingManager::createUDPPacket(int packetSize)
 	if (!isHost ()) {
 		m_udpPacket->address = m_hostAddress;
 	}
-	m_udpPacket->channel = m_udpChannel;
 	m_udpPacket->len = packetSize + 1;
 
 	return true;
@@ -274,8 +274,19 @@ void NetworkingManager::sendUDP(std::string *msg)
 	createUDPPacket(msg->length());
 	memcpy(m_udpPacket->data, msg->c_str(), msg->length());
 
-	if (!SDLNet_UDP_Send (m_udpSocket, m_udpChannel, m_udpPacket))
-		std::cout << "SDLNET_UDP_SEND failed: " << SDLNet_GetError() << "\n";
+	if (isHost ()) {
+		for (size_t i = 0; i < 4; i++) {
+			if (channels[i]) {
+				m_udpPacket->channel = i;
+				if (!SDLNet_UDP_Send (m_udpSocket, i, m_udpPacket))
+					std::cout << "SDLNET_UDP_SEND failed: " << SDLNet_GetError () << "\n";
+			}
+		}
+	}
+	else {
+		if (!SDLNet_UDP_Send (m_udpSocket, -1, m_udpPacket))
+			std::cout << "SDLNET_UDP_SEND failed: " << SDLNet_GetError () << "\n";
+	}
 }
 
 void NetworkingManager::pollMessagesTCP(int id)

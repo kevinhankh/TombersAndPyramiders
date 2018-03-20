@@ -32,6 +32,7 @@
 #include "GameManager.h"
 #include "Invokable.h"
 #include "BasePossessableController.h"
+#include "Sender.h"
 
 /*----------------------------------------------------------------------------------------
 	Static Fields
@@ -218,6 +219,9 @@ void CharacterController::takeDamage(int damage, bool isCriticalHit)
 	}
 
 	Damageable::takeDamage(realDamage);
+	std::shared_ptr<Sender> s = gameObject->getComponent<Sender> ();
+	if (s != nullptr)
+		s->sendHurt (Damageable::getHealth());
 	m_character->playHurtAnimation();
 	AudioManager::getInstance()->playHitSFX();
 }
@@ -248,8 +252,7 @@ void CharacterController::updateGreaves(int ticks)
 
 void CharacterController::death()
 {
-	gameObject->onEnd ();
-	destroy(gameObject->getId());
+	m_character->onEnd ();
 }
 
 std::shared_ptr<WorldItem> CharacterController::trySwapItem()

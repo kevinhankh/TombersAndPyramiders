@@ -42,5 +42,6 @@ void NetworkCharacter::onUpdate(int ticks)
 	updateFrames(ticks);
 }
 
-void NetworkCharacter::onEnd () {
+void NetworkCharacter::onNetworkEnd () {
+	destroy (getId ());
 }

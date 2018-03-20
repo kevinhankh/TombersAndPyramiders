@@ -31,7 +31,15 @@ Receiver::Receiver(GameObject* gameObject, int netID) : Component(gameObject)
 	Subscribe ("SWAPPEDITEM", [](std::map<std::string, void*> data) -> void
 	{
 		Receiver* self = (Receiver*)data["this"];
-		self->getGameObject()->getComponent<CharacterController> ()->trySwapItem ();
+		self->getGameObject ()->getComponent<CharacterController> ()->trySwapItem ();
+	}, this);
+
+	Subscribe ("HURT", [](std::map<std::string, void*> data) -> void
+	{
+		Receiver* self = (Receiver*)data["this"];
+		float newHP = std::stoi (*(std::string*)data["newHealth"]);
+		std::shared_ptr<CharacterController> cc = self->gameObject->getComponent<CharacterController> ();
+		cc->setHealth (newHP);
 	}, this);
 
 	Subscribe ("TRYSWAPITEM", [](std::map<std::string, void*> data) -> void {
@@ -63,7 +71,7 @@ Receiver::Receiver(GameObject* gameObject, int netID) : Component(gameObject)
 	{
 		int id = std::stoi(*(std::string*)data["ID"]);
 		Receiver* self = (Receiver*)data["this"];
-		self->destroy (self->gameObject->getId());
+		((Character*)self->gameObject)->onNetworkEnd ();
 	}, this);
 
 	this->m_onUpdateID = Subscribe("UPDATE", [](std::map<std::string, void*> data) -> void
@@ -88,32 +96,11 @@ Receiver::Receiver(GameObject* gameObject, int netID) : Component(gameObject)
 		std::shared_ptr<CharacterController> cc = self->gameObject->getComponent<CharacterController> ();
 		((HostPilot*)cc->getPilot ())->setMovement(Vector2 (vecX, vecY), 6);
 	}, this);
-
-	/*this->m_onUpdateID = Subscribe("ATTACK", [](std::map<std::string, void*> data) -> void
-	{
-
-	}, this);*/
-
-	/*this->DestroySnowballID = Subscribe("DESTROYSNOWBALL", [](std::map<std::string, void*> data) -> void
-	{
-		Receiver* self = (Receiver*)data["this"];
-		Snowball* snow = (Snowball *)self->gameObject;
-		snow->DestructSnowball();
-	}, this);
-
-	this->DestroyBattlerID = Subscribe("DESTROYBATTLER", [](std::map<std::string, void*> data) -> void
-	{
-		Receiver* self = (Receiver*)data["this"];
-		Battler* battler = (Battler *)self->gameObject;
-		battler->Die();
-	}, this);*/
 }
 
 Receiver::~Receiver()
 {
 	MessageManager::unSubscribe(std::to_string (netID) + "|UPDATE", this->m_onUpdateID);
-	/*MessageManager::UnSubscribe(netID + "|DESTROYSNOWBALL", this->DestroySnowballID);
-	MessageManager::UnSubscribe(netID + "|DESTROYBATTLER", this->DestroyBattlerID);*/
 }
 
 int Receiver::Subscribe(std::string event, Callback callback, void* owner)

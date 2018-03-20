@@ -35,7 +35,6 @@ void Sender::sendUpdate()
 	Transform* transform = gameObject->getTransform ();
 	std::shared_ptr<CharacterController> cc = gameObject->getComponent<CharacterController> ();
 	PlayerPilot* pp = (PlayerPilot*)cc->getPilot ();
-	std::cout << "our vec: (" << pp->m_lastMoveVector.getX () << ", " << pp->m_lastMoveVector.getY () << ")" << std::endl;
 	payload["x"] = std::to_string(transform->getX());
 	payload["y"] = std::to_string(transform->getY());
 	payload["z"] = std::to_string (transform->getZ ());
@@ -66,11 +65,17 @@ void Sender::sendAttack ()
 
 void Sender::sendAnimation (int animID, int animReturn)
 {
-	std::cout << "ANIMATE SENT " << std::endl;
 	std::map<std::string, std::string> payload;
 	payload["animID"] = std::to_string (animID);
 	payload["animReturn"] = std::to_string (animReturn);
 	sendNetworkMessage ("ANIMATE", payload);
+}
+
+void Sender::sendHurt (int newHP)
+{
+	std::map<std::string, std::string> payload;
+	payload["newHealth"] = std::to_string (newHP);
+	sendNetworkMessage ("HURT", payload);
 }
 
 void Sender::sendTrySwapItem ()
@@ -110,7 +115,7 @@ Sender::~Sender()
 void Sender::onUpdate (int ticks)
 {
 	m_lastUpdate += ticks;
-	if (m_lastUpdate >= 125) {
+	if (m_lastUpdate >= 80) {
 		sendUpdate ();
 		m_lastUpdate = 0;
 	}

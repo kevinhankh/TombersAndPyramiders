@@ -41,8 +41,8 @@ void HostCharacter::onUpdate(int ticks)
 	updateFrames(ticks);
 }
 
-void HostCharacter::onEnd () {
-	getComponent<Sender> ()->sendDestroy ();
+void HostCharacter::onNetworkEnd () {
+	destroy (getId ());
 }
 
 bool HostCharacter::playRunAnimation () {
