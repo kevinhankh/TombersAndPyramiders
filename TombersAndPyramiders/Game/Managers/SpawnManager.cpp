@@ -19,6 +19,7 @@
 #include "WoodenGreaves.h"
 #include "WoodenChestplate.h"
 #include "WoodenHelmet.h"
+#include "GeneratorManager.h"
 
 std::shared_ptr<SpawnManager> SpawnManager::s_instance;
 
@@ -31,8 +32,15 @@ void startGameCallback(std::map<std::string, void*> payload)
 	SceneManager::getInstance()->pushScene(scene);
 
 
-	// For evgeni: do something with map seed here.
-	int mapSeedID = std::stoi (*(std::string*)payload["mapSeedID"]);
+
+
+	for (int i = 0; i < 4; i++)
+	{
+		int mapSeedID = std::stoi (*(std::string*)payload["mapSeedID" + std::to_string (i)]);
+		srand (mapSeedID);
+		GeneratorManager::getInstance ()->generateLevel (30, 30, 2, i);
+	}
+	GeneratorManager::getInstance ()->drawLevel (0);
 
 	int players = std::stoi(*(std::string*)payload["playerSpawns"]);
 
@@ -58,8 +66,17 @@ void SpawnManager::sendStartPacket()
 	NetworkedGameScene* scene = new NetworkedGameScene();
 	SceneManager::getInstance()->pushScene(scene);
 
-	// For evgeni
-	//payload["mapSeedID"] = std::to_string (/* Put map gen seed here.*/);
+
+	std::vector<__time64_t> mapSeeds;
+
+	for (int i = 0; i < 4; i++)
+	{
+		time_t seed = time (NULL);
+		srand (seed);
+		GeneratorManager::getInstance ()->generateLevel (30, 30, 2, i);
+		payload["mapSeedID" + std::to_string (i)] = std::to_string (seed);
+	}
+	GeneratorManager::getInstance ()->drawLevel (0);
 
 	payload["playerSpawns"] = std::to_string(NetworkingManager::getInstance()->m_clients.size());
 
@@ -155,9 +172,9 @@ SpawnManager::~SpawnManager()
 
 }
 
-std::shared_ptr<MiscSquare> SpawnManager::generateMiscSquare(float x, float y, float z, float scale, string spriteName, bool hasCollider, float colliderSize)
+std::shared_ptr<MiscSquare> SpawnManager::generateMiscSquare(float x, float y, float z, float scale, string spriteName, bool hasCollider, float colliderSize_x, float colliderSize_y)
 {
-	std::shared_ptr<MiscSquare> miscSquare = GameManager::getInstance()->createGameObject<MiscSquare>(false, spriteName, hasCollider, colliderSize);
+	std::shared_ptr<MiscSquare> miscSquare = GameManager::getInstance()->createGameObject<MiscSquare>(false, spriteName, hasCollider, colliderSize_x, colliderSize_y);
 	miscSquare->getTransform()->setPosition(x, y, z);
 	miscSquare->getTransform()->setScale(scale);
 	return miscSquare;
@@ -227,9 +244,14 @@ std::shared_ptr<GhostCharacter> SpawnManager::generateGhost(float x, float y)
 
 std::shared_ptr<SingleDoor> SpawnManager::generateSingleDoor(float x, float y, Door::Direction direction, Door::Mode startState)
 {
-	std::shared_ptr<SingleDoor> door = GameManager::getInstance()->createGameObject<SingleDoor>(false, direction, startState, x, y);
-	door->getTransform()->setZ(5);
-	door->getTransform()->setScale(3.0f);
+	auto scale = 3.0f;
+	std::shared_ptr<SingleDoor> door = GameManager::getInstance()->createGameObject<SingleDoor>(false, direction, startState, x, y, scale);
+	door->getTransform()->setZ(1000);
+	door->getTransform()->setScale(10.0f);
+	if (direction == Door::Direction::West || direction == Door::Direction::East)
+	{
+		door->getTransform()->addRotation(180);
+	}
 	return door;
 }
 

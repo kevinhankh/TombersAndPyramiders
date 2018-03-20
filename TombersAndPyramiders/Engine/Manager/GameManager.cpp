@@ -131,7 +131,8 @@ void GameManager::updateQuadTree() {
 std::vector<std::shared_ptr<GameObject>> GameManager::getObjectsInBounds(float x, float y, float width, float height)
 {
 	std::vector<std::shared_ptr<GameObject>> result;
-	m_quadTree->populateList(QuadTreeBounds(x, y, width, height), result);
+	auto tempBounds = QuadTreeBounds(x, y, width, height);
+	m_quadTree->populateList(tempBounds, result);
 	result.erase(std::unique(result.begin(), result.end()), result.end());
 	return result;
 }

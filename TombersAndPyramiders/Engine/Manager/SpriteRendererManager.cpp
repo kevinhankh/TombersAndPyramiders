@@ -59,6 +59,11 @@ void SpriteRendererManager::onUpdate(int ticks)
 	//renderReadingStick.unlock();
 }
 
+SDL_Window* SpriteRendererManager::getWindow()
+{
+	return m_mainWindow;
+}
+
 SpriteRendererManager::SpriteRendererManager()
 {
 	m_quadVertices = {
@@ -146,7 +151,7 @@ bool SpriteRendererManager::init()
 	}
 
 	// Create our window centered as an OpenGL window
-	m_mainWindow = SDL_CreateWindow("Blizzard Ball Battle", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_OPENGL);
+	m_mainWindow = SDL_CreateWindow("Tombers and Pyramiders", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_OPENGL);
 
 	// Check that everything worked out okay
 	if (!m_mainWindow)
@@ -199,6 +204,7 @@ bool SpriteRendererManager::init()
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (GLvoid *)0);
 	glBindVertexArray(0); //Unbind VAO
+	glEnable(GL_NORMALIZE);
 
 	m_fboPlainPass.init();
 	m_fboGaussianBlur.init();
@@ -231,39 +237,45 @@ void SpriteRendererManager::cleanup()
 
 GLuint SpriteRendererManager::generateTexture(std::string textureFileName)
 {
-	GLuint texture;
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	SDL_Surface *temp = IMG_Load(textureFileName.c_str());
-	if (temp == nullptr)
+	if (m_cachedTextures.find(textureFileName) == m_cachedTextures.end() || true)
 	{
-		GLenum errors = glGetError();
-		const char *sdlErrors = SDL_GetError();
-		std::cout << "ERROR::SPRITERENDERERMANAGER::FAILED TO READ FILE IN GENERATETEXTURE\n GLError: " << errors << " \nSDLErrors: " << sdlErrors << std::endl;
-		return 0;
+		GLuint texture;
+		glGenTextures(1, &texture);
+		glBindTexture(GL_TEXTURE_2D, texture);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		SDL_Surface *temp = IMG_Load(textureFileName.c_str());
+		if (temp == nullptr)
+		{
+			GLenum errors = glGetError();
+			const char *sdlErrors = SDL_GetError();
+			std::cout << "ERROR::SPRITERENDERERMANAGER::FAILED TO READ FILE IN GENERATETEXTURE\n GLError: " << errors << " \nSDLErrors: " << sdlErrors << std::endl;
+			return 0;
+		}
+		//If it crashes, make sure the .png is 32bit not 24bit so it supports RGBA not RGB
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, temp->w, temp->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, temp->pixels);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	
+		const char *sdlError = SDL_GetError();
+		GLenum glError = glGetError();
+		if (strlen(sdlError) > 0)
+		{
+			std::cout << sdlError << std::endl;
+		}
+		if (glError != GL_NO_ERROR)
+		{
+			std::cout << glError << std::endl;
+		}
+	
+		SDL_FreeSurface(temp);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		m_cachedTextures[textureFileName] = texture;
+		return texture;
+	} else {
+		return m_cachedTextures[textureFileName];
 	}
-	//If it crashes, make sure the .png is 32bit not 24bit so it supports RGBA not RGB
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, temp->w, temp->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, temp->pixels);
-	glGenerateMipmap(GL_TEXTURE_2D);
-
-	const char *sdlError = SDL_GetError();
-	GLenum glError = glGetError();
-	if (strlen(sdlError) > 0)
-	{
-		std::cout << sdlError << std::endl;
-	}
-	if (glError != GL_NO_ERROR)
-	{
-		std::cout << glError << std::endl;
-	}
-
-	SDL_FreeSurface(temp);
-	glBindTexture(GL_TEXTURE_2D, 0);
-	return texture;
 }
 
 

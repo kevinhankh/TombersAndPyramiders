@@ -70,6 +70,7 @@ private:
 	bool m_renderingThreadIsAlive;
 	bool m_rendering;
 	FrameBufferObject m_fboPlainPass, m_fboHorizontalGaussianBlur, m_fboGaussianBlur, m_fboBloomBrightness, m_fboBloomBlurBrightness, m_fboAmbientLighting;
+	map<std::string, GLuint> m_cachedTextures;
 
 	//Rendering variables
 	SDL_Window* m_mainWindow = NULL;
@@ -93,6 +94,8 @@ public:
 	//void Subscribe(int id, SpriteRenderer* spriteRenderer);
 	//void UnSubscribe(int id);
 	void onUpdate(int ticks);
+
+	SDL_Window* getWindow();
 
 	SpriteRendererManager();
 	bool init();

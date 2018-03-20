@@ -115,14 +115,18 @@ void QuadTree::Node::split()
 	float newWidth = m_bounds.getWidth() / 2.0f;
 	float newHeight = m_bounds.getHeight() / 2.0f;
 
+	auto tempBounds = QuadTreeBounds(m_bounds.getX() - newWidth / 2.0f, m_bounds.getY() + newHeight / 2.0f, newWidth, newHeight);
 	//TopLeft
-	m_children[0].reset(new Node(QuadTreeBounds(m_bounds.getX() - newWidth / 2.0f, m_bounds.getY() + newHeight / 2.0f, newWidth, newHeight), m_depth));
+	m_children[0].reset(new Node(tempBounds, m_depth));
 	//TopRight
-	m_children[1].reset(new Node(QuadTreeBounds(m_bounds.getX() + newWidth / 2.0f, m_bounds.getY() + newHeight / 2.0f, newWidth, newHeight), m_depth));
+	tempBounds = QuadTreeBounds(m_bounds.getX() + newWidth / 2.0f, m_bounds.getY() + newHeight / 2.0f, newWidth, newHeight);
+	m_children[1].reset(new Node(tempBounds, m_depth));
 	//BottomLeft
-	m_children[2].reset(new Node(QuadTreeBounds(m_bounds.getX() - newWidth / 2.0f, m_bounds.getY() - newHeight / 2.0f, newWidth, newHeight), m_depth));
+	tempBounds = QuadTreeBounds(m_bounds.getX() - newWidth / 2.0f, m_bounds.getY() - newHeight / 2.0f, newWidth, newHeight);
+	m_children[2].reset(new Node(tempBounds, m_depth));
 	//BottomRight
-	m_children[3].reset(new Node(QuadTreeBounds(m_bounds.getX() + newWidth / 2.0f, m_bounds.getY() - newHeight / 2.0f, newWidth, newHeight), m_depth));
+	tempBounds = QuadTreeBounds(m_bounds.getX() + newWidth / 2.0f, m_bounds.getY() - newHeight / 2.0f, newWidth, newHeight);
+	m_children[3].reset(new Node(tempBounds, m_depth));
 	
 	//Insert items into children
 	for (int j = 0; j < m_items.size(); j++)
@@ -170,7 +174,8 @@ void QuadTree::Node::populate(QuadTreeBounds& bounds, std::vector<std::shared_pt
 
 void QuadTree::Node::insert(std::shared_ptr<GameObject> item)
 {
-	if (!intersects(m_bounds, QuadTreeBounds(item)))
+	auto tempBounds = QuadTreeBounds(item);
+	if (!intersects(m_bounds, tempBounds))
 	{
 		return; //Not in bounds, don't insert
 	}
@@ -201,7 +206,8 @@ void QuadTree::Node::reconstruct(std::vector<std::shared_ptr<GameObject>> &gameO
 		{
 			if (m_items[i] != nullptr)
 			{
-				if (!intersects(m_bounds, QuadTreeBounds(m_items[i])))
+				auto tempBounds = QuadTreeBounds(m_items[i]);
+				if (!intersects(m_bounds, tempBounds))
 				{
 					gameObjects.push_back(m_items[i]);
 					deletions++;
