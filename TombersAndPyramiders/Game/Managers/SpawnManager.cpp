@@ -100,6 +100,8 @@ std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(Uint32 ip
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenChestplate>());
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenHelmet>());
 	simpleCharacter->getTransform()->setPosition(x, y, 100);
+	simpleCharacter->getTransform()->setScale(2);
+	simpleCharacter->getTransform()->renderRotation = false;
 
 	return simpleCharacter;
 }
@@ -112,6 +114,9 @@ std::shared_ptr<HostCharacter> SpawnManager::generateNetworkCharacter(Uint32 ip,
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenShield>());
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenGreaves>());
 	simpleCharacter->getTransform()->setPosition(x, y, 100);
+	simpleCharacter->getTransform()->setScale(2);
+	simpleCharacter->getTransform()->renderRotation = false;
+
 	return simpleCharacter;
 }
 
@@ -140,7 +145,9 @@ std::shared_ptr<Character> SpawnManager::generatePlayerCharacter(float x, float 
 	std::shared_ptr<Character> simpleCharacter = GameManager::getInstance()->createGameObject<Character>(false, new PlayerPilot());
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenShortsword>());
 	simpleCharacter->getTransform()->setPosition(x, y);
-	
+	simpleCharacter->getTransform()->setScale(2);
+	simpleCharacter->getTransform()->renderRotation = false;
+
 	return simpleCharacter;
 }
 
@@ -151,6 +158,7 @@ std::shared_ptr<Character> SpawnManager::generateAiCharacter(float x, float y)
 	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenChestplate>());
 	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenHelmet>());
 	simpleAi->getTransform()->setPosition(x, y);
+	simpleAi->getTransform()->renderRotation = false;
 
 	return simpleAi;
 }
@@ -162,6 +170,7 @@ std::shared_ptr<Character> SpawnManager::generateDummyCharacter(float x, float y
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenChestplate>());
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenHelmet>());
 	simpleCharacter->getTransform()->setPosition(x, y);
+	simpleCharacter->getTransform()->renderRotation = false;
 
 	return simpleCharacter;
 }

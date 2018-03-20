@@ -50,49 +50,123 @@ std::shared_ptr<ComplexSpriteinfo> Character::generateComplexSpriteInfo()
 {
 	std::shared_ptr<ComplexSpriteinfo> spriteInfo = std::make_shared<ComplexSpriteinfo>();
 
-	spriteInfo->addInfo("squareidle.png", 8, 1);
-	spriteInfo->addInfo("squareRun.png", 8, 1);
+	spriteInfo->addInfo("tanm_walk_up.png", 9, 1);
+	spriteInfo->addInfo("tanm_walk_right.png", 9, 1);
+	spriteInfo->addInfo("tanm_walk_down.png", 9, 1);
+	spriteInfo->addInfo("tanm_walk_left.png", 9, 1);
+	spriteInfo->addInfo("tanm_idle_up.png", 1, 1);
+	spriteInfo->addInfo("tanm_idle_right.png", 1, 1);
+	spriteInfo->addInfo("tanm_idle_down.png", 1, 1);
+	spriteInfo->addInfo("tanm_idle_left.png", 1, 1);
 	spriteInfo->addInfo("squareRedAttack.png", 8, 1);
 	spriteInfo->addInfo("squareWhiteAttack.png", 8, 1);
 	spriteInfo->addInfo("squareHurt.png", 8, 1);
-
+	
 	return spriteInfo;
 }
 
 // Changes the sprite animation to running
-void Character::playRunAnimation()
+void Character::playRunAnimation(float rotation)
 {
-	if (getCurrentSprite() == ANIMATION_IDLE)
+	if (rotation < 90)
 	{
-		changeSprite(ANIMATION_RUN);
+		changeSprite(ANIMATION_WALK_RIGHT);
+	}
+	else if (rotation < 180)
+	{
+		changeSprite(ANIMATION_WALK_DOWN);
+	}
+	else if (rotation < 270)
+	{
+		changeSprite(ANIMATION_WALK_LEFT);
+	}
+	else
+	{
+		changeSprite(ANIMATION_WALK_UP);
 	}
 }
 
 
 // Changes the sprite animation to idling
-void Character::endRunAnimation()
+void Character::endRunAnimation(float rotation)
 {
-	if (getCurrentSprite() == ANIMATION_RUN) 
+	switch (getCurrentSprite())
 	{
-		changeSprite(ANIMATION_IDLE);
+	case ANIMATION_WALK_UP:
+		changeSprite(ANIMATION_IDLE_UP);
+		break;
+	case ANIMATION_WALK_RIGHT:
+		changeSprite(ANIMATION_IDLE_RIGHT);
+		break;
+	case ANIMATION_WALK_DOWN:
+		changeSprite(ANIMATION_IDLE_DOWN);
+		break;
+	case ANIMATION_WALK_LEFT:
+		changeSprite(ANIMATION_IDLE_LEFT);
+		break;
 	}
 }
 
 
 // Changes the sprite animation to the melee attack for one animation then returns back to idle
-void Character::playMeleeAttackAnimation()
+void Character::playMeleeAttackAnimation(float rotation)
 {
-	changeSprite(ANIMATION_ATTACK_MELEE, ANIMATION_IDLE);
+	if (rotation < 90)
+	{
+		changeSprite(ANIMATION_ATTACK_MELEE, ANIMATION_WALK_RIGHT);
+	}
+	else if (rotation < 180)
+	{
+		changeSprite(ANIMATION_ATTACK_MELEE, ANIMATION_WALK_DOWN);
+	}
+	else if (rotation < 270)
+	{
+		changeSprite(ANIMATION_ATTACK_MELEE, ANIMATION_WALK_LEFT);
+	}
+	else
+	{
+		changeSprite(ANIMATION_ATTACK_MELEE, ANIMATION_WALK_UP);
+	}
 }
 
 
 // Changes the sprite animation to the range attack for one animation then returns back to idle
-void Character::playRangeAttackAnimation()
+void Character::playRangeAttackAnimation(float rotation)
 {
-	changeSprite(ANIMATION_ATTACK_RANGE, ANIMATION_IDLE);
+	if (rotation < 90)
+	{
+		changeSprite(ANIMATION_ATTACK_RANGE, ANIMATION_WALK_RIGHT);
+	}
+	else if (rotation < 180)
+	{
+		changeSprite(ANIMATION_ATTACK_RANGE, ANIMATION_WALK_DOWN);
+	}
+	else if (rotation < 270)
+	{
+		changeSprite(ANIMATION_ATTACK_RANGE, ANIMATION_WALK_LEFT);
+	}
+	else
+	{
+		changeSprite(ANIMATION_ATTACK_RANGE, ANIMATION_WALK_UP);
+	}
 }
 
-void Character::playHurtAnimation()
+void Character::playHurtAnimation(float rotation)
 {
-	changeSprite(ANIMATION_HURT, ANIMATION_IDLE);
+	if (rotation < 90)
+	{
+		changeSprite(ANIMATION_HURT, ANIMATION_WALK_RIGHT);
+	}
+	else if (rotation < 180)
+	{
+		changeSprite(ANIMATION_HURT, ANIMATION_WALK_DOWN);
+	}
+	else if (rotation < 270)
+	{
+		changeSprite(ANIMATION_HURT, ANIMATION_WALK_LEFT);
+	}
+	else
+	{
+		changeSprite(ANIMATION_HURT, ANIMATION_WALK_UP);
+	}
 }

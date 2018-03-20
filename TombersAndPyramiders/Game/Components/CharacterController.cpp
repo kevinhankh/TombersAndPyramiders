@@ -92,10 +92,10 @@ void CharacterController::move(Vector2 delta)
 
 	if (delta.getMagnitude() == 0)
 	{
-		m_character->endRunAnimation();
+		m_character->endRunAnimation(gameObject->getTransform()->getRotation());
 	} else 
 	{
-		m_character->playRunAnimation();
+		m_character->playRunAnimation(gameObject->getTransform()->getRotation());
 		gameObject->getTransform()->setRotation(delta.getRotationInDegrees());
 	}
 
@@ -115,11 +115,11 @@ void CharacterController::useWeapon()
 		{
 			std::shared_ptr<BaseMeleeWeapon> melee = dynamic_pointer_cast<BaseMeleeWeapon>(weapon);
 			if (melee != nullptr) {
-				m_character->playMeleeAttackAnimation();
+				m_character->playMeleeAttackAnimation(gameObject->getTransform()->getRotation());
 				m_audioSource->playSFX(SFX_SWORD);
 			}
 			else {
-				m_character->playRangeAttackAnimation();
+				m_character->playRangeAttackAnimation(gameObject->getTransform()->getRotation());
 				m_audioSource->playSFX(SFX_BOW);
 			}
 		}
@@ -228,7 +228,7 @@ void CharacterController::takeDamage(int damage, bool isCriticalHit)
 	}
 
 	Damageable::takeDamage(realDamage);
-	m_character->playHurtAnimation();
+	m_character->playHurtAnimation(gameObject->getTransform()->getRotation());
 	m_audioSource->playSFX(SFX_HIT);
 }
 
