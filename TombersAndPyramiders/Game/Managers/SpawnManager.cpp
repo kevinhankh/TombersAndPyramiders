@@ -30,6 +30,10 @@ void startGameCallback(std::map<std::string, void*> payload)
 	NetworkedGameScene* scene = new NetworkedGameScene();
 	SceneManager::getInstance()->pushScene(scene);
 
+
+	// For evgeni: do something with map seed here.
+	int mapSeedID = std::stoi (*(std::string*)payload["mapSeedID"]);
+
 	int players = std::stoi(*(std::string*)payload["playerSpawns"]);
 
 	int id = 0, x = 0, y = 0;
@@ -53,6 +57,9 @@ void SpawnManager::sendStartPacket()
 
 	NetworkedGameScene* scene = new NetworkedGameScene();
 	SceneManager::getInstance()->pushScene(scene);
+
+	// For evgeni
+	//payload["mapSeedID"] = std::to_string (/* Put map gen seed here.*/);
 
 	payload["playerSpawns"] = std::to_string(NetworkingManager::getInstance()->m_clients.size());
 
