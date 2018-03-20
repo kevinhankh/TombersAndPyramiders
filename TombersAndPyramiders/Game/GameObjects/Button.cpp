@@ -6,10 +6,11 @@
 #include "NetworkingManager.h"
 #include "SpawnManager.h"
 
-Button::Button(float x, float y, float width, float height, string type) : ComplexSprite(generateComplexSpriteInfo(type), x / 25, y / 25, 0, 10)
+Button::Button(float x, float y, float z, float width, float height, string type) : ComplexSprite(generateComplexSpriteInfo(type), x / 25, y / 25, z, 10)
 {
 	m_x = x;
 	m_y = y;
+	m_z = z;
 	m_width = width;
 	m_height = height;
 	m_type = type;

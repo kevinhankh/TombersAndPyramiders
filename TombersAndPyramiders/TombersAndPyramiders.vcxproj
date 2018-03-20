@@ -81,7 +81,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)TombersAndPyramiders;$(SolutionDir)TombersAndPyramiders\Game\Managers;$(SolutionDir)TombersAndPyramiders\Game\GameObjects\Doors;$(SolutionDir)TombersAndPyramiders\Game\GameObjects;$(SolutionDir)TombersAndPyramiders\Game\ExternalClasses\Invokable;$(SolutionDir)TombersAndPyramiders\Game\ExternalClasses\Possession;$(SolutionDir)TombersAndPyramiders\Game\ExternalClasses;$(SolutionDir)TombersAndPyramiders\Game\Scenes;$(SolutionDir)TombersAndPyramiders\Game\Scenes\MenuScenes;$(SolutionDir)TombersAndPyramiders\Game\Scenes\GameScenes;$(SolutionDir)TombersAndPyramiders\Engine\Component\Audio;$(SolutionDir)TombersAndPyramiders\Game\Components;$(SolutionDir)TombersAndPyramiders\Game\GameObjects\Projectile;$(SolutionDir)TombersAndPyramiders\Game;$(SolutionDir)TombersAndPyramiders\Engine\Component\Collision;$(SolutionDir)TombersAndPyramiders\Engine\Component\Networking;$(SolutionDir)TombersAndPyramiders\Engine\Component\Transform;$(SolutionDir)TombersAndPyramiders\Engine\Component\Physics;$(SolutionDir)TombersAndPyramiders\Engine\Component\Render;$(SolutionDir)TombersAndPyramiders\Engine\External\Render;$(SolutionDir)TombersAndPyramiders\Engine\External\Math;$(SolutionDir)TombersAndPyramiders\Engine\External;$(SolutionDir)TombersAndPyramiders\Engine\Component;$(SolutionDir)TombersAndPyramiders\Engine\GameObjects;$(SolutionDir)TombersAndPyramiders\Engine\Manager;$(SolutionDir)TombersAndPyramiders\Engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TombersAndPyramiders;$(SolutionDir)TombersAndPyramiders\Game\Managers;$(SolutionDir)TombersAndPyramiders\Game\GameObjects\Doors;$(SolutionDir)TombersAndPyramiders\Game\GameObjects;$(SolutionDir)TombersAndPyramiders\Game\ExternalClasses\Invokable;$(SolutionDir)TombersAndPyramiders\Game\ExternalClasses\Possession;$(SolutionDir)TombersAndPyramiders\Game\ExternalClasses;$(SolutionDir)TombersAndPyramiders\Game\Scenes;$(SolutionDir)TombersAndPyramiders\Game\Scenes\MenuScenes;$(SolutionDir)TombersAndPyramiders\Game\Scenes\GameScenes;$(SolutionDir)TombersAndPyramiders\Engine\Component\Audio;$(SolutionDir)TombersAndPyramiders\Game\Components;$(SolutionDir)TombersAndPyramiders\Game\GameObjects\Projectile;$(SolutionDir)TombersAndPyramiders\Game;$(SolutionDir)TombersAndPyramiders\Engine\Component\Collision;$(SolutionDir)TombersAndPyramiders\Engine\Component\Networking;$(SolutionDir)TombersAndPyramiders\Engine\Component\Transform;$(SolutionDir)TombersAndPyramiders\Engine\Component\Physics;$(SolutionDir)TombersAndPyramiders\Engine\Component\Render;$(SolutionDir)TombersAndPyramiders\Engine\External\Render;$(SolutionDir)TombersAndPyramiders\Engine\External\Math;$(SolutionDir)TombersAndPyramiders\Engine\External;$(SolutionDir)TombersAndPyramiders\Engine\Component;$(SolutionDir)TombersAndPyramiders\Engine\GameObjects;$(SolutionDir)TombersAndPyramiders\Engine\Manager;$(SolutionDir)TombersAndPyramiders\Engine;$(SolutionDir)TombersAndPyramiders\Engine\External\LevelGeneration;$(SolutionDir)TombersAndPyramiders\Game\GameObjects\Doors;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
@@ -144,6 +144,12 @@
     <ClCompile Include="Engine\Component\Collision\Rigidbody.cpp" />
     <ClCompile Include="Engine\Component\Networking\Receiver.cpp" />
     <ClCompile Include="Engine\Component\Networking\Sender.cpp" />
+    <ClCompile Include="Engine\External\LevelGeneration\BinaryTree.cpp" />
+    <ClCompile Include="Engine\External\LevelGeneration\Codec.cpp" />
+    <ClCompile Include="Engine\External\LevelGeneration\Corridor.cpp" />
+    <ClCompile Include="Engine\External\LevelGeneration\Doorway.cpp" />
+    <ClCompile Include="Engine\External\LevelGeneration\Room.cpp" />
+    <ClCompile Include="Engine\Manager\GeneratorManager.cpp" />
     <ClCompile Include="Engine\External\QuadTree.cpp" />
     <ClCompile Include="Engine\External\Render\FrameBufferObject.cpp" />
     <ClCompile Include="Engine\External\Render\ISprite.cpp" />
@@ -153,6 +159,12 @@
     <ClCompile Include="Engine\GameObjects\ComplexSprite.cpp" />
     <ClCompile Include="Engine\GameObjects\DayNightCamera.cpp" />
     <ClCompile Include="Engine\GameObjects\SimpleSprite.cpp" />
+    <ClCompile Include="Engine\GameObjects\Tiles\ConnectorTile.cpp" />
+    <ClCompile Include="Engine\GameObjects\Tiles\CornerTile.cpp" />
+    <ClCompile Include="Engine\GameObjects\Tiles\DoorTile.cpp" />
+    <ClCompile Include="Engine\GameObjects\Tiles\FloorTile.cpp" />
+    <ClCompile Include="Engine\GameObjects\Tiles\Tile.cpp" />
+    <ClCompile Include="Engine\GameObjects\Tiles\WallTile.cpp" />
     <ClCompile Include="Engine\Manager\AudioManager.cpp" />
     <ClCompile Include="Engine\Manager\NetworkingManager.cpp" />
     <ClCompile Include="Engine\Manager\PhysicsManager.cpp" />
@@ -251,6 +263,12 @@
     <ClInclude Include="Engine\Component\Collision\Rigidbody.h" />
     <ClInclude Include="Engine\Component\Networking\Receiver.h" />
     <ClInclude Include="Engine\Component\Networking\Sender.h" />
+    <ClInclude Include="Engine\External\LevelGeneration\BinaryTree.h" />
+    <ClInclude Include="Engine\External\LevelGeneration\Codec.h" />
+    <ClInclude Include="Engine\External\LevelGeneration\Corridor.h" />
+    <ClInclude Include="Engine\External\LevelGeneration\Doorway.h" />
+    <ClInclude Include="Engine\External\LevelGeneration\Room.h" />
+    <ClInclude Include="Engine\Manager\GeneratorManager.h" />
     <ClInclude Include="Engine\External\QuadTree.h" />
     <ClInclude Include="Engine\External\Render\FrameBufferObject.h" />
     <ClInclude Include="Engine\External\Render\ISprite.h" />
@@ -263,6 +281,12 @@
     <ClInclude Include="Engine\GameObjects\ComplexSprite.h" />
     <ClInclude Include="Engine\GameObjects\DayNightCamera.h" />
     <ClInclude Include="Engine\GameObjects\SimpleSprite.h" />
+    <ClInclude Include="Engine\GameObjects\Tiles\ConnectorTile.h" />
+    <ClInclude Include="Engine\GameObjects\Tiles\CornerTile.h" />
+    <ClInclude Include="Engine\GameObjects\Tiles\DoorTile.h" />
+    <ClInclude Include="Engine\GameObjects\Tiles\FloorTile.h" />
+    <ClInclude Include="Engine\GameObjects\Tiles\Tile.h" />
+    <ClInclude Include="Engine\GameObjects\Tiles\WallTile.h" />
     <ClInclude Include="Engine\Manager\AudioManager.h" />
     <ClInclude Include="Engine\Manager\MessageManager.h" />
     <ClInclude Include="Engine\Manager\NetworkingManager.h" />

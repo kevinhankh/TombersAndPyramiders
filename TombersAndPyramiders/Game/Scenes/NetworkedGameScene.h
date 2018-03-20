@@ -11,6 +11,7 @@ class NetworkedGameScene : public Scene
 private:
 
 public:
+	std::vector<__time64_t> mapSeeds;
 	std::map<Uint32, Character> players;
 	NetworkedGameScene();
 	void onStart();
