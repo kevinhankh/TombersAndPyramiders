@@ -7,6 +7,7 @@
 #include "SpawnManager.h"
 #include "GameManager.h"
 #include "Panel.h"
+#include "AudioSource.h"
 
 #define BUTTON 0
 #define BUTTON_HOVER 1
@@ -17,11 +18,14 @@ private:
 	float m_x, m_y, m_width, m_height;
 	string m_type;
 	std::shared_ptr<Panel> m_controlPanel;
+	std::shared_ptr<AudioSource> m_soundEffect;
+	bool m_isHovering = false;
 public:
 	Button(float x, float y, float width, float height, string type);
 	~Button();
 	std::shared_ptr<ComplexSpriteinfo> generateComplexSpriteInfo(string type);
 	void virtual OnClicked();
+	void OnHover();
 	bool CheckHovering();
 
 	void onStart() {};
@@ -30,24 +34,31 @@ public:
 		std::ostringstream message;
 		if (CheckHovering())
 		{
-			message << "True" << endl;
-			changeSprite(BUTTON_HOVER);
-			if (m_type == "Info")
+			if (!m_isHovering)
 			{
-				m_controlPanel->setVisible(true);
+				m_isHovering = true;
+				changeSprite(BUTTON_HOVER);
+				OnHover();
+
+				if (m_type == "Info")
+				{
+					m_controlPanel->setVisible(true);
+				}
 			}
 		}
 		else
 		{
-			message << "False" << endl;
-			changeSprite(BUTTON);
-			//AudioManager::getInstance()->playIgniteSFX();
-			if (m_type == "Info")
+			if (m_isHovering)
 			{
-				m_controlPanel->setVisible(false);
+				m_isHovering = false;
+				changeSprite(BUTTON);
+
+				if (m_type == "Info")
+				{
+					m_controlPanel->setVisible(false);
+				}
 			}
 		}
-		OutputDebugString(message.str().c_str());
 
 		if (CheckHovering() && (GetKeyState(VK_LBUTTON) & 0x80) != 0)
 		{

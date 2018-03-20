@@ -15,6 +15,7 @@ Button::Button(float x, float y, float width, float height, string type) : Compl
 	m_type = type;
 	if (type == "Info")
 		m_controlPanel = dynamic_pointer_cast<Panel>(GameManager::getInstance()->createGameObject<Panel>(false, 0, 0, 512, 384, "Controls"));
+	m_soundEffect = addComponent<AudioSource>(this);
 }
 
 Button::~Button()
@@ -37,17 +38,18 @@ void Button::OnClicked()
 		if (NetworkingManager::getInstance()->startGame())
 			SpawnManager::getInstance()->sendStartPacket();
 	}
-
 	else if (m_type == "Host")
 		NetworkingManager::getInstance()->createHost();
-
 	else if (m_type == "Join")
 		NetworkingManager::getInstance()->createClient();
-
 	else if (m_type == "Info") { }
-
 	else if (m_type == "Exit")
 		exit(0);
+}
+
+void Button::OnHover()
+{
+	m_soundEffect->playSFX(SFX_BUTTON_HOVER);
 }
 
 bool Button::CheckHovering()

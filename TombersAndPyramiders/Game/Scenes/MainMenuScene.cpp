@@ -20,14 +20,13 @@ MainMenuScene::MainMenuScene()
 
 void MainMenuScene::onStart()
 {
-	AudioManager::getInstance()->playMusic();
 	GameManager::getInstance()->createGameObject<SimpleSprite>(false, "MainMenu.png", 0, 0, -1000, 42);
-	//GameManager::getInstance()->createGameObject<CreateButton>(false, "Create", 100, 100, "ButtonHover.png", 0, 0, 0, 10);
-	GameManager::getInstance()->createGameObject<Button>(false, -400, -350, 200, 80, "Start");
-	GameManager::getInstance()->createGameObject<Button>(false, -200, -350, 200, 80, "Host");
-	GameManager::getInstance()->createGameObject<Button>(false, 0, -350, 200, 80, "Join");
-	GameManager::getInstance()->createGameObject<Button>(false, 200, -350, 200, 80, "Info");
-	GameManager::getInstance()->createGameObject<Button>(false, 400, -350, 200, 80, "Exit");
+	GameManager::getInstance()->createGameObject<Button>(false, -300, -350, 150, 80, "Start");
+	GameManager::getInstance()->createGameObject<Button>(false, -100, -350, 150, 80, "Host");
+	GameManager::getInstance()->createGameObject<Button>(false, 75, -350, 150, 80, "Join");
+	GameManager::getInstance()->createGameObject<Button>(false, 250, -350, 150, 80, "Info");
+	GameManager::getInstance()->createGameObject<Button>(false, 425, -350, 150, 80, "Exit");
+	AudioManager::getInstance()->playMusic(MUSIC_MENU);
 }
 
 void MainMenuScene::onPause()

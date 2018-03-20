@@ -3,6 +3,7 @@
 Rigidbody::Rigidbody(GameObject* gameObject, BoxCollider* collider) : Component(gameObject)
 {
 	m_boxCollider = collider;
+	m_frictionCoefficient = 1.0f;
 }
 
 void Rigidbody::BlockMovement()
@@ -12,6 +13,10 @@ void Rigidbody::BlockMovement()
 		for (int i = 0; i < m_boxCollider->getColliders().size(); ++i)
 		{
 			GameObject* blockingGameObject = m_boxCollider->getColliders()[i];
+			if (blockingGameObject == nullptr || blockingGameObject == NULL) {
+				//throw "RIGIDBODY::BLOCKMOVEMENT::NULL PTR FIX ME PLZ GUYS"; //TODO:: Michael & Evgeni:: Doesent get hit, blockingGameObject has garbage data and is not nullptr. getComponent crashes after this check fails
+				continue;
+			}
 			std::shared_ptr<BoxCollider> collider = blockingGameObject->getComponent<BoxCollider>();
 			if (!collider->isTrigger())
 			{
@@ -40,7 +45,32 @@ void Rigidbody::setVelocity(Vector2 v)
 	m_velocity = v;
 }
 
+Vector2 Rigidbody::getVelocity()
+{
+	return m_velocity;
+}
+
+void Rigidbody::setFrictionCoefficient(float friction)
+{
+	m_frictionCoefficient = friction;
+}
+
+void Rigidbody::addVelocity(Vector2 v)
+{
+	m_velocity.setX(m_velocity.getX() + v.getX());
+	m_velocity.setY(m_velocity.getY() + v.getY());
+}
+
 void Rigidbody::onUpdate(int ticks)
 {
 	BlockMovement();
+	gameObject->getTransform()->addTranslation(m_velocity.getX(), m_velocity.getY());
+
+	m_velocity.setX(m_velocity.getX() * m_frictionCoefficient);
+	m_velocity.setY(m_velocity.getY() * m_frictionCoefficient);
+	if (m_velocity.getMagnitude() < 0.001f)
+	{
+		m_velocity.setX(0);
+		m_velocity.setY(0);
+	}
 }

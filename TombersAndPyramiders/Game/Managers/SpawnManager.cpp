@@ -13,6 +13,12 @@
 #include "NetworkedGameScene.h"
 #include "NetworkCharacter.h"
 #include "HostPilot.h"
+#include "GhostPilot.h"
+#include "SingleDoor.h"
+#include "WoodenShield.h"
+#include "WoodenGreaves.h"
+#include "WoodenChestplate.h"
+#include "WoodenHelmet.h"
 
 std::shared_ptr<SpawnManager> SpawnManager::s_instance;
 
@@ -89,6 +95,10 @@ std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(Uint32 ip
 	int id = ip;
 	std::shared_ptr<ClientCharacter> simpleCharacter = GameManager::getInstance()->createGameObjectWithId<ClientCharacter>(false, id, new PlayerPilot(), id);
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenShield>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenGreaves>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenChestplate>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenHelmet>());
 	simpleCharacter->getTransform()->setPosition(x, y, 100);
 
 	return simpleCharacter;
@@ -99,6 +109,8 @@ std::shared_ptr<HostCharacter> SpawnManager::generateNetworkCharacter(Uint32 ip,
 	int id = ip;
 	std::shared_ptr<HostCharacter> simpleCharacter = GameManager::getInstance()->createGameObjectWithId<HostCharacter>(false, id, new HostPilot(), id);
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenShield>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenGreaves>());
 	simpleCharacter->getTransform()->setPosition(x, y, 100);
 	return simpleCharacter;
 }
@@ -108,9 +120,9 @@ SpawnManager::~SpawnManager()
 
 }
 
-std::shared_ptr<MiscSquare> SpawnManager::generateMiscSquare(float x, float y, float z, float scale, string spriteName, bool hasCollider)
+std::shared_ptr<MiscSquare> SpawnManager::generateMiscSquare(float x, float y, float z, float scale, string spriteName, bool hasCollider, float colliderSize)
 {
-	std::shared_ptr<MiscSquare> miscSquare = GameManager::getInstance()->createGameObject<MiscSquare>(false, spriteName, hasCollider);
+	std::shared_ptr<MiscSquare> miscSquare = GameManager::getInstance()->createGameObject<MiscSquare>(false, spriteName, hasCollider, colliderSize);
 	miscSquare->getTransform()->setPosition(x, y, z);
 	miscSquare->getTransform()->setScale(scale);
 	return miscSquare;
@@ -136,6 +148,8 @@ std::shared_ptr<Character> SpawnManager::generateAiCharacter(float x, float y)
 {
 	std::shared_ptr<Character> simpleAi = GameManager::getInstance()->createGameObject<Character>(false, new AiPilot());
 	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
+	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenChestplate>());
+	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenHelmet>());
 	simpleAi->getTransform()->setPosition(x, y);
 
 	return simpleAi;
@@ -145,6 +159,8 @@ std::shared_ptr<Character> SpawnManager::generateDummyCharacter(float x, float y
 {
 	std::shared_ptr<Character> simpleCharacter = GameManager::getInstance()->createGameObject<Character>(false, new DummyPilot());
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenShortsword>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenChestplate>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenHelmet>());
 	simpleCharacter->getTransform()->setPosition(x, y);
 
 	return simpleCharacter;
@@ -155,6 +171,31 @@ std::shared_ptr<WorldItem> SpawnManager::generateWorldItem(float x, float y, std
 	std::shared_ptr<WorldItem> worldItem = GameManager::getInstance()->createGameObject<WorldItem>(false, item, x, y);
 	worldItem->addComponent<BoxCollider>(worldItem.get(), 1, 1)->setIsTrigger(true);
 	return worldItem;
+}
+
+
+std::shared_ptr<Boulder> SpawnManager::generateBoulder(float x, float y)
+{
+	std::shared_ptr<Boulder> boulder = GameManager::getInstance()->createGameObject<Boulder>(false, nullptr);
+	boulder->getTransform()->setPosition(x, y);
+	return boulder;
+}
+
+
+std::shared_ptr<GhostCharacter> SpawnManager::generateGhost(float x, float y)
+{
+	std::shared_ptr<GhostCharacter> ghost = GameManager::getInstance()->createGameObject<GhostCharacter>(false, new GhostPilot());
+	ghost->getTransform()->setPosition(x, y);
+	ghost->getTransform()->setZ(2);
+	return ghost;
+}
+
+std::shared_ptr<SingleDoor> SpawnManager::generateSingleDoor(float x, float y, Door::Direction direction, Door::Mode startState)
+{
+	auto scale = 3.0f;
+	std::shared_ptr<SingleDoor> door = GameManager::getInstance()->createGameObject<SingleDoor>(false, direction, startState, x, y, scale);
+	door->getTransform()->setZ(5);
+	return door;
 }
 
 //std::shared_ptr<Wall> SpawnManager::generateWall(float x, float y, float scale)

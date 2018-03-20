@@ -11,6 +11,14 @@ HostCharacter::HostCharacter(BasePilot* basePilot, int networkingID) :
 	{
 		((HostCharacter*)data["this"])->getComponent<CharacterController>()->useWeapon();
 	}, this);
+
+	receiver->Subscribe("TRIGGER", [](std::map<std::string, void*> data) -> void
+	{
+		if (!((HostCharacter*)data["this"])->getComponent<CharacterController>()->tryInvokeTrigger())
+		{
+			std::cout << "Sync Error on character receiving Trigger event. Should only be called on successful triggering, however receiver could not invoke a trigger." << std::endl;
+		}
+	}, this);
 }
 
 /*----------------------------------------------------------------------------------------
