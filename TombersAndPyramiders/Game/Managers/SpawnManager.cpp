@@ -63,7 +63,6 @@ void SpawnManager::sendStartPacket()
 	NetworkedGameScene* scene = new NetworkedGameScene();
 	SceneManager::getInstance()->pushScene(scene);
 
-
 	std::vector<time_t> mapSeeds;	
 
 	//for (int i = 0; i < 1; i++)
@@ -161,6 +160,8 @@ std::shared_ptr<HostCharacter> SpawnManager::generateHostCharacter (int id, floa
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenChestplate> ());
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenHelmet> ());
 	simpleCharacter->getTransform ()->setPosition (x, y, 100);
+	simpleCharacter->getTransform()->setScale(2);
+	simpleCharacter->getTransform()->renderRotation = false;
 	return simpleCharacter;
 }
 
@@ -215,12 +216,13 @@ std::shared_ptr<Character> SpawnManager::generatePlayerCharacter(float x, float 
 
 std::shared_ptr<Character> SpawnManager::generateAiCharacter(float x, float y)
 {
-	std::shared_ptr<Character> simpleAi = GameManager::getInstance()->createGameObject<Character>(false, new AiPilot());
+	std::shared_ptr<Character> simpleAi = GameManager::getInstance()->createGameObject<Character>(false, new AiPilot(), beetle);
 	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
 	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenChestplate>());
 	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenHelmet>());
 	simpleAi->getTransform()->setPosition(x, y);
 	simpleAi->getTransform()->renderRotation = false;
+	simpleAi->getTransform()->setScale(2);
 
 	return simpleAi;
 }

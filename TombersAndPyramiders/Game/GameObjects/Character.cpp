@@ -19,8 +19,8 @@
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-Character::Character(BasePilot* basePilot) :
-	ComplexSprite(generateComplexSpriteInfo(), 0, 0)
+Character::Character(BasePilot* basePilot, CharacterType type) :
+	ComplexSprite(generateComplexSpriteInfo(type), 0, 0)
 {
 	setFPS(12);
 	Inventory* inventory = addComponent<Inventory>(this).get();
@@ -46,18 +46,57 @@ void Character::onUpdate(int ticks)
 }
 
 // Private generation logic for describing the sprite sheet relationships for this player
-std::shared_ptr<ComplexSpriteinfo> Character::generateComplexSpriteInfo()
+std::shared_ptr<ComplexSpriteinfo> Character::generateComplexSpriteInfo(CharacterType type)
 {
 	std::shared_ptr<ComplexSpriteinfo> spriteInfo = std::make_shared<ComplexSpriteinfo>();
 
-	spriteInfo->addInfo("tanm_walk_up.png", 9, 1);
-	spriteInfo->addInfo("tanm_walk_right.png", 9, 1);
-	spriteInfo->addInfo("tanm_walk_down.png", 9, 1);
-	spriteInfo->addInfo("tanm_walk_left.png", 9, 1);
-	spriteInfo->addInfo("tanm_idle_up.png", 1, 1);
-	spriteInfo->addInfo("tanm_idle_right.png", 1, 1);
-	spriteInfo->addInfo("tanm_idle_down.png", 1, 1);
-	spriteInfo->addInfo("tanm_idle_left.png", 1, 1);
+	switch (type)
+	{
+	case player:
+		spriteInfo->addInfo("tanm_walk_up.png", 9, 1);
+		spriteInfo->addInfo("tanm_walk_right.png", 9, 1);
+		spriteInfo->addInfo("tanm_walk_down.png", 9, 1);
+		spriteInfo->addInfo("tanm_walk_left.png", 9, 1);
+		spriteInfo->addInfo("tanm_idle_up.png", 1, 1);
+		spriteInfo->addInfo("tanm_idle_right.png", 1, 1);
+		spriteInfo->addInfo("tanm_idle_down.png", 1, 1);
+		spriteInfo->addInfo("tanm_idle_left.png", 1, 1);
+		spriteInfo->addInfo("tanm_hurt_up.png", 1, 1);
+		spriteInfo->addInfo("tanm_hurt_down.png", 1, 1);
+		spriteInfo->addInfo("tanm_hurt_left.png", 1, 1);
+		spriteInfo->addInfo("tanm_hurt_right.png", 1, 1);
+		break;
+	case beetle:
+		spriteInfo->addInfo("beetle_walk_up.png", 3, 1);
+		spriteInfo->addInfo("beetle_walk_right.png", 3, 1);
+		spriteInfo->addInfo("beetle_walk_down.png", 3, 1);
+		spriteInfo->addInfo("beetle_walk_left.png", 3, 1);
+		spriteInfo->addInfo("beetle_idle_up.png", 1, 1);
+		spriteInfo->addInfo("beetle_idle_right.png", 1, 1);
+		spriteInfo->addInfo("beetle_idle_down.png", 1, 1);
+		spriteInfo->addInfo("beetle_idle_left.png", 1, 1);
+		spriteInfo->addInfo("beetle_hurt_up.png", 1, 1);
+		spriteInfo->addInfo("beetle_hurt_right.png", 1, 1);
+		spriteInfo->addInfo("beetle_hurt_down.png", 1, 1);
+		spriteInfo->addInfo("beetle_hurt_left.png", 1, 1);
+		break;
+	default:
+		spriteInfo->addInfo("tanm_walk_up.png", 9, 1);
+		spriteInfo->addInfo("tanm_walk_right.png", 9, 1);
+		spriteInfo->addInfo("tanm_walk_down.png", 9, 1);
+		spriteInfo->addInfo("tanm_walk_left.png", 9, 1);
+		spriteInfo->addInfo("tanm_idle_up.png", 1, 1);
+		spriteInfo->addInfo("tanm_idle_right.png", 1, 1);
+		spriteInfo->addInfo("tanm_idle_down.png", 1, 1);
+		spriteInfo->addInfo("tanm_idle_left.png", 1, 1);
+		spriteInfo->addInfo("tanm_hurt_up.png", 1, 1);
+		spriteInfo->addInfo("tanm_hurt_down.png", 1, 1);
+		spriteInfo->addInfo("tanm_hurt_left.png", 1, 1);
+		spriteInfo->addInfo("tanm_hurt_right.png", 1, 1);
+		break;
+	}
+
+
 	//spriteInfo->addInfo("squareRedAttack.png", 8, 1);
 	//spriteInfo->addInfo("squareWhiteAttack.png", 8, 1);
 	//spriteInfo->addInfo("squareHurt.png", 8, 1);
@@ -209,19 +248,19 @@ bool Character::playHurtAnimation()
 	float rotation = getTransform()->getRotation();
 	if (rotation < 90)
 	{
-		changeSprite(getCurrentSprite(), ANIMATION_IDLE_RIGHT);
+		changeSprite(ANIMATION_HURT_RIGHT, ANIMATION_IDLE_RIGHT);
 	}
 	else if (rotation < 180)
 	{
-		changeSprite(getCurrentSprite(), ANIMATION_IDLE_DOWN);
+		changeSprite(ANIMATION_HURT_DOWN, ANIMATION_IDLE_DOWN);
 	}
 	else if (rotation < 270)
 	{
-		changeSprite(getCurrentSprite(), ANIMATION_IDLE_LEFT);
+		changeSprite(ANIMATION_HURT_LEFT, ANIMATION_IDLE_LEFT);
 	}
 	else
 	{
-		changeSprite(getCurrentSprite(), ANIMATION_IDLE_UP);
+		changeSprite(ANIMATION_HURT_UP, ANIMATION_IDLE_UP);
 	}
 
 	return true;
