@@ -19,8 +19,8 @@
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-Character::Character(BasePilot* basePilot) :
-	ComplexSprite(generateComplexSpriteInfo(), 0, 0)
+Character::Character(BasePilot* basePilot, CharacterType type) :
+	ComplexSprite(generateComplexSpriteInfo(type), 0, 0)
 {
 	setFPS(12);
 	Inventory* inventory = addComponent<Inventory>(this).get();
@@ -46,39 +46,126 @@ void Character::onUpdate(int ticks)
 }
 
 // Private generation logic for describing the sprite sheet relationships for this player
-std::shared_ptr<ComplexSpriteinfo> Character::generateComplexSpriteInfo()
+std::shared_ptr<ComplexSpriteinfo> Character::generateComplexSpriteInfo(CharacterType type)
 {
 	std::shared_ptr<ComplexSpriteinfo> spriteInfo = std::make_shared<ComplexSpriteinfo>();
 
-	spriteInfo->addInfo("squareidle.png", 8, 1);
-	spriteInfo->addInfo("squareRun.png", 8, 1);
-	spriteInfo->addInfo("squareRedAttack.png", 8, 1);
-	spriteInfo->addInfo("squareWhiteAttack.png", 8, 1);
-	spriteInfo->addInfo("squareHurt.png", 8, 1);
+	switch (type)
+	{
+	case player:
+		spriteInfo->addInfo("tanm_walk_up.png", 9, 1);
+		spriteInfo->addInfo("tanm_walk_right.png", 9, 1);
+		spriteInfo->addInfo("tanm_walk_down.png", 9, 1);
+		spriteInfo->addInfo("tanm_walk_left.png", 9, 1);
+		spriteInfo->addInfo("tanm_idle_up.png", 1, 1);
+		spriteInfo->addInfo("tanm_idle_right.png", 1, 1);
+		spriteInfo->addInfo("tanm_idle_down.png", 1, 1);
+		spriteInfo->addInfo("tanm_idle_left.png", 1, 1);
+		spriteInfo->addInfo("tanm_hurt_up.png", 1, 1);
+		spriteInfo->addInfo("tanm_hurt_down.png", 1, 1);
+		spriteInfo->addInfo("tanm_hurt_left.png", 1, 1);
+		spriteInfo->addInfo("tanm_hurt_right.png", 1, 1);
+		break;
+	case beetle:
+		spriteInfo->addInfo("beetle_walk_up.png", 3, 1);
+		spriteInfo->addInfo("beetle_walk_right.png", 3, 1);
+		spriteInfo->addInfo("beetle_walk_down.png", 3, 1);
+		spriteInfo->addInfo("beetle_walk_left.png", 3, 1);
+		spriteInfo->addInfo("beetle_idle_up.png", 1, 1);
+		spriteInfo->addInfo("beetle_idle_right.png", 1, 1);
+		spriteInfo->addInfo("beetle_idle_down.png", 1, 1);
+		spriteInfo->addInfo("beetle_idle_left.png", 1, 1);
+		spriteInfo->addInfo("beetle_hurt_up.png", 1, 1);
+		spriteInfo->addInfo("beetle_hurt_right.png", 1, 1);
+		spriteInfo->addInfo("beetle_hurt_down.png", 1, 1);
+		spriteInfo->addInfo("beetle_hurt_left.png", 1, 1);
+		break;
+	default:
+		spriteInfo->addInfo("tanm_walk_up.png", 9, 1);
+		spriteInfo->addInfo("tanm_walk_right.png", 9, 1);
+		spriteInfo->addInfo("tanm_walk_down.png", 9, 1);
+		spriteInfo->addInfo("tanm_walk_left.png", 9, 1);
+		spriteInfo->addInfo("tanm_idle_up.png", 1, 1);
+		spriteInfo->addInfo("tanm_idle_right.png", 1, 1);
+		spriteInfo->addInfo("tanm_idle_down.png", 1, 1);
+		spriteInfo->addInfo("tanm_idle_left.png", 1, 1);
+		spriteInfo->addInfo("tanm_hurt_up.png", 1, 1);
+		spriteInfo->addInfo("tanm_hurt_down.png", 1, 1);
+		spriteInfo->addInfo("tanm_hurt_left.png", 1, 1);
+		spriteInfo->addInfo("tanm_hurt_right.png", 1, 1);
+		break;
+	}
 
+
+	//spriteInfo->addInfo("squareRedAttack.png", 8, 1);
+	//spriteInfo->addInfo("squareWhiteAttack.png", 8, 1);
+	//spriteInfo->addInfo("squareHurt.png", 8, 1);
+	
 	return spriteInfo;
 }
 
 // Changes the sprite to the specified ID
-bool Character::playAnimation (int animID, int animReturn)
+bool Character::playAnimation(int animID, int animReturn)
 {
-	if (animReturn != -1) {
-		changeSprite (animID, animReturn);
+	if (animReturn != -1) 
+	{
+		if (animID == ANIMATION_ATTACK_MELEE)
+		{
+			playMeleeAttackAnimation();
+		}
+		else if (animID == ANIMATION_ATTACK_RANGE)
+		{
+			playRangeAttackAnimation();
+		}
+		else if (animID == ANIMATION_HURT)
+		{
+			playHurtAnimation();
+		}
+		else
+		{
+			return false;
+		}
 	}
-	else {
-		changeSprite (animID);
+	else 
+	{
+		if (animID == ANIMATION_WALK)
+		{
+			playRunAnimation();
+		}
+		else
+		{
+			endRunAnimation();
+		}
 	}
 	return true;
 }
 
 // Changes the sprite animation to running
-bool Character::playRunAnimation ()
+bool Character::playRunAnimation()
 {
-	if (getCurrentSprite () == ANIMATION_IDLE)
+	float rotation = getTransform()->getRotation();
+
+	if (rotation < 90)
 	{
-		changeSprite (ANIMATION_RUN);
+		changeSprite(ANIMATION_WALK_RIGHT);
 		return true;
 	}
+	else if (rotation < 180)
+	{
+		changeSprite(ANIMATION_WALK_DOWN);
+		return true;
+	}
+	else if (rotation < 270)
+	{
+		changeSprite(ANIMATION_WALK_LEFT);
+		return true;
+	}
+	else
+	{
+		changeSprite(ANIMATION_WALK_UP);
+		return true;
+	}
+
 	return false;
 }
 
@@ -86,10 +173,24 @@ bool Character::playRunAnimation ()
 // Changes the sprite animation to idling
 bool Character::endRunAnimation()
 {
-	if (getCurrentSprite() == ANIMATION_RUN) 
+	switch (getCurrentSprite())
 	{
-		changeSprite(ANIMATION_IDLE);
-		return true;
+		case ANIMATION_WALK_UP:
+			changeSprite(ANIMATION_IDLE_UP);
+			return true;
+			break;
+		case ANIMATION_WALK_RIGHT:
+			changeSprite(ANIMATION_IDLE_RIGHT);
+			return true;
+			break;
+		case ANIMATION_WALK_DOWN:
+			changeSprite(ANIMATION_IDLE_DOWN);
+			return true;
+			break;
+		case ANIMATION_WALK_LEFT:
+			changeSprite(ANIMATION_IDLE_LEFT);
+			return true;
+			break;
 	}
 	return false;
 }
@@ -98,20 +199,69 @@ bool Character::endRunAnimation()
 // Changes the sprite animation to the melee attack for one animation then returns back to idle
 bool Character::playMeleeAttackAnimation()
 {
-	changeSprite(ANIMATION_ATTACK_MELEE, ANIMATION_IDLE);
+	float rotation = getTransform()->getRotation();
+	if (rotation < 90)
+	{
+		changeSprite(getCurrentSprite(), ANIMATION_IDLE_RIGHT);
+	}
+	else if (rotation < 180)
+	{
+		changeSprite(getCurrentSprite(), ANIMATION_IDLE_DOWN);
+	}
+	else if (rotation < 270)
+	{
+		changeSprite(getCurrentSprite(), ANIMATION_IDLE_LEFT);
+	}
+	else
+	{
+		changeSprite(getCurrentSprite(), ANIMATION_IDLE_UP);
+	}
 	return true;
 }
-
 
 // Changes the sprite animation to the range attack for one animation then returns back to idle
 bool Character::playRangeAttackAnimation()
 {
-	changeSprite(ANIMATION_ATTACK_RANGE, ANIMATION_IDLE);
+	float rotation = getTransform()->getRotation();
+	if (rotation < 90)
+	{
+		changeSprite(getCurrentSprite(), ANIMATION_IDLE_RIGHT);
+	}
+	else if (rotation < 180)
+	{
+		changeSprite(getCurrentSprite(), ANIMATION_IDLE_DOWN);
+	}
+	else if (rotation < 270)
+	{
+		changeSprite(getCurrentSprite(), ANIMATION_IDLE_LEFT);
+	}
+	else
+	{
+		changeSprite(getCurrentSprite(), ANIMATION_IDLE_UP);
+	}
+
 	return true;
 }
 
 bool Character::playHurtAnimation()
 {
-	changeSprite(ANIMATION_HURT, ANIMATION_IDLE);
+	float rotation = getTransform()->getRotation();
+	if (rotation < 90)
+	{
+		changeSprite(ANIMATION_HURT_RIGHT, ANIMATION_IDLE_RIGHT);
+	}
+	else if (rotation < 180)
+	{
+		changeSprite(ANIMATION_HURT_DOWN, ANIMATION_IDLE_DOWN);
+	}
+	else if (rotation < 270)
+	{
+		changeSprite(ANIMATION_HURT_LEFT, ANIMATION_IDLE_LEFT);
+	}
+	else
+	{
+		changeSprite(ANIMATION_HURT_UP, ANIMATION_IDLE_UP);
+	}
+
 	return true;
 }

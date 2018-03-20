@@ -19,9 +19,8 @@ Transform::operator GLfloat*()
 		return nullptr;
 	}
 
-
-	float scaleRotCos = m_scale / GAME_WIDTH * 2.0 * cos(-m_rotation * 3.14159 / 180.0);
-	float scaleRotSin = m_scale / GAME_WIDTH * 2.0 * sin(-m_rotation * 3.14159 / 180.0);
+	float scaleRotCos = m_scale / GAME_WIDTH * 2.0 * cos(-m_rotation ? renderRotation : 0 * 3.14159 / 180.0);
+	float scaleRotSin = m_scale / GAME_WIDTH * 2.0 * sin(-m_rotation ? renderRotation : 0 * 3.14159 / 180.0);
 
 	Transform cameraTransform = (*(*Camera::getActiveCamera()).getTransform());
 
@@ -54,7 +53,7 @@ float Transform::getDistance(Transform* otherTransform)
 	Vector2 theirPos = Vector2(otherTransform->getX(), otherTransform->getY());
 	Vector2 ourPos = Vector2(getX(), getY());
 	Vector2 diffPos = *(theirPos - ourPos);
-	return sqrtf(diffPos.getX() * diffPos.getX() + diffPos.getY() + diffPos.getY());
+	return sqrtf(diffPos.getX() * diffPos.getX() + diffPos.getY() * diffPos.getY());
 }
 
 void Transform::addTranslation(float xToAdd, float yToAdd)

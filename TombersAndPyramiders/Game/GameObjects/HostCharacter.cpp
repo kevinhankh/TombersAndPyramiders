@@ -46,8 +46,9 @@ void HostCharacter::onNetworkEnd () {
 }
 
 bool HostCharacter::playRunAnimation () {
-	if (Character::playRunAnimation ()) {
-		getComponent<Sender> ()->sendAnimation (ANIMATION_RUN);
+	if (Character::playRunAnimation ())
+	{
+		getComponent<Sender> ()->sendAnimation (ANIMATION_WALK);
 		return true;
 	}
 	return false;
