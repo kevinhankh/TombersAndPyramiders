@@ -40,6 +40,7 @@ AudioManager::AudioManager()
 	m_audioFiles[SFX_DASH] = Mix_LoadWAV(BuildPath(PATH_SFX_DASH).c_str());
 	m_audioFiles[SFX_DOOR] = Mix_LoadWAV(BuildPath(PATH_SFX_DASH).c_str());
 	m_audioFiles[SFX_BUTTON_HOVER] = Mix_LoadWAV(BuildPath(PATH_SFX_BUTTON_HOVER).c_str());
+	std::cout << "ERROR: " << Mix_GetError() << std::endl;
 }
 
 AudioManager::~AudioManager()

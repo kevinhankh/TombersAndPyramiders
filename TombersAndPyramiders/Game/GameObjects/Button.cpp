@@ -1,8 +1,7 @@
 #include "Button.h"
 #include <string>
 #include "SpriteRendererManager.h"
-#include "SDL.h"
-#include "SDL_syswm.h"
+#include "GLHeaders.h"
 #include "NetworkingManager.h"
 #include "SpawnManager.h"
 
@@ -50,6 +49,8 @@ void Button::OnClicked()
 
 void Button::OnHover()
 {
+	std::cout << m_soundEffect << std::endl;
+	std::cout << SFX_BUTTON_HOVER << std::endl;
 	m_soundEffect->playSFX(SFX_BUTTON_HOVER);
 }
 
@@ -62,4 +63,40 @@ bool Button::CheckHovering()
 		mousePosition->getX() <= m_x + m_width / 2 &&
 		mousePosition->getY() >= m_y - m_height / 2 &&
 		mousePosition->getY() <= m_y + m_height / 2;
+}
+
+void Button::onUpdate(int ticks) {
+	std::ostringstream message;
+	if (CheckHovering())
+	{
+		if (!m_isHovering)
+		{
+			m_isHovering = true;
+			changeSprite(BUTTON_HOVER);
+			OnHover();
+
+			if (m_type == "Info")
+			{
+				m_controlPanel->setVisible(true);
+			}
+		}
+	}
+	else
+	{
+		if (m_isHovering)
+		{
+			m_isHovering = false;
+			changeSprite(BUTTON);
+
+			if (m_type == "Info")
+			{
+				m_controlPanel->setVisible(false);
+			}
+		}
+	}
+	if (CheckHovering() && InputManager::getInstance()->getMouseLeftButtonState() == InputManager::KeyAction::PRESSED)
+	{
+		// Do something when clicked
+		OnClicked();
+	}
 }
