@@ -55,26 +55,11 @@ void Button::OnHover()
 
 bool Button::CheckHovering()
 {
-	SDL_SysWMinfo systemInfo;
-	SDL_VERSION(&systemInfo.version);
-	SDL_GetWindowWMInfo(SpriteRendererManager::getInstance()->getWindow(), &systemInfo);
-
-	POINT MousePosition;
-	std::ostringstream message;
-	if (GetCursorPos(&MousePosition))
-	{
-		if (ScreenToClient(systemInfo.info.win.window, &MousePosition))
-		{
-			std::ostringstream message;
-			MousePosition.x = MousePosition.x - SCREEN_WIDTH / 2;
-			MousePosition.y = -MousePosition.y + SCREEN_HEIGHT / 2;
-			message << "x: " << MousePosition.x << " y: " << MousePosition.y << endl;
-			OutputDebugString(message.str().c_str());
-		}
-	}
-
-	return	MousePosition.x >= m_x - m_width / 2 &&
-			MousePosition.x <= m_x + m_width / 2 &&
-			MousePosition.y >= m_y - m_height / 2 &&
-			MousePosition.y <= m_y + m_height / 2;
+	auto mousePosition = InputManager::getInstance()->getMousePosition();
+	mousePosition->setX(mousePosition->getX() - SCREEN_WIDTH / 2);
+	mousePosition->setY(-mousePosition->getY() + SCREEN_HEIGHT / 2);
+	return	mousePosition->getX() >= m_x - m_width / 2 &&
+		mousePosition->getX() <= m_x + m_width / 2 &&
+		mousePosition->getY() >= m_y - m_height / 2 &&
+		mousePosition->getY() <= m_y + m_height / 2;
 }

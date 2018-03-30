@@ -60,7 +60,7 @@ public:
 			}
 		}
 
-		if (CheckHovering() && (GetKeyState(VK_LBUTTON) & 0x80) != 0)
+		if (CheckHovering() && InputManager::getInstance()->getMouseLeftButtonState() == InputManager::KeyAction::PRESSED)
 		{
 			// Do something when clicked
 			OnClicked();
