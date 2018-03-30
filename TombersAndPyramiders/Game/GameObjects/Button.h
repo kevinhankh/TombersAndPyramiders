@@ -8,6 +8,7 @@
 #include "GameManager.h"
 #include "Panel.h"
 #include "AudioSource.h"
+#include <iostream>
 
 #define BUTTON 0
 #define BUTTON_HOVER 1
@@ -29,43 +30,7 @@ public:
 	bool CheckHovering();
 
 	void onStart() {};
-	void onUpdate(int ticks) {
-
-		std::ostringstream message;
-		if (CheckHovering())
-		{
-			if (!m_isHovering)
-			{
-				m_isHovering = true;
-				changeSprite(BUTTON_HOVER);
-				OnHover();
-
-				if (m_type == "Info")
-				{
-					m_controlPanel->setVisible(true);
-				}
-			}
-		}
-		else
-		{
-			if (m_isHovering)
-			{
-				m_isHovering = false;
-				changeSprite(BUTTON);
-
-				if (m_type == "Info")
-				{
-					m_controlPanel->setVisible(false);
-				}
-			}
-		}
-
-		if (CheckHovering() && (GetKeyState(VK_LBUTTON) & 0x80) != 0)
-		{
-			// Do something when clicked
-			OnClicked();
-		}
-	};
+	void onUpdate(int ticks);
 	void onEnd() {};
 
 };
