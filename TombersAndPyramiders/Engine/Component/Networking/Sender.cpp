@@ -99,7 +99,7 @@ void Sender::sendTrigger()
 void Sender::sendNetworkMessage(std::string messageKey, std::map<std::string, std::string> payload, bool useTCP)
 {
 	if (NetworkingManager::getInstance ()->inGame ()) {
-		std::remove_if (messageKey.begin (), messageKey.end (), isspace);
+		std::remove_if (messageKey.begin (), messageKey.end (), ::isspace); //::isspace lets it know to use std::isspace override as theres multiple
 		if (useTCP)
 			NetworkingManager::getInstance ()->prepareMessageForSendingTCP (m_id, messageKey, payload);
 		else
