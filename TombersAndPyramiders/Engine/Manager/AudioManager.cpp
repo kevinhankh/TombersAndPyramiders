@@ -1,7 +1,13 @@
 /*
 	Audio Manager
 
-	*Last update - March 18, 2018
+	*Latest Update - March 29, 2018
+	- Added fixes to play audio on mac
+	- Changed sound effects to .wav files
+	- Changed music from channel 0 to Mix_PlayMusic to keep it as an mp3 file
+	- Moved all audio file paths and keys definition to AudioBank.h
+
+	*Update - March 18, 2018
 		- Changed to a channel oriented system
 		- Added distance sound effects functionality
 
@@ -31,8 +37,10 @@ AudioManager::AudioManager()
 		std::cout << "ERROR: " << Mix_GetError() << std::endl;
 
 	Mix_AllocateChannels(MAX_CHANNELS);
-	m_audioFiles[MUSIC_MENU] = Mix_LoadWAV(BuildPath(PATH_MUSIC_MENU).c_str());
-	m_audioFiles[MUSIC_LEVEL_1] = Mix_LoadWAV(BuildPath(PATH_MUSIC_LEVEL_1).c_str());
+
+	m_musicFiles[MUSIC_MENU] = Mix_LoadMUS(BuildPath(PATH_MUSIC_MENU).c_str());
+	m_musicFiles[MUSIC_LEVEL_1] = Mix_LoadMUS(BuildPath(PATH_MUSIC_LEVEL_1).c_str());
+
 	m_audioFiles[SFX_BOW] = Mix_LoadWAV(BuildPath(PATH_SFX_BOW).c_str());
 	m_audioFiles[SFX_HIT] = Mix_LoadWAV(BuildPath(PATH_SFX_HIT).c_str());
 	m_audioFiles[SFX_SWORD] = Mix_LoadWAV(BuildPath(PATH_SFX_SWORD).c_str());
@@ -53,16 +61,12 @@ void AudioManager::setListener(GameObject* listenerObject)
 	m_listener = listenerObject;
 }
 
-//Music will be looped on Channel 0
+//Music will be looped in the background
 void AudioManager::playMusic(int musicInput)
 {
-	if (!Mix_Volume(0, MAX_VOLUME))
+	if (Mix_PlayMusic(m_musicFiles[musicInput], -1) == -1)
 	{
-		printf("Mix_Volume: %s\n", Mix_GetError());
-	}
-	if (!Mix_PlayChannel(0, m_audioFiles[musicInput], -1))
-	{
-		printf("Mix_PlayChannel: %s\n", Mix_GetError());
+		printf("Mix_PlayMusic: %s\n", Mix_GetError());
 	}
 }
 void AudioManager::pauseMusic()
@@ -77,11 +81,11 @@ void AudioManager::resumeMusic()
 		Mix_ResumeMusic();
 }
 
-//Sound effects has a pool of 15 channels to play on
+//Sound effects has a pool of 16 channels to play on
 void AudioManager::playSound(int sfxInput, float sourceX, float sourceY)
 {
 	//loop through channels to find first available
-	for (int i = 1; i < MAX_CHANNELS; ++i)
+	for (int i = 0; i < MAX_CHANNELS; ++i)
 	{
 		if (!Mix_Playing(i))
 		{
@@ -121,13 +125,13 @@ void AudioManager::playChannel(int channel, int volume, int distance, int sfxInp
 {
 	if (!Mix_Volume(channel, volume))
 	{
-		printf("Mix_Volume: %s\n", Mix_GetError());
+		//printf("Mix_Volume: %s\n", Mix_GetError());
 	}
 	if (!Mix_SetDistance(channel, distance))
 	{
-		printf("Mix_Volume: %s\n", Mix_GetError());
+		//printf("Mix_Volume: %s\n", Mix_GetError());
 	}
-	if (!Mix_PlayChannel(channel, m_audioFiles[sfxInput], 0))
+	if (Mix_PlayChannel(channel, m_audioFiles[sfxInput], 0) == -1)
 	{
 		printf("Mix_PlayChannel: %s\n", Mix_GetError());
 	}
