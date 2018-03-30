@@ -29,6 +29,13 @@ void NetworkedGameScene::onStart ()
 {
 	GameManager::getInstance()->resizeQuadTree(0, 0, 200, 200);
 
+
+	//time_t mapSeedID = time(NULL);
+	//srand(mapSeedID);
+	//GeneratorManager::getInstance()->generateLevel(30, 30, 2, 0);
+	
+	//GeneratorManager::getInstance()->drawLevel(0);
+
 	SpawnManager::getInstance()->generateMiscSquare(25, -25, -100, 200, "sandBG.png", false);
 	/*
 	const float scale = 5;
@@ -98,7 +105,7 @@ void NetworkedGameScene::onStart ()
 	const float size = 12;
 	const float scale = 5;
 
-<<<<<<< HEAD
+
 	SpawnManager::getInstance ()->generateMiscSquare (25, -25, -100, 115, "sandBG.png", false);
 =======
 	
@@ -220,10 +227,12 @@ void NetworkedGameScene::onStart ()
 	*/
 	SpawnManager::getInstance()->generateWorldItem(5, -5, std::make_shared<WoodenShortsword>());
 
-	//Ai = SpawnManager::getInstance ()->generateAiCharacter (14, -15);
-	//Ai2 = SpawnManager::getInstance ()->generateAiCharacter (44, -20);
-	//Ai3 = SpawnManager::getInstance ()->generateAiCharacter (54, -40);
-	//Ai4 = SpawnManager::getInstance ()->generateAiCharacter (14, -35);
+	//Ai = SpawnManager::getInstance()->generateAiCharacter(14, -18);
+	//Ai2 = SpawnManager::getInstance()->generateAiCharacter(13, -40);
+	//Ai3 = SpawnManager::getInstance()->generateAiCharacter(50, -50);
+	//Ai4 = SpawnManager::getInstance()->generateAiCharacter(50, -20);
+
+
 
 	Camera::getActiveCamera ()->addComponent<CameraFollow> (Camera::getActiveCamera ().get ());
 	AudioManager::getInstance ()->playMusic (MUSIC_LEVEL_1);

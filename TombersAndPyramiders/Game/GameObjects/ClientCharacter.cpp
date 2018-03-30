@@ -40,7 +40,7 @@ void ClientCharacter::onEnd () {
 
 bool ClientCharacter::playRunAnimation () {
 	if (Character::playRunAnimation ()) {
-		getComponent<Sender> ()->sendAnimation (ANIMATION_RUN);
+		getComponent<Sender> ()->sendAnimation (ANIMATION_WALK);
 		return true;
 	}
 	return false;

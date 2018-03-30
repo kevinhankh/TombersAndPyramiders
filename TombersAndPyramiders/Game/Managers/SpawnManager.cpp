@@ -31,15 +31,12 @@ void startGameCallback(std::map<std::string, void*> payload)
 	NetworkedGameScene* scene = new NetworkedGameScene();
 	SceneManager::getInstance()->pushScene(scene);
 
-
-
-
-	for (int i = 0; i < 4; i++)
-	{
-		int mapSeedID = std::stoi (*(std::string*)payload["mapSeedID" + std::to_string (i)]);
+	//for (int i = 0; i < 1; i++)
+	//{
+		int mapSeedID = std::stoi (*(std::string*)payload["mapSeedID" + std::to_string (0)]);
 		srand (mapSeedID);
-		GeneratorManager::getInstance ()->generateLevel (30, 30, 2, i);
-	}
+		GeneratorManager::getInstance ()->generateLevel (28, 28, 2, 0);
+	//}
 	GeneratorManager::getInstance ()->drawLevel (0);
 
 	int players = std::stoi(*(std::string*)payload["playerSpawns"]);
@@ -66,21 +63,33 @@ void SpawnManager::sendStartPacket()
 	NetworkedGameScene* scene = new NetworkedGameScene();
 	SceneManager::getInstance()->pushScene(scene);
 
+	std::vector<time_t> mapSeeds;	
 
-	std::vector<__time64_t> mapSeeds;
-
-	for (int i = 0; i < 4; i++)
-	{
+	//for (int i = 0; i < 1; i++)
+	//{
 		time_t seed = time (NULL);
 		srand (seed);
-		GeneratorManager::getInstance ()->generateLevel (30, 30, 2, i);
-		payload["mapSeedID" + std::to_string (i)] = std::to_string (seed);
-	}
+		GeneratorManager::getInstance ()->generateLevel (28, 28, 2, 0);
+		payload["mapSeedID" + std::to_string (0)] = std::to_string (seed);
+	//}
 	GeneratorManager::getInstance ()->drawLevel (0);
+
+	int id = 0, x = 0, y = 0;
+	int room = rand() % (GeneratorManager::getInstance()->levels[0]->rooms.size() - 1);
+
+	for (int i = 0; i < 5; i++) {
+		x = ((rand() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_width - 2) + 1) + GeneratorManager::getInstance()->levels[0]->rooms[room]->m_xCoord) * 5;
+		y = (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_yCoord - (rand() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_height - 2) + 1)) * 5;
+		SpawnManager::getInstance()->generateAiCharacter(x, y);
+	}
 
 	payload["playerSpawns"] = std::to_string(NetworkingManager::getInstance()->m_clients.size());
 
-	int id = 0, x = 0, y = 0;
+	id = 0, x = 0, y = 0;
+	room = rand() % (GeneratorManager::getInstance()->levels[0]->rooms.size()-1);
+	x = ((rand() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_width - 2) + 1) + GeneratorManager::getInstance()->levels[0]->rooms[room]->m_xCoord) * 5;
+	y = (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_yCoord - (rand() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_height - 2) + 1)) * 5;
+
 	payload["playerSpawnIP0"] = std::to_string(id);
 	payload["playerSpawnX0"] = std::to_string(x);
 	payload["playerSpawnY0"] = std::to_string(y);
@@ -89,8 +98,8 @@ void SpawnManager::sendStartPacket()
 	int i = 1;
 	for (auto it = ++NetworkingManager::getInstance()->m_clients.begin(); it != NetworkingManager::getInstance()->m_clients.end(); it++) {
 		id = it->first;
-		x = 2 * i;
-		y = 0;
+		x = ((rand() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_width - 2) + 1) + GeneratorManager::getInstance()->levels[0]->rooms[room]->m_xCoord)*5;
+		y = (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_yCoord - (rand() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_height - 2) + 1))*5;
 		payload["playerSpawnIP" + std::to_string(i)] = std::to_string(id);
 		payload["playerSpawnX" + std::to_string(i)] = std::to_string(x);
 		payload["playerSpawnY" + std::to_string(i)] = std::to_string(y);
@@ -133,6 +142,8 @@ std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(int id, f
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenChestplate>());
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenHelmet>());
 	simpleCharacter->getTransform()->setPosition(x, y, 100);
+	simpleCharacter->getTransform()->setScale(2);
+	simpleCharacter->getTransform()->renderRotation = false;
 
 	return simpleCharacter;
 }
@@ -149,6 +160,8 @@ std::shared_ptr<HostCharacter> SpawnManager::generateHostCharacter (int id, floa
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenChestplate> ());
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenHelmet> ());
 	simpleCharacter->getTransform ()->setPosition (x, y, 100);
+	simpleCharacter->getTransform()->setScale(2);
+	simpleCharacter->getTransform()->renderRotation = false;
 	return simpleCharacter;
 }
 
@@ -164,6 +177,9 @@ std::shared_ptr<NetworkCharacter> SpawnManager::generateNetworkCharacter (int id
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenChestplate> ());
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenHelmet> ());
 	simpleCharacter->getTransform()->setPosition(x, y, 100);
+	simpleCharacter->getTransform()->setScale(2);
+	simpleCharacter->getTransform()->renderRotation = false;
+
 	return simpleCharacter;
 }
 
@@ -192,20 +208,34 @@ std::shared_ptr<Character> SpawnManager::generatePlayerCharacter(float x, float 
 	std::shared_ptr<Character> simpleCharacter = GameManager::getInstance()->createGameObject<Character>(false, new PlayerPilot());
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenShortsword>());
 	simpleCharacter->getTransform()->setPosition(x, y);
-	
+	simpleCharacter->getTransform()->setScale(2);
+	simpleCharacter->getTransform()->renderRotation = false;
+
 	return simpleCharacter;
 }
 
 std::shared_ptr<Character> SpawnManager::generateAiCharacter(float x, float y)
 {
-	std::shared_ptr<Character> simpleAi = GameManager::getInstance()->createGameObject<Character>(false, new AiPilot());
+	std::shared_ptr<Character> simpleAi = GameManager::getInstance()->createGameObject<Character>(false, new AiPilot(), beetle);
 	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
 	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenChestplate>());
 	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenHelmet>());
 	simpleAi->getTransform()->setPosition(x, y);
+	simpleAi->getTransform()->renderRotation = false;
+	simpleAi->getTransform()->setScale(2);
 
 	return simpleAi;
 }
+/*std::shared_ptr<Character> SpawnManager::generateAiCharacter1(float x, float y)
+{
+	std::shared_ptr<Character> simpleAi = GameManager::getInstance()->createGameObject<Character>(false, new AiPilot());
+	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
+	simpleAi->getTransform()->setPosition(x, y);
+
+	return simpleAi;
+}*/
+
+
 
 std::shared_ptr<Character> SpawnManager::generateDummyCharacter(float x, float y)
 {
@@ -214,6 +244,7 @@ std::shared_ptr<Character> SpawnManager::generateDummyCharacter(float x, float y
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenChestplate>());
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenHelmet>());
 	simpleCharacter->getTransform()->setPosition(x, y);
+	simpleCharacter->getTransform()->renderRotation = false;
 
 	return simpleCharacter;
 }
@@ -248,10 +279,6 @@ std::shared_ptr<SingleDoor> SpawnManager::generateSingleDoor(float x, float y, D
 	std::shared_ptr<SingleDoor> door = GameManager::getInstance()->createGameObject<SingleDoor>(false, direction, startState, x, y, scale);
 	door->getTransform()->setZ(1000);
 	door->getTransform()->setScale(10.0f);
-	if (direction == Door::Direction::West || direction == Door::Direction::East)
-	{
-		door->getTransform()->addRotation(180);
-	}
 	return door;
 }
 

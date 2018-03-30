@@ -289,7 +289,6 @@
   <ItemGroup>
     <Image Include="Assets\Character.bmp" />
     <Image Include="Assets\Character.png" />
-    <Image Include="Game\Assets\Beauty.png" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Engine\External\Render\contrastFragment.txt" />
