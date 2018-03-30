@@ -275,7 +275,7 @@ std::shared_ptr<GhostCharacter> SpawnManager::generateGhost(float x, float y)
 
 std::shared_ptr<SingleDoor> SpawnManager::generateSingleDoor(float x, float y, Door::Direction direction, Door::Mode startState)
 {
-	auto scale = 3.0f;
+	auto scale = 9.0f;
 	std::shared_ptr<SingleDoor> door = GameManager::getInstance()->createGameObject<SingleDoor>(false, direction, startState, x, y, scale);
 	door->getTransform()->setZ(1000);
 	door->getTransform()->setScale(10.0f);

@@ -9,15 +9,14 @@
 */
 
 #pragma once
-#include <SDL.h>
-#include <SDL_mixer.h>
 #include <iostream>
 #include <string>
-#include "Audio\AudioBank.h"
+#include "AudioBank.h"
 #include "HelperFunctions.h"
 #include "GameObject.h"
 #include "SpriteRendererManager.h"
 #include "Transform.h"
+#include "GLHeaders.h"
 
 #define MAX_CHANNELS 16
 #define MIN_DISTANCE 25
