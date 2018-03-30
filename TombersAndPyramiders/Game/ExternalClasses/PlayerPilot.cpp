@@ -107,17 +107,12 @@ void PlayerPilot::tryInvokeTrigger ()
 {
 	if (InputManager::getInstance ()->onKeyPressed (SDLK_z))
 	{
-<<<<<<< HEAD
 		if (m_characterController->tryInvokeTrigger()) {
 			auto sender = m_characterController->getGameObject()->getComponent<Sender>();
 			if (sender != nullptr)
 			{
 				sender->sendTrigger();
 			}
-=======
-		if (m_characterController->tryInvokeTrigger ()) {
-			m_characterController->getGameObject ()->getComponent<Sender> ()->sendTrigger ();
->>>>>>> 24577cbfa5a7c4252f61c6a1749a53752988443e
 		}
 	}
 }
