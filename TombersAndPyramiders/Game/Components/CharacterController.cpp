@@ -265,27 +265,13 @@ void CharacterController::updateGreaves(int ticks)
 void CharacterController::death()
 {
 	// If we are the player, spawn our ghost
-	int networkID = -1;
 	bool isPlayableCharacter = dynamic_cast<PlayerPilot*>(m_pilot.get()) != nullptr;
 
 	if (isPlayableCharacter) {
 		//If we have a sender, we have a sending ID
 		auto sender = gameObject->getComponent<Sender>();
 		if (sender != nullptr) {
-			networkID = sender->getNetworkID();
-		}
-	}
-	//If we arent, we might have a receiver ID
-	else {
-		auto receiver = gameObject->getComponent<Receiver>();
-		if (receiver != nullptr) {
-			networkID = receiver->netID;
-		}
-	}
-	//If we got an ID, we are therefore networked
-	if (networkID != -1) {
-		auto newGhost = SpawnManager::getInstance()->generateNetworkGhost(gameObject->getTransform()->getX(), gameObject->getTransform()->getY(), networkID, isPlayableCharacter);
-		if (isPlayableCharacter) {
+			auto newGhost = SpawnManager::getInstance()->generateNetworkGhost(gameObject->getTransform()->getX(), gameObject->getTransform()->getY(), sender->getNetworkID(), true);
 			SceneManager::getInstance()->getCurrentScene()->setCameraFollow(newGhost);
 		}
 	}
