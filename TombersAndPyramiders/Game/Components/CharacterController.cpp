@@ -264,7 +264,7 @@ void CharacterController::updateGreaves(int ticks)
 void CharacterController::death()
 {
 	// If we are the player, spawn our ghost
-	if (dynamic_cast<PlayerPilot*>(m_pilot.get()) != nullptr)
+	/*if (dynamic_cast<PlayerPilot*>(m_pilot.get()) != nullptr)
 	{
 		auto sender = getGameObject()->getComponent<Sender>();
 		if (sender != nullptr) {
@@ -277,7 +277,7 @@ void CharacterController::death()
 			auto newGhost = SpawnManager::getInstance()->generateNetworkGhost(transform->getX(), transform->getY(), sender->getNetworkID(), true);
 			SceneManager::getInstance()->getCurrentScene()->setCameraFollow(newGhost);
 		}
-	}
+	}*/
 	m_character->onEnd();
 }
 
