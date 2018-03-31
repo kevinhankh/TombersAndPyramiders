@@ -31,4 +31,5 @@ public:
 	void setMovement(Vector2 vec, int updates);
 	void setPossession(std::shared_ptr<BasePossessableController> possession);
 	void setController(BaseController* controller);
+	void tryTrigger();
 };

@@ -161,7 +161,6 @@ bool CharacterController::tryInvokeTrigger()
 
 	if (closest != nullptr)
 	{
-		std::cout << "TRIGGER" << std::endl;
 		closest->trigger();
 		return true;
 	}

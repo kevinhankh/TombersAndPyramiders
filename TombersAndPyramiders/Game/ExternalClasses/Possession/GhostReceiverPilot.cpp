@@ -28,13 +28,12 @@ void GhostReceiverPilot::onStart()
 		auto receiver = m_controller->getGameObject()->getComponent<Receiver>();
 		if (receiver != nullptr) 
 		{
-			/*receiver->Subscribe("GHOSTTRIGGER", [](std::map<std::string, void*> data) -> void
+			receiver->Subscribe("GHOSTTRIGGER", [](std::map<std::string, void*> data) -> void
 			{
-				if (!((GhostCharacter*)data["this"])->getComponent<GhostController>()->tryTrigger())
-				{
-					std::cout << "Sync Error on character receiving Trigger event. Should only be called on successful triggering, however receiver could not invoke a trigger." << std::endl;
-				}
-			}, this);*/
+				GhostReceiverPilot* self = (GhostReceiverPilot*)data["this"];
+				self->tryTrigger();
+
+			}, this);
 			receiver->Subscribe("GHOSTPOSSESS", [](std::map<std::string, void*> data) -> void
 			{
 				std::shared_ptr<BasePossessableController> closest;
@@ -55,6 +54,14 @@ void GhostReceiverPilot::onStart()
 		}
 
 		m_hasInit = true;
+	}
+}
+
+void GhostReceiverPilot::tryTrigger() 
+{
+	if (m_possessableController != nullptr)
+	{
+		m_possessableController->trigger();
 	}
 }
 
