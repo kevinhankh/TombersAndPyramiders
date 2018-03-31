@@ -84,7 +84,7 @@ void GhostPilot::onUpdate(int ticks)
 				if (checkShouldSwap())
 				{
 					std::shared_ptr<BasePossessableController> closest;
-					if (ghostControllerRaw->tryPossess(closest)) //Try and possess, make sure its close enough
+					if (ghostControllerRaw->tryPossessClosest(closest)) //Try and possess, make sure its close enough
 					{
 						m_controller->swapPilots(closest.get());
 						m_possessableController = closest;

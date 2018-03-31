@@ -28,7 +28,7 @@ void GhostReceiverPilot::onStart()
 			{
 				std::shared_ptr<BasePossessableController> closest;
 				auto ghostController = ((GhostCharacter*)data["this"])->getComponent<GhostController>();
-				if (ghostController->tryPossess(closest)) //Try and possess, make sure its close enough
+				if (ghostController->tryPossessClosest(closest)) //Try and possess, make sure its close enough
 				{
 					auto ghostPilot = dynamic_cast<GhostReceiverPilot*>(ghostController->getPilot());
 					if (ghostPilot != nullptr) 
