@@ -79,7 +79,15 @@ Receiver::Receiver(GameObject* gameObject, int netID) : Component(gameObject)
 	{
 		int id = std::stoi(*(std::string*)data["ID"]);
 		Receiver* self = (Receiver*)data["this"];
-		((Character*)self->gameObject)->onNetworkEnd ();
+		if (self != nullptr && self->getGameObject() != nullptr) {
+			auto character = dynamic_cast<Character*>(self->getGameObject());
+			if (character != nullptr) {
+				character->onNetworkEnd();
+			}
+			else {
+				std::cout << "ReceiverError::DESTROY tried to destroy a non-character" << std::endl;
+			}
+		}
 	}, this);
 
 	this->m_onUpdateID = Subscribe("UPDATE", [](std::map<std::string, void*> data) -> void
