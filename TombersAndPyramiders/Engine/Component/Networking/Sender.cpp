@@ -1,6 +1,7 @@
 #include "Sender.h"
 #include "NetworkingManager.h"
 #include "CharacterController.h"
+#include "GhostController.h"
 
 Sender::Sender(GameObject* gameObject, int ID) : Component(gameObject)
 {
@@ -33,8 +34,16 @@ void Sender::sendUpdate()
 		return;
 	std::map<std::string, std::string> payload;
 	Transform* transform = gameObject->getTransform ();
+	PlayerPilot* pp = nullptr;
 	std::shared_ptr<CharacterController> cc = gameObject->getComponent<CharacterController> ();
-	PlayerPilot* pp = (PlayerPilot*)cc->getPilot ();
+	if (cc != nullptr) 
+	{
+		pp = (PlayerPilot*)cc->getPilot();
+	}
+	else {
+		std::shared_ptr<GhostController> gc = gameObject->getComponent<GhostController>();
+		pp = (PlayerPilot*)gc->getPilot();
+	}
 	payload["x"] = std::to_string(transform->getX());
 	payload["y"] = std::to_string(transform->getY());
 	payload["z"] = std::to_string (transform->getZ ());
@@ -119,4 +128,8 @@ void Sender::onUpdate (int ticks)
 		sendUpdate ();
 		m_lastUpdate = 0;
 	}
+}
+
+int Sender::getNetworkID() {
+	return m_id;
 }

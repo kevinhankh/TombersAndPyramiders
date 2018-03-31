@@ -29,5 +29,6 @@ public:
 	void onStart() {};
 	void onUpdate(int ticks);
 	void onEnd() {};
+	int getNetworkID();
 	~Sender();
 };

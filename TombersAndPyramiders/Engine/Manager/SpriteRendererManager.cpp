@@ -686,7 +686,7 @@ void SpriteRendererManager::applyEndProcessing(FrameBufferObject mainTexture, Fr
 
 void SpriteRendererManager::addSpriteForRendering(SpriteRenderer* sprite)
 {
-	if (sprite != nullptr)
+	if (sprite != nullptr && sprite != nullptr && sprite->getGameObject() != nullptr && sprite->getGameObject() != NULL)
 	{
 		m_spritesToSubscribe.push_back(sprite); //Have to lazy load it into a spritesToAdd list because sprite->getGameObject->getId() is not set when SpriteRenderer's constructor is called
 	}

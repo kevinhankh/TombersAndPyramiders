@@ -263,17 +263,22 @@ void CharacterController::updateGreaves(int ticks)
 
 void CharacterController::death()
 {
-	m_character->onEnd ();
-
-	///* Spawn the character's ghost. */
-	//auto localPlayer = dynamic_cast<PlayerPilot*>(m_pilot.get());	// Check this is not an enemy.
-	//
-	//if (localPlayer != nullptr)
-	//{
-	//	auto ghost = GameManager::getInstance()->createGameObject<GhostCharacter>(false, new GhostPilot());
-	//	ghost->getTransform()->setPosition(gameObject->getTransform()->getX(), gameObject->getTransform()->getY());
-	//	SceneManager::getInstance()->getCurrentScene()->setCameraFollow(ghost);
-	//}
+	// If we are the player, spawn our ghost
+	if (dynamic_cast<PlayerPilot*>(m_pilot.get()) != nullptr)
+	{
+		auto sender = getGameObject()->getComponent<Sender>();
+		if (sender != nullptr) {
+			std::map<std::string, std::string> payload;
+			Transform* transform = gameObject->getTransform();
+			payload["x"] = std::to_string(transform->getX());
+			payload["y"] = std::to_string(transform->getY());
+			payload["netID"] = std::to_string(sender->getNetworkID());
+			sender->sendNetworkMessage("0|SPAWNGHOST", payload);
+			auto newGhost = SpawnManager::getInstance()->generateNetworkGhost(transform->getX(), transform->getY(), sender->getNetworkID(), true);
+			SceneManager::getInstance()->getCurrentScene()->setCameraFollow(newGhost);
+		}
+	}
+	m_character->onEnd();
 }
 
 std::shared_ptr<WorldItem> CharacterController::trySwapItem()

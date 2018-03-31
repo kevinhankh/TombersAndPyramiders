@@ -126,8 +126,27 @@ std::shared_ptr<SpawnManager> SpawnManager::getInstance()
 	return s_instance;
 }
 
+void spawnGhostCallback(std::map<std::string, void*> payload)
+{
+	SpawnManager* self = (SpawnManager*)payload["this"];
+	int netID = std::stoi(*(std::string*)payload["netID"]);
+	float x = std::stof(*(std::string*)payload["x"]);
+	float y = std::stof(*(std::string*)payload["y"]);
+	bool isOurPlayer = NetworkingManager::getInstance()->isSelf(netID);
+	if (!isOurPlayer) {
+		self->generateNetworkGhost(x, y, netID, isOurPlayer);
+	}
+	else {
+		std::cout << "ERROR::SpawnManager::spawnGhostCallback::We should not be receiving our own packets, so either we are, or someone is saying they are us" << std::endl;
+	}
+}
+
+
 SpawnManager::SpawnManager() : GameObject()
 {
+	//Subscribe for "On player death, Spawn a ghost"
+	this->m_startPacketListenerID = MessageManager::subscribe("0|SPAWNGHOST", spawnGhostCallback, this);
+
 }
 
 /*
@@ -264,6 +283,23 @@ std::shared_ptr<Boulder> SpawnManager::generateBoulder(float x, float y)
 	return boulder;
 }
 
+std::shared_ptr<GhostCharacter> SpawnManager::generateNetworkGhost(float x, float y, int netId, bool isPlayer)
+{
+	BasePilot* pilot = new DummyPilot();
+	if (isPlayer) {
+		pilot = new GhostPilot();
+	}
+	std::shared_ptr<GhostCharacter> ghost = GameManager::getInstance()->createGameObject<GhostCharacter>(false, pilot);
+	if (isPlayer) {
+		ghost->addComponent<Sender>(ghost.get(), netId);
+	}
+	else {
+		ghost->addComponent<Receiver>(ghost.get(), netId);
+	}
+	ghost->getTransform()->setPosition(x, y);
+	ghost->getTransform()->setZ(2);
+	return ghost;
+}
 
 std::shared_ptr<GhostCharacter> SpawnManager::generateGhost(float x, float y)
 {
