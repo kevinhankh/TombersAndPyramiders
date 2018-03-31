@@ -270,22 +270,5 @@ bool Character::playHurtAnimation()
 }
 
 void Character::onNetworkEnd() {
-	int networkID = -1;
-	auto sender = getComponent<Sender>();
-	bool isSender = sender != nullptr;
-
-	if (isSender) {
-		networkID = sender->getNetworkID();
-	}
-	else {
-		auto receiver = getComponent<Receiver>();
-		networkID = receiver->netID;
-	}
-
-	if (networkID != -1) {
-		auto newGhost = SpawnManager::getInstance()->generateNetworkGhost(getTransform()->getX(), getTransform()->getY(), networkID, isSender);
-		if (isSender) {
-			SceneManager::getInstance()->getCurrentScene()->setCameraFollow(newGhost);
-		}
-	}
+	
 }

@@ -36,6 +36,7 @@
 #include "GhostPilot.h"
 #include "NetworkCharacter.h"
 #include "PlayerPilot.h"
+#include "Receiver.h"
 
 /*----------------------------------------------------------------------------------------
 	Static Fields
@@ -264,6 +265,26 @@ void CharacterController::updateGreaves(int ticks)
 void CharacterController::death()
 {
 	// If we are the player, spawn our ghost
+	int networkID = -1;
+	auto sender = gameObject->getComponent<Sender>();
+	bool isSender = sender != nullptr;
+
+	//If we have a sender, we have a sending ID
+	if (isSender) {
+		networkID = sender->getNetworkID();
+	}
+	//If we arent, we might have a receiver ID
+	else {
+		auto receiver = gameObject->getComponent<Receiver>();
+		networkID = receiver->netID;
+	}
+	//If we got an ID, we are therefore networked
+	if (networkID != -1) {
+		auto newGhost = SpawnManager::getInstance()->generateNetworkGhost(gameObject->getTransform()->getX(), gameObject->getTransform()->getY(), networkID, isSender);
+		if (isSender) {
+			SceneManager::getInstance()->getCurrentScene()->setCameraFollow(newGhost);
+		}
+	}
 	/*if (dynamic_cast<PlayerPilot*>(m_pilot.get()) != nullptr)
 	{
 		auto sender = getGameObject()->getComponent<Sender>();
