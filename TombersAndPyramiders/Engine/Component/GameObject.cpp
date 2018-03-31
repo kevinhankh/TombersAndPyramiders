@@ -40,6 +40,7 @@ GameObject::~GameObject()
 
 Transform* GameObject::getTransform()
 {
+	std::cout << m_transform;
 	return m_transform.get();
 }
 

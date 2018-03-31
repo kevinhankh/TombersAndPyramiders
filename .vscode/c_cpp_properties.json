@@ -9,6 +9,8 @@
                 "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
                 "/usr/include",
                 "${workspaceRoot}/MacLibraries/SDl2.framework",
+                "${workspaceRoot}/MacLibraries/SDl2_mixer.framework",
+                "${workspaceRoot}/MacLibraries/SDl2_net.framework",
                 "${workspaceRoot}",
                 "${workspaceRoot}/TombersAndPyramiders/Engine",
                 "${workspaceRoot}/TombersAndPyramiders/Engine/Component",
