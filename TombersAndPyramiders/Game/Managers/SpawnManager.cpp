@@ -53,6 +53,9 @@ void startGameCallback(std::map<std::string, void*> payload)
 			SpawnManager::getInstance ()->generateNetworkCharacter(id, x, y);
 	}
 
+	//Added boulder for testing possession
+	SpawnManager::getInstance()->generateBoulder(std::stof(*(std::string*)payload["playerSpawnX" + std::to_string(0)]) + 3, std::stof(*(std::string*)payload["playerSpawnY" + std::to_string(0)]) + 1);
+
 	NetworkingManager::getInstance ()->startGameClient ();
 	SpawnManager::getInstance ()->stopListeningForStartPacket ();
 }
@@ -107,6 +110,9 @@ void SpawnManager::sendStartPacket()
 		SpawnManager::getInstance()->generateHostCharacter(id, x, y);
 		i++;
 	}
+
+	//Added boulder for testing possession
+	SpawnManager::getInstance()->generateBoulder(std::stof(payload["playerSpawnX" + std::to_string(0)]) + 3, std::stof(payload["playerSpawnY" + std::to_string(0)]) + 1);
 
 	NetworkingManager::getInstance()->prepareMessageForSendingTCP(0, "STARTGAME", payload);
 }
@@ -262,6 +268,7 @@ std::shared_ptr<Boulder> SpawnManager::generateBoulder(float x, float y)
 {
 	std::shared_ptr<Boulder> boulder = GameManager::getInstance()->createGameObject<Boulder>(false, nullptr);
 	boulder->getTransform()->setPosition(x, y);
+	boulder->getTransform()->setZ(2);
 	return boulder;
 }
 
