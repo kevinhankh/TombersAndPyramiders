@@ -37,7 +37,7 @@ void GhostPilot::onUpdate(int ticks)
 		if (InputManager::getInstance()->onKeyPressed(SDLK_SPACE))
 		{
 			m_possessableController->trigger();
-			auto sender = m_possessableController->getGameObject()->getComponent<Sender>();
+			auto sender = m_ghostController->getGameObject()->getComponent<Sender>();
 			if (sender != nullptr) {
 				sender->sendGhostTrigger(); //Send a "Our ghost triggered"
 			}
@@ -57,7 +57,7 @@ void GhostPilot::onUpdate(int ticks)
 			{
 				ghostControllerRaw->stopPossessing();
 			}
-			auto sender = m_possessableController->getGameObject()->getComponent<Sender>();
+			auto sender = m_ghostController->getGameObject()->getComponent<Sender>();
 			if (sender != nullptr) {
 				sender->sendGhostUnpossess(); 
 			}
@@ -92,7 +92,7 @@ void GhostPilot::onUpdate(int ticks)
 						m_justSwapped = true;
 
 						//### Send a "Our ghost try possess"
-						auto sender = m_possessableController->getGameObject()->getComponent<Sender>();
+						auto sender = m_ghostController->getGameObject()->getComponent<Sender>();
 						if (sender != nullptr) {
 							sender->sendGhostPossess(); //Send a "Our ghost triggered"
 						}
