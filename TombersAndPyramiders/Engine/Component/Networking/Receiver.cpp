@@ -92,9 +92,13 @@ Receiver::Receiver(GameObject* gameObject, int netID) : Component(gameObject)
 		transform->setRotation(angle);
 		transform->setScale(scale);
 
-
 		std::shared_ptr<CharacterController> cc = self->gameObject->getComponent<CharacterController> ();
-		((HostPilot*)cc->getPilot ())->setMovement(Vector2 (vecX, vecY), 6);
+		if (cc != nullptr) {
+			((HostPilot*)cc->getPilot())->setMovement(Vector2(vecX, vecY), 6);
+		}
+		else {
+			//We are a ghost not a character. We may or may not need to do movement equivalency
+		}
 	}, this);
 }
 
