@@ -38,41 +38,17 @@ AudioManager::AudioManager()
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) < 0)
 		std::cout << "ERROR Opening Mix_OpenAudio: " << Mix_GetError() << std::endl;
 
-		std::cout << "There are " << Mix_GetNumChunkDecoders() << "sample chunk deocoders available\n" << std::endl;
-		std::cout << "There are " << Mix_GetNumMusicDecoders() << "music deocoders available\n" << std::endl;
-	  
-		// print music decoders available
-		int i, max = Mix_GetNumMusicDecoders();
-		for (i = 0; i<max; ++i)
-			std::cout << "Music decoder " << i << "is for " << Mix_GetMusicDecoder(i) << std::endl;
-			
-	SDL_ClearError();
-	if (Mix_AllocateChannels(MAX_CHANNELS))
-		std::cout << "Allocating: " << Mix_GetError() << std::endl;
+	Mix_AllocateChannels(MAX_CHANNELS);
 
-	i = 1;
-
-	SDL_ClearError();
-	std::cout << BuildPath(PATH_MUSIC_MENU).c_str() << std::endl;
 	m_musicFiles[MUSIC_MENU] = Mix_LoadMUS(BuildPath(PATH_MUSIC_MENU).c_str());
-	std::cout << m_musicFiles[MUSIC_MENU]<< std::endl;
 	m_musicFiles[MUSIC_LEVEL_1] = Mix_LoadMUS(BuildPath(PATH_MUSIC_LEVEL_1).c_str());
-	std::cout << m_musicFiles[MUSIC_LEVEL_1]<< std::endl;
 	m_audioFiles[SFX_BOW] = Mix_LoadWAV(BuildPath(PATH_SFX_BOW).c_str());
-	std::cout << m_musicFiles[SFX_BOW]<< std::endl;
 	m_audioFiles[SFX_HIT] = Mix_LoadWAV(BuildPath(PATH_SFX_HIT).c_str());
-	std::cout << m_musicFiles[SFX_HIT]<< std::endl;
 	m_audioFiles[SFX_SWORD] = Mix_LoadWAV(BuildPath(PATH_SFX_SWORD).c_str());
-	std::cout << m_musicFiles[SFX_SWORD]<< std::endl;
 	m_audioFiles[SFX_SHIELD] = Mix_LoadWAV(BuildPath(PATH_SFX_SHIELD).c_str());
-	std::cout << m_musicFiles[SFX_SHIELD]<< std::endl;
 	m_audioFiles[SFX_DASH] = Mix_LoadWAV(BuildPath(PATH_SFX_DASH).c_str());
-	std::cout << m_musicFiles[SFX_DASH]<< std::endl;
 	m_audioFiles[SFX_DOOR] = Mix_LoadWAV(BuildPath(PATH_SFX_DASH).c_str());
-	std::cout << m_musicFiles[SFX_DOOR]<< std::endl;
 	m_audioFiles[SFX_BUTTON_HOVER] = Mix_LoadWAV(BuildPath(PATH_SFX_BUTTON_HOVER).c_str());
-	std::cout << m_musicFiles[SFX_BUTTON_HOVER]<< std::endl;
-	std::cout << "Done" << std::endl;
 	m_listener = nullptr;
 }
 
@@ -89,23 +65,19 @@ void AudioManager::setListener(GameObject* listenerObject)
 //Music will be looped in the background
 void AudioManager::playMusic(int musicInput)
 {
-	std::cout << "PlayMusic" << musicInput << std::endl;
 	if (Mix_PlayMusic(m_musicFiles[musicInput], -1) == -1)
 	{
 		printf("Mix_PlayMusic: %s\n", Mix_GetError());
 	}
-	std::cout << "PlayMusic hh" << musicInput << std::endl;
 }
 void AudioManager::pauseMusic()
 {
-	std::cout << "Pause Music" << std::endl;
 	if (Mix_PlayingMusic() != 0)
 		Mix_PauseMusic();
 }
 
 void AudioManager::resumeMusic()
 {
-	std::cout << "Resume Music" << std::endl;
 	if (Mix_PausedMusic() != 0)
 		Mix_ResumeMusic();
 }
@@ -113,7 +85,6 @@ void AudioManager::resumeMusic()
 //Sound effects has a pool of 16 channels to play on
 void AudioManager::playSound(int sfxInput, float sourceX, float sourceY)
 {
-	std::cout << "Play Sound" << sfxInput << std::endl;
 	//loop through channels to find first available
 	for (int i = 0; i < MAX_CHANNELS; ++i)
 	{
@@ -122,13 +93,8 @@ void AudioManager::playSound(int sfxInput, float sourceX, float sourceY)
 			//checks for listener
 			if (m_listener != nullptr && m_listener != NULL)
 			{
-				std::cout << "Before getTransform():: " << m_listener << std::endl;
-				auto transform = m_listener->getTransform();
-				std::cout << "After transform" << std::endl;
 				m_listenerX = m_listener->getTransform()->getX();
-				std::cout << "After X " << m_listener << std::endl;
 				m_listenerY = m_listener->getTransform()->getY();
-				std::cout << "Before afterY():: " << m_listener << std::endl;
 				//checks distance between player and source
 				m_distance = sqrt(pow((sourceX - m_listenerX), 2.0) + pow((sourceY - m_listenerY), 2.0));
 			}
@@ -158,7 +124,6 @@ void AudioManager::playSound(int sfxInput, float sourceX, float sourceY)
 
 void AudioManager::playChannel(int channel, int volume, int distance, int sfxInput)
 {
-	std::cout << "Play Channel" << std::endl;
 	if (!Mix_Volume(channel, volume))
 	{
 		//printf("Mix_Volume: %s\n", Mix_GetError());
