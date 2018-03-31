@@ -107,6 +107,24 @@ void Sender::sendTrigger()
 	sendNetworkMessage("TRIGGER", payload);
 }
 
+void Sender::sendGhostTrigger()
+{
+	std::map<std::string, std::string> payload;
+	sendNetworkMessage("GHOSTTRIGGER", payload);
+}
+
+void Sender::sendGhostPossess()
+{
+	std::map<std::string, std::string> payload;
+	sendNetworkMessage("GHOSTPOSSESS", payload);
+}
+
+void Sender::sendGhostUnpossess()
+{
+	std::map<std::string, std::string> payload;
+	sendNetworkMessage("GHOSTUNPOSSESS", payload);
+}
+
 void Sender::sendNetworkMessage(std::string messageKey, std::map<std::string, std::string> payload, bool useTCP)
 {
 	if (NetworkingManager::getInstance ()->inGame ()) {

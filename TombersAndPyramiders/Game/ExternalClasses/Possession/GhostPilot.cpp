@@ -4,6 +4,7 @@
 #include "GameManager.h"
 #include "GhostController.h"
 #include "BasePossessableController.h"
+#include "Sender.h"
 
 GhostPilot::GhostPilot() {
 	m_ghostController = nullptr;
@@ -36,6 +37,10 @@ void GhostPilot::onUpdate(int ticks)
 		if (InputManager::getInstance()->onKeyPressed(SDLK_SPACE))
 		{
 			m_possessableController->trigger();
+			auto sender = m_possessableController->getGameObject()->getComponent<Sender>();
+			if (sender != nullptr) {
+				sender->sendGhostTrigger(); //Send a "Our ghost triggered"
+			}
 		}
 		//Possessing + E = Stop Possessing
 		else if (checkShouldSwap())
@@ -51,6 +56,10 @@ void GhostPilot::onUpdate(int ticks)
 			if (ghostControllerRaw != nullptr)
 			{
 				ghostControllerRaw->stopPossessing();
+			}
+			auto sender = m_possessableController->getGameObject()->getComponent<Sender>();
+			if (sender != nullptr) {
+				sender->sendGhostUnpossess(); 
 			}
 		}
 		//Possessing + Anything else = Movement, which will be (0,0) if not moving
@@ -74,31 +83,19 @@ void GhostPilot::onUpdate(int ticks)
 				//Not Possessing + E = Try To Possess
 				if (checkShouldSwap())
 				{
-					Transform* transform = m_controller->getGameObject()->getTransform();
-					std::vector<std::shared_ptr<GameObject>> gameObjects = GameManager::getInstance()->getObjectsInBounds(transform->getX(), transform->getY(), 3.0f, 3.0f); //Get all objects within 2x2 of our Ghost
-					std::shared_ptr<BasePossessableController> closest = nullptr;
-					float distance = 1000;
-					
-					for (auto it = gameObjects.begin(); it != gameObjects.end(); it++)
-					{
-						std::shared_ptr<BasePossessableController> possessionController = (*it)->getComponent<BasePossessableController>();
-						if (possessionController != nullptr)
-						{
-							float newDistance = (*it)->getTransform()->getDistance(transform);
-							if (newDistance < distance)
-							{
-								distance = newDistance;
-								closest = possessionController;
-							}
-						}
-					}
-
-					if (closest != nullptr && ghostControllerRaw->tryPossess(closest)) //Try and possess, make sure its close enough
+					std::shared_ptr<BasePossessableController> closest;
+					if (ghostControllerRaw->tryPossess(closest)) //Try and possess, make sure its close enough
 					{
 						m_controller->swapPilots(closest.get());
 						m_possessableController = closest;
 						m_possessableController->onPossessionStart();
 						m_justSwapped = true;
+
+						//### Send a "Our ghost try possess"
+						auto sender = m_possessableController->getGameObject()->getComponent<Sender>();
+						if (sender != nullptr) {
+							sender->sendGhostPossess(); //Send a "Our ghost triggered"
+						}
 					}
 				}
 			}
