@@ -27,23 +27,19 @@ void GhostReceiverPilot::onStart()
 			receiver->Subscribe("GHOSTPOSSESS", [](std::map<std::string, void*> data) -> void
 			{
 				std::shared_ptr<BasePossessableController> closest;
-				auto ghostController = ((GhostCharacter*)data["this"])->getComponent<GhostController>();
+				GhostReceiverPilot* self = (GhostReceiverPilot*)data["this"];
+				auto ghostController = dynamic_cast<GhostController*>(self->getController());
 				if (ghostController->tryPossessClosest(closest)) //Try and possess, make sure its close enough
 				{
-					auto ghostPilot = dynamic_cast<GhostReceiverPilot*>(ghostController->getPilot());
-					if (ghostPilot != nullptr) 
-					{
-						ghostPilot->setPossession(closest); //If our controller successfully possessed it, update our Pilot to know so
-					}
+					self->setPossession(closest); //If our controller successfully possessed it, update our Pilot to know so
 				} else {
 					std::cout << "Sync Error on character receiving Trigger event. Should only be called on successful triggering, however receiver could not invoke a trigger." << std::endl;
 				}
 			}, this);
 			receiver->Subscribe("GHOSTUNPOSSESS", [](std::map<std::string, void*> data) -> void
 			{
-				auto ghostController = ((GhostCharacter*)data["this"])->getComponent<GhostController>();
-				auto ghostPilot = dynamic_cast<GhostReceiverPilot*>(ghostController->getPilot());
-				ghostPilot->setPossession(nullptr);
+				GhostReceiverPilot* self = (GhostReceiverPilot*)data["this"];
+				self->setPossession(nullptr);
 			}, this);
 		}
 
