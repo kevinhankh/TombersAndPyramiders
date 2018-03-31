@@ -18,7 +18,6 @@ void Sender::sendCreate()
 	payload["rotation"] = std::to_string(transform->getRotation());
 	payload["scale"] = std::to_string(transform->getScale());
 	sendNetworkMessage("CREATE", payload);
-
 }
 
 void Sender::sendDestroy()

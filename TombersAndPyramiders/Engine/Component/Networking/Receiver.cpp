@@ -31,15 +31,20 @@ Receiver::Receiver(GameObject* gameObject, int netID) : Component(gameObject)
 	Subscribe ("SWAPPEDITEM", [](std::map<std::string, void*> data) -> void
 	{
 		Receiver* self = (Receiver*)data["this"];
-		self->getGameObject ()->getComponent<CharacterController> ()->trySwapItem ();
+		auto character = self->getGameObject()->getComponent<CharacterController>();
+		if (character != nullptr) {
+			character->trySwapItem();
+		}
 	}, this);
 
 	Subscribe ("HURT", [](std::map<std::string, void*> data) -> void
 	{
 		Receiver* self = (Receiver*)data["this"];
 		float newHP = std::stoi (*(std::string*)data["newHealth"]);
-		std::shared_ptr<CharacterController> cc = self->gameObject->getComponent<CharacterController> ();
-		cc->setHealth (newHP);
+		auto character = self->getGameObject()->getComponent<CharacterController>();
+		if (character != nullptr) {
+			character->setHealth(newHP);
+		}
 	}, this);
 
 	Subscribe ("TRYSWAPITEM", [](std::map<std::string, void*> data) -> void {
@@ -59,11 +64,14 @@ Receiver::Receiver(GameObject* gameObject, int netID) : Component(gameObject)
 		Receiver* self = (Receiver*)data["this"];
 		int animID = std::stoi (*(std::string*)data["animID"]);
 		int animReturn = std::stoi (*(std::string*)data["animReturn"]);
-		if (animReturn != -1) {
-			((HostCharacter*)self->getGameObject ())->playAnimation (animID, animReturn);
-		}
-		else {
-			((HostCharacter*)self->getGameObject ())->playAnimation (animID);
+		HostCharacter* host = dynamic_cast<HostCharacter*>(self->getGameObject());
+		if (host != nullptr) {
+			if (animReturn != -1) {
+				host->playAnimation(animID, animReturn);
+			}
+			else {
+				host->playAnimation(animID);
+			}
 		}
 	}, this);
 
