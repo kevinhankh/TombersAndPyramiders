@@ -82,6 +82,7 @@ Receiver::Receiver(GameObject* gameObject, int netID) : Component(gameObject)
 
 	this->m_onUpdateID = Subscribe("DESTROY", [](std::map<std::string, void*> data) -> void
 	{
+		std::cout << "DESTROY CALLED" << std::endl;
 		int id = std::stoi(*(std::string*)data["ID"]);
 		Receiver* self = (Receiver*)data["this"];
 		if (self != nullptr && self->getGameObject() != nullptr) {

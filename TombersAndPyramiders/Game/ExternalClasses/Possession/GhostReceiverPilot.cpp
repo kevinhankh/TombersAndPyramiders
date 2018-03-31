@@ -10,6 +10,17 @@ GhostReceiverPilot::GhostReceiverPilot()
 	
 }
 
+//On loading in a controller, if it's our first time loading the m_ghostController, set it
+void GhostReceiverPilot::setController(BaseController* controller)
+{
+	BasePilot::setController(controller);
+	if (m_ghostController == nullptr)
+	{
+		m_possessableController = nullptr;
+		m_ghostController = m_controller;
+	}
+}
+
 void GhostReceiverPilot::onStart()
 {
 	if (!m_hasInit) 
@@ -59,14 +70,21 @@ void GhostReceiverPilot::setPossession(std::shared_ptr<BasePossessableController
 	else 
 	{
 		// If we are trying to stop possessing, stop possessing
-		GhostController* ghostControllerRaw = dynamic_cast<GhostController*>(m_controller);
+		GhostController* ghostControllerRaw = dynamic_cast<GhostController*>(m_ghostController);
 		Transform* possessTrans = m_possessableController->getGameObject()->getTransform();
-		ghostControllerRaw->getGameObject()->getTransform()->setPosition(possessTrans->getX(), possessTrans->getY());
-		m_possessableController->swapPilots(ghostControllerRaw);
+		m_ghostController->getGameObject()->getTransform()->setPosition(possessTrans->getX(), possessTrans->getY());
+		m_possessableController->swapPilots(m_ghostController);
 		m_possessableController->onPossessionEnd();
 		m_possessableController = nullptr;
-		ghostControllerRaw->getGameObject()->getTransform()->setScale(1.0f);
-		ghostControllerRaw->stopPossessing();
+		m_ghostController->getGameObject()->getTransform()->setScale(1.0f);
+		auto ghostController = dynamic_cast<GhostController*>(m_ghostController);
+		if (ghostController != nullptr) 
+		{
+			ghostController->stopPossessing();
+		}
+		else {
+			std::cout << "Attached controller was not a GhostController" << std::endl;
+		}
 	}
 }
 

@@ -5,7 +5,6 @@
 #include "Vector2.h"
 #include "BasePossessableController.h"
 
-
 class GhostReceiverPilot : public BasePilot
 {
 private:
@@ -15,6 +14,7 @@ private:
 	bool m_hasInit;
 	std::shared_ptr<BasePossessableController> m_possessableController;
 	bool m_possessing;
+	BaseController* m_ghostController;
 
 public:
 	/** Default constructor. */
@@ -30,4 +30,5 @@ public:
 	void onEnd();
 	void setMovement(Vector2 vec, int updates);
 	void setPossession(std::shared_ptr<BasePossessableController> possession);
+	void setController(BaseController* controller);
 };
