@@ -276,7 +276,9 @@ void CharacterController::death()
 	//If we arent, we might have a receiver ID
 	else {
 		auto receiver = gameObject->getComponent<Receiver>();
-		networkID = receiver->netID;
+		if (receiver != nullptr) {
+			networkID = receiver->netID;
+		}
 	}
 	//If we got an ID, we are therefore networked
 	if (networkID != -1) {
