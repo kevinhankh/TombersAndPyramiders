@@ -152,6 +152,12 @@ Vector2 GhostPilot::getMovement()
 		movement.setX(movement.getX() + 1);
 	}
 
+	m_lastMovement.setX(movement.getX());
+	m_lastMovement.setY(movement.getY());
 	return movement;
 }
 
+Vector2 GhostPilot::getLastMovement() 
+{
+	return m_lastMovement;
+}

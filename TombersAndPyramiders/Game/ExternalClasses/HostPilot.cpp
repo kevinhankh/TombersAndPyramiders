@@ -38,7 +38,8 @@ void HostPilot::onEnd()
 {}
 
 void HostPilot::setMovement (Vector2 vec, int updates) {
-	m_lastNetworkVector = vec;
+	m_lastNetworkVector.setX(vec.getX());
+	m_lastNetworkVector.setY(vec.getY());
 	updatesUntilInvalid = updates;
 	updatesSinceNewMovement = 0;
 }

@@ -20,6 +20,7 @@
 #include "WoodenChestplate.h"
 #include "WoodenHelmet.h"
 #include "GeneratorManager.h"
+#include "GhostReceiverPilot.h"
 
 std::shared_ptr<SpawnManager> SpawnManager::s_instance;
 
@@ -266,9 +267,12 @@ std::shared_ptr<Boulder> SpawnManager::generateBoulder(float x, float y)
 
 std::shared_ptr<GhostCharacter> SpawnManager::generateNetworkGhost(float x, float y, int netId, bool isPlayer)
 {
-	BasePilot* pilot = new DummyPilot();
+	BasePilot* pilot;
 	if (isPlayer) {
 		pilot = new GhostPilot();
+	}
+	else {
+		pilot = new GhostReceiverPilot();
 	}
 	std::shared_ptr<GhostCharacter> ghost = GameManager::getInstance()->createGameObject<GhostCharacter>(false, pilot);
 	if (isPlayer) {

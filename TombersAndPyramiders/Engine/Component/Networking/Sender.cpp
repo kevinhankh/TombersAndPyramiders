@@ -2,6 +2,7 @@
 #include "NetworkingManager.h"
 #include "CharacterController.h"
 #include "GhostController.h"
+#include "GhostPilot.h"
 
 Sender::Sender(GameObject* gameObject, int ID) : Component(gameObject)
 {
@@ -33,21 +34,23 @@ void Sender::sendUpdate()
 		return;
 	std::map<std::string, std::string> payload;
 	Transform* transform = gameObject->getTransform ();
-	PlayerPilot* pp = nullptr;
+	Vector2 lastMovementVector;
 	std::shared_ptr<CharacterController> cc = gameObject->getComponent<CharacterController> ();
 	if (cc != nullptr) 
 	{
-		pp = (PlayerPilot*)cc->getPilot();
+		PlayerPilot* pp = (PlayerPilot*)cc->getPilot();
+		lastMovementVector = Vector2(pp->m_lastMoveVector.getX(), pp->m_lastMoveVector.getY());
 	}
 	else {
 		std::shared_ptr<GhostController> gc = gameObject->getComponent<GhostController>();
-		pp = (PlayerPilot*)gc->getPilot();
+		auto gp = (GhostPilot*)gc->getPilot();
+		lastMovementVector = Vector2(gp->getLastMovement().getX(), gp->getLastMovement().getY());
 	}
 	payload["x"] = std::to_string(transform->getX());
 	payload["y"] = std::to_string(transform->getY());
 	payload["z"] = std::to_string (transform->getZ ());
-	payload["vecX"] = std::to_string (pp->m_lastMoveVector.getX());
-	payload["vecY"] = std::to_string (pp->m_lastMoveVector.getY());
+	payload["vecX"] = std::to_string (lastMovementVector.getX());
+	payload["vecY"] = std::to_string (lastMovementVector.getY());
 	payload["rotation"] = std::to_string(transform->getRotation());
 	payload["scale"] = std::to_string(transform->getScale());
 	sendNetworkMessage("UPDATE", payload, false);
