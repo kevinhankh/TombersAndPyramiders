@@ -266,12 +266,14 @@ void CharacterController::death()
 {
 	// If we are the player, spawn our ghost
 	int networkID = -1;
-	auto sender = gameObject->getComponent<Sender>();
-	bool isSender = sender != nullptr;
+	bool isPlayableCharacter = dynamic_cast<PlayerPilot*>(m_pilot.get()) != nullptr;
 
-	//If we have a sender, we have a sending ID
-	if (isSender) {
-		networkID = sender->getNetworkID();
+	if (isPlayableCharacter) {
+		//If we have a sender, we have a sending ID
+		auto sender = gameObject->getComponent<Sender>();
+		if (sender != nullptr) {
+			networkID = sender->getNetworkID();
+		}
 	}
 	//If we arent, we might have a receiver ID
 	else {
@@ -282,25 +284,12 @@ void CharacterController::death()
 	}
 	//If we got an ID, we are therefore networked
 	if (networkID != -1) {
-		auto newGhost = SpawnManager::getInstance()->generateNetworkGhost(gameObject->getTransform()->getX(), gameObject->getTransform()->getY(), networkID, isSender);
-		if (isSender) {
+		auto newGhost = SpawnManager::getInstance()->generateNetworkGhost(gameObject->getTransform()->getX(), gameObject->getTransform()->getY(), networkID, isPlayableCharacter);
+		if (isPlayableCharacter) {
 			SceneManager::getInstance()->getCurrentScene()->setCameraFollow(newGhost);
 		}
 	}
-	/*if (dynamic_cast<PlayerPilot*>(m_pilot.get()) != nullptr)
-	{
-		auto sender = getGameObject()->getComponent<Sender>();
-		if (sender != nullptr) {
-			std::map<std::string, std::string> payload;
-			Transform* transform = gameObject->getTransform();
-			payload["x"] = std::to_string(transform->getX());
-			payload["y"] = std::to_string(transform->getY());
-			payload["netID"] = std::to_string(sender->getNetworkID());
-			sender->sendNetworkMessage("0|SPAWNGHOST", payload);
-			auto newGhost = SpawnManager::getInstance()->generateNetworkGhost(transform->getX(), transform->getY(), sender->getNetworkID(), true);
-			SceneManager::getInstance()->getCurrentScene()->setCameraFollow(newGhost);
-		}
-	}*/
+
 	m_character->onEnd();
 }
 
