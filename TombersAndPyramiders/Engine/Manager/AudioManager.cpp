@@ -45,7 +45,7 @@ AudioManager::AudioManager()
 		int i, max = Mix_GetNumMusicDecoders();
 		for (i = 0; i<max; ++i)
 			std::cout << "Music decoder " << i << "is for " << Mix_GetMusicDecoder(i) << std::endl;
-
+			
 	SDL_ClearError();
 	if (Mix_AllocateChannels(MAX_CHANNELS))
 		std::cout << "Allocating: " << Mix_GetError() << std::endl;
@@ -73,6 +73,7 @@ AudioManager::AudioManager()
 	m_audioFiles[SFX_BUTTON_HOVER] = Mix_LoadWAV(BuildPath(PATH_SFX_BUTTON_HOVER).c_str());
 	std::cout << m_musicFiles[SFX_BUTTON_HOVER]<< std::endl;
 	std::cout << "Done" << std::endl;
+	m_listener = nullptr;
 }
 
 AudioManager::~AudioManager()
