@@ -24,7 +24,6 @@
     <ClCompile Include="Engine\Manager\NetworkingManager.cpp" />
     <ClCompile Include="Engine\Manager\PhysicsManager.cpp" />
     <ClCompile Include="Engine\Manager\SceneManager.cpp" />
-    <ClCompile Include="Engine\Monster.cpp" />
     <ClCompile Include="Engine\PathFinding.cpp" />
     <ClCompile Include="Engine\Scene.cpp" />
     <ClCompile Include="Engine\Updateable.cpp" />
@@ -85,9 +84,40 @@
     <ClCompile Include="Game\Scenes\SceneTemplate.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Game\GameObjects\Monster.cpp" />
-    <ClCompile Include="Paper.cpp" />
-    <ClCompile Include="PathFinding.cpp" />
     <ClCompile Include="Game\Scenes\LaunchScene.cpp" />
+    <ClCompile Include="Engine\External\QuadTree.cpp" />
+    <ClCompile Include="Game\Scenes\PossessionTestScene.cpp" />
+    <ClCompile Include="Game\GameObjects\GhostCharacter.cpp" />
+    <ClCompile Include="Game\ExternalClasses\Possession\GhostPilot.cpp" />
+    <ClCompile Include="Game\ExternalClasses\Possession\BasePossessableController.cpp" />
+    <ClCompile Include="Game\ExternalClasses\Possession\BoulderController.cpp" />
+    <ClCompile Include="Game\GameObjects\Boulder.cpp" />
+    <ClCompile Include="Game\ExternalClasses\Possession\GhostController.cpp" />
+    <ClCompile Include="Game\GameObjects\Doors\SingleDoor.cpp" />
+    <ClCompile Include="Game\GameObjects\Doors\Door.cpp" />
+    <ClCompile Include="Game\Components\DoorController.cpp" />
+    <ClCompile Include="Game\ExternalClasses\WoodenShield.cpp" />
+    <ClCompile Include="Game\ExternalClasses\WoodenGreaves.cpp" />
+    <ClCompile Include="Game\ExternalClasses\WoodenChestplate.cpp" />
+    <ClCompile Include="Game\ExternalClasses\WoodenHelmet.cpp" />
+    <ClCompile Include="Engine\Component\Audio\AudioListener.cpp" />
+    <ClCompile Include="Engine\Component\Audio\AudioSource.cpp" />
+    <ClCompile Include="Engine\External\LevelGeneration\BinaryTree.cpp" />
+    <ClCompile Include="Engine\External\LevelGeneration\Codec.cpp" />
+    <ClCompile Include="Engine\External\LevelGeneration\Corridor.cpp" />
+    <ClCompile Include="Engine\External\LevelGeneration\Doorway.cpp" />
+    <ClCompile Include="Engine\External\LevelGeneration\Room.cpp" />
+    <ClCompile Include="Engine\GameObjects\Tiles\ConnectorTile.cpp" />
+    <ClCompile Include="Engine\GameObjects\Tiles\CornerTile.cpp" />
+    <ClCompile Include="Engine\GameObjects\Tiles\DoorTile.cpp" />
+    <ClCompile Include="Engine\GameObjects\Tiles\FloorTile.cpp" />
+    <ClCompile Include="Engine\GameObjects\Tiles\Tile.cpp" />
+    <ClCompile Include="Engine\GameObjects\Tiles\WallTile.cpp" />
+    <ClCompile Include="Engine\Manager\GeneratorManager.cpp" />
+    <ClCompile Include="Game\GameObjects\Button.cpp" />
+    <ClCompile Include="Game\GameObjects\Panel.cpp" />
+    <ClCompile Include="Game\Scenes\MainMenuScene.cpp" />
+    <ClCompile Include="Game\ExternalClasses\Possession\GhostReceiverPilot.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Component\AI\AI.h" />
@@ -117,7 +147,6 @@
     <ClInclude Include="Engine\Manager\NetworkingManager.h" />
     <ClInclude Include="Engine\Manager\PhysicsManager.h" />
     <ClInclude Include="Engine\Manager\SceneManager.h" />
-    <ClInclude Include="Engine\Monster.h" />
     <ClInclude Include="Engine\PathFinding.h" />
     <ClInclude Include="Engine\Scene.h" />
     <ClInclude Include="Engine\SearchCell.h" />
@@ -180,10 +209,43 @@
     <ClInclude Include="Game\Scenes\CharacterTestScene.h" />
     <ClInclude Include="Game\Scenes\SceneTemplate.h" />
     <ClInclude Include="Game\GameObjects\Monster.h" />
-    <ClInclude Include="Paper.h" />
-    <ClInclude Include="PathFinding.h" />
-    <ClInclude Include="SearchCell.h" />
     <ClInclude Include="Game\Scenes\LaunchScene.h" />
+    <ClInclude Include="Engine\External\QuadTree.h" />
+    <ClInclude Include="Game\Scenes\PossessionTestScene.h" />
+    <ClInclude Include="Game\GameObjects\GhostCharacter.h" />
+    <ClInclude Include="Game\ExternalClasses\Possession\GhostPilot.h" />
+    <ClInclude Include="Game\ExternalClasses\Possession\BasePossessableController.h" />
+    <ClInclude Include="Game\ExternalClasses\Possession\BoulderController.h" />
+    <ClInclude Include="Game\GameObjects\Boulder.h" />
+    <ClInclude Include="Game\ExternalClasses\Possession\GhostController.h" />
+    <ClInclude Include="Game\ExternalClasses\Invokable.h" />
+    <ClInclude Include="Game\GameObjects\Doors\SingleDoor.h" />
+    <ClInclude Include="Game\GameObjects\Doors\Door.h" />
+    <ClInclude Include="Game\Components\DoorController.h" />
+    <ClInclude Include="Game\ExternalClasses\WoodenShield.h" />
+    <ClInclude Include="Game\ExternalClasses\WoodenGreaves.h" />
+    <ClInclude Include="Game\ExternalClasses\WoodenChestplate.h" />
+    <ClInclude Include="Game\ExternalClasses\RandomHelper.h" />
+    <ClInclude Include="Game\ExternalClasses\WoodenHelmet.h" />
+    <ClInclude Include="Engine\Component\Audio\AudioBank.h" />
+    <ClInclude Include="Engine\Component\Audio\AudioListener.h" />
+    <ClInclude Include="Engine\Component\Audio\AudioSource.h" />
+    <ClInclude Include="Engine\External\LevelGeneration\Room.h" />
+    <ClInclude Include="Engine\External\LevelGeneration\BinaryTree.h" />
+    <ClInclude Include="Engine\External\LevelGeneration\Codec.h" />
+    <ClInclude Include="Engine\External\LevelGeneration\Corridor.h" />
+    <ClInclude Include="Engine\External\LevelGeneration\Doorway.h" />
+    <ClInclude Include="Engine\GameObjects\Tiles\ConnectorTile.h" />
+    <ClInclude Include="Engine\GameObjects\Tiles\CornerTile.h" />
+    <ClInclude Include="Engine\GameObjects\Tiles\DoorTile.h" />
+    <ClInclude Include="Engine\GameObjects\Tiles\FloorTile.h" />
+    <ClInclude Include="Engine\GameObjects\Tiles\Tile.h" />
+    <ClInclude Include="Engine\GameObjects\Tiles\WallTile.h" />
+    <ClInclude Include="Engine\Manager\GeneratorManager.h" />
+    <ClInclude Include="Game\GameObjects\Button.h" />
+    <ClInclude Include="Game\GameObjects\Panel.h" />
+    <ClInclude Include="Game\Scenes\MainMenuScene.h" />
+    <ClInclude Include="Game\ExternalClasses\Possession\GhostReceiverPilot.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Character.bmp" />
@@ -192,5 +254,43 @@
   <ItemGroup>
     <Text Include="Engine\External\Render\contrastFragment.txt" />
     <Text Include="Engine\External\Render\contrastVertex.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Game\Assets\Audio\hit.mp3" />
+    <Media Include="Game\Assets\Audio\hit1.mp3" />
+    <Media Include="Game\Assets\Audio\hit2.mp3" />
+    <Media Include="Game\Assets\Audio\hit3.mp3" />
+    <Media Include="Game\Assets\Audio\mario_.mp3" />
+    <Media Include="Game\Assets\Audio\mario_.wav" />
+    <Media Include="Game\Assets\Audio\shootarrow.mp3" />
+    <Media Include="Game\Assets\Audio\swordswing.mp3" />
+    <Media Include="Game\Assets\Audio\valiantwind.mp3" />
+    <Media Include="Game\Assets\Audio\victory.wav" />
+    <Media Include="Game\Assets\hit.wav" />
+    <Media Include="Game\Assets\mario_.wav" />
+    <Media Include="Game\Assets\shoot.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Game\Assets\Shaders\fragment_shader.fs" />
+    <None Include="Game\Assets\Shaders\glow.fs" />
+    <None Include="Game\Assets\Shaders\glow.vs" />
+    <None Include="Game\Assets\Shaders\ppAmbientColour.fs" />
+    <None Include="Game\Assets\Shaders\ppBloom.fs" />
+    <None Include="Game\Assets\Shaders\ppExtractBrightness.fs" />
+    <None Include="Game\Assets\Shaders\ppExtractBrightnessDirectional.fs" />
+    <None Include="Game\Assets\Shaders\ppExtractBrightnessDirectional.vs" />
+    <None Include="Game\Assets\Shaders\ppGaussianBlur.fs" />
+    <None Include="Game\Assets\Shaders\ppHorizontalGaussianBlur.vs" />
+    <None Include="Game\Assets\Shaders\ppPassThrough.fs" />
+    <None Include="Game\Assets\Shaders\ppPassThrough.vs" />
+    <None Include="Game\Assets\Shaders\ppVerticalGaussianBlur.vs" />
+    <None Include="Game\Assets\Shaders\shadow.fs" />
+    <None Include="Game\Assets\Shaders\shadow.vs" />
+    <None Include="Game\Assets\Shaders\shadow_SpriteSheet.vs" />
+    <None Include="Game\Assets\Shaders\sprite_sheet.vs" />
+    <None Include="Game\Assets\Shaders\tile.vs" />
+    <None Include="Game\Assets\Shaders\vertex_shader.vs" />
+    <None Include="Game\Assets\Shaders\voxel.fs" />
+    <None Include="Game\Assets\.DS_Store" />
   </ItemGroup>
 </Project>

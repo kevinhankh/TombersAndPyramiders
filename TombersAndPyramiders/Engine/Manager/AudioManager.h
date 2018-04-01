@@ -1,16 +1,48 @@
+/*
+	Audio Manager
+
+	*Latest Update - March 29, 2018
+		- Added fixes to play audio on mac
+		- Changed sound effects to .wav files
+		- Changed music from channel 0 to Mix_PlayMusic to keep it as an mp3 file
+		- Moved all audio file paths and keys definition to AudioBank.h
+
+	*Update - March 18, 2018
+		- Changed to a channel oriented system
+		- Added distance sound effects functionality
+
+	@author Kevin Han
+*/
+
 #pragma once
+#include "GLHeaders.h"
+#include <iostream>
 #include <string>
-#include <SDL_mixer.h>
+#include "AudioBank.h"
+#include "HelperFunctions.h"
+#include "GameObject.h"
+#include "SpriteRendererManager.h"
+#include "Transform.h"
+
+#define MAX_CHANNELS 16
+#define MIN_DISTANCE 25
+#define MAX_DISTANCE 40
+#define MAX_VOLUME 128
+#define DISTANCE_OFFSET 4
+#define DISTANCE_VOLUME 100
 
 class AudioManager
 {
 private:
 	static AudioManager* s_instance;
-	
-	Mix_Chunk* m_hit;
-	Mix_Chunk* m_shootArrow;
-	Mix_Chunk* m_swordSwing;
-	Mix_Chunk* m_valiantWind;
+
+	GameObject* m_listener;
+	std::map<int, Mix_Chunk*> m_audioFiles;
+	std::map<int, Mix_Music*> m_musicFiles;
+
+	float m_distance;
+	float m_listenerX;
+	float m_listenerY;
 
 	AudioManager();
 	~AudioManager();
@@ -18,18 +50,11 @@ private:
 public:
 	static AudioManager* getInstance();
 	static void release();
-
-	//Starts playing music
-	void playMusic(int loop = -1, float volumeFactor = 1.0f);
-	void playHitSFX(int loop = -1, float volumeFactor = 1.0f);
-	void playShootArrowSFX(int loop = -1, float volumeFactor = 1.0f);
-	void playSwordSwingSFX(int loop = -1, float volumeFactor = 1.0f);
-	//Pauses the current music
+	void setListener(GameObject* listenerObject);
+	void playMusic(int musicInput);
 	void pauseMusic();
-	//Resume playing the music
 	void resumeMusic();
-	//Stops playing the music
-	void stopMusic();
-	//Starts sound effect, plays til the end and stops
-	//void PlaySoundEffect(std::string filename, int loop = 0, int channel = 0);
+	void playSound(int sfxInput, float x, float y);
+	void playChannel(int channel, int volume, int distance, int sfxInput);
+	void closeAudio();
 };

@@ -13,11 +13,14 @@ private:
 public:
 	std::map<Uint32, Character> players;
 	NetworkedGameScene();
-	void setCameraFollow(std::shared_ptr<GameObject> toFollow);
 	void onStart();
 	void onResume() {};
 	void onUpdate(int ticks);
 	void onPause();
 	void onEnd();
 
+	std::shared_ptr<Character> Ai = nullptr;
+	std::shared_ptr<Character> Ai2 = nullptr;
+	std::shared_ptr<Character> Ai3 = nullptr;
+	std::shared_ptr<Character> Ai4 = nullptr;
 };
