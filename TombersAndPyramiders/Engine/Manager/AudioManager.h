@@ -15,8 +15,7 @@
 */
 
 #pragma once
-#include <SDL.h>
-#include <SDL_mixer.h>
+#include "GLHeaders.h"
 #include <iostream>
 #include <string>
 #include "AudioBank.h"

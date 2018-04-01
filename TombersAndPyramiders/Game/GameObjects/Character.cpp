@@ -15,6 +15,9 @@
 #include "Character.h"
 #include "CharacterController.h"
 #include "Inventory.h"
+#include "Sender.h"
+#include "Receiver.h"
+#include "SpawnManager.h"
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
@@ -264,4 +267,7 @@ bool Character::playHurtAnimation()
 	}
 
 	return true;
+}
+
+void Character::onNetworkEnd() {
 }

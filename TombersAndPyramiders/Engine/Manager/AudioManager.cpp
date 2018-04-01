@@ -33,14 +33,15 @@ void AudioManager::release()
 
 AudioManager::AudioManager()
 {
-	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
-		std::cout << "ERROR: " << Mix_GetError() << std::endl;
+	Mix_GetError();
+	//if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) < 0)
+		std::cout << "ERROR Opening Mix_OpenAudio: " << Mix_GetError() << std::endl;
 
 	Mix_AllocateChannels(MAX_CHANNELS);
 
 	m_musicFiles[MUSIC_MENU] = Mix_LoadMUS(BuildPath(PATH_MUSIC_MENU).c_str());
 	m_musicFiles[MUSIC_LEVEL_1] = Mix_LoadMUS(BuildPath(PATH_MUSIC_LEVEL_1).c_str());
-
 	m_audioFiles[SFX_BOW] = Mix_LoadWAV(BuildPath(PATH_SFX_BOW).c_str());
 	m_audioFiles[SFX_HIT] = Mix_LoadWAV(BuildPath(PATH_SFX_HIT).c_str());
 	m_audioFiles[SFX_SWORD] = Mix_LoadWAV(BuildPath(PATH_SFX_SWORD).c_str());
@@ -48,6 +49,8 @@ AudioManager::AudioManager()
 	m_audioFiles[SFX_DASH] = Mix_LoadWAV(BuildPath(PATH_SFX_DASH).c_str());
 	m_audioFiles[SFX_DOOR] = Mix_LoadWAV(BuildPath(PATH_SFX_DASH).c_str());
 	m_audioFiles[SFX_BUTTON_HOVER] = Mix_LoadWAV(BuildPath(PATH_SFX_BUTTON_HOVER).c_str());
+	std::cout << Mix_GetError() << std::endl;
+	m_listener = nullptr;
 }
 
 AudioManager::~AudioManager()
@@ -89,7 +92,7 @@ void AudioManager::playSound(int sfxInput, float sourceX, float sourceY)
 		if (!Mix_Playing(i))
 		{
 			//checks for listener
-			if (m_listener != nullptr)
+			if (m_listener != nullptr && m_listener != NULL)
 			{
 				m_listenerX = m_listener->getTransform()->getX();
 				m_listenerY = m_listener->getTransform()->getY();
