@@ -201,6 +201,7 @@
     <ClCompile Include="Game\ExternalClasses\Possession\GhostController.cpp" />
     <ClCompile Include="Game\ExternalClasses\Possession\GhostPilot.cpp" />
     <ClCompile Include="Game\ExternalClasses\Possession\BoulderController.cpp" />
+    <ClCompile Include="Game\ExternalClasses\Possession\GhostReceiverPilot.cpp" />
     <ClCompile Include="Game\ExternalClasses\WoodenChestplate.cpp" />
     <ClCompile Include="Game\ExternalClasses\WoodenGreaves.cpp" />
     <ClCompile Include="Game\ExternalClasses\WoodenHelmet.cpp" />
@@ -321,6 +322,7 @@
     <ClInclude Include="Game\ExternalClasses\PlayerPilot.h" />
     <ClInclude Include="Game\ExternalClasses\Possession\BasePossessableController.h" />
     <ClInclude Include="Game\ExternalClasses\Possession\GhostController.h" />
+    <ClInclude Include="Game\ExternalClasses\Possession\GhostReceiverPilot.h" />
     <ClInclude Include="Game\ExternalClasses\Possession\GhostPilot.h" />
     <ClInclude Include="Game\ExternalClasses\Possession\BoulderController.h" />
     <ClInclude Include="Game\ExternalClasses\RandomHelper.h" />

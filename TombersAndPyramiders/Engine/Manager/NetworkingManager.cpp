@@ -587,7 +587,7 @@ std::map<std::string, void*> NetworkingManager::deserializeMessage (std::string 
 			data[currentKey] = (void*)new std::string (currentValue);
 			break;
 		}
-		if (!isspace (curChar))
+		if (!::isspace (curChar))
 		{
 			if (readingKey)
 			{

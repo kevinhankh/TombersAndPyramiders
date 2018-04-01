@@ -59,7 +59,7 @@
             "-lSDL2_net",
             "-lSDL2_mixer",
             "-g",
-            "-o game"
+            "-o MacRunner/runnable"
         ],
         "group": {
             "kind": "build",
