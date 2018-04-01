@@ -67,6 +67,10 @@ void GhostPilot::onUpdate(int ticks)
 		{
 			Vector2 movement = getMovement();
 			m_possessableController->move(movement);
+			auto sender = m_ghostController->getGameObject()->getComponent<Sender>();
+			if (sender != nullptr) {
+				sender->sendGhostMovePossession(movement);
+			}
 		}
 	}
 	//If we are not possessing anything

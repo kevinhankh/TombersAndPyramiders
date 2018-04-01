@@ -3,6 +3,7 @@
 #include "CharacterController.h"
 #include "GhostController.h"
 #include "GhostPilot.h"
+#include "BasePossessableController.h"
 
 Sender::Sender(GameObject* gameObject, int ID) : Component(gameObject)
 {
@@ -34,6 +35,16 @@ void Sender::sendUpdate()
 		return;
 	std::map<std::string, std::string> payload;
 	Transform* transform = gameObject->getTransform ();
+
+	// Handle Generic Transform
+	payload["x"] = std::to_string(transform->getX());
+	payload["y"] = std::to_string(transform->getY());
+	payload["z"] = std::to_string(transform->getZ());
+	payload["rotation"] = std::to_string(transform->getRotation());
+	payload["scale"] = std::to_string(transform->getScale());
+
+	// Handle Velocity/Movement
+
 	Vector2 lastMovementVector;
 	std::shared_ptr<CharacterController> cc = gameObject->getComponent<CharacterController> ();
 	if (cc != nullptr) 
@@ -44,15 +55,29 @@ void Sender::sendUpdate()
 	else {
 		std::shared_ptr<GhostController> gc = gameObject->getComponent<GhostController>();
 		auto gp = (GhostPilot*)gc->getPilot();
-		lastMovementVector = Vector2(gp->getLastMovement().getX(), gp->getLastMovement().getY());
+		if (gp != nullptr)
+		{
+			lastMovementVector = Vector2(gp->getLastMovement().getX(), gp->getLastMovement().getY());
+		}
+		else {
+			//Ghost is possessing something other than its body
+			auto possessable = gc->getPossessingItem();
+			if (possessable != nullptr)
+			{
+				payload["x"] = possessable->getGameObject()->getTransform()->getX();
+				payload["y"] = possessable->getGameObject()->getTransform()->getY();
+			}
+			else {
+				std::cout << "ERROR: Updating non Character/Ghost or can't find it" << std::endl;
+			}
+		}
+		
 	}
-	payload["x"] = std::to_string(transform->getX());
-	payload["y"] = std::to_string(transform->getY());
-	payload["z"] = std::to_string (transform->getZ ());
+
 	payload["vecX"] = std::to_string (lastMovementVector.getX());
 	payload["vecY"] = std::to_string (lastMovementVector.getY());
-	payload["rotation"] = std::to_string(transform->getRotation());
-	payload["scale"] = std::to_string(transform->getScale());
+
+	//Send Update Message
 	sendNetworkMessage("UPDATE", payload, false);
 }
 
@@ -105,6 +130,14 @@ void Sender::sendTrigger()
 {
 	std::map<std::string, std::string> payload;
 	sendNetworkMessage("TRIGGER", payload);
+}
+
+void Sender::sendGhostMovePossession(Vector2 movement)
+{
+	std::map<std::string, std::string> payload;
+	payload["xVel"] = std::to_string(movement.getX());
+	payload["yVel"] = std::to_string(movement.getY());
+	sendNetworkMessage("GHOSTMOVEPOSSESSION", payload);
 }
 
 void Sender::sendGhostTrigger()

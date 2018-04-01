@@ -51,9 +51,23 @@ void GhostReceiverPilot::onStart()
 				GhostReceiverPilot* self = (GhostReceiverPilot*)data["this"];
 				self->setPossession(nullptr);
 			}, this);
+			receiver->Subscribe("GHOSTMOVEPOSSESSION", [](std::map<std::string, void*> data) -> void
+			{
+				GhostReceiverPilot* self = (GhostReceiverPilot*)data["this"];
+				Vector2 movement = Vector2(std::stof(*(std::string*)data["xVel"]), std::stof(*(std::string*)data["yVel"]));
+				self->movePossessable(movement);
+			}, this);
 		}
 
 		m_hasInit = true;
+	}
+}
+
+void GhostReceiverPilot::movePossessable(Vector2 movement)
+{
+	if (m_possessableController != nullptr)
+	{
+		m_possessableController->move(movement);
 	}
 }
 

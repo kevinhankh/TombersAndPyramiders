@@ -25,4 +25,5 @@ public:
 	bool tryPossessClosest(std::shared_ptr<BasePossessableController>& toPopulate);
 	bool tryTrigger();
 	void stopPossessing();
+	std::shared_ptr<BasePossessableController> getPossessingItem();
 };

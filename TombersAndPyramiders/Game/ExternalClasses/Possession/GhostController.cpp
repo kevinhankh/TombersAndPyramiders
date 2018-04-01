@@ -92,6 +92,11 @@ void GhostController::follow(std::shared_ptr<BasePossessableController>  toFollo
 	m_toFollow = toFollow;
 }
 
+std::shared_ptr<BasePossessableController> GhostController::getPossessingItem()
+{
+	return m_toFollow;
+}
+
 //Take in a delta vector, turn it into a direcitonal movespeed vector and determine which direction to move
 void GhostController::move(Vector2 delta)
 {
