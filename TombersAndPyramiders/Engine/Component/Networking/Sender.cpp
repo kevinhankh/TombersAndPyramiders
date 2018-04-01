@@ -64,8 +64,8 @@ void Sender::sendUpdate()
 			auto possessable = gc->getPossessingItem();
 			if (possessable != nullptr)
 			{
-				payload["x"] = possessable->getGameObject()->getTransform()->getX();
-				payload["y"] = possessable->getGameObject()->getTransform()->getY();
+				payload["x"] = std::to_string(possessable->getGameObject()->getTransform()->getX());
+				payload["y"] = std::to_string(possessable->getGameObject()->getTransform()->getY());
 			}
 			else {
 				std::cout << "ERROR: Updating non Character/Ghost or can't find it" << std::endl;
