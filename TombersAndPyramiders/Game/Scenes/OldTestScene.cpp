@@ -10,7 +10,7 @@
 #include "CameraFollow.h"
 #include "NetworkingManager.h"
 #include <memory>
-#include "WoodenShortsword.h"
+#include "EquipmentIncludes.h"
 
 std::shared_ptr<Character> player1 = nullptr;
 std::shared_ptr<Character> player2 = nullptr;
@@ -102,7 +102,7 @@ void OldTestScene::onStart()
 			}
 		}
 	}
-	SpawnManager::getInstance()->generateWorldItem(5, -5, std::make_shared<WoodenShortsword>());
+	SpawnManager::getInstance()->generateWorldItem(5, -5, std::make_shared<SilverLongbow>());
 
 	AiA = SpawnManager::getInstance()->generateAiCharacter(14, -15);
 	AiB = SpawnManager::getInstance()->generateAiCharacter(44, -20);

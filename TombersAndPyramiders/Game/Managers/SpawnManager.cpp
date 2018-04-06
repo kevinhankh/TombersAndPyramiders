@@ -145,11 +145,11 @@ This is the type of character of YOU are when you are playing. It is a client ch
 std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(int id, float x, float y)
 {
 	std::shared_ptr<ClientCharacter> simpleCharacter = GameManager::getInstance()->createGameObjectWithId<ClientCharacter>(false, id, new PlayerPilot(), id);
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<SilverLongbow>());
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<SilverShield>());
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<SilverGreaves>());
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<SilverChestplate>());
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<SilverHelmet>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenShield>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenGreaves>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenChestplate>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenHelmet>());
 	simpleCharacter->getTransform()->setPosition(x, y, 100);
 	simpleCharacter->getTransform()->setScale(2);
 	simpleCharacter->getTransform()->renderRotation = false;
