@@ -2,8 +2,6 @@
 #include <vector>
 #include "GameManager.h"
 #include "Inventory.h"
-#include "WoodenShortsword.h"
-#include "WoodenLongbow.h"
 #include "PlayerPilot.h"
 #include "AiPilot.h"
 #include "DummyPilot.h"
@@ -15,13 +13,10 @@
 #include "HostPilot.h"
 #include "GhostPilot.h"
 #include "SingleDoor.h"
-#include "WoodenShield.h"
-#include "WoodenGreaves.h"
-#include "WoodenChestplate.h"
-#include "WoodenHelmet.h"
 #include "GeneratorManager.h"
 #include "GhostReceiverPilot.h"
 #include "OldTestScene.h"
+#include "EquipmentIncludes.h"
 
 std::shared_ptr<SpawnManager> SpawnManager::s_instance;
 
@@ -145,16 +140,16 @@ SpawnManager::SpawnManager() : GameObject()
 }
 
 /*
-This is the type of character of YOU when you are playing. It is a client character. It will only send messages out.
+This is the type of character of YOU are when you are playing. It is a client character. It will only send messages out.
 */
 std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(int id, float x, float y)
 {
 	std::shared_ptr<ClientCharacter> simpleCharacter = GameManager::getInstance()->createGameObjectWithId<ClientCharacter>(false, id, new PlayerPilot(), id);
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenShield>());
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenGreaves>());
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenChestplate>());
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenHelmet>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<SilverLongbow>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<SilverShield>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<SilverGreaves>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<SilverChestplate>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<SilverHelmet>());
 	simpleCharacter->getTransform()->setPosition(x, y, 100);
 	simpleCharacter->getTransform()->setScale(2);
 	simpleCharacter->getTransform()->renderRotation = false;
