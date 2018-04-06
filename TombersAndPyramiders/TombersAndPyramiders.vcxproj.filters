@@ -118,6 +118,7 @@
     <ClCompile Include="Game\GameObjects\Panel.cpp" />
     <ClCompile Include="Game\Scenes\MainMenuScene.cpp" />
     <ClCompile Include="Game\ExternalClasses\Possession\GhostReceiverPilot.cpp" />
+    <ClCompile Include="Game\Scenes\OldTestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Component\AI\AI.h" />
@@ -246,6 +247,7 @@
     <ClInclude Include="Game\GameObjects\Panel.h" />
     <ClInclude Include="Game\Scenes\MainMenuScene.h" />
     <ClInclude Include="Game\ExternalClasses\Possession\GhostReceiverPilot.h" />
+    <ClInclude Include="Game\Scenes\OldTestScene.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Character.bmp" />

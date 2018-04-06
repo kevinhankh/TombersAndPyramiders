@@ -21,6 +21,7 @@
 #include "WoodenHelmet.h"
 #include "GeneratorManager.h"
 #include "GhostReceiverPilot.h"
+#include "OldTestScene.h"
 
 std::shared_ptr<SpawnManager> SpawnManager::s_instance;
 
@@ -63,6 +64,12 @@ void startGameCallback(std::map<std::string, void*> payload)
 void SpawnManager::sendStartPacket()
 {
 	std::map<std::string, std::string> payload;
+
+	//---------------------------------------------------------- TODO Comment out these lines before pushing.
+	OldTestScene* testScene = new OldTestScene();
+	SceneManager::getInstance()->pushScene(testScene);
+	return;
+	//----------------------------------------------------------
 
 	NetworkedGameScene* scene = new NetworkedGameScene();
 	SceneManager::getInstance()->pushScene(scene);
