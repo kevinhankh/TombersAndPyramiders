@@ -1,7 +1,7 @@
 /*===================================================================================*//**
-	WoodenShield
+	GoldShield
 	
-	A weak wooden shield.
+	A weak gold shield.
 
     @author Erick Fernandez de Arteaga
 	
@@ -10,20 +10,20 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "WoodenShield.h"
+#include "GoldShield.h"
 
 /*----------------------------------------------------------------------------------------
 	Static Fields
 ----------------------------------------------------------------------------------------*/
-const string WoodenShield::WOODEN_SHIELD_IMAGE_NAME = "TempWoodenShield.png";
-const float WoodenShield::WOODEN_SHIELD_DAMAGE_MULT = 0.9f;
-const float WoodenShield::WOODEN_SHIELD_COOLDOWN_TIME = 0.5f;
+const string GoldShield::GOLD_SHIELD_IMAGE_NAME = "TempGoldShield.png";
+const float GoldShield::GOLD_SHIELD_DAMAGE_MULT = 0.5f;
+const float GoldShield::GOLD_SHIELD_COOLDOWN_TIME = 0.3f;
 
 /*----------------------------------------------------------------------------------------
 	Instance Methods
 ----------------------------------------------------------------------------------------*/
-WoodenShield::WoodenShield() :
-	BaseShield(WOODEN_SHIELD_IMAGE_NAME, WOODEN_SHIELD_DAMAGE_MULT, WOODEN_SHIELD_COOLDOWN_TIME)
+GoldShield::GoldShield() :
+	BaseShield(GOLD_SHIELD_IMAGE_NAME, GOLD_SHIELD_DAMAGE_MULT, GOLD_SHIELD_COOLDOWN_TIME)
 {
 	m_itemIcon = "AddMeLater.png";
 }

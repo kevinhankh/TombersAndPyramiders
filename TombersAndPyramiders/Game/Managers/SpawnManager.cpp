@@ -2,8 +2,6 @@
 #include <vector>
 #include "GameManager.h"
 #include "Inventory.h"
-#include "WoodenShortsword.h"
-#include "WoodenLongbow.h"
 #include "PlayerPilot.h"
 #include "AiPilot.h"
 #include "DummyPilot.h"
@@ -15,12 +13,10 @@
 #include "HostPilot.h"
 #include "GhostPilot.h"
 #include "SingleDoor.h"
-#include "WoodenShield.h"
-#include "WoodenGreaves.h"
-#include "WoodenChestplate.h"
-#include "WoodenHelmet.h"
 #include "GeneratorManager.h"
 #include "GhostReceiverPilot.h"
+#include "OldTestScene.h"
+#include "EquipmentIncludes.h"
 
 std::shared_ptr<SpawnManager> SpawnManager::s_instance;
 
@@ -63,6 +59,12 @@ void startGameCallback(std::map<std::string, void*> payload)
 void SpawnManager::sendStartPacket()
 {
 	std::map<std::string, std::string> payload;
+
+	//---------------------------------------------------------- TODO Comment out these lines before pushing.
+	OldTestScene* testScene = new OldTestScene();
+	SceneManager::getInstance()->pushScene(testScene);
+	return;
+	//----------------------------------------------------------
 
 	NetworkedGameScene* scene = new NetworkedGameScene();
 	SceneManager::getInstance()->pushScene(scene);
@@ -138,7 +140,7 @@ SpawnManager::SpawnManager() : GameObject()
 }
 
 /*
-This is the type of character of YOU when you are playing. It is a client character. It will only send messages out.
+This is the type of character of YOU are when you are playing. It is a client character. It will only send messages out.
 */
 std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(int id, float x, float y)
 {
