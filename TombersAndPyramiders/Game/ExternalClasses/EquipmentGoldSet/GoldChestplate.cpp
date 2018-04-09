@@ -1,7 +1,7 @@
 /*===================================================================================*//**
-	WoodenShield
+	GoldChestplate
 	
-	A weak wooden shield.
+	A weak gold chestplate.
 
     @author Erick Fernandez de Arteaga
 	
@@ -10,20 +10,18 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "WoodenShield.h"
+#include "GoldChestplate.h"
 
 /*----------------------------------------------------------------------------------------
 	Static Fields
 ----------------------------------------------------------------------------------------*/
-const string WoodenShield::WOODEN_SHIELD_IMAGE_NAME = "TempWoodenShield.png";
-const float WoodenShield::WOODEN_SHIELD_DAMAGE_MULT = 0.9f;
-const float WoodenShield::WOODEN_SHIELD_COOLDOWN_TIME = 0.5f;
+const float GoldChestplate::GOLD_CHESTPLATE_DAMAGE_MULTIPLIER = 0.75;
 
 /*----------------------------------------------------------------------------------------
-	Instance Methods
+	Resource Management
 ----------------------------------------------------------------------------------------*/
-WoodenShield::WoodenShield() :
-	BaseShield(WOODEN_SHIELD_IMAGE_NAME, WOODEN_SHIELD_DAMAGE_MULT, WOODEN_SHIELD_COOLDOWN_TIME)
+GoldChestplate::GoldChestplate() :
+	BaseChestplate(GOLD_CHESTPLATE_DAMAGE_MULTIPLIER)
 {
 	m_itemIcon = "AddMeLater.png";
 }

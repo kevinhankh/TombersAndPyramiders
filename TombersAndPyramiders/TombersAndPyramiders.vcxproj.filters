@@ -118,6 +118,19 @@
     <ClCompile Include="Game\GameObjects\Panel.cpp" />
     <ClCompile Include="Game\Scenes\MainMenuScene.cpp" />
     <ClCompile Include="Game\ExternalClasses\Possession\GhostReceiverPilot.cpp" />
+    <ClCompile Include="Game\Scenes\OldTestScene.cpp" />
+    <ClCompile Include="Game\ExternalClasses\EquipmentSilverSet\SilverChestplate.cpp" />
+    <ClCompile Include="Game\ExternalClasses\EquipmentSilverSet\SilverGreaves.cpp" />
+    <ClCompile Include="Game\ExternalClasses\EquipmentSilverSet\SilverHelmet.cpp" />
+    <ClCompile Include="Game\ExternalClasses\EquipmentSilverSet\SilverLongbow.cpp" />
+    <ClCompile Include="Game\ExternalClasses\EquipmentSilverSet\SilverShield.cpp" />
+    <ClCompile Include="Game\ExternalClasses\EquipmentSilverSet\SilverShortsword.cpp" />
+    <ClCompile Include="Game\ExternalClasses\EquipmentGoldSet\GoldChestplate.cpp" />
+    <ClCompile Include="Game\ExternalClasses\EquipmentGoldSet\GoldGreaves.cpp" />
+    <ClCompile Include="Game\ExternalClasses\EquipmentGoldSet\GoldHelmet.cpp" />
+    <ClCompile Include="Game\ExternalClasses\EquipmentGoldSet\GoldLongbow.cpp" />
+    <ClCompile Include="Game\ExternalClasses\EquipmentGoldSet\GoldShield.cpp" />
+    <ClCompile Include="Game\ExternalClasses\EquipmentGoldSet\GoldShortsword.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Component\AI\AI.h" />
@@ -246,6 +259,20 @@
     <ClInclude Include="Game\GameObjects\Panel.h" />
     <ClInclude Include="Game\Scenes\MainMenuScene.h" />
     <ClInclude Include="Game\ExternalClasses\Possession\GhostReceiverPilot.h" />
+    <ClInclude Include="Game\Scenes\OldTestScene.h" />
+    <ClInclude Include="Game\ExternalClasses\EquipmentSilverSet\SilverChestplate.h" />
+    <ClInclude Include="Game\ExternalClasses\EquipmentSilverSet\SilverGreaves.h" />
+    <ClInclude Include="Game\ExternalClasses\EquipmentSilverSet\SilverHelmet.h" />
+    <ClInclude Include="Game\ExternalClasses\EquipmentSilverSet\SilverLongbow.h" />
+    <ClInclude Include="Game\ExternalClasses\EquipmentSilverSet\SilverShield.h" />
+    <ClInclude Include="Game\ExternalClasses\EquipmentSilverSet\SilverShortsword.h" />
+    <ClInclude Include="Game\ExternalClasses\EquipmentIncludes.h" />
+    <ClInclude Include="Game\ExternalClasses\EquipmentGoldSet\GoldChestplate.h" />
+    <ClInclude Include="Game\ExternalClasses\EquipmentGoldSet\GoldGreaves.h" />
+    <ClInclude Include="Game\ExternalClasses\EquipmentGoldSet\GoldHelmet.h" />
+    <ClInclude Include="Game\ExternalClasses\EquipmentGoldSet\GoldLongbow.h" />
+    <ClInclude Include="Game\ExternalClasses\EquipmentGoldSet\GoldShield.h" />
+    <ClInclude Include="Game\ExternalClasses\EquipmentGoldSet\GoldShortsword.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Character.bmp" />
