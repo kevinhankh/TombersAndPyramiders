@@ -22,4 +22,6 @@ const float GoldHelmet::GOLD_HELMET_CRITICAL_RESIST_CHANCE = 0.5f;
 ----------------------------------------------------------------------------------------*/
 GoldHelmet::GoldHelmet() :
 	BaseHelmet{ GOLD_HELMET_CRITICAL_RESIST_CHANCE }
-{}
+{
+	m_itemIcon = "AddMeLater.png";
+}

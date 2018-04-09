@@ -24,4 +24,6 @@ const float GoldShield::GOLD_SHIELD_COOLDOWN_TIME = 0.3f;
 ----------------------------------------------------------------------------------------*/
 GoldShield::GoldShield() :
 	BaseShield(GOLD_SHIELD_IMAGE_NAME, GOLD_SHIELD_DAMAGE_MULT, GOLD_SHIELD_COOLDOWN_TIME)
-{}
+{
+	m_itemIcon = "AddMeLater.png";
+}

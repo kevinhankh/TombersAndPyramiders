@@ -24,4 +24,6 @@ const float SilverShield::SILVER_SHIELD_COOLDOWN_TIME = 0.4f;
 ----------------------------------------------------------------------------------------*/
 SilverShield::SilverShield() :
 	BaseShield(SILVER_SHIELD_IMAGE_NAME, SILVER_SHIELD_DAMAGE_MULT, SILVER_SHIELD_COOLDOWN_TIME)
-{}
+{
+	m_itemIcon = "AddMeLater.png";
+}

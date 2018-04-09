@@ -30,7 +30,9 @@ WoodenGreaves::WoodenGreaves() :
 	BaseGreaves(WOODEN_GREAVES_COOLDOWN_TIME), 
 	m_timeLeftInDash{ 0.0f }, 
 	m_dashDirection{ make_unique<Vector2>() }
-{}
+{
+	m_itemIcon = "AddMeLater.png";
+}
 
 /*----------------------------------------------------------------------------------------
 	Instance Methods

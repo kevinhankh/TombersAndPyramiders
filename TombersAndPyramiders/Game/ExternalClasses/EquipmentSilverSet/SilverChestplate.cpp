@@ -22,4 +22,6 @@ const float SilverChestplate::SILVER_CHESTPLATE_DAMAGE_MULTIPLIER = 0.85;
 ----------------------------------------------------------------------------------------*/
 SilverChestplate::SilverChestplate() :
 	BaseChestplate(SILVER_CHESTPLATE_DAMAGE_MULTIPLIER)
-{}
+{
+	m_itemIcon = "AddMeLater.png";
+}
