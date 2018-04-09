@@ -22,4 +22,6 @@ const float GoldChestplate::GOLD_CHESTPLATE_DAMAGE_MULTIPLIER = 0.75;
 ----------------------------------------------------------------------------------------*/
 GoldChestplate::GoldChestplate() :
 	BaseChestplate(GOLD_CHESTPLATE_DAMAGE_MULTIPLIER)
-{}
+{
+	m_itemIcon = "AddMeLater.png";
+}

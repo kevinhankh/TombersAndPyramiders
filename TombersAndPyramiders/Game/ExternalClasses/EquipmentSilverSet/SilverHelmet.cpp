@@ -22,4 +22,6 @@ const float SilverHelmet::SILVER_HELMET_CRITICAL_RESIST_CHANCE = 0.2f;
 ----------------------------------------------------------------------------------------*/
 SilverHelmet::SilverHelmet() :
 	BaseHelmet{ SILVER_HELMET_CRITICAL_RESIST_CHANCE }
-{}
+{
+	m_itemIcon = "AddMeLater.png";
+}
