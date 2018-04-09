@@ -26,6 +26,8 @@
             "./TombersAndPyramiders/Game/Components/*.cpp",
             "./TombersAndPyramiders/Game/ExternalClasses/*.cpp",
             "./TombersAndPyramiders/Game/ExternalClasses/Possession/*.cpp",
+            "./TombersAndPyramiders/Game/ExternalClasses/EquipmentGoldSet/*.cpp",
+            "./TombersAndPyramiders/Game/ExternalClasses/EquipmentSilverSet/*.cpp",
             "./TombersAndPyramiders/Game/GameObjects/*.cpp",
             "./TombersAndPyramiders/Game/GameObjects/Doors/*.cpp",
             "./TombersAndPyramiders/Game/Managers/*.cpp",
@@ -48,6 +50,8 @@
             "-I${workspaceRoot}/TombersAndPyramiders/Game/Components",
             "-I${workspaceRoot}/TombersAndPyramiders/Game/ExternalClasses",
             "-I${workspaceRoot}/TombersAndPyramiders/Game/ExternalClasses/Possession",
+            "-I${workspaceRoot}/TombersAndPyramiders/Game/ExternalClasses/EquipmentGoldSet",
+            "-I${workspaceRoot}/TombersAndPyramiders/Game/ExternalClasses/EquipmentSilverSet",
             "-I${workspaceRoot}/TombersAndPyramiders/Game/GameObjects",
             "-I${workspaceRoot}/TombersAndPyramiders/Game/GameObjects/Doors",
             "-I${workspaceRoot}/TombersAndPyramiders/Game/Managers",
@@ -59,6 +63,7 @@
             "-lSDL2_net",
             "-lSDL2_mixer",
             "-g",
+            "-O3",
             "-o MacRunner/runnable"
         ],
         "group": {
