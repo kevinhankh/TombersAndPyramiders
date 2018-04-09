@@ -15,7 +15,7 @@
 /*----------------------------------------------------------------------------------------
 	Static Fields
 ----------------------------------------------------------------------------------------*/
-const int GoldShortsword::GOLD_SHORTSWORD_DAMAGE = 20;
+const int GoldShortsword::GOLD_SHORTSWORD_DAMAGE = 50;
 const string GoldShortsword::GOLD_SHORTSWORD_IMAGE_NAME = "TempGoldShortsword.png";
 const bool GoldShortsword::GOLD_SHORTSWORD_DESTROY_ON_COLLISION = false;
 

@@ -15,7 +15,7 @@
 /*----------------------------------------------------------------------------------------
 	Static Fields
 ----------------------------------------------------------------------------------------*/
-const int SilverLongbow::SILVER_LONGBOW_DAMAGE = 20;
+const int SilverLongbow::SILVER_LONGBOW_DAMAGE = 35;
 const std::string SilverLongbow::SILVER_LONGBOW_PROJECTILE_IMAGE_NAME = "TempSilverArrow.png";
 const bool SilverLongbow::SILVER_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION = true;
 

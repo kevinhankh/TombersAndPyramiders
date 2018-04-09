@@ -19,9 +19,9 @@
 /*----------------------------------------------------------------------------------------
 Static Fields
 ----------------------------------------------------------------------------------------*/
-const float GoldGreaves::GOLD_GREAVES_COOLDOWN_TIME = 1.0f;
-const float GoldGreaves::GOLD_GREAVES_DASH_DURATION = 0.5f;
-const float GoldGreaves::GOLD_GREAVES_MAX_DASH_SPEED = 50.0f;
+const float GoldGreaves::GOLD_GREAVES_COOLDOWN_TIME = 0.8f;
+const float GoldGreaves::GOLD_GREAVES_DASH_DURATION = 0.7f;
+const float GoldGreaves::GOLD_GREAVES_MAX_DASH_SPEED = 40.0f;
 
 /*----------------------------------------------------------------------------------------
 	Resource Management

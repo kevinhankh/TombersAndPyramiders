@@ -15,7 +15,7 @@
 /*----------------------------------------------------------------------------------------
 	Class Fields
 ----------------------------------------------------------------------------------------*/
-const float SilverHelmet::SILVER_HELMET_CRITICAL_RESIST_CHANCE = 0.05f;
+const float SilverHelmet::SILVER_HELMET_CRITICAL_RESIST_CHANCE = 0.2f;
 
 /*----------------------------------------------------------------------------------------
 	Resource Management

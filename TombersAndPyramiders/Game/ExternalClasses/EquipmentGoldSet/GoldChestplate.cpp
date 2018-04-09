@@ -15,7 +15,7 @@
 /*----------------------------------------------------------------------------------------
 	Static Fields
 ----------------------------------------------------------------------------------------*/
-const float GoldChestplate::GOLD_CHESTPLATE_DAMAGE_MULTIPLIER = 0.95;
+const float GoldChestplate::GOLD_CHESTPLATE_DAMAGE_MULTIPLIER = 0.75;
 
 /*----------------------------------------------------------------------------------------
 	Resource Management

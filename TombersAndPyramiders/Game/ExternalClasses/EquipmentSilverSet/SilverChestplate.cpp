@@ -15,7 +15,7 @@
 /*----------------------------------------------------------------------------------------
 	Static Fields
 ----------------------------------------------------------------------------------------*/
-const float SilverChestplate::SILVER_CHESTPLATE_DAMAGE_MULTIPLIER = 0.95;
+const float SilverChestplate::SILVER_CHESTPLATE_DAMAGE_MULTIPLIER = 0.85;
 
 /*----------------------------------------------------------------------------------------
 	Resource Management

@@ -21,7 +21,7 @@ Static Fields
 ----------------------------------------------------------------------------------------*/
 const float WoodenGreaves::WOODEN_GREAVES_COOLDOWN_TIME = 1.0f;
 const float WoodenGreaves::WOODEN_GREAVES_DASH_DURATION = 0.5f;
-const float WoodenGreaves::WOODEN_GREAVES_MAX_DASH_SPEED = 50.0f;
+const float WoodenGreaves::WOODEN_GREAVES_MAX_DASH_SPEED = 40.0f;
 
 /*----------------------------------------------------------------------------------------
 	Resource Management

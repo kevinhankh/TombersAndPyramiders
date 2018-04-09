@@ -16,8 +16,8 @@
 	Static Fields
 ----------------------------------------------------------------------------------------*/
 const string GoldShield::GOLD_SHIELD_IMAGE_NAME = "TempGoldShield.png";
-const float GoldShield::GOLD_SHIELD_DAMAGE_MULT = 0.9f;
-const float GoldShield::GOLD_SHIELD_COOLDOWN_TIME = 0.5f;
+const float GoldShield::GOLD_SHIELD_DAMAGE_MULT = 0.5f;
+const float GoldShield::GOLD_SHIELD_COOLDOWN_TIME = 0.3f;
 
 /*----------------------------------------------------------------------------------------
 	Instance Methods

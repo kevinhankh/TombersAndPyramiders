@@ -15,7 +15,7 @@
 /*----------------------------------------------------------------------------------------
 	Static Fields
 ----------------------------------------------------------------------------------------*/
-const int SilverShortsword::SILVER_SHORTSWORD_DAMAGE = 20;
+const int SilverShortsword::SILVER_SHORTSWORD_DAMAGE = 35;
 const string SilverShortsword::SILVER_SHORTSWORD_IMAGE_NAME = "TempSilverShortsword.png";
 const bool SilverShortsword::SILVER_SHORTSWORD_DESTROY_ON_COLLISION = false;
 

@@ -15,9 +15,9 @@
 /*----------------------------------------------------------------------------------------
 	Static Fields
 ----------------------------------------------------------------------------------------*/
-const int GoldLongbow::GOLD_LONGBOW_DAMAGE = 20;
+const int GoldLongbow::GOLD_LONGBOW_DAMAGE = 50;
 const std::string GoldLongbow::GOLD_LONGBOW_PROJECTILE_IMAGE_NAME = "TempGoldArrow.png";
-const bool GoldLongbow::GOLD_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION = true;
+const bool GoldLongbow::GOLD_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION = false;
 
 /*----------------------------------------------------------------------------------------
 	Resource Management

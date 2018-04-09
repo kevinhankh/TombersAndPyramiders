@@ -16,8 +16,8 @@
 	Static Fields
 ----------------------------------------------------------------------------------------*/
 const string SilverShield::SILVER_SHIELD_IMAGE_NAME = "TempSilverShield.png";
-const float SilverShield::SILVER_SHIELD_DAMAGE_MULT = 0.9f;
-const float SilverShield::SILVER_SHIELD_COOLDOWN_TIME = 0.5f;
+const float SilverShield::SILVER_SHIELD_DAMAGE_MULT = 0.7f;
+const float SilverShield::SILVER_SHIELD_COOLDOWN_TIME = 0.4f;
 
 /*----------------------------------------------------------------------------------------
 	Instance Methods

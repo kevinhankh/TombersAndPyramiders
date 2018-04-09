@@ -102,7 +102,8 @@ void OldTestScene::onStart()
 			}
 		}
 	}
-	SpawnManager::getInstance()->generateWorldItem(5, -5, std::make_shared<SilverLongbow>());
+
+	SpawnManager::getInstance()->generateWorldItem(5, -5, std::make_shared<GoldShortsword>());
 
 	AiA = SpawnManager::getInstance()->generateAiCharacter(14, -15);
 	AiB = SpawnManager::getInstance()->generateAiCharacter(44, -20);
