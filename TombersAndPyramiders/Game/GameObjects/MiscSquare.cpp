@@ -5,7 +5,6 @@ MiscSquare::MiscSquare(string spriteName, bool hasCollider, float colliderSize_x
 {
 	if (hasCollider)
 	{
-		//addComponent<BoxCollider>(this, getTransform()->getScale(), getTransform()->getScale());
 		addComponent<BoxCollider>(this, colliderSize_x, colliderSize_y);
 	}
 }

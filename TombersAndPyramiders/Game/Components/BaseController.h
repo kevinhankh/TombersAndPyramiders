@@ -47,6 +47,7 @@ class BaseController : public Component
 		void setPilot(BasePilot* pilot);
 		void swapPilots(BaseController* otherController);
 		BasePilot* getAndReleasePilot();
+		BasePilot* getPilot ();
 
 	/*----------------------------------------------------------------------------------------
 		Instance Methods

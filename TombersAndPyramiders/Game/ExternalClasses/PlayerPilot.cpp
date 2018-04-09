@@ -1,10 +1,10 @@
 /*===================================================================================*//**
 	PlayerPilot
-	
+
 	A pilot that gets local keyboard input from the player.
 
-    @author Erick Fernandez de Arteaga
-	
+	@author Erick Fernandez de Arteaga
+
 *//*====================================================================================*/
 
 /*========================================================================================
@@ -18,6 +18,7 @@
 #include "GameManager.h"
 #include "Invokable.h"
 #include "BasePossessableController.h"
+#include "NetworkingManager.h"
 
 /*----------------------------------------------------------------------------------------
 	Instance Setter Methods
@@ -30,9 +31,9 @@
 /*----------------------------------------------------------------------------------------
 	Instance Setter Methods
 ----------------------------------------------------------------------------------------*/
-void PlayerPilot::setController(BaseController* controller)
+void PlayerPilot::setController (BaseController* controller)
 {
-	BasePilot::setController(controller);
+	BasePilot::setController (controller);
 
 	/* Store a correctly typed pointer to the controller for convenience. */
 	m_characterController = static_cast<CharacterController*>(controller);
@@ -41,103 +42,126 @@ void PlayerPilot::setController(BaseController* controller)
 /*----------------------------------------------------------------------------------------
 	Instance Methods
 ----------------------------------------------------------------------------------------*/
-void PlayerPilot::onStart()
+void PlayerPilot::onStart ()
 {}
 
-void PlayerPilot::onUpdate(int ticks)
+void PlayerPilot::onUpdate (int ticks)
 {
 	if (m_characterController != nullptr)
 	{
 		/* Move the character. */
-		m_characterController->move(getMovement());
+		m_lastMoveVector = getMovement ();
+		m_characterController->move (m_lastMoveVector);
 
 		/* TODO Make character face mouse position. */
 
 		/* Use weapon. */
-		if (getWeaponInput())
+		if (getWeaponInput ())
 		{
 			m_characterController->useWeapon();
-			m_characterController->getGameObject()->getComponent<Sender>()->sendAttack();
+			auto sender = m_characterController->getGameObject()->getComponent<Sender>();
+			if (sender != nullptr)
+			{
+				sender->sendAttack();
+			}
 		}
 		else
 		{
-			tryInvokeTrigger();
+			tryInvokeTrigger ();
 		}
 	}
 	/* Use shield. */
-	if (getShieldInput())
+	if (getShieldInput ())
 	{
-		m_characterController->useShield();
+		m_characterController->useShield ();
 	}
 
 	/* Use greaves. */
-	if (getGreavesInput())
+	if (getGreavesInput ())
 	{
-		m_characterController->useGreaves();
+		m_characterController->useGreaves ();
 	}
 
 	/* Pick up items. */
-	if (InputManager::getInstance()->onKeyPressed(SDLK_e))
+	if (InputManager::getInstance ()->onKeyPressed (SDLK_e))
 	{
-		m_characterController->trySwapItem();
-	}
-}
-
-void PlayerPilot::tryInvokeTrigger()
-{
-	if (InputManager::getInstance()->onKeyPressed(SDLK_z))
-	{
-		if (m_characterController->tryInvokeTrigger()) {
-			m_characterController->getGameObject()->getComponent<Sender>()->sendTrigger();
+		if (NetworkingManager::getInstance ()->isConnected ()) {
+			if (NetworkingManager::getInstance ()->isHost ()) {
+				m_characterController->trySwapItem ();
+				std::shared_ptr<Sender> sender = m_characterController->getGameObject ()->getComponent<Sender> ();
+				if (sender != nullptr) {
+					sender->sendSwappedItem ();
+				}
+			}
+			else {
+				m_characterController->getGameObject ()->getComponent<Sender> ()->sendTrySwapItem ();
+			}
+		}
+		else {
+			m_characterController->trySwapItem ();
 		}
 	}
 }
 
-void PlayerPilot::onEnd()
+void PlayerPilot::tryInvokeTrigger ()
+{
+	if (InputManager::getInstance ()->onKeyPressed (SDLK_z))
+	{
+		if (m_characterController->tryInvokeTrigger()) {
+			auto sender = m_characterController->getGameObject()->getComponent<Sender>();
+			if (sender != nullptr)
+			{
+				sender->sendTrigger();
+			}
+		}
+	}
+}
+
+void PlayerPilot::onEnd ()
 {}
 
-Vector2 PlayerPilot::getMovement()
+Vector2 PlayerPilot::getMovement ()
 {
-	Vector2 movement = Vector2(0, 0);
+	Vector2 movement = Vector2 (0, 0);
 
 	/* Move up. */
-	if (InputManager::getInstance()->onKey(SDLK_w))
+	if (InputManager::getInstance ()->onKey (SDLK_w))
 	{
-		movement.setY(movement.getY() + 1);
+		movement.setY (movement.getY () + 1);
 	}
 
 	/* Move down. */
-	if (InputManager::getInstance()->onKey(SDLK_s))
+	if (InputManager::getInstance ()->onKey (SDLK_s))
 	{
-		movement.setY(movement.getY() - 1);
+		movement.setY (movement.getY () - 1);
 	}
 
 	/* Move left. */
-	if (InputManager::getInstance()->onKey(SDLK_a))
+	if (InputManager::getInstance ()->onKey (SDLK_a))
 	{
-		movement.setX(movement.getX() - 1);
+		movement.setX (movement.getX () - 1);
 	}
 
 	/* Move right. */
-	if (InputManager::getInstance()->onKey(SDLK_d))
+	if (InputManager::getInstance ()->onKey (SDLK_d))
 	{
-		movement.setX(movement.getX() + 1);
+		movement.setX (movement.getX () + 1);
 	}
 
 	return movement;
 }
 
-bool PlayerPilot::getWeaponInput()
+bool PlayerPilot::getWeaponInput ()
 {
-	return InputManager::getInstance()->onKeyPressed(SDLK_SPACE);
+	return InputManager::getInstance ()->onKeyPressed (SDLK_SPACE);
 }
 
-bool PlayerPilot::getShieldInput()
+bool PlayerPilot::getShieldInput ()
 {
-	return InputManager::getInstance()->onKeyPressed(SDLK_o);
+	return InputManager::getInstance ()->onKeyPressed (SDLK_o);
 }
 
-bool PlayerPilot::getGreavesInput()
+bool PlayerPilot::getGreavesInput ()
 {
-	return InputManager::getInstance()->onKeyPressed(SDLK_p);
+	return InputManager::getInstance ()->onKeyPressed (SDLK_p);
 }

@@ -14,30 +14,28 @@
 #include "GeneratorManager.h"
 #include "GameManager.h"
 
-std::shared_ptr<Character> player = nullptr;
-std::shared_ptr<Character> player2 = nullptr;
+std::map<int, shared_ptr<Character>> players;
 std::shared_ptr<Character> Ai = nullptr;
 std::shared_ptr<Character> Ai2 = nullptr;
 std::shared_ptr<Character> Ai3 = nullptr;
 std::shared_ptr<Character> Ai4 = nullptr;
 
-NetworkedGameScene::NetworkedGameScene()
+NetworkedGameScene::NetworkedGameScene ()
 {
 
 }
 
-void NetworkedGameScene::onStart()
+void NetworkedGameScene::onStart ()
 {
 	GameManager::getInstance()->resizeQuadTree(0, 0, 200, 200);
 
-	for (int i = 0; i < 4; i++)
-	{
-		mapSeeds.push_back(time(NULL));
-		srand(mapSeeds[i]);
-		GeneratorManager::getInstance()->generateLevel(30, 30, 2, i);
-	}
 
-	GeneratorManager::getInstance()->drawLevel(0);
+	//time_t mapSeedID = time(NULL);
+	//srand(mapSeedID);
+	//GeneratorManager::getInstance()->generateLevel(30, 30, 2, 0);
+	
+	//GeneratorManager::getInstance()->drawLevel(0);
+
 	SpawnManager::getInstance()->generateMiscSquare(25, -25, -100, 200, "sandBG.png", false);
 	/*
 	const float scale = 5;
@@ -107,10 +105,14 @@ void NetworkedGameScene::onStart()
 	const float size = 12;
 	const float scale = 5;
 
+
+	SpawnManager::getInstance ()->generateMiscSquare (25, -25, -100, 115, "sandBG.png", false);
+=======
 	
 
 	SpawnManager::getInstance()->generateMiscSquare(25, -25, -100, 115, "sandBG.png", false);
 	AudioManager::getInstance()->playMusic(MUSIC_LEVEL_1);
+>>>>>>> 5c2ae033902e886b31a700b29d0dcc98fa50e94e
 
 	for (float x = 0; x <= size; x++)
 	{
@@ -121,23 +123,56 @@ void NetworkedGameScene::onStart()
 			float floorOffset = 0.56f;
 			float wallOffset = 0.0f;
 
+<<<<<<< HEAD
+			// Create a floor tile. 
+			SpawnManager::getInstance ()->generateMiscSquare (column, row - (y * floorOffset), (y * -1) - 50, scale, "stoneTile.png", false);
+
+			int xMod = (int)x % 3;
+			int yMod = (int)y % 3;
+
+
+			if (xMod == 0 && yMod == 0 && x != 0 && y != 0 && x != size && y != -size)
+			{
+				SpawnManager::getInstance ()->generateMiscSquare (column, row - (y * floorOffset), 50, scale, "table.png", true);
+			}
+
+			// Create our walls. A wall is half the size of a tile, so we need two. Each wall that gets created south of a previous wall
+			// needs to have a higher z value so it ovelaps the previous wall.
+			// Create top walls.
+=======
 			SpawnManager::getInstance()->generateMiscSquare(column, row - (y * floorOffset), (y * -1) - 50, scale, "stoneTile.png", false);
 
+>>>>>>> 5c2ae033902e886b31a700b29d0dcc98fa50e94e
 			if (y == 0)
 			{
 				// Create top left wall.
 				if (x == 0)
 				{
+<<<<<<< HEAD
+					SpawnManager::getInstance ()->generateMiscSquare (column, row + (scale / 2) + floorOffset, y * -1, scale, "wallTopLeft.png", true);
+					SpawnManager::getInstance ()->generateMiscSquare (column - scale + wallOffset, row + floorOffset, (y * -1) + 0.5, scale, "wallLeft.png", true);
+=======
 					SpawnManager::getInstance()->generateMiscSquare(column, row, y * -1, scale, "wallTopLeft_Edge.png", true);
+>>>>>>> 5c2ae033902e886b31a700b29d0dcc98fa50e94e
 				}
 				// Create top right wall.
 				else if (x == size)
 				{
+<<<<<<< HEAD
+					SpawnManager::getInstance ()->generateMiscSquare (column, row + (scale / 2) + floorOffset, y * -1, scale, "wallTopRight.png", true);
+					SpawnManager::getInstance ()->generateMiscSquare (column + scale - wallOffset, row + floorOffset, (y * -1) + 0.5, scale, "wallRight.png", true);
+					SpawnManager::getInstance ()->generateMiscSquare (column - floorOffset, row + floorOffset, (y * -1) + 0.5, scale, "barrels.png", true);
+				}
+				else
+				{
+					SpawnManager::getInstance ()->generateMiscSquare (column, row + scale, y * -1, scale, "wallTop.png", true);
+=======
 					SpawnManager::getInstance()->generateMiscSquare(column, row, y * -1, scale, "wallTopRight_Edge.png", true);
 				}
 				else
 				{
 					SpawnManager::getInstance()->generateMiscSquare(column, row, y * -1, scale, "wallHorizontal.png", true);
+>>>>>>> 5c2ae033902e886b31a700b29d0dcc98fa50e94e
 				}
 			}
 			// Create bottom walls.
@@ -153,19 +188,38 @@ void NetworkedGameScene::onStart()
 				}
 				else
 				{
+<<<<<<< HEAD
+					SpawnManager::getInstance ()->generateMiscSquare (column - 3, row + scale * 2, y * -1, scale, "woodPile.png", true);
+				}
+				SpawnManager::getInstance ()->generateMiscSquare (column, row + (scale / 2), y * -1, scale, "wallBottom.png", true);
+=======
 					SpawnManager::getInstance()->generateMiscSquare(column, row, y * -1, scale, "wallHorizontal.png", true);
 				}
+>>>>>>> 5c2ae033902e886b31a700b29d0dcc98fa50e94e
 			}
 			// Create a left wall
 			else if (x == 0)
 			{
+<<<<<<< HEAD
+				SpawnManager::getInstance ()->generateMiscSquare (column - scale + wallOffset, row + floorOffset + scale / 2, y * -1, scale, "wallLeft.png", true);
+				SpawnManager::getInstance ()->generateMiscSquare (column - scale + wallOffset, row + floorOffset, (y * -1) + 0.5, scale, "wallLeft.png", true);
+=======
 				SpawnManager::getInstance()->generateMiscSquare(column, row, y * -1, scale, "wallVerticalBothEdge.png", true);
+>>>>>>> 5c2ae033902e886b31a700b29d0dcc98fa50e94e
 			}
 			// Create a right wall.
 			else if (x == size)
 			{
 				float wallHorizontalOffset = 0.0f;
 
+<<<<<<< HEAD
+				SpawnManager::getInstance ()->generateMiscSquare (column + scale - wallOffset, row + floorOffset + scale / 2, y * -1, scale, "wallRight.png", true);
+				SpawnManager::getInstance ()->generateMiscSquare (column + scale - wallOffset, row + floorOffset, (y * -1) + 0.5, scale, "wallRight.png", true);
+			}
+		}
+	}
+	SpawnManager::getInstance ()->generateWorldItem (5, -5, std::make_shared<WoodenShortsword> ());
+=======
 				SpawnManager::getInstance()->generateMiscSquare(column, row, y * -1, scale, "wallVerticalBothEdge.png", true);
 			}
 		}
@@ -173,33 +227,27 @@ void NetworkedGameScene::onStart()
 	*/
 	SpawnManager::getInstance()->generateWorldItem(5, -5, std::make_shared<WoodenShortsword>());
 
-	Ai = SpawnManager::getInstance()->generateAiCharacter(14, -15);
-	Ai2 = SpawnManager::getInstance()->generateAiCharacter(44, -20);
-	Ai3 = SpawnManager::getInstance()->generateAiCharacter(54, -40);
-	Ai4 = SpawnManager::getInstance()->generateAiCharacter(14, -35);
+	//Ai = SpawnManager::getInstance()->generateAiCharacter(14, -18);
+	//Ai2 = SpawnManager::getInstance()->generateAiCharacter(13, -40);
+	//Ai3 = SpawnManager::getInstance()->generateAiCharacter(50, -50);
+	//Ai4 = SpawnManager::getInstance()->generateAiCharacter(50, -20);
 
-	//SpawnManager::getInstance()->generateSingleDoor(10, -10, Door::Direction::East, Door::Mode::Closed);
 
-	Camera::getActiveCamera ()->addComponent<CameraFollow> (Camera::getActiveCamera ().get ());	
-	if (NetworkingManager::getInstance ()->isHost ())
-	{
-		setCameraFollow (player);
-	}
-	else {
-		setCameraFollow (player2);
-	}
+
+	Camera::getActiveCamera ()->addComponent<CameraFollow> (Camera::getActiveCamera ().get ());
+	AudioManager::getInstance ()->playMusic (MUSIC_LEVEL_1);
 }
 
-void NetworkedGameScene::onPause()
+void NetworkedGameScene::onPause ()
 {
 
 }
 
-void NetworkedGameScene::onEnd()
+void NetworkedGameScene::onEnd ()
 {
 
 }
 
-void NetworkedGameScene::onUpdate(int ticks)
+void NetworkedGameScene::onUpdate (int ticks)
 {
 }

@@ -20,4 +20,8 @@ public:
 	void onPause();
 	void onEnd();
 
+	std::shared_ptr<Character> Ai = nullptr;
+	std::shared_ptr<Character> Ai2 = nullptr;
+	std::shared_ptr<Character> Ai3 = nullptr;
+	std::shared_ptr<Character> Ai4 = nullptr;
 };

@@ -42,6 +42,7 @@ protected:
 	----------------------------------------------------------------------------------------*/
 	public:
 		virtual void setController(BaseController* controller);
+		virtual BaseController* getController ();
 
 	/*----------------------------------------------------------------------------------------
 		Instance Methods
