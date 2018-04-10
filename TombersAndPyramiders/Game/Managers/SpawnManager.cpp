@@ -61,9 +61,9 @@ void SpawnManager::sendStartPacket()
 	std::map<std::string, std::string> payload;
 
 	//---------------------------------------------------------- TODO Comment out these lines before pushing.
-	OldTestScene* testScene = new OldTestScene();
-	SceneManager::getInstance()->pushScene(testScene);
-	return;
+	//OldTestScene* testScene = new OldTestScene();
+	//SceneManager::getInstance()->pushScene(testScene);
+	//return;
 	//----------------------------------------------------------
 
 	NetworkedGameScene* scene = new NetworkedGameScene();

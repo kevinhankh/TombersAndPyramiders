@@ -35,7 +35,7 @@ void Button::OnClicked()
 {
 	if (m_type == "Start")
 	{
-		//if (NetworkingManager::getInstance()->startGame()) // TODO Uncomment this before pushing
+		if (NetworkingManager::getInstance()->startGame()) // TODO Uncomment this before pushing
 			SpawnManager::getInstance()->sendStartPacket();
 	}
 	else if (m_type == "Host")
