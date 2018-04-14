@@ -1,7 +1,7 @@
 /*===================================================================================*//**
-	WoodenGreaves
+	GoldGreaves
 	
-	A pair of weak wooden greaves.
+	A pair of weak gold greaves.
 
     @author Erick Fernandez de Arteaga
 	
@@ -10,7 +10,7 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "WoodenGreaves.h"
+#include "GoldGreaves.h"
 #include "GameObject.h"
 #include "Vector2.h"
 #include "CharacterController.h"
@@ -19,15 +19,15 @@
 /*----------------------------------------------------------------------------------------
 Static Fields
 ----------------------------------------------------------------------------------------*/
-const float WoodenGreaves::WOODEN_GREAVES_COOLDOWN_TIME = 1.0f;
-const float WoodenGreaves::WOODEN_GREAVES_DASH_DURATION = 0.5f;
-const float WoodenGreaves::WOODEN_GREAVES_MAX_DASH_SPEED = 40.0f;
+const float GoldGreaves::GOLD_GREAVES_COOLDOWN_TIME = 0.8f;
+const float GoldGreaves::GOLD_GREAVES_DASH_DURATION = 0.7f;
+const float GoldGreaves::GOLD_GREAVES_MAX_DASH_SPEED = 40.0f;
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-WoodenGreaves::WoodenGreaves() :
-	BaseGreaves(WOODEN_GREAVES_COOLDOWN_TIME), 
+GoldGreaves::GoldGreaves() :
+	BaseGreaves(GOLD_GREAVES_COOLDOWN_TIME), 
 	m_timeLeftInDash{ 0.0f }, 
 	m_dashDirection{ make_unique<Vector2>() }
 {
@@ -37,19 +37,19 @@ WoodenGreaves::WoodenGreaves() :
 /*----------------------------------------------------------------------------------------
 	Instance Methods
 ----------------------------------------------------------------------------------------*/
-void WoodenGreaves::onStart()
+void GoldGreaves::onStart()
 {
 	BaseGreaves::onStart();
-	m_timeLeftInDash = WOODEN_GREAVES_DASH_DURATION;
+	m_timeLeftInDash = GOLD_GREAVES_DASH_DURATION;
 }
 
-void WoodenGreaves::effect(int ticks)
+void GoldGreaves::effect(int ticks)
 {
 	if (m_timeLeftInDash > 0)
 	{
 		auto dashRotation = owner()->getTransform()->getRotation();
-		auto dashAmount = ((float)ticks / 1000) * WOODEN_GREAVES_MAX_DASH_SPEED;
-		//auto lerpFactor = (WOODEN_GREAVES_DASH_DURATION - m_timeLeftInDash) / WOODEN_GREAVES_DASH_DURATION;
+		auto dashAmount = ((float)ticks / 1000) * GOLD_GREAVES_MAX_DASH_SPEED;
+		//auto lerpFactor = (GOLD_GREAVES_DASH_DURATION - m_timeLeftInDash) / GOLD_GREAVES_DASH_DURATION;
 		//dashAmount *= (1 - lerpFactor);
 
 		auto dashDirection = Vector2(1, 0);

@@ -1,7 +1,7 @@
 /*===================================================================================*//**
-	WoodenShield
+	GoldHelmet
 	
-	A weak wooden shield.
+	A weak gold helmet.
 
     @author Erick Fernandez de Arteaga
 	
@@ -10,20 +10,18 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "WoodenShield.h"
+#include "GoldHelmet.h"
 
 /*----------------------------------------------------------------------------------------
-	Static Fields
+	Class Fields
 ----------------------------------------------------------------------------------------*/
-const string WoodenShield::WOODEN_SHIELD_IMAGE_NAME = "TempWoodenShield.png";
-const float WoodenShield::WOODEN_SHIELD_DAMAGE_MULT = 0.9f;
-const float WoodenShield::WOODEN_SHIELD_COOLDOWN_TIME = 0.5f;
+const float GoldHelmet::GOLD_HELMET_CRITICAL_RESIST_CHANCE = 0.5f;
 
 /*----------------------------------------------------------------------------------------
-	Instance Methods
+	Resource Management
 ----------------------------------------------------------------------------------------*/
-WoodenShield::WoodenShield() :
-	BaseShield(WOODEN_SHIELD_IMAGE_NAME, WOODEN_SHIELD_DAMAGE_MULT, WOODEN_SHIELD_COOLDOWN_TIME)
+GoldHelmet::GoldHelmet() :
+	BaseHelmet{ GOLD_HELMET_CRITICAL_RESIST_CHANCE }
 {
 	m_itemIcon = "AddMeLater.png";
 }

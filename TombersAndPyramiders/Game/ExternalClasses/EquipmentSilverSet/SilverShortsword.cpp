@@ -1,7 +1,7 @@
 /*===================================================================================*//**
-	WoodenShield
-	
-	A weak wooden shield.
+	SilverShortsword
+
+	Abstract class for a base shortsword.
 
     @author Erick Fernandez de Arteaga
 	
@@ -10,20 +10,20 @@
 /*========================================================================================
 	Dependencies
 ========================================================================================*/
-#include "WoodenShield.h"
+#include "SilverShortsword.h"
 
 /*----------------------------------------------------------------------------------------
 	Static Fields
 ----------------------------------------------------------------------------------------*/
-const string WoodenShield::WOODEN_SHIELD_IMAGE_NAME = "TempWoodenShield.png";
-const float WoodenShield::WOODEN_SHIELD_DAMAGE_MULT = 0.9f;
-const float WoodenShield::WOODEN_SHIELD_COOLDOWN_TIME = 0.5f;
+const int SilverShortsword::SILVER_SHORTSWORD_DAMAGE = 35;
+const string SilverShortsword::SILVER_SHORTSWORD_IMAGE_NAME = "TempSilverShortsword.png";
+const bool SilverShortsword::SILVER_SHORTSWORD_DESTROY_ON_COLLISION = false;
 
 /*----------------------------------------------------------------------------------------
-	Instance Methods
+	Resource Management
 ----------------------------------------------------------------------------------------*/
-WoodenShield::WoodenShield() :
-	BaseShield(WOODEN_SHIELD_IMAGE_NAME, WOODEN_SHIELD_DAMAGE_MULT, WOODEN_SHIELD_COOLDOWN_TIME)
+SilverShortsword::SilverShortsword() :
+	BaseShortsword{ SILVER_SHORTSWORD_DAMAGE, SILVER_SHORTSWORD_IMAGE_NAME, SILVER_SHORTSWORD_DESTROY_ON_COLLISION }
 {
-	m_itemIcon = "AddMeLater.png";
+	m_itemIcon = "SilverShortsword.png";
 }
