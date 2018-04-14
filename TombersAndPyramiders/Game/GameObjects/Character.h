@@ -92,7 +92,7 @@ class Character : public ComplexSprite
 		bool playRangeAttackAnimation();
 		bool playHurtAnimation();
 		virtual void onEnd () {};
-		virtual void onNetworkEnd () {};
+		virtual void onNetworkEnd ();
 
     private:
 		/*--------------------

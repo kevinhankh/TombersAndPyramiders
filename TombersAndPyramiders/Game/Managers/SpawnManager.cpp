@@ -20,6 +20,7 @@
 #include "WoodenChestplate.h"
 #include "WoodenHelmet.h"
 #include "GeneratorManager.h"
+#include "GhostReceiverPilot.h"
 
 std::shared_ptr<SpawnManager> SpawnManager::s_instance;
 
@@ -51,6 +52,9 @@ void startGameCallback(std::map<std::string, void*> payload)
 		else
 			SpawnManager::getInstance ()->generateNetworkCharacter(id, x, y);
 	}
+
+	//Added boulder for testing possession
+	SpawnManager::getInstance()->generateBoulder(std::stof(*(std::string*)payload["playerSpawnX" + std::to_string(0)]) + 3, std::stof(*(std::string*)payload["playerSpawnY" + std::to_string(0)]) + 1);
 
 	NetworkingManager::getInstance ()->startGameClient ();
 	SpawnManager::getInstance ()->stopListeningForStartPacket ();
@@ -106,6 +110,9 @@ void SpawnManager::sendStartPacket()
 		SpawnManager::getInstance()->generateHostCharacter(id, x, y);
 		i++;
 	}
+
+	//Added boulder for testing possession
+	SpawnManager::getInstance()->generateBoulder(std::stof(payload["playerSpawnX" + std::to_string(0)]) + 3, std::stof(payload["playerSpawnY" + std::to_string(0)]) + 1);
 
 	NetworkingManager::getInstance()->prepareMessageForSendingTCP(0, "STARTGAME", payload);
 }
@@ -261,9 +268,30 @@ std::shared_ptr<Boulder> SpawnManager::generateBoulder(float x, float y)
 {
 	std::shared_ptr<Boulder> boulder = GameManager::getInstance()->createGameObject<Boulder>(false, nullptr);
 	boulder->getTransform()->setPosition(x, y);
+	boulder->getTransform()->setZ(2);
 	return boulder;
 }
 
+std::shared_ptr<GhostCharacter> SpawnManager::generateNetworkGhost(float x, float y, int netId, bool isPlayer)
+{
+	BasePilot* pilot;
+	if (isPlayer) {
+		pilot = new GhostPilot();
+	}
+	else {
+		pilot = new GhostReceiverPilot();
+	}
+	std::shared_ptr<GhostCharacter> ghost = GameManager::getInstance()->createGameObject<GhostCharacter>(false, pilot);
+	if (isPlayer) {
+		ghost->addComponent<Sender>(ghost.get(), netId);
+	}
+	else {
+		ghost->addComponent<Receiver>(ghost.get(), netId);
+	}
+	ghost->getTransform()->setPosition(x, y);
+	ghost->getTransform()->setZ(2);
+	return ghost;
+}
 
 std::shared_ptr<GhostCharacter> SpawnManager::generateGhost(float x, float y)
 {
@@ -275,7 +303,7 @@ std::shared_ptr<GhostCharacter> SpawnManager::generateGhost(float x, float y)
 
 std::shared_ptr<SingleDoor> SpawnManager::generateSingleDoor(float x, float y, Door::Direction direction, Door::Mode startState)
 {
-	auto scale = 3.0f;
+	auto scale = 9.0f;
 	std::shared_ptr<SingleDoor> door = GameManager::getInstance()->createGameObject<SingleDoor>(false, direction, startState, x, y, scale);
 	door->getTransform()->setZ(1000);
 	door->getTransform()->setScale(10.0f);
