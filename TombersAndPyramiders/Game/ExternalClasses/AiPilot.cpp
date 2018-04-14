@@ -1,12 +1,11 @@
 #pragma
-
 #include "AiPilot.h"
-
-
-
+#include "SpawnManager.h"
+#include <cmath>
 int attackNumber = 0;
 int randomNumber = 0;
 int attackCount = 0;
+
 void AiPilot::shouldFire()
 {
 	attackNumber = attackNumber % 6;
@@ -41,24 +40,64 @@ void AiPilot::onStart()
 	//currentState = run;
 }
 
+void AiPilot::CheckingTimer()
+{
+	if (TimePassed >= 1.0f)
+	{
+		TimePassed = 0.0f;
+		for (int i = 0; i < SpawnManager::getInstance()->allPlayers.size(); i++)
+		{
+			
+			float Distance =  SpawnManager::getInstance()->allPlayers[i]->getTransform()->getDistance(m_characterController->getGameObject()->getTransform());
+			if (Distance < engageDistance)
+			{
+				target = SpawnManager::getInstance()->allPlayers[i];
+				//playMeleeAttackWeapon();
+
+			}
+			else if (Distance > disengageDistance)
+			{
+				getMovement();
+				//playRangeAttackAnimation();
+			}
+		}
+		
+	}
+}
+
 void AiPilot::onUpdate(int ticks)
 {
+	TimePassed =  TimePassed + (float)ticks / 1000.0f;
+	CheckingTimer();
 
 	switch (currentState)
 	{
 	case walk:
-		m_characterController->move(getMovement());
+		if (target == nullptr)
+		{
+			m_characterController->move(getRandomMovement());
+		}
+		else
+		{
+			m_characterController->move(getMovement());
+		}
 		shouldFire();
 		//currentState = run;
 		break;
 	case attack:
-		m_characterController->useWeapon();
+		//m_characterController->useWeapon();
 		currentState = walk;
+		
+		if (target == nullptr)
+		{
+		//	m_characterController->useWeapon(playMeleeAttackWeapon());
+		}
+		else
+		{
+			//m_characterController->useWeapon(playRangeAttackAnimation());
+		}
 		break;
-	/*case run:
-		m_characterController1->move(getMovement1());
-		shouldFire();
-		break;*/
+	
 	}
 
 
@@ -67,9 +106,23 @@ void AiPilot::onUpdate(int ticks)
 void AiPilot::onEnd()
 {}
 
-
 Vector2 AiPilot::getMovement()
 {
+	if (target != nullptr) {
+		float x = abs(target->getTransform()->getX() - m_characterController->getGameObject()->getTransform()->getX()) ;
+		float y = abs(target->getTransform()->getY() - m_characterController->getGameObject()->getTransform()->getY()) ;
+		x = x + m_characterController->getGameObject()->getTransform()->getX();
+		y = y + m_characterController->getGameObject()->getTransform()->getY();
+		movement.setX(x);
+		movement.setY(y);
+	}
+
+	return movement;
+}
+
+Vector2 AiPilot::getRandomMovement()
+{
+
 	coun++;
 	if (coun == 30)
 	{
@@ -79,12 +132,12 @@ Vector2 AiPilot::getMovement()
 	if (randomNumber == 1)
 	{
 		movement.setX(-0.2f);
-		//movement.setY(0.0f);
+	
 	}
 	else if (randomNumber == 2)
 	{
 		movement.setX(0.2f);
-		//movement.setY(0.0f);
+	
 	}
 	else if (randomNumber == 3)
 	{
@@ -116,81 +169,8 @@ Vector2 AiPilot::getMovement()
 		movement.setY(-0.3f);
 		//movement.setX(0.0f);
 	}
-
-	/*else if (randomNumber == 5)
-	{
-		movement.setX(-0.2f);
-		movement.setY(0.2f);
-	}
-	else if (randomNumber == 6)
-	{
-		movement.setX(0.2f);
-		movement.setY(0.2f);
-	}
-	else if (randomNumber == 7)
-	{
-		movement.setX(-0.2f);
-		movement.setY(-0.2f);
-	}
-	else if (randomNumber == 8)
-	{
-		movement.setX(0.2f);
-		movement.setY(-0.2f);
-	}*/
-
-	return movement;
+		return movement;
 
 }
 
 
-/*Vector2 AiPilot::getMovement1()
-{
-	int randomNumber = rand() % 4;
-	//randomNumber = randomNumber % 4;
-	coun = coun + 1;
-	Vector2 movement1 = Vector2(0, 0);
-	if (coun == 60)
-	{
-		randomNumber = rand();
-		coun = 0;
-	}
-	if (randomNumber == 3)
-	{
-		movement1.setX(-0.3f);
-	}
-	else if (randomNumber == 4)
-	{
-		movement1.setX(0.3f);
-
-	}
-	else if (randomNumber == 2)
-	{
-		movement1.setY(0.3f);
-	}
-	else if (randomNumber == 1)
-	{
-		movement1.setY(-0.3f);
-	}
-	/*else if (randomNumber == 4)
-	{
-		movement1.setX(-0.3f);
-		movement1.setY(0.3f);
-	}
-	else if (randomNumber == 7)
-	{
-		movement1.setX(0.3f);
-		movement1.setY(0.3f);
-	}
-	else if (randomNumber == 8)
-	{
-		movement1.setX(-0.3f);
-		movement1.setY(-0.3f);
-	}
-	else if (randomNumber == 6)
-	{
-		movement1.setX(0.3f);
-		movement1.setY(-0.3f);
-	}
-
-	return movement1;
-}*/

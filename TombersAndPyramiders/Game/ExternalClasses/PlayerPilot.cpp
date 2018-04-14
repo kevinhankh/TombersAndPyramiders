@@ -47,6 +47,7 @@ void PlayerPilot::onStart ()
 
 void PlayerPilot::onUpdate (int ticks)
 {
+
 	if (m_characterController != nullptr)
 	{
 		/* Move the character. */
@@ -61,6 +62,7 @@ void PlayerPilot::onUpdate (int ticks)
 			m_characterController->useWeapon ();
 			m_characterController->getGameObject ()->getComponent<Sender> ()->sendAttack ();
 		}
+
 		else
 		{
 			tryInvokeTrigger ();

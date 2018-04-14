@@ -1,11 +1,11 @@
 #pragma once
 
 #include <time.h>
-
 #include "BasePilot.h"
 #include "CharacterController.h"
 #include "Vector2.h"
 #include "Inventory.h"
+#include "Character.h"
 class CharacterController;
 class Vector2;
 
@@ -40,8 +40,12 @@ public:
 	void onStart();
 	void onUpdate(int ticks);
 	void onEnd();
-
+	void CheckingTimer();
+	float engageDistance = 10;
+	float disengageDistance = 15;
+	float TimePassed = 0.0;
+	std::shared_ptr<Character> target;
 public:
-	//Vector2 getMovement1();
 	Vector2 getMovement();
+	Vector2 getRandomMovement();
 };
