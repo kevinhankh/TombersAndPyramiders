@@ -2,8 +2,6 @@
 #include <vector>
 #include "GameManager.h"
 #include "Inventory.h"
-#include "WoodenShortsword.h"
-#include "WoodenLongbow.h"
 #include "PlayerPilot.h"
 #include "AiPilot.h"
 #include "DummyPilot.h"
@@ -15,11 +13,10 @@
 #include "HostPilot.h"
 #include "GhostPilot.h"
 #include "SingleDoor.h"
-#include "WoodenShield.h"
-#include "WoodenGreaves.h"
-#include "WoodenChestplate.h"
-#include "WoodenHelmet.h"
 #include "GeneratorManager.h"
+#include "GhostReceiverPilot.h"
+#include "OldTestScene.h"
+#include "EquipmentIncludes.h"
 
 std::shared_ptr<SpawnManager> SpawnManager::s_instance;
 
@@ -58,6 +55,9 @@ void startGameCallback(std::map<std::string, void*> payload)
 		}
 	}
 
+	//Added boulder for testing possession
+	SpawnManager::getInstance()->generateBoulder(std::stof(*(std::string*)payload["playerSpawnX" + std::to_string(0)]) + 3, std::stof(*(std::string*)payload["playerSpawnY" + std::to_string(0)]) + 1);
+
 	NetworkingManager::getInstance ()->startGameClient ();
 	SpawnManager::getInstance ()->stopListeningForStartPacket ();
 }
@@ -65,6 +65,12 @@ void startGameCallback(std::map<std::string, void*> payload)
 void SpawnManager::sendStartPacket()
 {
 	std::map<std::string, std::string> payload;
+
+	//---------------------------------------------------------- TODO Comment out these lines before pushing.
+	//OldTestScene* testScene = new OldTestScene();
+	//SceneManager::getInstance()->pushScene(testScene);
+	//return;
+	//----------------------------------------------------------
 
 	NetworkedGameScene* scene = new NetworkedGameScene();
 	SceneManager::getInstance()->pushScene(scene);
@@ -114,6 +120,9 @@ void SpawnManager::sendStartPacket()
 		i++;
 	}
 
+	//Added boulder for testing possession
+	SpawnManager::getInstance()->generateBoulder(std::stof(payload["playerSpawnX" + std::to_string(0)]) + 3, std::stof(payload["playerSpawnY" + std::to_string(0)]) + 1);
+
 	NetworkingManager::getInstance()->prepareMessageForSendingTCP(0, "STARTGAME", payload);
 }
 
@@ -138,7 +147,7 @@ SpawnManager::SpawnManager() : GameObject()
 }
 
 /*
-This is the type of character of YOU when you are playing. It is a client character. It will only send messages out.
+This is the type of character of YOU are when you are playing. It is a client character. It will only send messages out.
 */
 std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(int id, float x, float y)
 {
@@ -167,6 +176,8 @@ std::shared_ptr<HostCharacter> SpawnManager::generateHostCharacter (int id, floa
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenChestplate> ());
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenHelmet> ());
 	simpleCharacter->getTransform ()->setPosition (x, y, 100);
+	simpleCharacter->getTransform()->setScale(2);
+	simpleCharacter->getTransform()->renderRotation = false;
 	return simpleCharacter;
 }
 
@@ -221,12 +232,13 @@ std::shared_ptr<Character> SpawnManager::generatePlayerCharacter(float x, float 
 
 std::shared_ptr<Character> SpawnManager::generateAiCharacter(float x, float y)
 {
-	std::shared_ptr<Character> simpleAi = GameManager::getInstance()->createGameObject<Character>(false, new AiPilot());
+	std::shared_ptr<Character> simpleAi = GameManager::getInstance()->createGameObject<Character>(false, new AiPilot(), beetle);
 	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
 	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenChestplate>());
 	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenHelmet>());
 	simpleAi->getTransform()->setPosition(x, y);
 	simpleAi->getTransform()->renderRotation = false;
+	simpleAi->getTransform()->setScale(2);
 
 	return simpleAi;
 }
@@ -265,9 +277,30 @@ std::shared_ptr<Boulder> SpawnManager::generateBoulder(float x, float y)
 {
 	std::shared_ptr<Boulder> boulder = GameManager::getInstance()->createGameObject<Boulder>(false, nullptr);
 	boulder->getTransform()->setPosition(x, y);
+	boulder->getTransform()->setZ(2);
 	return boulder;
 }
 
+std::shared_ptr<GhostCharacter> SpawnManager::generateNetworkGhost(float x, float y, int netId, bool isPlayer)
+{
+	BasePilot* pilot;
+	if (isPlayer) {
+		pilot = new GhostPilot();
+	}
+	else {
+		pilot = new GhostReceiverPilot();
+	}
+	std::shared_ptr<GhostCharacter> ghost = GameManager::getInstance()->createGameObject<GhostCharacter>(false, pilot);
+	if (isPlayer) {
+		ghost->addComponent<Sender>(ghost.get(), netId);
+	}
+	else {
+		ghost->addComponent<Receiver>(ghost.get(), netId);
+	}
+	ghost->getTransform()->setPosition(x, y);
+	ghost->getTransform()->setZ(2);
+	return ghost;
+}
 
 std::shared_ptr<GhostCharacter> SpawnManager::generateGhost(float x, float y)
 {
@@ -279,7 +312,7 @@ std::shared_ptr<GhostCharacter> SpawnManager::generateGhost(float x, float y)
 
 std::shared_ptr<SingleDoor> SpawnManager::generateSingleDoor(float x, float y, Door::Direction direction, Door::Mode startState)
 {
-	auto scale = 3.0f;
+	auto scale = 9.0f;
 	std::shared_ptr<SingleDoor> door = GameManager::getInstance()->createGameObject<SingleDoor>(false, direction, startState, x, y, scale);
 	door->getTransform()->setZ(1000);
 	door->getTransform()->setScale(10.0f);

@@ -36,6 +36,7 @@
 #include "GhostPilot.h"
 #include "NetworkCharacter.h"
 #include "PlayerPilot.h"
+#include "Receiver.h"
 
 /*----------------------------------------------------------------------------------------
 	Static Fields
@@ -264,17 +265,19 @@ void CharacterController::updateGreaves(int ticks)
 
 void CharacterController::death()
 {
-	m_character->onEnd ();
+	// If we are the player, spawn our ghost
+	bool isPlayableCharacter = dynamic_cast<PlayerPilot*>(m_pilot.get()) != nullptr;
 
-	///* Spawn the character's ghost. */
-	//auto localPlayer = dynamic_cast<PlayerPilot*>(m_pilot.get());	// Check this is not an enemy.
-	//
-	//if (localPlayer != nullptr)
-	//{
-	//	auto ghost = GameManager::getInstance()->createGameObject<GhostCharacter>(false, new GhostPilot());
-	//	ghost->getTransform()->setPosition(gameObject->getTransform()->getX(), gameObject->getTransform()->getY());
-	//	SceneManager::getInstance()->getCurrentScene()->setCameraFollow(ghost);
-	//}
+	if (isPlayableCharacter) {
+		//If we have a sender, we have a sending ID
+		auto sender = gameObject->getComponent<Sender>();
+		if (sender != nullptr) {
+			auto newGhost = SpawnManager::getInstance()->generateNetworkGhost(gameObject->getTransform()->getX(), gameObject->getTransform()->getY(), sender->getNetworkID(), true);
+			SceneManager::getInstance()->getCurrentScene()->setCameraFollow(newGhost);
+		}
+	}
+
+	m_character->onEnd();
 }
 
 std::shared_ptr<WorldItem> CharacterController::trySwapItem()

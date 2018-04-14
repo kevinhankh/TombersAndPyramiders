@@ -29,6 +29,7 @@ public:
 	std::shared_ptr<WorldItem> generateWorldItem(float x, float y, std::shared_ptr<BaseItem> item);
 	std::shared_ptr<Character> generateDummyCharacter(float x, float y);
 	std::shared_ptr<GhostCharacter> generateGhost(float x, float y);
+	std::shared_ptr<GhostCharacter> generateNetworkGhost(float x, float y, int netId, bool isPlayer);
 	std::shared_ptr<Boulder> generateBoulder(float x, float y); 
 	std::shared_ptr<SingleDoor> generateSingleDoor(float x, float y, Door::Direction direction, Door::Mode startState);
 	std::vector<shared_ptr<Character>> allPlayers;
