@@ -21,15 +21,6 @@ int main(int argc, char *argv[])
 	freopen("CONOUT$", "w", stderr);
 #endif
 
-  Randomize::SetSeed(1000);
-  std::cout << "Random: " << Randomize::Random() << std::endl;
-  Randomize::SetSeed(2000);
-  std::cout << "Random: " << Randomize::Random() << std::endl;
-  Randomize::SetSeed(3000);
-  std::cout << "Random: " << Randomize::Random() << std::endl;
-  Randomize::SetSeed(1000);
-  std::cout << "Random: " << Randomize::Random() << std::endl;
-
   //AudioManager audioManager;
   //audioManager.PlaySoundEffect("mario_.mp3");
   if (!SpriteRendererManager::getInstance()->init()) {

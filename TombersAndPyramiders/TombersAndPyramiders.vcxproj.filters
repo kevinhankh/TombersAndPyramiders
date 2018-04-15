@@ -319,5 +319,6 @@
     <None Include="Game\Assets\Shaders\vertex_shader.vs" />
     <None Include="Game\Assets\Shaders\voxel.fs" />
     <None Include="Game\Assets\.DS_Store" />
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
