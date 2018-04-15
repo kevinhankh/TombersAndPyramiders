@@ -89,7 +89,7 @@ void Room::draw()
 				else
 				{
 					//floor
-					SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -1, m_scale, "stoneTile_Edge.png", false);
+				//	SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -1, m_scale, "stoneTile_Edge.png", false);
 				}
 			}
 			

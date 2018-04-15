@@ -15,47 +15,47 @@ void Corridor::draw()
 			if (i == 0 && j == 0)
 			{
 				// top left corner
-				SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -5, m_scale, "wallTopLeft_Edge.png", false);
+				SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -5, m_scale, "wallTopLeft_Edge.png", true);
 			}
 			else if (i == 0 && j == m_width - 1)
 			{
 				//top right corner
-				SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -5, m_scale, "wallTopRight_edge.png", false);
+				SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -5, m_scale, "wallTopRight_edge.png", true);
 			}
 			else if (i == m_height - 1 && j == 0)
 			{
 				//bottom left corner
-				SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -5, m_scale, "wallBottomLeft.png", false);
+				SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -5, m_scale, "wallBottomLeft.png", true);
 			}
 			else if (i == m_height - 1 && j == m_width - 1)
 			{
 				//bottom right corner
-				SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -5, m_scale, "wallBottomRight.png", false);
+				SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -5, m_scale, "wallBottomRight.png", true);
 			}
 			else if (i == 0)
 			{
 				//top wall
-				SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -5, m_scale, "WallHorizontal.png", false);
+				SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -5, m_scale, "WallHorizontal.png", true, m_scale, m_scale / 4.5);
 			}
 			else if (j == 0)
 			{
 				//left wall
-				SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -5, m_scale, "wallVertical.png", false);
+				SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -5, m_scale, "wallVertical.png", true, m_scale / 4.5, m_scale);
 			}
 			else if (i == m_height - 1)
 			{
 				//bottom wall
-				SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -5, m_scale, "WallHorizontal.png", false);
+				SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -5, m_scale, "WallHorizontal.png", true, m_scale, m_scale / 4.5);
 			}
 			else if (j == m_width - 1)
 			{
 				//right wall
-				SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -5, m_scale, "wallVertical.png", false);
+				SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -5, m_scale, "wallVertical.png", true, m_scale / 4.5, m_scale);
 			}
 			else
 			{
 				//floor
-				SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -5, m_scale, "stoneTile_Edge.png", false);
+			//	SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -5, m_scale, "stoneTile_Edge.png", false);
 			}
 
 		}

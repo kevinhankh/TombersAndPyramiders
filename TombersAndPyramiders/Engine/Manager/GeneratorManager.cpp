@@ -24,7 +24,13 @@ std::shared_ptr<GeneratorManager> GeneratorManager::getInstance()
 
 GeneratorManager::GeneratorManager()
 {
-
+	for (int i = 0; i < WORLD_WIDTH; i++)
+	{
+		for (int j = 0; j < WORLD_HEIGHT; j++)
+		{
+			worldLevel[i][j] = 0;
+		}
+	}
 }
 
 void GeneratorManager::generateLevel(int width, int height, int detailLevel, int level) 
@@ -50,3 +56,14 @@ void GeneratorManager::drawLevel(int level) {
 	}
 
 }
+
+void GeneratorManager::recordRoom(Room r)
+{
+	worldLevel[0][0] = 0;
+}
+
+void GeneratorManager::recordCorridor(Corridor c)
+{
+
+}
+

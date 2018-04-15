@@ -18,7 +18,6 @@ public:
 		std::vector<std::shared_ptr<Room>> rooms;
 		std::vector<std::shared_ptr<Corridor>> corridors;
 		std::vector<std::shared_ptr<Doorway>> doorways;
-
 		Level() {};
 	};
 	
@@ -26,5 +25,8 @@ public:
 	static GeneratorManager* getInstance();
 	void generateLevel(int width, int height, int detailLevel, int level);
 	void drawLevel(int level);
+	int worldLevel[WORLD_WIDTH][WORLD_HEIGHT];
+	void recordRoom(Room r);
+	void recordCorridor(Corridor c);
 	GeneratorManager();
 };

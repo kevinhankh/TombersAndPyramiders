@@ -84,6 +84,8 @@ void BinaryTree::makeCorridors(std::shared_ptr<BTNode> node)
 			yCoord = node->left->m_cornerY - node->left->m_boundsHeight / 2;
 			node->corridor = std::make_shared<Corridor>(width, height, xCoord, yCoord);
 			GeneratorManager::getInstance()->levels[m_level]->corridors.push_back(node->corridor);
+			//draw corridor on matrix
+			GeneratorManager::getInstance()->recordCorridor(node->corridor);
 			makeCorridors(node->left);
 			makeCorridors(node->right);
 			//connect center
@@ -112,6 +114,7 @@ void BinaryTree::partition(int depth, std::shared_ptr<BTNode> node)
 		}
 		node->room = std::make_shared<Room>(roomWidth, roomHeight, node->m_cornerX + xOffset, node->m_cornerY - yOffset, false);
 		GeneratorManager::getInstance()->levels[m_level]->rooms.push_back(node->room);
+		GeneratorManager::getInstance()->recordRoom(node->room);
 		return;
 	}
 
@@ -140,7 +143,7 @@ void BinaryTree::partition(int depth, std::shared_ptr<BTNode> node)
 			//choose random direction
 			direction = rand() % 2;
 		}
-
+		
 		//choose random position x for vertical, y for horizontal
 		if (direction == 1)
 		{ //horizontal split
