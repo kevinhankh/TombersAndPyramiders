@@ -84,7 +84,9 @@ void BinaryTree::makeCorridors(std::shared_ptr<BTNode> node)
 			yCoord = node->left->m_cornerY - node->left->m_boundsHeight / 2;
 			node->corridor = std::make_shared<Corridor>(width, height, xCoord, yCoord);
 			GeneratorManager::getInstance()->levels[m_level]->corridors.push_back(node->corridor);
+
 			//draw corridor on matrix
+
 			GeneratorManager::getInstance()->recordCorridor(node->corridor);
 			makeCorridors(node->left);
 			makeCorridors(node->right);

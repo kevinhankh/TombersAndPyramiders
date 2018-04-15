@@ -28,7 +28,7 @@ GeneratorManager::GeneratorManager()
 	{
 		for (int j = 0; j < WORLD_HEIGHT; j++)
 		{
-			worldLevel[i][j] = 0;
+			worldMatrix[i][j] = 0;
 		}
 	}
 }
@@ -55,15 +55,40 @@ void GeneratorManager::drawLevel(int level) {
 		levels[level]->rooms[i]->draw();
 	}
 
+	//draw/spawn items
+
 }
 
-void GeneratorManager::recordRoom(Room r)
+void GeneratorManager::recordRoom(std::shared_ptr<Room> r)
 {
-	worldLevel[0][0] = 0;
+	for (int i = 0; i < r->m_width; i++)
+	{
+		for (int j = 0; j < r->m_height; j++)
+		{
+			worldMatrix[r->m_xCoord + j][r->m_yCoord + i] += 1;
+		}
+	}
 }
 
-void GeneratorManager::recordCorridor(Corridor c)
+void GeneratorManager::recordCorridor(std::shared_ptr<Corridor> c)
 {
-
+	for (int i = 0; i < c->m_width; i++)
+	{
+		for (int j = 0; j < c->m_height; j++)
+		{
+			worldMatrix[c->m_xCoord + j][c->m_yCoord + i] += 1;	
+		}
+	}
 }
 
+void GeneratorManager::showWorld() 
+{
+	for (int i = 0; i < WORLD_HEIGHT; i++)
+	{
+		for (int j = 0; j < WORLD_WIDTH; j++)
+		{
+			std::cout << worldMatrix[j][i] << " ";
+		}
+		std::cout << std::endl;
+	}
+}

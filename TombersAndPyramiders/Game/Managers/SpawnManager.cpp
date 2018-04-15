@@ -75,7 +75,7 @@ void SpawnManager::sendStartPacket()
 	//{
 		time_t seed = time (NULL);
 		srand (seed);
-		GeneratorManager::getInstance ()->generateLevel (28, 28, 2, 0);
+		GeneratorManager::getInstance ()->generateLevel (WORLD_WIDTH, WORLD_HEIGHT, 2, 0);
 		payload["mapSeedID" + std::to_string (0)] = std::to_string (seed);
 	//}
 	GeneratorManager::getInstance ()->drawLevel (0);
