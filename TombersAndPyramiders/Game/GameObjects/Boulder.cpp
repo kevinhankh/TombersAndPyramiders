@@ -14,7 +14,7 @@ Boulder::Boulder(BasePilot* pilot) : ComplexSprite(createSpriteInfo(), 0, 0, 1.0
 std::shared_ptr<ComplexSpriteinfo> Boulder::createSpriteInfo()
 {
 	auto spriteInfo = std::make_shared<ComplexSpriteinfo>();
-	spriteInfo->addInfo("boulderRolling.png", 8, 2);
+	spriteInfo->addInfo("boulderRolling.png", "boulderRolling", 8, 2);
 	return spriteInfo;
 }
 

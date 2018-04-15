@@ -17,8 +17,8 @@ Panel::~Panel()
 std::shared_ptr<ComplexSpriteinfo> Panel::generateComplexSpriteInfo(string image)
 {
 	std::shared_ptr<ComplexSpriteinfo> spriteInfo = std::make_shared<ComplexSpriteinfo>();
-	spriteInfo->addInfo(image + "Blank.png", 1, 1);
-	spriteInfo->addInfo(image + ".png", 1, 1);
+	spriteInfo->addInfo(image + "Blank.png", image + "Blank", 1, 1);
+	spriteInfo->addInfo(image + ".png", image, 1, 1);
 	return spriteInfo;
 }
 

@@ -26,8 +26,8 @@ Button::~Button()
 std::shared_ptr<ComplexSpriteinfo> Button::generateComplexSpriteInfo(string type)
 {
 	std::shared_ptr<ComplexSpriteinfo> spriteInfo = std::make_shared<ComplexSpriteinfo>();
-	spriteInfo->addInfo(type + "Button.png", 1, 1);
-	spriteInfo->addInfo(type + "ButtonHover.png", 1, 1);
+	spriteInfo->addInfo(type + "Button.png", "Button", 1, 1);
+	spriteInfo->addInfo(type + "ButtonHover.png", "ButtonHover", 1, 1);
 	return spriteInfo;
 }
 

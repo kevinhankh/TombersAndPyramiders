@@ -7,10 +7,12 @@
 
 ComplexSprite::ComplexSprite(std::shared_ptr<ComplexSpriteinfo> info, float x, float y, float z, float scale, Shader* nonDefaultShader, int framesPerSecond) : GameObject()
 {
+	m_spriteInfo = info;
+
 	std::shared_ptr<SpriteRenderer> spriteRenderer = addComponent<SpriteRenderer>(this);
 	spriteRenderer->setActiveShader(Shader::getShader(SHADER_SPRITESHEET));
 
-	for (int i = 0; i != info->getSpriteCount(); i++)
+	for (int i = 0; i != info->getSpriteSheetCount(); i++)
 	{
 		std::string totalPath("Game/Assets/Sprites/" + info->getFilePath(i));
 		GLuint texture = SpriteRendererManager::getInstance()->generateTexture(BuildPath((char*)totalPath.c_str()));
@@ -25,8 +27,8 @@ ComplexSprite::ComplexSprite(std::shared_ptr<ComplexSpriteinfo> info, float x, f
 		spriteRenderer->setActiveShader(m_shader);
 	}
 
-	m_currentSpriteSheet = 0;
-	spriteRenderer->setActiveSprite(m_sprites[m_currentSpriteSheet]);
+	m_currentSpriteSheetIndex = 0;
+	spriteRenderer->setActiveSprite(m_sprites[m_currentSpriteSheetIndex]);
 
 	Transform* transform = getTransform();
 	transform->setPosition(x, y, z);
@@ -34,7 +36,6 @@ ComplexSprite::ComplexSprite(std::shared_ptr<ComplexSpriteinfo> info, float x, f
 
 	m_framesTilReturn = -1;
 	this->m_framesPerSecond = framesPerSecond;
-
 }
 
 void ComplexSprite::setFPS(int fps)
@@ -57,38 +58,89 @@ void ComplexSprite::updateFrames(float delta)
 
 void ComplexSprite::nextFrame()
 {
-	m_sprites[m_currentSpriteSheet]->nextIndex();
+	m_sprites[m_currentSpriteSheetIndex]->nextIndex();
 	if (m_framesTilReturn > -1)
 	{
 		if (--m_framesTilReturn == 0)
 		{
-			changeSprite(m_spriteToReturnTo);
+			changeSpriteSheet(m_spriteToReturnTo);
 			m_framesTilReturn = -1;
 		}
 	}
 }
 
-void ComplexSprite::changeSprite(int spriteIndexInComplexInfo)
+bool ComplexSprite::changeSpriteSheet(int spriteIndexInComplexInfo)
 {
-	if (spriteIndexInComplexInfo != m_currentSpriteSheet && m_currentSpriteSheet >= 0)
+	if (spriteIndexInComplexInfo < 0 || spriteIndexInComplexInfo > m_sprites.size() - 1)
 	{
-		m_sprites[m_currentSpriteSheet]->resetIndex();
-		m_currentSpriteSheet = spriteIndexInComplexInfo;
-		getComponent<SpriteRenderer>()->setActiveSprite(m_sprites[spriteIndexInComplexInfo]);
+		return false;
 	}
+	if (spriteIndexInComplexInfo != m_currentSpriteSheetIndex && m_currentSpriteSheetIndex >= 0)
+	{
+		m_sprites[m_currentSpriteSheetIndex]->resetIndex();
+		m_currentSpriteSheetIndex = spriteIndexInComplexInfo;
+		getComponent<SpriteRenderer>()->setActiveSprite(m_sprites[spriteIndexInComplexInfo]);
+
+		return true;
+	}
+
+	return false;
 }
 
-int ComplexSprite::getCurrentSprite()
+bool ComplexSprite::changeSpriteSheet(std::string spriteName)
 {
-	return m_currentSpriteSheet;
+	int index = m_spriteInfo->getSpriteSheetIndex(spriteName);
+	return changeSpriteSheet(index);
 }
 
-void ComplexSprite::changeSprite(int spriteIndexInComplexInfo, int returnSprite)
+int ComplexSprite::getCurrentSpriteSheetIndex()
 {
+	return m_currentSpriteSheetIndex;
+}
+
+std::string ComplexSprite::getCurrentSpriteSheetName()
+{
+	return m_currentSpriteSheetName;
+}
+
+bool ComplexSprite::changeSpriteSheet(int spriteIndexInComplexInfo, int returnSprite)
+{
+	if (spriteIndexInComplexInfo < 0 || spriteIndexInComplexInfo > m_sprites.size() - 1)
+	{
+		return false;
+	}
+
 	if (m_sprites.size() > 0)
 	{
-		changeSprite(spriteIndexInComplexInfo);
+		changeSpriteSheet(spriteIndexInComplexInfo);
 		m_spriteToReturnTo = returnSprite;
 		m_framesTilReturn = m_sprites[returnSprite]->getColumnCount() * m_sprites[returnSprite]->getRowCount();
+
+		return true;
 	}
+
+	return false;
+}
+
+bool ComplexSprite::changeAnimation(std::string animationName)
+{
+	// If an animation with that name already exists, return false.
+	int animationIndex = m_spriteInfo->getAnimationIndex(m_currentSpriteSheetIndex, animationName);
+	
+	if (animationIndex != -1)
+	{
+		return changeAnimation(animationIndex);
+	}
+
+	return false;
+}
+
+bool ComplexSprite::changeAnimation(int animationIndex)
+{
+	if (animationIndex < 0)
+	{
+		return false;
+	}
+
+
 }

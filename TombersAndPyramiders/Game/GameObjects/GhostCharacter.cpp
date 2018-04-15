@@ -18,8 +18,8 @@ std::shared_ptr<ComplexSpriteinfo> GhostCharacter::createSpriteInfo()
 {
 	auto spriteInfo = std::make_shared<ComplexSpriteinfo>();
 
-	spriteInfo->addInfo("ghostIdle.png", 8, 1);
-	spriteInfo->addInfo("ghostPossessing.png", 8, 1);
+	spriteInfo->addInfo("ghostIdle.png", "ghostIdle", 8, 1);
+	spriteInfo->addInfo("ghostPossessing.png", "ghostPossessing", 8, 1);
 
 	return spriteInfo;
 }

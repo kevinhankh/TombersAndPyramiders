@@ -1,13 +1,15 @@
 #include "SpriteSheet.h"
 #include <iostream>
 
-SpriteSheet::SpriteSheet(GLuint textureBufferID, int columnCount, int rowCount, int skipLastFrames, int startIndex)
+SpriteSheet::SpriteSheet(GLuint textureBufferID, int columnCount, int rowCount, int skipLastFrames, int startIndex, int minIndex, int maxIndex)
 {
 	this->m_textureBufferID = textureBufferID;
 	this->m_columnCount = columnCount;
 	this->m_rowCount = rowCount;
 	this->m_currentIndex = startIndex;
 	this->m_skipLastFrames = skipLastFrames;
+	this->m_maxIndex = maxIndex;
+	this->m_minIndex = minIndex;
 	reloadTextCoordinates();
 }
 
@@ -34,11 +36,22 @@ GLuint SpriteSheet::getTextureBufferID()
 
 void SpriteSheet::nextIndex()
 {
-	int maxIndex = m_columnCount * m_rowCount - 1;
-	if (++m_currentIndex > maxIndex - m_skipLastFrames)
+	if (m_maxIndex == -1)
 	{
-		m_currentIndex = 0;
+		int maxIndex = m_columnCount * m_rowCount - 1;
+		if (++m_currentIndex > maxIndex - m_skipLastFrames)
+		{
+			m_currentIndex = 0;
+		}
 	}
+	else
+	{
+		if (++m_currentIndex > m_maxIndex - m_skipLastFrames)
+		{
+			m_currentIndex = m_minIndex;
+		}
+	}
+
 	reloadTextCoordinates();
 }
 

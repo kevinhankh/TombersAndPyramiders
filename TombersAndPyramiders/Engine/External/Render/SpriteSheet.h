@@ -19,11 +19,13 @@ private:
 	int m_columnCount;
 	int m_rowCount;
 	int m_skipLastFrames;
+	int m_minIndex;
+	int m_maxIndex;
 	void reloadTextCoordinates();
 	std::array<GLfloat, 8> m_textCoordinates;
 
 public:
-	SpriteSheet(GLuint textureBufferID, int columnCount, int rowCount, int skipLastFrames = 0, int startIndex = 0);
+	SpriteSheet(GLuint textureBufferID, int columnCount, int rowCount, int skipLastFrames = 0, int startIndex = 0, int minIndex = -1, int maxIndex = -1);
 	~SpriteSheet();
 	virtual void bindTextCoordinates(GLuint glCBO);
 	virtual GLuint getTextureBufferID();
