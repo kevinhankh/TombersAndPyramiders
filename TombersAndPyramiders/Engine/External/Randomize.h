@@ -1,15 +1,16 @@
+#pragma once
+
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_int.hpp>
 #include <boost/random/variate_generator.hpp>
 
-boost::mt19937 gen;
-const int MAX_INT = 2147483647;
 
 class Randomize {
+    private:
+        static boost::mt19937 gen;
+        const static int MAX_INT = 2147483647;
+    
     public:
-    Randomize() {
-
-    }
 
     static void SetSeed(int seed) {
         gen.seed(seed);
@@ -21,3 +22,5 @@ class Randomize {
         return dist(gen);
     }
 };
+
+boost::mt19937 Randomize::gen;

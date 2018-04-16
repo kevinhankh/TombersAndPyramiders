@@ -1,4 +1,5 @@
 #include "MessageManager.h"
+#include "Randomize.h"
 
 MessageManager* MessageManager::s_instance;
 
@@ -17,7 +18,7 @@ int MessageManager::subscribe(std::string event, Callback callback, void* owner)
 	callbackReceiver.callback = callback;
 	callbackReceiver.owner = owner;
 
-	int id = rand();
+	int id = Randomize::Random();
 
 	std::map<std::string, std::map<int, CallbackReceiver> >::iterator it = self->m_subs.find(event);
 	if (it != self->m_subs.end())
