@@ -1,11 +1,11 @@
-#include "DayNightCamera.h"
+#include "FogOfWarCamera.h"
 #include "SharedConstants.h"
 #include "GameManager.h"
 #include "SpriteRendererManager.h"
 #include "HelperFunctions.h"
 #include "Light.h"
 
-void DayNightCamera::init()
+void FogOfWarCamera::init()
 {
 	m_regularPass.init();
 	m_fogOfWarPass.init();
@@ -16,7 +16,7 @@ inline float lerp(float t, float a, float b)
 	return a * (1 - t) + b * t;
 }
 
-void DayNightCamera::updateFogOfWarMask() 
+void FogOfWarCamera::updateFogOfWarMask()
 {
 	const int downscale = 16;
 	const int gameWidth = SCREEN_WIDTH / downscale;
@@ -67,20 +67,15 @@ void DayNightCamera::updateFogOfWarMask()
 						if (pos >= 0 && pos < gameWidth * gameHeight * 4) {
 							int culmulativeDist = abs(x) + abs(y);
 							if (culmulativeDist < lightRadiusPixels) {
-								bytes[pos] = r;//std::max(bytes[pos], r);
-								bytes[pos + 1] = g;//std::max(bytes[pos + 1], g);
-								bytes[pos + 2] = b;//std::max(bytes[pos + 2], b);
-								bytes[pos + 3] = a;//((float)culmulativeDist / (float)lightRadiusPixels) * a;
+								bytes[pos] = std::max(bytes[pos], r);
+								bytes[pos + 1] = std::max(bytes[pos + 1], g);
+								bytes[pos + 2] = std::max(bytes[pos + 2], b);
+								bytes[pos + 3] = ((float)culmulativeDist / (float)lightRadiusPixels) * a;
 							}
 						}
 					}
 				}
 	
-				//if (screenX >= 0 && screenY >= 0 && screenY <= gameHeight) {
-				//	bytes[(screenY * SCREEN_WIDTH + screenX) * 4] = 255;
-				//	bytes[(screenY * SCREEN_WIDTH + screenX) * 4 + 1] = 255;
-				//	bytes[(screenY * SCREEN_WIDTH + screenX) * 4 + 2] = 0;
-				//}
 			}
 		}
 	}
@@ -90,7 +85,7 @@ void DayNightCamera::updateFogOfWarMask()
 
 int testCounter = 0;
 bool full = false;
-void DayNightCamera::applyRenderFilters(SpriteRendererManager* rendererManager)
+void FogOfWarCamera::applyRenderFilters(SpriteRendererManager* rendererManager)
 {
 	ensureInit();
 	updateFogOfWarMask();

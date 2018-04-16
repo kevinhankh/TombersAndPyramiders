@@ -18,7 +18,6 @@
     <ClCompile Include="Engine\External\Render\SpriteSheet.cpp" />
     <ClCompile Include="Engine\GameObjects\Camera.cpp" />
     <ClCompile Include="Engine\GameObjects\ComplexSprite.cpp" />
-    <ClCompile Include="Engine\GameObjects\DayNightCamera.cpp" />
     <ClCompile Include="Engine\GameObjects\SimpleSprite.cpp" />
     <ClCompile Include="Engine\Manager\AudioManager.cpp" />
     <ClCompile Include="Engine\Manager\NetworkingManager.cpp" />
@@ -132,6 +131,7 @@
     <ClCompile Include="Game\ExternalClasses\EquipmentGoldSet\GoldShield.cpp" />
     <ClCompile Include="Game\ExternalClasses\EquipmentGoldSet\GoldShortsword.cpp" />
     <ClCompile Include="Engine\Component\Render\Light.cpp" />
+    <ClCompile Include="Engine\GameObjects\FogOfWarCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Component\AI\AI.h" />
@@ -154,7 +154,6 @@
     <ClInclude Include="Engine\Component\Render\Renderer.h" />
     <ClInclude Include="Engine\GameObjects\Camera.h" />
     <ClInclude Include="Engine\GameObjects\ComplexSprite.h" />
-    <ClInclude Include="Engine\GameObjects\DayNightCamera.h" />
     <ClInclude Include="Engine\GameObjects\SimpleSprite.h" />
     <ClInclude Include="Engine\Manager\AudioManager.h" />
     <ClInclude Include="Engine\Manager\MessageManager.h" />
@@ -275,6 +274,7 @@
     <ClInclude Include="Game\ExternalClasses\EquipmentGoldSet\GoldShield.h" />
     <ClInclude Include="Game\ExternalClasses\EquipmentGoldSet\GoldShortsword.h" />
     <ClInclude Include="Engine\Component\Render\Light.h" />
+    <ClInclude Include="Engine\GameObjects\FogOfWarCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Character.bmp" />

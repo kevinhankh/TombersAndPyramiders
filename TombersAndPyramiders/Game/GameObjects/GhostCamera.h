@@ -3,15 +3,12 @@
 #include "Camera.h"
 #include "FrameBufferObject.h"
 
-class DayNightCamera : public Camera
+class GhostCamera : public Camera
 {
 private:
 	FrameBufferObject m_regularPass;
-	FrameBufferObject m_fogOfWarPass;
-	GLuint m_fogOfWarMask;
 
 public:
 	void virtual applyRenderFilters(SpriteRendererManager* rendererManager);
 	void virtual init();
-	void updateFogOfWarMask();
 };

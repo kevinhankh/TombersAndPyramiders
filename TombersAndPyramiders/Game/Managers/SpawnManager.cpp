@@ -18,7 +18,7 @@
 #include "OldTestScene.h"
 #include "EquipmentIncludes.h"
 #include "Camera.h"
-#include "DayNightCamera.h"
+#include "FogOfWarCamera.h"
 #include "Light.h"
 
 std::shared_ptr<SpawnManager> SpawnManager::s_instance;

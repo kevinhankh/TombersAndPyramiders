@@ -157,7 +157,7 @@
     <ClCompile Include="Engine\External\Render\SpriteSheet.cpp" />
     <ClCompile Include="Engine\GameObjects\Camera.cpp" />
     <ClCompile Include="Engine\GameObjects\ComplexSprite.cpp" />
-    <ClCompile Include="Engine\GameObjects\DayNightCamera.cpp" />
+    <ClCompile Include="Engine\GameObjects\FogOfWarCamera.cpp" />
     <ClCompile Include="Engine\GameObjects\SimpleSprite.cpp" />
     <ClCompile Include="Engine\GameObjects\Tiles\ConnectorTile.cpp" />
     <ClCompile Include="Engine\GameObjects\Tiles\CornerTile.cpp" />
@@ -294,7 +294,7 @@
     <ClInclude Include="Engine\Component\Render\Renderer.h" />
     <ClInclude Include="Engine\GameObjects\Camera.h" />
     <ClInclude Include="Engine\GameObjects\ComplexSprite.h" />
-    <ClInclude Include="Engine\GameObjects\DayNightCamera.h" />
+    <ClInclude Include="Engine\GameObjects\FogOfWarCamera.h" />
     <ClInclude Include="Engine\GameObjects\SimpleSprite.h" />
     <ClInclude Include="Engine\GameObjects\Tiles\ConnectorTile.h" />
     <ClInclude Include="Engine\GameObjects\Tiles\CornerTile.h" />
