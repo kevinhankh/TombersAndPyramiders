@@ -199,11 +199,9 @@
     <ClCompile Include="Game\ExternalClasses\EquipmentGoldSet\GoldChestplate.cpp" />
     <ClCompile Include="Game\ExternalClasses\EquipmentGoldSet\GoldGreaves.cpp" />
     <ClCompile Include="Game\ExternalClasses\EquipmentGoldSet\GoldHelmet.cpp" />
-    <ClCompile Include="Game\ExternalClasses\EquipmentGoldSet\GoldShield.cpp" />
     <ClCompile Include="Game\ExternalClasses\EquipmentSilverSet\SilverChestplate.cpp" />
     <ClCompile Include="Game\ExternalClasses\EquipmentSilverSet\SilverGreaves.cpp" />
     <ClCompile Include="Game\ExternalClasses\EquipmentSilverSet\SilverHelmet.cpp" />
-    <ClCompile Include="Game\ExternalClasses\EquipmentSilverSet\SilverShield.cpp" />
     <ClCompile Include="Game\ExternalClasses\HostPilot.cpp" />
     <ClCompile Include="Game\ExternalClasses\DummyPilot.cpp" />
     <ClCompile Include="Game\ExternalClasses\PlayerPilot.cpp" />
@@ -215,7 +213,6 @@
     <ClCompile Include="Game\ExternalClasses\WoodenChestplate.cpp" />
     <ClCompile Include="Game\ExternalClasses\WoodenGreaves.cpp" />
     <ClCompile Include="Game\ExternalClasses\WoodenHelmet.cpp" />
-    <ClCompile Include="Game\ExternalClasses\WoodenShield.cpp" />
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Engine\Component\Component.cpp" />
     <ClCompile Include="Engine\Component\GameObject.cpp" />
@@ -332,12 +329,10 @@
     <ClInclude Include="Game\ExternalClasses\EquipmentGoldSet\GoldChestplate.h" />
     <ClInclude Include="Game\ExternalClasses\EquipmentGoldSet\GoldGreaves.h" />
     <ClInclude Include="Game\ExternalClasses\EquipmentGoldSet\GoldHelmet.h" />
-    <ClInclude Include="Game\ExternalClasses\EquipmentGoldSet\GoldShield.h" />
     <ClInclude Include="Game\ExternalClasses\EquipmentIncludes.h" />
     <ClInclude Include="Game\ExternalClasses\EquipmentSilverSet\SilverChestplate.h" />
     <ClInclude Include="Game\ExternalClasses\EquipmentSilverSet\SilverGreaves.h" />
     <ClInclude Include="Game\ExternalClasses\EquipmentSilverSet\SilverHelmet.h" />
-    <ClInclude Include="Game\ExternalClasses\EquipmentSilverSet\SilverShield.h" />
     <ClInclude Include="Game\ExternalClasses\HostPilot.h" />
     <ClInclude Include="Game\ExternalClasses\DummyPilot.h" />
     <ClInclude Include="Game\ExternalClasses\Invokable.h" />
@@ -352,7 +347,6 @@
     <ClInclude Include="Game\ExternalClasses\WoodenChestplate.h" />
     <ClInclude Include="Game\ExternalClasses\WoodenGreaves.h" />
     <ClInclude Include="Game\ExternalClasses\WoodenHelmet.h" />
-    <ClInclude Include="Game\ExternalClasses\WoodenShield.h" />
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="Engine\Component\Component.h" />
     <ClInclude Include="Engine\Component\GameObject.h" />
