@@ -52,13 +52,13 @@ void MessageManager::sendEvent(std::string event, std::map<std::string, void*> d
 		for (std::map<int, CallbackReceiver>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
 		{
 			if (it2->second.callback == nullptr) {
-				it->second.erase (it2);
-				--it;
+				it2 = it->second.erase (it2);
 			}
 			else {
 				data["this"] = (void*)it2->second.owner;
 				it2->second.callback (data);
 			}
 		}
+	data.clear ();
 	//TODO: Clear all void* data that isn't "this"
 }
