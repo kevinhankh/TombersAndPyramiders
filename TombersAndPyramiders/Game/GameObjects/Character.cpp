@@ -29,9 +29,23 @@ Character::Character(BasePilot* basePilot, CharacterType type) :
 	Inventory* inventory = addComponent<Inventory>(this).get();
 	addComponent<CharacterController>(this, inventory, basePilot);
 
+	switch (type)
+	{
+	case player:
+		m_walk = "male_walk";
+		m_shoot = "male_bow";
+		m_slash = "male_melee_slash";
+		break;
+	case beetle:
+		m_walk = "beetle_walk";
+		m_shoot = "beetle_shoot";
+		m_slash = "beetle_slash";
+		break;
+	}
+
 	currentState = IDLE_UP;
-	changeSpriteSheet("m_walk");
-	changeAnimation("IdleUp");
+	changeSpriteSheet(m_walk);
+	changeAnimation(m_idleUp);
 }
 
 /*----------------------------------------------------------------------------------------
@@ -57,65 +71,83 @@ std::shared_ptr<ComplexSpriteInfo> Character::generateComplexSpriteInfo(Characte
 {
 	std::shared_ptr<ComplexSpriteInfo> spriteInfo = std::make_shared<ComplexSpriteInfo>();
 
+	std::string walk = std::string("");
+	std::string shoot = std::string("");
+	std::string slash = std::string("");
 	switch (type)
 	{
 	case player:
-		//spriteInfo->addSprite("Player/Walk/tanm_walk_up.png", "tanm_walk_up", 9, 1);
-		//spriteInfo->addSprite("Player/Walk/tanm_walk_right.png", "tanm_walk_right", 9, 1);
-		//spriteInfo->addSprite("Player/Walk/tanm_walk_down.png", "tanm_walk_down", 9, 1);
-		//spriteInfo->addSprite("Player/Walk/tanm_walk_left.png", "tanm_walk_left", 9, 1);
-		//spriteInfo->addSprite("Player/Idle/tanm_idle_up.png", "tanm_idle_up", 1, 1);
-		//spriteInfo->addSprite("Player/Idle/tanm_idle_right.png", "tanm_idle_right", 1, 1);
-		//spriteInfo->addSprite("Player/Idle/tanm_idle_down.png", "tanm_idle_down", 1, 1);
-		//spriteInfo->addSprite("Player/Idle/tanm_idle_left.png", "tanm_idle_left", 1, 1);
-		//spriteInfo->addSprite("Player/Die/tanm_hurt_up.png", "tanm_hurt_up", 1, 1);
-		//spriteInfo->addSprite("Player/Die/tanm_hurt_down.png", "tanm_hurt_down", 1, 1);
-		//spriteInfo->addSprite("Player/Die/tanm_hurt_left.png", "tanm_hurt_left", 1, 1);
-		//spriteInfo->addSprite("Player/Die/tanm_hurt_right.png", "tanm_hurt_right", 1, 1);
-		spriteInfo->addSprite("Player/Walk/m_walk.png", "m_walk", 9, 4);
-		spriteInfo->addAnimation("m_walk", "WalkUp", 1, 8);
-		spriteInfo->addAnimation("m_walk", "WalkLeft", 10, 17);
-		spriteInfo->addAnimation("m_walk", "WalkDown", 19, 26);
-		spriteInfo->addAnimation("m_walk", "WalkRight", 28, 35);
-		spriteInfo->addAnimation("m_walk", "IdleUp", 0, 0);
-		spriteInfo->addAnimation("m_walk", "IdleLeft", 9, 9);
-		spriteInfo->addAnimation("m_walk", "IdleDown", 18, 18);
-		spriteInfo->addAnimation("m_walk", "IdleRight", 27, 27);
+		spriteInfo->addSprite("Player/Walk/male_walk.png", "male_walk", 9, 4);
+		spriteInfo->addSprite("Player/Attack/Melee/male_melee_slash.png", "male_melee_slash", 6, 4);
+		spriteInfo->addSprite("Player/Attack/Bow/male_bow.png", "male_bow", 13, 4);
 
-		spriteInfo->addSprite("Player/Attack/Melee/m_melee_slash.png", "m_melee_slash", 6, 4);
-		spriteInfo->addAnimation("m_melee_slash", "SlashUp", 1, 5);
-		spriteInfo->addAnimation("m_melee_slash", "SlashLeft", 7, 11);
-		spriteInfo->addAnimation("m_melee_slash", "SlashDown", 13, 17);
-		spriteInfo->addAnimation("m_melee_slash", "SlashRight", 19, 23);
-		spriteInfo->addAnimation("m_melee_slash", "IdleUp", 0, 0);
-		spriteInfo->addAnimation("m_melee_slash", "IdleLeft", 6, 6);
-		spriteInfo->addAnimation("m_melee_slash", "IdleDown", 12, 12);
-		spriteInfo->addAnimation("m_melee_slash", "IdleRight", 18, 18);
+		walk = std::string("male_walk");
+		shoot = std::string("male_bow");
+		slash = std::string("male_melee_slash");
 
-		spriteInfo->addSprite("Player/Attack/Bow/m_bow.png", "m_bow", 13, 4);
-		spriteInfo->addAnimation("m_bow", "BowUp", 1, 12);
-		spriteInfo->addAnimation("m_bow", "BowLeft", 14, 25);
-		spriteInfo->addAnimation("m_bow", "BowDown", 27, 38);
-		spriteInfo->addAnimation("m_bow", "BowRight", 40, 51);
-		spriteInfo->addAnimation("m_bow", "IdleUp", 0, 0);
-		spriteInfo->addAnimation("m_bow", "IdleLeft", 13, 13);
-		spriteInfo->addAnimation("m_bow", "IdleDown", 26, 26);
-		spriteInfo->addAnimation("m_bow", "IdleRight", 39, 39);
+		spriteInfo->addAnimation(walk, "WalkUp", 1, 8);
+		spriteInfo->addAnimation(walk, "WalkLeft", 10, 17);
+		spriteInfo->addAnimation(walk, "WalkDown", 19, 26);
+		spriteInfo->addAnimation(walk, "WalkRight", 28, 35);
+		spriteInfo->addAnimation(walk, "IdleUp", 0, 0);
+		spriteInfo->addAnimation(walk, "IdleLeft", 9, 9);
+		spriteInfo->addAnimation(walk, "IdleDown", 18, 18);
+		spriteInfo->addAnimation(walk, "IdleRight", 27, 27);
 
+		spriteInfo->addAnimation(slash, "SlashUp", 1, 5);
+		spriteInfo->addAnimation(slash, "SlashLeft", 7, 11);
+		spriteInfo->addAnimation(slash, "SlashDown", 13, 17);
+		spriteInfo->addAnimation(slash, "SlashRight", 19, 23);
+		spriteInfo->addAnimation(slash, "IdleUp", 0, 0);
+		spriteInfo->addAnimation(slash, "IdleLeft", 6, 6);
+		spriteInfo->addAnimation(slash, "IdleDown", 12, 12);
+		spriteInfo->addAnimation(slash, "IdleRight", 18, 18);
+
+		spriteInfo->addAnimation(shoot, "ShootUp", 1, 12);
+		spriteInfo->addAnimation(shoot, "ShootLeft", 14, 25);
+		spriteInfo->addAnimation(shoot, "ShootDown", 27, 38);
+		spriteInfo->addAnimation(shoot, "ShootRight", 40, 51);
+		spriteInfo->addAnimation(shoot, "IdleUp", 0, 0);
+		spriteInfo->addAnimation(shoot, "IdleLeft", 13, 13);
+		spriteInfo->addAnimation(shoot, "IdleDown", 26, 26);
+		spriteInfo->addAnimation(shoot, "IdleRight", 39, 39);
 		break;
 	case beetle:
-		spriteInfo->addSprite("beetle_walk_up.png", "beetle_walk_up", 3, 1);
-		spriteInfo->addSprite("beetle_walk_right.png", "beetle_walk_right", 3, 1);
-		spriteInfo->addSprite("beetle_walk_down.png", "beetle_walk_down", 3, 1);
-		spriteInfo->addSprite("beetle_walk_left.png", "beetle_walk_left", 3, 1);
-		spriteInfo->addSprite("beetle_idle_up.png", "beetle_idle_up", 1, 1);
-		spriteInfo->addSprite("beetle_idle_right.png", "beetle_idle_right", 1, 1);
-		spriteInfo->addSprite("beetle_idle_down.png", "beetle_idle_down", 1, 1);
-		spriteInfo->addSprite("beetle_idle_left.png", "beetle_idle_left", 1, 1);
-		spriteInfo->addSprite("beetle_hurt_up.png", "beetle_hurt_up", 1, 1);
-		spriteInfo->addSprite("beetle_hurt_right.png", "beetle_hurt_right", 1, 1);
-		spriteInfo->addSprite("beetle_hurt_down.png", "beetle_hurt_down", 1, 1);
-		spriteInfo->addSprite("beetle_hurt_left.png", "beetle_hurt_left", 1, 1);
+		spriteInfo->addSprite("Enemies/beetle_walk.png", "beetle_walk", 3, 4);
+		spriteInfo->addSprite("Enemies/beetle_walk.png", "beetle_shoot", 3, 4);
+		spriteInfo->addSprite("Enemies/beetle_walk.png", "beetle_slash", 3, 4);
+
+		walk = "beetle_walk";
+		shoot = "beetle_shoot";
+		slash = "beetle_slash";
+
+		spriteInfo->addAnimation(walk, "WalkUp", 0, 2);
+		spriteInfo->addAnimation(walk, "WalkLeft", 3, 5);
+		spriteInfo->addAnimation(walk, "WalkDown", 6, 8);
+		spriteInfo->addAnimation(walk, "WalkRight", 9, 11);
+		spriteInfo->addAnimation(walk, "IdleUp", 1, 1);
+		spriteInfo->addAnimation(walk, "IdleLeft", 4, 4);
+		spriteInfo->addAnimation(walk, "IdleDown", 7, 7);
+		spriteInfo->addAnimation(walk, "IdleRight", 10, 10);
+
+		spriteInfo->addAnimation(slash, "SlashUp", 1, 1);
+		spriteInfo->addAnimation(slash, "SlashLeft", 4, 4);
+		spriteInfo->addAnimation(slash, "SlashDown", 7, 7);
+		spriteInfo->addAnimation(slash, "SlashRight", 10, 10);
+		spriteInfo->addAnimation(slash, "IdleUp", 1, 1);
+		spriteInfo->addAnimation(slash, "IdleLeft", 4, 4);
+		spriteInfo->addAnimation(slash, "IdleDown", 7, 7);
+		spriteInfo->addAnimation(slash, "IdleRight", 10, 10);
+
+		spriteInfo->addAnimation(shoot, "ShootUp", 1, 1);
+		spriteInfo->addAnimation(shoot, "ShootLeft", 4, 4);
+		spriteInfo->addAnimation(shoot, "ShootDown", 7, 7);
+		spriteInfo->addAnimation(shoot, "ShootRight", 10, 10);
+		spriteInfo->addAnimation(shoot, "IdleUp", 1, 1);
+		spriteInfo->addAnimation(shoot, "IdleLeft", 4, 4);
+		spriteInfo->addAnimation(shoot, "IdleDown", 7, 7);
+		spriteInfo->addAnimation(shoot, "IdleRight", 10, 10);
+
 		break;
 	}
 	
@@ -165,29 +197,29 @@ bool Character::playRunAnimation()
 
 	if (rotation < 90)
 	{
-		changeSpriteSheet("m_walk");
-		changeAnimation("WalkRight");
+		changeSpriteSheet(m_walk);
+		changeAnimation(m_walkRight);
 		currentState = WALK_RIGHT;
 		return true;
 	}
 	else if (rotation < 180)
 	{
-		changeSpriteSheet("m_walk");
-		changeAnimation("WalkDown");
+		changeSpriteSheet(m_walk);
+		changeAnimation(m_walkDown);
 		currentState = WALK_DOWN;
 		return true;
 	}
 	else if (rotation < 270)
 	{
-		changeSpriteSheet("m_walk");
-		changeAnimation("WalkLeft");
+		changeSpriteSheet(m_walk);
+		changeAnimation(m_walkLeft);
 		currentState = WALK_LEFT;
 		return true;
 	}
 	else if (rotation >= 270 && rotation <= 360)
 	{
-		changeSpriteSheet("m_walk");
-		changeAnimation("WalkUp");
+		changeSpriteSheet(m_walk);
+		changeAnimation(m_walkUp);
 		currentState = WALK_UP;
 		return true;
 	}
@@ -202,30 +234,25 @@ bool Character::endRunAnimation()
 	switch (currentState)
 	{
 		case WALK_UP:
-			changeSpriteSheet("m_walk");
-			changeAnimation("IdleUp");
+			changeSpriteSheet(m_walk);
+			changeAnimation(m_idleUp);
 			currentState = IDLE_UP;
 			return true;
 		case WALK_RIGHT:
-			changeSpriteSheet("m_walk");
-			changeAnimation("IdleRight"); 
+			changeSpriteSheet(m_walk);
+			changeAnimation(m_idleRight); 
 			currentState = IDLE_RIGHT;
 			return true;
 		case WALK_DOWN:
-			changeSpriteSheet("m_walk");
-			changeAnimation("IdleDown"); 
+			changeSpriteSheet(m_walk);
+			changeAnimation(m_idleDown); 
 			currentState = IDLE_DOWN;
 			return true;
 		case WALK_LEFT:
-			changeSpriteSheet("m_walk");
-			changeAnimation("IdleLeft"); 
+			changeSpriteSheet(m_walk);
+			changeAnimation(m_idleLeft); 
 			currentState = IDLE_LEFT;
 			return true;
-		//default:
-		//	changeSpriteSheet("m_walk");
-		//	changeAnimation("IdleUp"); 
-		//	currentState = IDLE_UP;
-		//	return true;
 	}
 	return false;
 }
@@ -234,26 +261,31 @@ bool Character::endRunAnimation()
 // Changes the sprite animation to the melee attack for one animation then returns back to idle
 bool Character::playMeleeAttackAnimation()
 {
-	//float rotation = getTransform()->getRotation();
-	//if (rotation < 90)
-	//{
-	//	changeSpriteSheet("m_melee_slash");
-	//	changeAnimation("IdleLeft");
-	//	currentState = IDLE_LEFT;
-	//	changeSpriteSheet(getCurrentSpriteSheetIndex(), ANIMATION_IDLE_RIGHT);
-	//}
-	//else if (rotation < 180)
-	//{
-	//	changeSpriteSheet(getCurrentSpriteSheetIndex(), ANIMATION_IDLE_DOWN);
-	//}
-	//else if (rotation < 270)
-	//{
-	//	changeSpriteSheet(getCurrentSpriteSheetIndex(), ANIMATION_IDLE_LEFT);
-	//}
-	//else
-	//{
-	//	changeSpriteSheet(getCurrentSpriteSheetIndex(), ANIMATION_IDLE_UP);
-	//}
+	float rotation = getTransform()->getRotation();
+	if (rotation < 90)
+	{
+		changeSpriteSheet(m_slash);
+		changeAnimation(m_slashRight, m_idleRight);
+		currentState = IDLE_RIGHT;
+	}
+	else if (rotation < 180)
+	{
+		changeSpriteSheet(m_slash);
+		changeAnimation(m_slashDown, m_idleDown);
+		currentState = IDLE_DOWN;
+	}
+	else if (rotation < 270)
+	{
+		changeSpriteSheet(m_slash);
+		changeAnimation(m_slashLeft, m_idleLeft);
+		currentState = IDLE_LEFT;
+	}
+	else
+	{
+		changeSpriteSheet(m_slash);
+		changeAnimation(m_slashUp, m_idleUp);
+		currentState = IDLE_UP;
+	}
 	return true;
 }
 
@@ -263,26 +295,26 @@ bool Character::playRangeAttackAnimation()
 	float rotation = getTransform()->getRotation();
 	if (rotation < 90)
 	{
-		changeSpriteSheet("m_bow");
-		changeAnimation("BowRight", "IdleRight");
+		changeSpriteSheet(m_shoot);
+		changeAnimation(m_shootRight, m_idleRight);
 		currentState = IDLE_RIGHT;
 	}
 	else if (rotation < 180)
 	{
-		changeSpriteSheet("m_bow");
-		changeAnimation("BowDown", "IdleDown");
+		changeSpriteSheet(m_shoot);
+		changeAnimation(m_shootDown, m_idleDown);
 		currentState = IDLE_DOWN;
 	}
 	else if (rotation < 270)
 	{
-		changeSpriteSheet("m_bow");
-		changeAnimation("BowLeft", "IdleLeft");
+		changeSpriteSheet(m_shoot);
+		changeAnimation(m_shootLeft, m_idleLeft);
 		currentState = IDLE_LEFT;
 	}
 	else
 	{
-		changeSpriteSheet("m_bow");
-		changeAnimation("BowUp", "IdleUp");
+		changeSpriteSheet(m_shoot);
+		changeAnimation(m_shootUp, m_idleUp);
 		currentState = IDLE_UP;
 	}
 

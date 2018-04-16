@@ -18,6 +18,7 @@
 #include "BoxCollider.h"
 #include "ComplexSprite.h"
 #include "BasePilot.h"
+#include <string>
 
 /*========================================================================================
 Character Types
@@ -78,7 +79,6 @@ class Character : public ComplexSprite
 		virtual void onEnd () {};
 		virtual void onNetworkEnd ();
 
-
     private:
 		/*--------------------
 		Player Animation Logic
@@ -101,6 +101,26 @@ class Character : public ComplexSprite
 			ATTACK_RANGE = 13,
 			ENUM_MAX
 		}currentState;
+
+		std::string m_walk;
+		std::string m_shoot;
+		std::string m_slash;
+		std::string m_walkUp = "WalkUp";
+		std::string m_walkLeft = "WalkLeft";
+		std::string m_walkDown = "WalkDown";
+		std::string m_walkRight = "WalkRight";
+		std::string m_shootUp = "ShootUp";
+		std::string m_shootLeft = "ShootLeft";;
+		std::string m_shootDown = "ShootDown";
+		std::string m_shootRight = "ShootRight";
+		std::string m_slashUp = "SlashUp";
+		std::string m_slashLeft = "SlashLeft";
+		std::string m_slashDown = "SlashDown";
+		std::string m_slashRight = "SlashRight";
+		std::string m_idleUp = "IdleUp";
+		std::string m_idleLeft = "IdleLeft";
+		std::string m_idleDown = "IdleDown";
+		std::string m_idleRight = "IdleRight";
 
 		std::shared_ptr<ComplexSpriteInfo> generateComplexSpriteInfo(CharacterType type = player);
 };
