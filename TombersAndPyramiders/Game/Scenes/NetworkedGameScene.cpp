@@ -14,6 +14,7 @@
 #include "GeneratorManager.h"
 #include "GameManager.h"
 #include "FogOfWarCamera.h"
+#include "GhostCamera.h"
 
 std::map<int, shared_ptr<Character>> players;
 std::shared_ptr<Character> Ai = nullptr;

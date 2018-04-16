@@ -20,6 +20,7 @@
 #include "Camera.h"
 #include "FogOfWarCamera.h"
 #include "Light.h"
+#include "GhostCamera.h"
 
 std::shared_ptr<SpawnManager> SpawnManager::s_instance;
 
@@ -294,6 +295,8 @@ std::shared_ptr<GhostCharacter> SpawnManager::generateNetworkGhost(float x, floa
 	std::shared_ptr<GhostCharacter> ghost = GameManager::getInstance()->createGameObject<GhostCharacter>(false, pilot);
 	if (isPlayer) {
 		ghost->addComponent<Sender>(ghost.get(), netId);
+		Camera::getActiveCamera()->setActiveCamera(GameManager::getInstance()->createGameObject<GhostCamera>(true));
+		Camera::getActiveCamera()->addComponent<CameraFollow>(Camera::getActiveCamera().get());
 	}
 	else {
 		ghost->addComponent<Receiver>(ghost.get(), netId);
