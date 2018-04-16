@@ -14,6 +14,13 @@
 #include "Inventory.h"
 
 /*----------------------------------------------------------------------------------------
+	Static Fields
+----------------------------------------------------------------------------------------*/
+const float BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER = 0.95;
+const float BaseChestplate::SILVER_CHESTPLATE_DAMAGE_MULTIPLIER = 0.85;
+const float BaseChestplate::GOLD_CHESTPLATE_DAMAGE_MULTIPLIER = 0.75;
+
+/*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
 BaseChestplate::BaseChestplate(float damageMultiplier) :

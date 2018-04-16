@@ -159,7 +159,8 @@ std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(int id, f
 		BaseShield::WOODEN_SHIELD_IMAGE_NAME, BaseShield::WOODEN_SHIELD_DAMAGE_MULT, 
 		BaseShield::WOODEN_SHIELD_COOLDOWN_TIME));
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenGreaves>());
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenChestplate>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseChestplate>(
+		BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseHelmet>(
 		BaseHelmet::WOODEN_HELMET_CRITICAL_RESIST_CHANCE));
 	simpleCharacter->getTransform()->setPosition(x, y, 100);
@@ -183,7 +184,8 @@ std::shared_ptr<HostCharacter> SpawnManager::generateHostCharacter (int id, floa
 		BaseShield::WOODEN_SHIELD_IMAGE_NAME, BaseShield::WOODEN_SHIELD_DAMAGE_MULT,
 		BaseShield::WOODEN_SHIELD_COOLDOWN_TIME));
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenGreaves> ());
-	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenChestplate> ());
+	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseChestplate>(
+		BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseHelmet>(
 		BaseHelmet::WOODEN_HELMET_CRITICAL_RESIST_CHANCE));
 	simpleCharacter->getTransform ()->setPosition (x, y, 100);
@@ -206,7 +208,8 @@ std::shared_ptr<NetworkCharacter> SpawnManager::generateNetworkCharacter (int id
 		BaseShield::WOODEN_SHIELD_IMAGE_NAME, BaseShield::WOODEN_SHIELD_DAMAGE_MULT,
 		BaseShield::WOODEN_SHIELD_COOLDOWN_TIME));
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenGreaves> ());
-	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenChestplate> ());
+	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseChestplate>(
+		BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseHelmet>(
 		BaseHelmet::WOODEN_HELMET_CRITICAL_RESIST_CHANCE));
 	simpleCharacter->getTransform()->setPosition(x, y, 100);
@@ -256,7 +259,8 @@ std::shared_ptr<Character> SpawnManager::generateAiCharacter(float x, float y)
 	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<BaseLongbow>(
 		BaseLongbow::WOODEN_LONGBOW_DAMAGE, BaseLongbow::WOODEN_LONGBOW_IMAGE_NAME,
 		BaseLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME, BaseLongbow::WOODEN_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION));
-	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenChestplate>());
+	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<BaseChestplate>(
+		BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));
 	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<BaseHelmet>(
 		BaseHelmet::WOODEN_HELMET_CRITICAL_RESIST_CHANCE));
 	simpleAi->getTransform()->setPosition(x, y);
@@ -282,7 +286,8 @@ std::shared_ptr<Character> SpawnManager::generateDummyCharacter(float x, float y
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseShortsword>(
 		BaseShortsword::WOODEN_SHORTSWORD_DAMAGE, BaseShortsword::WOODEN_SHORTSWORD_IMAGE_NAME, 
 		BaseShortsword::WOODEN_SHORTSWORD_DESTROY_ON_COLLISION));
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenChestplate>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseChestplate>(
+		BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseHelmet>(
 		BaseHelmet::WOODEN_HELMET_CRITICAL_RESIST_CHANCE));
 	simpleCharacter->getTransform()->setPosition(x, y);

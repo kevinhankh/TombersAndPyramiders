@@ -11,10 +11,8 @@
 #include "BaseLongbow.h"
 #include "BaseShield.h"
 #include "BaseHelmet.h"
+#include "BaseChestplate.h"
 
-#include "WoodenChestplate.h"
 #include "WoodenGreaves.h"
-#include "SilverChestplate.h"
 #include "SilverGreaves.h"
-#include "GoldChestplate.h"
 #include "GoldGreaves.h"
