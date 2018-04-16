@@ -28,13 +28,14 @@ void startGameCallback(std::map<std::string, void*> payload)
 	NetworkedGameScene* scene = new NetworkedGameScene();
 	SceneManager::getInstance()->pushScene(scene);
 
-	//for (int i = 0; i < 1; i++)
-	//{
+	for (int i = 0; i < PYRAMID_HEIGHT; i++)
+	{
 		int mapSeedID = std::stoi (*(std::string*)payload["mapSeedID" + std::to_string (0)]);
 		srand (mapSeedID);
-		GeneratorManager::getInstance ()->generateLevel (WORLD_WIDTH, WORLD_HEIGHT, 2, 0);
-	//}
-	GeneratorManager::getInstance ()->drawLevel (0);
+		GeneratorManager::getInstance ()->generateLevel (WORLD_WIDTH, WORLD_HEIGHT, 2, i);
+		GeneratorManager::getInstance()->drawLevel(i);
+	}
+
 
 	int players = std::stoi(*(std::string*)payload["playerSpawns"]);
 
@@ -71,14 +72,15 @@ void SpawnManager::sendStartPacket()
 
 	std::vector<time_t> mapSeeds;	
 
-	//for (int i = 0; i < 1; i++)
-	//{
+	for (int i = 0; i < PYRAMID_HEIGHT; i++)
+	{
 		time_t seed = time (NULL);
 		srand (seed);
-		GeneratorManager::getInstance ()->generateLevel (WORLD_WIDTH, WORLD_HEIGHT, 2, 0);
+		GeneratorManager::getInstance ()->generateLevel (WORLD_WIDTH, WORLD_HEIGHT, 2, i);
 		payload["mapSeedID" + std::to_string (0)] = std::to_string (seed);
-	//}
-	GeneratorManager::getInstance ()->drawLevel (0);
+		GeneratorManager::getInstance()->drawLevel(i);
+	}
+
 
 	int id = 0, x = 0, y = 0;
 	int room = rand() % (GeneratorManager::getInstance()->levels[0]->rooms.size() - 1);
@@ -205,6 +207,7 @@ std::shared_ptr<MiscSquare> SpawnManager::generateMiscSquare(float x, float y, f
 	return miscSquare;
 }
 
+//overload of original misc square generate with collider offset params
 std::shared_ptr<MiscSquare> SpawnManager::generateMiscSquare(float x, float y, float z, float scale, string spriteName, bool hasCollider, float colliderSize_x, float colliderSize_y, float colliderOffset_x, float colliderOffset_y)
 {
 	std::shared_ptr<MiscSquare> miscSquare = GameManager::getInstance()->createGameObject<MiscSquare>(false, spriteName, hasCollider, colliderSize_x, colliderSize_y);

@@ -27,7 +27,7 @@ NetworkedGameScene::NetworkedGameScene ()
 
 void NetworkedGameScene::onStart ()
 {
-	GameManager::getInstance()->resizeQuadTree(0, 0, 200, 200);
+	GameManager::getInstance()->resizeQuadTree(0, 0, PYRAMID_HEIGHT * LEVEL_OFFSET * 2, 200);
 
 
 	//time_t mapSeedID = time(NULL);
@@ -36,7 +36,7 @@ void NetworkedGameScene::onStart ()
 	
 	//GeneratorManager::getInstance()->drawLevel(0);
 
-	SpawnManager::getInstance()->generateMiscSquare(25, -25, -100, 200, "sandBG.png", false);
+	SpawnManager::getInstance()->generateMiscSquare(25, -25, -100, 1000, "sandBG.png", false);
 	/*
 	const float scale = 5;
 
