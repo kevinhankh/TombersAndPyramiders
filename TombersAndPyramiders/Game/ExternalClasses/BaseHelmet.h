@@ -20,6 +20,14 @@
 class BaseHelmet : public BaseEquippableItem, public std::enable_shared_from_this<BaseHelmet>
 {
     /*----------------------------------------------------------------------------------------
+		Static Fields
+    ----------------------------------------------------------------------------------------*/
+	public:
+		static const float WOODEN_HELMET_CRITICAL_RESIST_CHANCE;
+		static const float SILVER_HELMET_CRITICAL_RESIST_CHANCE;
+		static const float GOLD_HELMET_CRITICAL_RESIST_CHANCE;
+
+    /*----------------------------------------------------------------------------------------
 		Instance Fields
     ----------------------------------------------------------------------------------------*/
     private:
@@ -41,6 +49,7 @@ class BaseHelmet : public BaseEquippableItem, public std::enable_shared_from_thi
 	----------------------------------------------------------------------------------------*/
     public:
 		virtual bool doesAvoidCriticalHit();
+		virtual void setProperties(float criticalResistChance);
 
 	protected:
 		std::shared_ptr<BaseItem> addSubclassToInventory();

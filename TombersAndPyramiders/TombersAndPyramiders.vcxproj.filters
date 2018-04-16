@@ -95,7 +95,6 @@
     <ClCompile Include="Game\Components\DoorController.cpp" />
     <ClCompile Include="Game\ExternalClasses\WoodenGreaves.cpp" />
     <ClCompile Include="Game\ExternalClasses\WoodenChestplate.cpp" />
-    <ClCompile Include="Game\ExternalClasses\WoodenHelmet.cpp" />
     <ClCompile Include="Engine\Component\Audio\AudioListener.cpp" />
     <ClCompile Include="Engine\Component\Audio\AudioSource.cpp" />
     <ClCompile Include="Engine\External\LevelGeneration\BinaryTree.cpp" />
@@ -117,10 +116,8 @@
     <ClCompile Include="Game\Scenes\OldTestScene.cpp" />
     <ClCompile Include="Game\ExternalClasses\EquipmentSilverSet\SilverChestplate.cpp" />
     <ClCompile Include="Game\ExternalClasses\EquipmentSilverSet\SilverGreaves.cpp" />
-    <ClCompile Include="Game\ExternalClasses\EquipmentSilverSet\SilverHelmet.cpp" />
     <ClCompile Include="Game\ExternalClasses\EquipmentGoldSet\GoldChestplate.cpp" />
     <ClCompile Include="Game\ExternalClasses\EquipmentGoldSet\GoldGreaves.cpp" />
-    <ClCompile Include="Game\ExternalClasses\EquipmentGoldSet\GoldHelmet.cpp" />
     <ClCompile Include="Engine\Component\Render\Light.cpp" />
     <ClCompile Include="Game\GameObjects\FogOfWarCamera.cpp" />
     <ClCompile Include="Game\GameObjects\GhostCamera.cpp" />
@@ -229,7 +226,6 @@
     <ClInclude Include="Game\ExternalClasses\WoodenGreaves.h" />
     <ClInclude Include="Game\ExternalClasses\WoodenChestplate.h" />
     <ClInclude Include="Game\ExternalClasses\RandomHelper.h" />
-    <ClInclude Include="Game\ExternalClasses\WoodenHelmet.h" />
     <ClInclude Include="Engine\Component\Audio\AudioBank.h" />
     <ClInclude Include="Engine\Component\Audio\AudioListener.h" />
     <ClInclude Include="Engine\Component\Audio\AudioSource.h" />
@@ -252,11 +248,9 @@
     <ClInclude Include="Game\Scenes\OldTestScene.h" />
     <ClInclude Include="Game\ExternalClasses\EquipmentSilverSet\SilverChestplate.h" />
     <ClInclude Include="Game\ExternalClasses\EquipmentSilverSet\SilverGreaves.h" />
-    <ClInclude Include="Game\ExternalClasses\EquipmentSilverSet\SilverHelmet.h" />
     <ClInclude Include="Game\ExternalClasses\EquipmentIncludes.h" />
     <ClInclude Include="Game\ExternalClasses\EquipmentGoldSet\GoldChestplate.h" />
     <ClInclude Include="Game\ExternalClasses\EquipmentGoldSet\GoldGreaves.h" />
-    <ClInclude Include="Game\ExternalClasses\EquipmentGoldSet\GoldHelmet.h" />
     <ClInclude Include="Engine\Component\Render\Light.h" />
     <ClInclude Include="Game\GameObjects\FogOfWarCamera.h" />
     <ClInclude Include="Game\GameObjects\GhostCamera.h" />
