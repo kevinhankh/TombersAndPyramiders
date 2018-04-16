@@ -15,17 +15,20 @@ class SpriteSheet : public ISprite
 {
 private:
 	GLuint m_textureBufferID;
-	int m_currentIndex;
+	int m_currentFrame;
 	int m_columnCount;
 	int m_rowCount;
 	int m_skipLastFrames;
-	int m_minIndex;
-	int m_maxIndex;
+
+	// These are used to run animations
+	int m_minFrame;
+	int m_maxFrame;
+
 	void reloadTextCoordinates();
 	std::array<GLfloat, 8> m_textCoordinates;
 
 public:
-	SpriteSheet(GLuint textureBufferID, int columnCount, int rowCount, int skipLastFrames = 0, int startIndex = 0, int minIndex = -1, int maxIndex = -1);
+	SpriteSheet(GLuint textureBufferID, int columnCount, int rowCount, int skipLastFrames = 0, int startIndex = 0);
 	~SpriteSheet();
 	virtual void bindTextCoordinates(GLuint glCBO);
 	virtual GLuint getTextureBufferID();
@@ -35,4 +38,5 @@ public:
 	int getRowCount();
 	int getColumnCount();
 	int getCurrentIndex();
+	void changeAnimation(int minFrame, int maxFrame);
 };

@@ -104,11 +104,11 @@ void Room::draw()
 	}
 }
 
-std::shared_ptr<ComplexSpriteinfo> Room::generateComplexSpriteInfo()
+std::shared_ptr<ComplexSpriteInfo> Room::generateComplexSpriteInfo()
 {
-	std::shared_ptr<ComplexSpriteinfo> spriteInfo = std::make_shared<ComplexSpriteinfo>();
+	std::shared_ptr<ComplexSpriteInfo> spriteInfo = std::make_shared<ComplexSpriteInfo>();
 
-	spriteInfo->addInfo("stoneTile.png", "stoneTile", 1, 1);
+	spriteInfo->addSprite("stoneTile.png", "stoneTile", 1, 1);
 
 	return spriteInfo;
 }

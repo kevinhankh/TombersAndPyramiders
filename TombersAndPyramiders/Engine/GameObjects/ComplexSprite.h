@@ -9,10 +9,17 @@
 #include <iterator>
 #include <set>
 
-class ComplexSpriteinfo
+class ComplexSpriteInfo
 {
 private:
-	struct Animation 
+
+	std::vector<std::string> m_filePaths;
+	std::vector<std::string> m_spriteNames;
+	std::vector<int> m_numberOfColumns;
+	std::vector<int> m_numberOfRows;
+
+public:
+	struct Animation
 	{
 		Animation(std::string animationName, int startFrameIndex, int endFrameIndex)
 		{
@@ -21,30 +28,29 @@ private:
 			m_endFrameIndex = endFrameIndex;
 		}
 
+		bool operator== (std::string animName)
+		{
+			return m_animationName == animName;
+		}
+
 		std::string m_animationName = "";
 		int m_startFrameIndex = 0;
 		int m_endFrameIndex = 0;
 	};
-
 	std::map<int, vector<Animation>> m_animations;
-	std::vector<std::string> m_filePaths;
-	std::vector<std::string> m_spriteSheetNames;
-	std::vector<int> m_numberOfColumns;
-	std::vector<int> m_numberOfRows;
 
-public:
 	// Adds a new sprite sheet.
 	// Returns true if successful, false if a sprite sheet with that name already exists.
-	bool addSpriteSheet(std::string filePath, std::string spriteName, int columnCount, int rowCount)
+	bool addSprite(std::string filePath, std::string spriteName, int columnCount, int rowCount)
 	{
 		// A sprite with that name already exists
-		if (getSpriteSheetIndex(spriteName) != -1)
+		if (getSpriteIndex(spriteName) != -1)
 		{
 			return false;
 		}
 
 		m_filePaths.push_back(filePath);
-		m_spriteSheetNames.push_back(spriteName);
+		m_spriteNames.push_back(spriteName);
 		m_numberOfColumns.push_back(columnCount);
 		m_numberOfRows.push_back(rowCount);
 
@@ -56,7 +62,7 @@ public:
 	bool addAnimation(std::string spriteName, std::string animationName, int startFrameIndex, int endFrameIndex)
 	{
 		// Check to see if the spritesheet exists, return false if it doesn't
-		int spriteIndex = getSpriteSheetIndex(spriteName);
+		int spriteIndex = getSpriteIndex(spriteName);
 		if (spriteIndex < 0 || spriteIndex > m_filePaths.size() - 1) 
 		{
 			return false;
@@ -107,16 +113,16 @@ public:
 		return m_numberOfRows[index];
 	}
 
-	int getSpriteSheetCount()
+	int getSpriteCount()
 	{
 		return m_filePaths.size();
 	}
 
 	// Gets the index to a spritesheet by name.
-	int getSpriteSheetIndex(std::string spriteName)
+	int getSpriteIndex(std::string spriteName)
 	{
-		auto pos = find(m_spriteSheetNames.begin(), m_spriteSheetNames.end(), spriteName) - m_spriteSheetNames.begin();
-		if (pos >= m_spriteSheetNames.size())
+		auto pos = find(m_spriteNames.begin(), m_spriteNames.end(), spriteName) - m_spriteNames.begin();
+		if (pos >= m_spriteNames.size())
 		{
 			// Doesn't exist
 			return -1;
@@ -144,18 +150,20 @@ class ComplexSprite : public GameObject
 {
 private:
 	Shader* m_shader;
-	std::vector<std::shared_ptr<SpriteSheet>> m_sprites;
+	std::vector<std::shared_ptr<SpriteSheet>> m_spriteSheets;
 	int m_currentSpriteSheetIndex;
 	std::string m_currentSpriteSheetName;
-	int m_spriteToReturnTo;
+	int m_currentAnimationIndex;
+	int m_animationtoReturnTo;
+	int m_spriteSheetToReturnTo;
 	int m_framesTilReturn;
 	int m_framesPerSecond;
-	std::shared_ptr<ComplexSpriteinfo> m_spriteInfo;
+	std::shared_ptr<ComplexSpriteInfo> m_spriteInfo;
 	double m_timeAlive = 0;
 	double m_lastFrame = 0;
 
 public:
-	ComplexSprite(std::shared_ptr<ComplexSpriteinfo> info, float x, float y, float z = 0.0f, float scale = 1.0f, Shader* nonDefaultShader = nullptr, int framesPerSecond = 8);
+	ComplexSprite(std::shared_ptr<ComplexSpriteInfo> info, float x, float y, float z = 0.0f, float scale = 1.0f, Shader* nonDefaultShader = nullptr, int framesPerSecond = 8);
 
 	void setFPS(int fps);
 	void updateFrames(float delta);
@@ -165,8 +173,11 @@ public:
 	bool changeSpriteSheet(int spriteIndexInComplexInfo, int returnSprite);
 
 	// Changes to an animation in the currently loaded sprite sheet, returns true if found and false if not
-	bool changeAnimation(std::string animationName);
-	bool changeAnimation(int animationIndex);
+	bool changeAnimation(std::string animationName, int animationIndexToReturnTo = -1);
+	bool changeAnimation(std::string animationName, std::string animationNameToReturnTo);
+	bool changeAnimation(int animationIndex, int animationIndexToReturnTo = -1);
+	void updateSpriteSheetAnimation(int animationIndex);
+
 	int getCurrentSpriteSheetIndex();
 	std::string getCurrentSpriteSheetName();
 };
