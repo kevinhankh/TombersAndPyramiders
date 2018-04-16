@@ -18,7 +18,6 @@
     <ClCompile Include="Engine\External\Render\SpriteSheet.cpp" />
     <ClCompile Include="Engine\GameObjects\Camera.cpp" />
     <ClCompile Include="Engine\GameObjects\ComplexSprite.cpp" />
-    <ClCompile Include="Engine\GameObjects\DayNightCamera.cpp" />
     <ClCompile Include="Engine\GameObjects\SimpleSprite.cpp" />
     <ClCompile Include="Engine\Manager\AudioManager.cpp" />
     <ClCompile Include="Engine\Manager\NetworkingManager.cpp" />
@@ -131,6 +130,9 @@
     <ClCompile Include="Game\ExternalClasses\EquipmentGoldSet\GoldLongbow.cpp" />
     <ClCompile Include="Game\ExternalClasses\EquipmentGoldSet\GoldShield.cpp" />
     <ClCompile Include="Game\ExternalClasses\EquipmentGoldSet\GoldShortsword.cpp" />
+    <ClCompile Include="Engine\Component\Render\Light.cpp" />
+    <ClCompile Include="Game\GameObjects\FogOfWarCamera.cpp" />
+    <ClCompile Include="Game\GameObjects\GhostCamera.cpp" />
     <ClCompile Include="Engine\External\Randomize.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -154,7 +156,6 @@
     <ClInclude Include="Engine\Component\Render\Renderer.h" />
     <ClInclude Include="Engine\GameObjects\Camera.h" />
     <ClInclude Include="Engine\GameObjects\ComplexSprite.h" />
-    <ClInclude Include="Engine\GameObjects\DayNightCamera.h" />
     <ClInclude Include="Engine\GameObjects\SimpleSprite.h" />
     <ClInclude Include="Engine\Manager\AudioManager.h" />
     <ClInclude Include="Engine\Manager\MessageManager.h" />
@@ -274,6 +275,10 @@
     <ClInclude Include="Game\ExternalClasses\EquipmentGoldSet\GoldLongbow.h" />
     <ClInclude Include="Game\ExternalClasses\EquipmentGoldSet\GoldShield.h" />
     <ClInclude Include="Game\ExternalClasses\EquipmentGoldSet\GoldShortsword.h" />
+    <ClInclude Include="Engine\Component\Render\Light.h" />
+    <ClInclude Include="Game\GameObjects\FogOfWarCamera.h" />
+    <ClInclude Include="Game\GameObjects\GhostCamera.h" />
+    <ClInclude Include="Game\Assets\Shaders\grayscale.fs" />
     <ClInclude Include="Engine\External\Randomize.h" />
   </ItemGroup>
   <ItemGroup>
@@ -321,6 +326,8 @@
     <None Include="Game\Assets\Shaders\vertex_shader.vs" />
     <None Include="Game\Assets\Shaders\voxel.fs" />
     <None Include="Game\Assets\.DS_Store" />
+    <None Include="Game\Assets\Shaders\fogOfWar.vs" />
+    <None Include="Game\Assets\Shaders\fogOfWar.fs" />
     <None Include="packages.config" />
   </ItemGroup>
 </Project>

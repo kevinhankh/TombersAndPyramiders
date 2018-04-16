@@ -70,6 +70,7 @@
             "-lSDL2_net",
             "-lSDL2_mixer",
             "-g",
+            "-O3",
             "-o",
             "MacRunner/runnable"
         ],
