@@ -103,7 +103,9 @@ void OldTestScene::onStart()
 		}
 	}
 
-	SpawnManager::getInstance()->generateWorldItem(5, -5, std::make_shared<GoldShortsword>());
+	SpawnManager::getInstance()->generateWorldItem(5, -5, std::make_shared<BaseShortsword>(
+		BaseShortsword::WOODEN_SHORTSWORD_DAMAGE, BaseShortsword::WOODEN_SHORTSWORD_IMAGE_NAME, 
+		BaseShortsword::WOODEN_SHORTSWORD_DESTROY_ON_COLLISION));
 
 	AiA = SpawnManager::getInstance()->generateAiCharacter(14, -15);
 	AiB = SpawnManager::getInstance()->generateAiCharacter(44, -20);
