@@ -96,3 +96,9 @@ int SpriteSheet::getCurrentIndex()
 {
 	return m_currentIndex;
 }
+
+
+void SpriteSheet::setCurrentIndex(int currentIndex)
+{
+	m_currentIndex = currentIndex;
+}

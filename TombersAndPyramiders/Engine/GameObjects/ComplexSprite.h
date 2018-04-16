@@ -65,4 +65,5 @@ public:
 	void changeSprite(int spriteIndexInComplexInfo);
 	int getCurrentSprite();
 	void changeSprite(int spriteIndexInComplexInfo, int returnSprite);
+	void setCurrentSpriteIndex(int spriteIndex);
 };

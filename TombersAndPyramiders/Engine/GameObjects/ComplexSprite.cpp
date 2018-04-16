@@ -92,3 +92,7 @@ void ComplexSprite::changeSprite(int spriteIndexInComplexInfo, int returnSprite)
 		m_framesTilReturn = m_sprites[returnSprite]->getColumnCount() * m_sprites[returnSprite]->getRowCount();
 	}
 }
+
+void ComplexSprite::setCurrentSpriteIndex(int index) {
+	m_sprites[m_currentSpriteSheet]->setCurrentIndex(index);
+}

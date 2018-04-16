@@ -33,4 +33,5 @@ public:
 	int getRowCount();
 	int getColumnCount();
 	int getCurrentIndex();
+	void setCurrentIndex(int currentIndex);
 };

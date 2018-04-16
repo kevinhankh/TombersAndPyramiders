@@ -22,6 +22,7 @@
 #include "Light.h"
 #include "GhostCamera.h"
 #include "Randomize.h"
+#include "HealthBar.h"
 
 std::shared_ptr<SpawnManager> SpawnManager::s_instance;
 
@@ -145,6 +146,8 @@ This is the type of character of YOU are when you are playing. It is a client ch
 std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(int id, float x, float y)
 {
 	std::shared_ptr<ClientCharacter> simpleCharacter = GameManager::getInstance()->createGameObjectWithId<ClientCharacter>(false, id, new PlayerPilot(), id);
+	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
+	healthBar->setTrackingPlayer(simpleCharacter);
 	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(12.0f);
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenShield>());
@@ -164,6 +167,8 @@ This is the type of character for everyone else IF YOU ARE HOST. They take messa
 std::shared_ptr<HostCharacter> SpawnManager::generateHostCharacter (int id, float x, float y)
 {
 	std::shared_ptr<HostCharacter> simpleCharacter = GameManager::getInstance ()->createGameObjectWithId<HostCharacter> (false, id, new HostPilot (), id);
+	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
+	healthBar->setTrackingPlayer(simpleCharacter);
 	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(12.0f);
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenLongbow> ());
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenShield> ());
@@ -182,6 +187,8 @@ This is the type of character for everyone else if you are NOT host. They reciev
 std::shared_ptr<NetworkCharacter> SpawnManager::generateNetworkCharacter (int id, float x, float y)
 {
 	std::shared_ptr<NetworkCharacter> simpleCharacter = GameManager::getInstance ()->createGameObjectWithId<NetworkCharacter> (false, id, new HostPilot (), id);
+	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
+	healthBar->setTrackingPlayer(simpleCharacter);
 	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(12.0f);
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenLongbow> ());
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenShield> ());
@@ -218,6 +225,8 @@ std	::shared_ptr<MovingSquare> SpawnManager::generateMovingSquare(float x, float
 std::shared_ptr<Character> SpawnManager::generatePlayerCharacter(float x, float y)
 {
 	std::shared_ptr<Character> simpleCharacter = GameManager::getInstance()->createGameObject<Character>(false, new PlayerPilot());
+	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
+	healthBar->setTrackingPlayer(simpleCharacter);
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenShortsword>());
 	simpleCharacter->getTransform()->setPosition(x, y);
 	simpleCharacter->getTransform()->setScale(2);
@@ -229,7 +238,9 @@ std::shared_ptr<Character> SpawnManager::generatePlayerCharacter(float x, float 
 std::shared_ptr<Character> SpawnManager::generateAiCharacter(float x, float y)
 {
 	std::shared_ptr<Character> simpleAi = GameManager::getInstance()->createGameObject<Character>(false, new AiPilot(), beetle);
-	simpleAi->addComponent<Light>(simpleAi.get())->setColor(50, 255, 30)->setSize(3.0f);
+	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
+	healthBar->setTrackingPlayer(simpleAi);
+	simpleAi->addComponent<Light>(simpleAi.get())->setColor(50, 255, 30)->setSize(6.0f);
 	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
 	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenChestplate>());
 	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenHelmet>());
