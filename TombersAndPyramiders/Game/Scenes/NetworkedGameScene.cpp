@@ -10,11 +10,11 @@
 #include "CameraFollow.h"
 #include "NetworkingManager.h"
 #include <memory>
-#include "WoodenShortsword.h"
 #include "GeneratorManager.h"
 #include "GameManager.h"
 #include "FogOfWarCamera.h"
 #include "GhostCamera.h"
+#include "EquipmentIncludes.h"
 
 std::map<int, shared_ptr<Character>> players;
 std::shared_ptr<Character> Ai = nullptr;
@@ -227,7 +227,9 @@ void NetworkedGameScene::onStart ()
 		}
 	}
 	*/
-	SpawnManager::getInstance()->generateWorldItem(5, -5, std::make_shared<WoodenShortsword>());
+	SpawnManager::getInstance()->generateWorldItem(5, -5, std::make_shared<BaseShortsword>(
+		BaseShortsword::WOODEN_SHORTSWORD_DAMAGE, BaseShortsword::WOODEN_SHORTSWORD_IMAGE_NAME,
+		BaseShortsword::WOODEN_SHORTSWORD_DESTROY_ON_COLLISION));
 
 	//Ai = SpawnManager::getInstance()->generateAiCharacter(14, -18);
 	//Ai2 = SpawnManager::getInstance()->generateAiCharacter(13, -40);
