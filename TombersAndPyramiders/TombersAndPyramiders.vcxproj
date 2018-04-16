@@ -144,6 +144,7 @@
     <ClCompile Include="Engine\Component\Collision\Rigidbody.cpp" />
     <ClCompile Include="Engine\Component\Networking\Receiver.cpp" />
     <ClCompile Include="Engine\Component\Networking\Sender.cpp" />
+    <ClCompile Include="Engine\Component\Render\Light.cpp" />
     <ClCompile Include="Engine\External\LevelGeneration\BinaryTree.cpp" />
     <ClCompile Include="Engine\External\LevelGeneration\Codec.cpp" />
     <ClCompile Include="Engine\External\LevelGeneration\Corridor.cpp" />
@@ -156,7 +157,7 @@
     <ClCompile Include="Engine\External\Render\SpriteSheet.cpp" />
     <ClCompile Include="Engine\GameObjects\Camera.cpp" />
     <ClCompile Include="Engine\GameObjects\ComplexSprite.cpp" />
-    <ClCompile Include="Engine\GameObjects\DayNightCamera.cpp" />
+    <ClCompile Include="Game\GameObjects\FogOfWarCamera.cpp" />
     <ClCompile Include="Engine\GameObjects\SimpleSprite.cpp" />
     <ClCompile Include="Engine\GameObjects\Tiles\ConnectorTile.cpp" />
     <ClCompile Include="Engine\GameObjects\Tiles\CornerTile.cpp" />
@@ -240,6 +241,7 @@
     <ClCompile Include="Game\GameObjects\Doors\Door.cpp" />
     <ClCompile Include="Game\GameObjects\Doors\SingleDoor.cpp" />
     <ClCompile Include="Game\GameObjects\GameObjectTemplate.cpp" />
+    <ClCompile Include="Game\GameObjects\GhostCamera.cpp" />
     <ClCompile Include="Game\GameObjects\GhostCharacter.cpp" />
     <ClCompile Include="Game\GameObjects\HostCharacter.cpp" />
     <ClCompile Include="Game\GameObjects\NetworkCharacter.cpp" />
@@ -277,6 +279,7 @@
     <ClInclude Include="Engine\Component\Collision\Rigidbody.h" />
     <ClInclude Include="Engine\Component\Networking\Receiver.h" />
     <ClInclude Include="Engine\Component\Networking\Sender.h" />
+    <ClInclude Include="Engine\Component\Render\Light.h" />
     <ClInclude Include="Engine\External\LevelGeneration\BinaryTree.h" />
     <ClInclude Include="Engine\External\LevelGeneration\Codec.h" />
     <ClInclude Include="Engine\External\LevelGeneration\Corridor.h" />
@@ -292,7 +295,8 @@
     <ClInclude Include="Engine\Component\Render\Renderer.h" />
     <ClInclude Include="Engine\GameObjects\Camera.h" />
     <ClInclude Include="Engine\GameObjects\ComplexSprite.h" />
-    <ClInclude Include="Engine\GameObjects\DayNightCamera.h" />
+    <ClInclude Include="Game\Assets\Shaders\grayscale.fs" />
+    <ClInclude Include="Game\GameObjects\FogOfWarCamera.h" />
     <ClInclude Include="Engine\GameObjects\SimpleSprite.h" />
     <ClInclude Include="Engine\GameObjects\Tiles\ConnectorTile.h" />
     <ClInclude Include="Engine\GameObjects\Tiles\CornerTile.h" />
@@ -381,6 +385,7 @@
     <ClInclude Include="Game\GameObjects\DamagingRegion.h" />
     <ClInclude Include="Game\GameObjects\Doors\Door.h" />
     <ClInclude Include="Game\GameObjects\GameObjectTemplate.h" />
+    <ClInclude Include="Game\GameObjects\GhostCamera.h" />
     <ClInclude Include="Game\GameObjects\GhostCharacter.h" />
     <ClInclude Include="Game\GameObjects\HostCharacter.h" />
     <ClInclude Include="Game\GameObjects\NetworkCharacter.h" />
@@ -431,6 +436,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Game\Assets\.DS_Store" />
+    <None Include="Game\Assets\Shaders\fogOfWar.fs" />
+    <None Include="Game\Assets\Shaders\fogOfWar.vs" />
     <None Include="Game\Assets\Shaders\fragment_shader.fs" />
     <None Include="Game\Assets\Shaders\glow.fs" />
     <None Include="Game\Assets\Shaders\glow.vs" />

@@ -3,11 +3,10 @@
 #include "Camera.h"
 #include "FrameBufferObject.h"
 
-class DayNightCamera : public Camera
+class GhostCamera : public Camera
 {
 private:
 	FrameBufferObject m_regularPass;
-	FrameBufferObject m_ambientLighting;
 
 public:
 	void virtual applyRenderFilters(SpriteRendererManager* rendererManager);
