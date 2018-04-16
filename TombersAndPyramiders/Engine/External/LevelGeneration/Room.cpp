@@ -69,22 +69,22 @@ void Room::draw()
 				else if (i == 0)
 				{
 					//top wall
-					SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -1, m_scale, "WallHorizontalU.png", true, m_scale, m_scale/4.5);
+					SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -1, m_scale, "WallHorizontalU.png", true, m_scale, m_scale/4.5, 0, -1.2f);
 				}
 				else if (j == 0)
 				{
 					//left wall
-					SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -1, m_scale, "wallVerticalBothEdgeL.png", true, m_scale/4.5, m_scale);
+					SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -1, m_scale, "wallVerticalBothEdgeL.png", true, m_scale/4.5, m_scale, 2 ,0);
 				}
 				else if (i == m_height - 1)
 				{
 					//bottom wall
-					SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -1, m_scale, "wallHorizontalD.png", true, m_scale, m_scale /4.5);
+					SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, 2000, m_scale, "wallHorizontalD.png", true, m_scale, m_scale /4.5, 0, 1.3f);
 				}
 				else if (j == m_width - 1)
 				{
 					//right wall
-					SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -1, m_scale, "wallVerticalBothEdgeR.png", true, m_scale/4.5, m_scale);
+					SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -1, m_scale, "wallVerticalBothEdgeR.png", true, m_scale/4.5, m_scale, -2, 0);
 				}
 				else
 				{

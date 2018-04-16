@@ -149,7 +149,7 @@ void BinaryTree::partition(int depth, std::shared_ptr<BTNode> node)
 		//choose random position x for vertical, y for horizontal
 		if (direction == 1)
 		{ //horizontal split
-			int position = rand() % (int)ceil((0.4f * node->m_boundsHeight)) + (int)ceil((0.3f * node->m_boundsHeight));
+			int position = rand() % (int)ceil((0.4f * node->m_boundsHeight)) + (int)ceil((0.2f * node->m_boundsHeight));
 			node->left = std::make_shared<BTNode>(node->m_boundsWidth, position, node->m_cornerX, node->m_cornerY);
 			node->right = std::make_shared<BTNode>(node->m_boundsWidth, node->m_boundsHeight - position, node->m_cornerX, node->m_cornerY - position);
 			partition(depth - 1, node->left);
@@ -157,7 +157,7 @@ void BinaryTree::partition(int depth, std::shared_ptr<BTNode> node)
 		}
 		else if (direction == 0)
 		{ //vertical split
-			int position = rand() % (int)ceil((0.4f * node->m_boundsWidth)) + (int)ceil((0.3f * node->m_boundsWidth));
+			int position = rand() % (int)ceil((0.4f * node->m_boundsWidth)) + (int)ceil((0.2f * node->m_boundsWidth));
 			node->left = std::make_shared<BTNode>(position, node->m_boundsHeight, node->m_cornerX, node->m_cornerY);
 			node->right = std::make_shared<BTNode>(node->m_boundsWidth - position, node->m_boundsHeight, node->m_cornerX + position, node->m_cornerY);
 			partition(depth - 1, node->left);

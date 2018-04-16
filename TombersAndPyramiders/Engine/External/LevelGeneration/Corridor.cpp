@@ -37,25 +37,25 @@ void Corridor::draw()
 				|| GeneratorManager::getInstance()->worldMatrix[m_xCoord + j + WORLD_WIDTH / 2][-(m_yCoord - WORLD_HEIGHT / 2) + i] == 5))
 			{
 				//top wall
-				SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -5, m_scale, "WallHorizontalU.png", true, m_scale, m_scale / 4.5);
+				SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -5, m_scale, "WallHorizontalU.png", true, m_scale, m_scale / 4.5, 0, -1.2f);
 			}
 			else if (j == 0 && (GeneratorManager::getInstance()->worldMatrix[m_xCoord + j + WORLD_WIDTH / 2][-(m_yCoord - WORLD_HEIGHT / 2) + i] == 8
 				|| GeneratorManager::getInstance()->worldMatrix[m_xCoord + j + WORLD_WIDTH / 2][-(m_yCoord - WORLD_HEIGHT / 2) + i] == 5))
 			{
 				//left wall
-				SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -5, m_scale, "wallVerticalBothEdgeL.png", true, m_scale / 4.5, m_scale);
+				SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -5, m_scale, "wallVerticalBothEdgeL.png", true, m_scale / 4.5, m_scale, 2, 0);
 			}
 			else if (i == m_height - 1 && (GeneratorManager::getInstance()->worldMatrix[m_xCoord + j + WORLD_WIDTH / 2][-(m_yCoord - WORLD_HEIGHT / 2) + i] == 8
 				|| GeneratorManager::getInstance()->worldMatrix[m_xCoord + j + WORLD_WIDTH / 2][-(m_yCoord - WORLD_HEIGHT / 2) + i] == 5))
 			{
 				//bottom wall
-				SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -5, m_scale, "WallHorizontalD.png", true, m_scale, m_scale / 4.5);
+				SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, 2000, m_scale, "WallHorizontalD.png", true, m_scale, m_scale / 4.5, 0, 1.3f);
 			}
 			else if (j == m_width - 1 && (GeneratorManager::getInstance()->worldMatrix[m_xCoord + j + WORLD_WIDTH / 2][-(m_yCoord - WORLD_HEIGHT / 2) + i] == 8
 				|| GeneratorManager::getInstance()->worldMatrix[m_xCoord + j + WORLD_WIDTH / 2][-(m_yCoord - WORLD_HEIGHT / 2) + i] == 5))
 			{
 				//right wall
-				SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -5, m_scale, "wallVerticalBothEdgeR.png", true, m_scale / 4.5, m_scale);
+				SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + j * 5, m_yCoord * 5 - 2 - i * 5, -5, m_scale, "wallVerticalBothEdgeR.png", true, m_scale / 4.5, m_scale, -2, 0);
 			}
 			else if (GeneratorManager::getInstance()->worldMatrix[m_xCoord + j + WORLD_WIDTH / 2][-(m_yCoord - WORLD_HEIGHT / 2) + i] == 7)
 			{

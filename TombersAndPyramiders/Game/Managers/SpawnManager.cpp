@@ -205,6 +205,16 @@ std::shared_ptr<MiscSquare> SpawnManager::generateMiscSquare(float x, float y, f
 	return miscSquare;
 }
 
+std::shared_ptr<MiscSquare> SpawnManager::generateMiscSquare(float x, float y, float z, float scale, string spriteName, bool hasCollider, float colliderSize_x, float colliderSize_y, float colliderOffset_x, float colliderOffset_y)
+{
+	std::shared_ptr<MiscSquare> miscSquare = GameManager::getInstance()->createGameObject<MiscSquare>(false, spriteName, hasCollider, colliderSize_x, colliderSize_y);
+	miscSquare->getComponent<BoxCollider>()->setXOffset(colliderOffset_x);
+	miscSquare->getComponent<BoxCollider>()->setYOffset(colliderOffset_y);
+	miscSquare->getTransform()->setPosition(x, y, z);
+	miscSquare->getTransform()->setScale(scale);
+	return miscSquare;
+}
+
 std	::shared_ptr<MovingSquare> SpawnManager::generateMovingSquare(float x, float y)
 {
 	std::shared_ptr<MovingSquare> movingSquare = GameManager::getInstance()->createGameObject<MovingSquare>(false);
