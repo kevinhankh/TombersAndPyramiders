@@ -150,6 +150,7 @@
     <ClCompile Include="Engine\External\LevelGeneration\Doorway.cpp" />
     <ClCompile Include="Engine\External\LevelGeneration\Room.cpp" />
     <ClCompile Include="Engine\External\QuadTree.cpp" />
+    <ClCompile Include="Engine\External\Randomize.cpp" />
     <ClCompile Include="Engine\External\Render\FrameBufferObject.cpp" />
     <ClCompile Include="Engine\External\Render\ISprite.cpp" />
     <ClCompile Include="Engine\External\Render\Sprite.cpp" />
@@ -283,6 +284,7 @@
     <ClInclude Include="Engine\External\LevelGeneration\Doorway.h" />
     <ClInclude Include="Engine\External\LevelGeneration\Room.h" />
     <ClInclude Include="Engine\External\QuadTree.h" />
+    <ClInclude Include="Engine\External\Randomize.h" />
     <ClInclude Include="Engine\External\Render\FrameBufferObject.h" />
     <ClInclude Include="Engine\External\Render\ISprite.h" />
     <ClInclude Include="Engine\External\Render\Sprite.h" />

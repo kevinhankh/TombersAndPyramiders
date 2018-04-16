@@ -1,5 +1,6 @@
 #include "Room.h"
 #include "SpawnManager.h"
+#include "Randomize.h"
 
 Room::Room(int width, int height, int xPosition, int yPosition, bool exit) : m_width(width), m_height(height), m_xCoord(xPosition), m_yCoord(yPosition), m_exit(exit),
 		ComplexSprite(generateComplexSpriteInfo(), 0, -2, 10, 5)
@@ -97,8 +98,8 @@ void Room::draw()
 	}
 	if (m_exit) {
 		//draw stairs
-		int x = rand() % m_width/2 + ceil(m_width/4);
-		int y = rand() % m_height/2 + ceil(m_height/4);
+		int x = Randomize::Random() % m_width/2 + ceil(m_width/4);
+		int y = Randomize::Random() % m_height/2 + ceil(m_height/4);
 		SpawnManager::getInstance()->generateMiscSquare(m_xCoord * 5 + 2 + x * 5, m_yCoord * 5 - 2 - y * 5, 0, m_scale, "spiralStairs.png", true, 3.0f, 3.0f);
 
 	}
