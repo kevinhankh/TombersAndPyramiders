@@ -102,7 +102,7 @@ public:
 	void cleanup();
 	void render();
 	GLuint generateTexture(std::string textureFileName);
-	GLuint generateTexture(int width, int height, std::vector<unsigned char> rawBytes, GLuint* texture);
+	GLuint generateTexture(int width, int height, unsigned char* rawBytes, GLuint* texture);
 	void addSpriteForRendering(SpriteRenderer* sprite);
 
 	void disableRenderingLayer(int layer);

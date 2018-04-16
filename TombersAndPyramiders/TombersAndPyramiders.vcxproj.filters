@@ -131,6 +131,7 @@
     <ClCompile Include="Game\ExternalClasses\EquipmentGoldSet\GoldLongbow.cpp" />
     <ClCompile Include="Game\ExternalClasses\EquipmentGoldSet\GoldShield.cpp" />
     <ClCompile Include="Game\ExternalClasses\EquipmentGoldSet\GoldShortsword.cpp" />
+    <ClCompile Include="Engine\Component\Render\Light.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Component\AI\AI.h" />
@@ -273,6 +274,7 @@
     <ClInclude Include="Game\ExternalClasses\EquipmentGoldSet\GoldLongbow.h" />
     <ClInclude Include="Game\ExternalClasses\EquipmentGoldSet\GoldShield.h" />
     <ClInclude Include="Game\ExternalClasses\EquipmentGoldSet\GoldShortsword.h" />
+    <ClInclude Include="Engine\Component\Render\Light.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Character.bmp" />

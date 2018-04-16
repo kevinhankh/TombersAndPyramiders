@@ -144,6 +144,7 @@
     <ClCompile Include="Engine\Component\Collision\Rigidbody.cpp" />
     <ClCompile Include="Engine\Component\Networking\Receiver.cpp" />
     <ClCompile Include="Engine\Component\Networking\Sender.cpp" />
+    <ClCompile Include="Engine\Component\Render\Light.cpp" />
     <ClCompile Include="Engine\External\LevelGeneration\BinaryTree.cpp" />
     <ClCompile Include="Engine\External\LevelGeneration\Codec.cpp" />
     <ClCompile Include="Engine\External\LevelGeneration\Corridor.cpp" />
@@ -277,6 +278,7 @@
     <ClInclude Include="Engine\Component\Collision\Rigidbody.h" />
     <ClInclude Include="Engine\Component\Networking\Receiver.h" />
     <ClInclude Include="Engine\Component\Networking\Sender.h" />
+    <ClInclude Include="Engine\Component\Render\Light.h" />
     <ClInclude Include="Engine\External\LevelGeneration\BinaryTree.h" />
     <ClInclude Include="Engine\External\LevelGeneration\Codec.h" />
     <ClInclude Include="Engine\External\LevelGeneration\Corridor.h" />

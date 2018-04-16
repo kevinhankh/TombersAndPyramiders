@@ -236,7 +236,7 @@ void SpriteRendererManager::cleanup()
 }
 
 
-GLuint SpriteRendererManager::generateTexture(int width, int height, std::vector<unsigned char> rawBytes, GLuint* texture) 
+GLuint SpriteRendererManager::generateTexture(int width, int height, unsigned char* rawBytes, GLuint* texture) 
 {
 	if (*texture != 0) {
 		glDeleteTextures(1, texture);
@@ -247,7 +247,7 @@ GLuint SpriteRendererManager::generateTexture(int width, int height, std::vector
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, static_cast<void*>(rawBytes.data()));
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, static_cast<void*>(rawBytes));
 	glGenerateMipmap(GL_TEXTURE_2D);
 	const char *sdlError = SDL_GetError();
 	GLenum glError = glGetError();
@@ -260,6 +260,7 @@ GLuint SpriteRendererManager::generateTexture(int width, int height, std::vector
 		std::cout << "GL ERROR: " << glError << std::endl;
 	}
 	glBindTexture(GL_TEXTURE_2D, 0);
+	return *texture;
 }
 
 GLuint SpriteRendererManager::generateTexture(std::string textureFileName)

@@ -13,31 +13,22 @@ void DayNightCamera::init()
 
 inline float lerp(float t, float a, float b)
 {
-	return (1 - t)*a + t*b;
+	return a * (1 - t) + b * t;
 }
 
 void DayNightCamera::updateFogOfWarMask() 
 {
-	int gameWidth = SCREEN_WIDTH;
-	int gameHeight = SCREEN_HEIGHT;
-	std::vector<unsigned char> bytes(gameWidth * gameHeight * 4);
-	//for(int x = 0; x < gameWidth; x++) {
-	//	for(int y = 0; y < gameHeight; y++) {
-	//		bytes[(y * SCREEN_WIDTH + x) * 4] = 62;
-	//		bytes[(y * SCREEN_WIDTH + x) * 4 + 1] = 52;
-	//		bytes[(y * SCREEN_WIDTH + x) * 4 + 1] = 25;
-	//		bytes[(y * SCREEN_WIDTH + x) * 4 + 3] = 255;
-	//	}
-	//}
+	const int downscale = 16;
+	const int gameWidth = SCREEN_WIDTH / downscale;
+	const int gameHeight = SCREEN_HEIGHT / downscale;
+	unsigned char bytes[gameWidth * gameHeight * 4] = { 0 };
 	for(int i = 0; i < gameWidth * gameHeight * 4; i += 4) 
 	{
-		//bytes[i] = 10 + (i % 6) * 5;
-		//bytes[i + 1] = 15 + (i % 5) * 3;
-		//bytes[i + 2] = 5 + (i % 4) * 3;
-		bytes[i + 3] = 240;//230 + (i % 8) * 3;
+		bytes[i + 3] = 240;
 	}
 
 	auto objectsInBounds = GameManager::getInstance()->getObjectsInBounds(getTransform()->getX(), getTransform()->getY(), getGameWidth(), getGameHeight());
+
 
 	for(int i = 0; i < objectsInBounds.size(); i++)
 	{
@@ -48,31 +39,31 @@ void DayNightCamera::updateFogOfWarMask()
 			int lightB = 0;
 			float lightSize = lightComponent->getLight(lightR, lightG, lightB);
 
-			float lightSizePixels = lightSize * getUnitSize();
+			float lightSizePixels = lightSize * getUnitSize() / downscale;
 
 			auto lightTransform = objectsInBounds[i]->getTransform();
 			if (isOnScreen(lightTransform)) {
-				int screenX = SCREEN_WIDTH / 2.0 - ((getTransform()->getX() - lightTransform->getX()) * getUnitSize());
-				int screenY = SCREEN_HEIGHT / 2.0f - ((getTransform()->getY() - lightTransform->getY()) * getUnitSize());
+				int screenX = gameWidth / 2.0 - ((getTransform()->getX() - lightTransform->getX()) * getUnitSize() / downscale);
+				int screenY = gameHeight / 2.0f - ((getTransform()->getY() - lightTransform->getY()) * getUnitSize() / downscale);
 				float dist = getTransform()->getDistance(lightTransform);
 				
-				//25% of screen width gives (5/(20/2) == 5/10 == 0.5)
-				//0% of screen width gives (0/(20/2) == 0/10 == 0.0)
 				float t = 1 - std::min( std::max( dist / (getGameHeight() / 2.0f), 0.0f ), 1.0f);
-				unsigned char r = lerp(0.0f, lightR, t);
-				unsigned char g = lerp(0.0f, lightG, t);
-				unsigned char b = lerp(0.0f, lightB, t);
-				unsigned char a = lerp(0.0f, 255.0f, t);
-
-				std::cout << "FOR DIF: " << (getTransform()->getX() - lightTransform->getX()) << "," << (getTransform()->getY() - lightTransform->getY()) << std::endl;
-				std::cout << "Dist: " << dist << " | T:" << std::endl; 
-				std::cout << "RGBA: " << (int)r << " " << (int)g << " " << (int)b << " " << (int)a << std::endl;
+				unsigned char r = lerp(t, 0.0f, lightR);
+				unsigned char g = lerp(t, 0.0f, lightG);
+				unsigned char b = lerp(t, 0.0f, lightB);
+				unsigned char a = lerp(t, 255.0f, 0.0f);
+				if (t < 0.3f) {
+					r = lerp((1 - t), r, 0.0f);
+					g = lerp((1 - t), g, 0.0f);
+					b = lerp((1 - t), b, 0.0f);
+					a = lerp((1 - t), a, 255.0f);
+				}
 				
 				int lightRadiusPixels = lightSizePixels / 2.0f;
 				
 				for(int x = -lightRadiusPixels; x < lightRadiusPixels; x++ ) {
 					for(int y = -lightRadiusPixels; y < lightRadiusPixels; y++) {
-						int pos = ((screenY + y) * SCREEN_WIDTH + (screenX) + x) * 4;
+						int pos = ((screenY + y) * gameWidth + (screenX) + x) * 4;
 						if (pos >= 0 && pos < gameWidth * gameHeight * 4) {
 							int culmulativeDist = abs(x) + abs(y);
 							if (culmulativeDist < lightRadiusPixels) {
