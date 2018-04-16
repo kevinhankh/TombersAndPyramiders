@@ -158,7 +158,9 @@ std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(int id, f
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseShield>(
 		BaseShield::WOODEN_SHIELD_IMAGE_NAME, BaseShield::WOODEN_SHIELD_DAMAGE_MULT, 
 		BaseShield::WOODEN_SHIELD_COOLDOWN_TIME));
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenGreaves>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseGreaves>(
+		BaseGreaves::WOODEN_GREAVES_COOLDOWN_TIME, BaseGreaves::WOODEN_GREAVES_DASH_DURATION, 
+		BaseGreaves::WOODEN_GREAVES_DASH_SPEED));
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseChestplate>(
 		BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseHelmet>(
@@ -183,7 +185,9 @@ std::shared_ptr<HostCharacter> SpawnManager::generateHostCharacter (int id, floa
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseShield>(
 		BaseShield::WOODEN_SHIELD_IMAGE_NAME, BaseShield::WOODEN_SHIELD_DAMAGE_MULT,
 		BaseShield::WOODEN_SHIELD_COOLDOWN_TIME));
-	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenGreaves> ());
+	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseGreaves>(
+		BaseGreaves::WOODEN_GREAVES_COOLDOWN_TIME, BaseGreaves::WOODEN_GREAVES_DASH_DURATION,
+		BaseGreaves::WOODEN_GREAVES_DASH_SPEED));
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseChestplate>(
 		BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseHelmet>(
@@ -207,7 +211,9 @@ std::shared_ptr<NetworkCharacter> SpawnManager::generateNetworkCharacter (int id
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseShield>(
 		BaseShield::WOODEN_SHIELD_IMAGE_NAME, BaseShield::WOODEN_SHIELD_DAMAGE_MULT,
 		BaseShield::WOODEN_SHIELD_COOLDOWN_TIME));
-	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenGreaves> ());
+	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseGreaves>(
+		BaseGreaves::WOODEN_GREAVES_COOLDOWN_TIME, BaseGreaves::WOODEN_GREAVES_DASH_DURATION,
+		BaseGreaves::WOODEN_GREAVES_DASH_SPEED));
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseChestplate>(
 		BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseHelmet>(

@@ -12,7 +12,4 @@
 #include "BaseShield.h"
 #include "BaseHelmet.h"
 #include "BaseChestplate.h"
-
-#include "WoodenGreaves.h"
-#include "SilverGreaves.h"
-#include "GoldGreaves.h"
+#include "BaseGreaves.h"
