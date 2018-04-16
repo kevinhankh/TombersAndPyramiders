@@ -133,6 +133,7 @@
     <ClCompile Include="Engine\Component\Render\Light.cpp" />
     <ClCompile Include="Game\GameObjects\FogOfWarCamera.cpp" />
     <ClCompile Include="Game\GameObjects\GhostCamera.cpp" />
+    <ClCompile Include="Engine\External\Randomize.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Component\AI\AI.h" />
@@ -278,6 +279,7 @@
     <ClInclude Include="Game\GameObjects\FogOfWarCamera.h" />
     <ClInclude Include="Game\GameObjects\GhostCamera.h" />
     <ClInclude Include="Game\Assets\Shaders\grayscale.fs" />
+    <ClInclude Include="Engine\External\Randomize.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Character.bmp" />
@@ -326,5 +328,6 @@
     <None Include="Game\Assets\.DS_Store" />
     <None Include="Game\Assets\Shaders\fogOfWar.vs" />
     <None Include="Game\Assets\Shaders\fogOfWar.fs" />
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

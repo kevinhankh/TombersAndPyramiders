@@ -21,6 +21,7 @@
 #include "FogOfWarCamera.h"
 #include "Light.h"
 #include "GhostCamera.h"
+#include "Randomize.h"
 
 std::shared_ptr<SpawnManager> SpawnManager::s_instance;
 
@@ -35,7 +36,7 @@ void startGameCallback(std::map<std::string, void*> payload)
 	//for (int i = 0; i < 1; i++)
 	//{
 		int mapSeedID = std::stoi (*(std::string*)payload["mapSeedID" + std::to_string (0)]);
-		srand (mapSeedID);
+		Randomize::SetSeed(mapSeedID);
 		GeneratorManager::getInstance ()->generateLevel (28, 28, 2, 0);
 	//}
 	GeneratorManager::getInstance ()->drawLevel (0);
@@ -64,12 +65,6 @@ void SpawnManager::sendStartPacket()
 {
 	std::map<std::string, std::string> payload;
 
-	//---------------------------------------------------------- TODO Comment out these lines before pushing.
-	/*OldTestScene* testScene = new OldTestScene();
-	SceneManager::getInstance()->pushScene(testScene);
-	return;*/
-	//----------------------------------------------------------
-
 	NetworkedGameScene* scene = new NetworkedGameScene();
 	SceneManager::getInstance()->pushScene(scene);	
 	
@@ -79,27 +74,27 @@ void SpawnManager::sendStartPacket()
 	//for (int i = 0; i < 1; i++)
 	//{
 		time_t seed = time (NULL);
-		srand (seed);
+		Randomize::SetSeed(seed);
 		GeneratorManager::getInstance ()->generateLevel (28, 28, 2, 0);
 		payload["mapSeedID" + std::to_string (0)] = std::to_string (seed);
 	//}
 	GeneratorManager::getInstance ()->drawLevel (0);
 
 	int id = 0, x = 0, y = 0;
-	int room = rand() % (GeneratorManager::getInstance()->levels[0]->rooms.size() - 1);
+	int room = Randomize::Random(0, GeneratorManager::getInstance()->levels[0]->rooms.size() - 2);
 
 	for (int i = 0; i < 5; i++) {
-		x = ((rand() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_width - 2) + 1) + GeneratorManager::getInstance()->levels[0]->rooms[room]->m_xCoord) * 5;
-		y = (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_yCoord - (rand() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_height - 2) + 1)) * 5;
+		x = ((Randomize::Random() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_width - 2) + 1) + GeneratorManager::getInstance()->levels[0]->rooms[room]->m_xCoord) * 5;
+		y = (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_yCoord - (Randomize::Random() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_height - 2) + 1)) * 5;
 		SpawnManager::getInstance()->generateAiCharacter(x, y);
 	}
 
 	payload["playerSpawns"] = std::to_string(NetworkingManager::getInstance()->m_clients.size());
 
 	id = 0, x = 0, y = 0;
-	room = rand() % (GeneratorManager::getInstance()->levels[0]->rooms.size()-1);
-	x = ((rand() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_width - 2) + 1) + GeneratorManager::getInstance()->levels[0]->rooms[room]->m_xCoord) * 5;
-	y = (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_yCoord - (rand() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_height - 2) + 1)) * 5;
+	room = Randomize::Random(0, GeneratorManager::getInstance()->levels[0]->rooms.size()-2);
+	x = ((Randomize::Random() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_width - 2) + 1) + GeneratorManager::getInstance()->levels[0]->rooms[room]->m_xCoord) * 5;
+	y = (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_yCoord - (Randomize::Random(0, GeneratorManager::getInstance()->levels[0]->rooms[room]->m_height - 3) + 1)) * 5;
 
 	payload["playerSpawnIP0"] = std::to_string(id);
 	payload["playerSpawnX0"] = std::to_string(x);
@@ -109,8 +104,8 @@ void SpawnManager::sendStartPacket()
 	int i = 1;
 	for (auto it = ++NetworkingManager::getInstance()->m_clients.begin(); it != NetworkingManager::getInstance()->m_clients.end(); it++) {
 		id = it->first;
-		x = ((rand() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_width - 2) + 1) + GeneratorManager::getInstance()->levels[0]->rooms[room]->m_xCoord)*5;
-		y = (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_yCoord - (rand() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_height - 2) + 1))*5;
+		x = ((Randomize::Random(0, GeneratorManager::getInstance()->levels[0]->rooms[room]->m_width - 3) + 1) + GeneratorManager::getInstance()->levels[0]->rooms[room]->m_xCoord)*5;
+		y = (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_yCoord - (Randomize::Random(0, GeneratorManager::getInstance()->levels[0]->rooms[room]->m_height - 3) + 1))*5;
 		payload["playerSpawnIP" + std::to_string(i)] = std::to_string(id);
 		payload["playerSpawnX" + std::to_string(i)] = std::to_string(x);
 		payload["playerSpawnY" + std::to_string(i)] = std::to_string(y);

@@ -151,6 +151,7 @@
     <ClCompile Include="Engine\External\LevelGeneration\Doorway.cpp" />
     <ClCompile Include="Engine\External\LevelGeneration\Room.cpp" />
     <ClCompile Include="Engine\External\QuadTree.cpp" />
+    <ClCompile Include="Engine\External\Randomize.cpp" />
     <ClCompile Include="Engine\External\Render\FrameBufferObject.cpp" />
     <ClCompile Include="Engine\External\Render\ISprite.cpp" />
     <ClCompile Include="Engine\External\Render\Sprite.cpp" />
@@ -286,6 +287,7 @@
     <ClInclude Include="Engine\External\LevelGeneration\Doorway.h" />
     <ClInclude Include="Engine\External\LevelGeneration\Room.h" />
     <ClInclude Include="Engine\External\QuadTree.h" />
+    <ClInclude Include="Engine\External\Randomize.h" />
     <ClInclude Include="Engine\External\Render\FrameBufferObject.h" />
     <ClInclude Include="Engine\External\Render\ISprite.h" />
     <ClInclude Include="Engine\External\Render\Sprite.h" />
@@ -458,8 +460,16 @@
     <None Include="Game\Assets\Shaders\tile.vs" />
     <None Include="Game\Assets\Shaders\vertex_shader.vs" />
     <None Include="Game\Assets\Shaders\voxel.fs" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\boost.1.66.0.0\build\native\boost.targets" Condition="Exists('..\packages\boost.1.66.0.0\build\native\boost.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\boost.1.66.0.0\build\native\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost.1.66.0.0\build\native\boost.targets'))" />
+  </Target>
 </Project>
