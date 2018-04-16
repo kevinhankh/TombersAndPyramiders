@@ -1,118 +1,110 @@
 #include "DayNightCamera.h"
-
-int tempCounter = 0;
-int tick = 0;
-float sR, sG, sB, sA, sX, sY, sS, sBI;
-float curR = 0.1f, curG = 0.1f, curB = 0.1f, curA = 0.5f;
-float wantR = 0.1f, wantG = 0.1f, wantB = 0.1f, wantA = 0.5f;
-float curX = -0.5f, curY = 0.5f;
-float wantX = -0.5f, wantY = 0.5f;
-float curS = 4.0f, wantS = 4.0f;
-float bmFactor = 0.75f;
-float wantBI = 0.135f * bmFactor, curBI = 0.135f * bmFactor;
-
-float lerp(float a, float b, float f)
-{
-	return a + f * (b - a);
-}
+#include "SharedConstants.h"
+#include "GameManager.h"
+#include "SpriteRendererManager.h"
+#include "HelperFunctions.h"
+#include "Light.h"
 
 void DayNightCamera::init()
 {
 	m_regularPass.init();
-	m_ambientLighting.init();
+	m_fogOfWarPass.init();
 }
 
+inline float lerp(float t, float a, float b)
+{
+	return (1 - t)*a + t*b;
+}
+
+void DayNightCamera::updateFogOfWarMask() 
+{
+	int gameWidth = SCREEN_WIDTH;
+	int gameHeight = SCREEN_HEIGHT;
+	std::vector<unsigned char> bytes(gameWidth * gameHeight * 4);
+	//for(int x = 0; x < gameWidth; x++) {
+	//	for(int y = 0; y < gameHeight; y++) {
+	//		bytes[(y * SCREEN_WIDTH + x) * 4] = 62;
+	//		bytes[(y * SCREEN_WIDTH + x) * 4 + 1] = 52;
+	//		bytes[(y * SCREEN_WIDTH + x) * 4 + 1] = 25;
+	//		bytes[(y * SCREEN_WIDTH + x) * 4 + 3] = 255;
+	//	}
+	//}
+	for(int i = 0; i < gameWidth * gameHeight * 4; i += 4) 
+	{
+		//bytes[i] = 10 + (i % 6) * 5;
+		//bytes[i + 1] = 15 + (i % 5) * 3;
+		//bytes[i + 2] = 5 + (i % 4) * 3;
+		bytes[i + 3] = 240;//230 + (i % 8) * 3;
+	}
+
+	auto objectsInBounds = GameManager::getInstance()->getObjectsInBounds(getTransform()->getX(), getTransform()->getY(), getGameWidth(), getGameHeight());
+
+	for(int i = 0; i < objectsInBounds.size(); i++)
+	{
+		auto lightComponent = objectsInBounds[i]->getComponent<Light>();
+		if (lightComponent != nullptr) {
+			int lightR = 0;
+			int lightG = 0;
+			int lightB = 0;
+			float lightSize = lightComponent->getLight(lightR, lightG, lightB);
+
+			float lightSizePixels = lightSize * getUnitSize();
+
+			auto lightTransform = objectsInBounds[i]->getTransform();
+			if (isOnScreen(lightTransform)) {
+				int screenX = SCREEN_WIDTH / 2.0 - ((getTransform()->getX() - lightTransform->getX()) * getUnitSize());
+				int screenY = SCREEN_HEIGHT / 2.0f - ((getTransform()->getY() - lightTransform->getY()) * getUnitSize());
+				float dist = getTransform()->getDistance(lightTransform);
+				
+				//25% of screen width gives (5/(20/2) == 5/10 == 0.5)
+				//0% of screen width gives (0/(20/2) == 0/10 == 0.0)
+				float t = 1 - std::min( std::max( dist / (getGameHeight() / 2.0f), 0.0f ), 1.0f);
+				unsigned char r = lerp(0.0f, lightR, t);
+				unsigned char g = lerp(0.0f, lightG, t);
+				unsigned char b = lerp(0.0f, lightB, t);
+				unsigned char a = lerp(0.0f, 255.0f, t);
+
+				std::cout << "FOR DIF: " << (getTransform()->getX() - lightTransform->getX()) << "," << (getTransform()->getY() - lightTransform->getY()) << std::endl;
+				std::cout << "Dist: " << dist << " | T:" << std::endl; 
+				std::cout << "RGBA: " << (int)r << " " << (int)g << " " << (int)b << " " << (int)a << std::endl;
+				
+				int lightRadiusPixels = lightSizePixels / 2.0f;
+				
+				for(int x = -lightRadiusPixels; x < lightRadiusPixels; x++ ) {
+					for(int y = -lightRadiusPixels; y < lightRadiusPixels; y++) {
+						int pos = ((screenY + y) * SCREEN_WIDTH + (screenX) + x) * 4;
+						if (pos >= 0 && pos < gameWidth * gameHeight * 4) {
+							int culmulativeDist = abs(x) + abs(y);
+							if (culmulativeDist < lightRadiusPixels) {
+								bytes[pos] = r;//std::max(bytes[pos], r);
+								bytes[pos + 1] = g;//std::max(bytes[pos + 1], g);
+								bytes[pos + 2] = b;//std::max(bytes[pos + 2], b);
+								bytes[pos + 3] = a;//((float)culmulativeDist / (float)lightRadiusPixels) * a;
+							}
+						}
+					}
+				}
+	
+				//if (screenX >= 0 && screenY >= 0 && screenY <= gameHeight) {
+				//	bytes[(screenY * SCREEN_WIDTH + screenX) * 4] = 255;
+				//	bytes[(screenY * SCREEN_WIDTH + screenX) * 4 + 1] = 255;
+				//	bytes[(screenY * SCREEN_WIDTH + screenX) * 4 + 2] = 0;
+				//}
+			}
+		}
+	}
+
+	SpriteRendererManager::getInstance()->generateTexture(gameWidth, gameHeight, bytes, &m_fogOfWarMask);
+}
+
+int testCounter = 0;
+bool full = false;
 void DayNightCamera::applyRenderFilters(SpriteRendererManager* rendererManager)
 {
 	ensureInit();
-
-	m_regularPass.bindFrameBuffer();//
-
-	rendererManager->renderPass(RENDER_LAYER_BACKGROUND);
-	rendererManager->renderShadowPass(curX, curY, curS);
-	rendererManager->renderPass(RENDER_LAYER_SHADOWABLE, false);
-	rendererManager->renderPass(RENDER_LAYER_FOREGROUND, false);
-
-	m_regularPass.unbindFrameBuffer();//
-
-	rendererManager->renderDirectionalBloom(m_regularPass, curX, curY, curBI, &m_ambientLighting);
-	rendererManager->renderAmbientColor(m_ambientLighting, curR, curG, curB, curA);
-
-	float t = tick / 480.0f; //
-
-	curR = lerp(sR, wantR, t);
-	curG = lerp(sG, wantG, t);
-	curB = lerp(sB, wantB, t);
-	curA = lerp(sA, wantA, t);
-	curX = lerp(sX, wantX, t);
-	curY = lerp(sY, wantY, t);
-	curS = lerp(sS, wantS, t);
-	curBI = lerp(sBI, wantBI, t);
-
-	if (tick % 480 == 0)
-	{
-		if (++tempCounter == 4)
-		{
-			tempCounter = 0;
-		}
-		tick = 0;
-
-		sR = wantR;
-		sG = wantG;
-		sB = wantB;
-		sA = wantA;
-		sX = wantX;
-		sY = wantY;
-		sS = wantS;
-		sBI = wantBI;
-
-		switch (tempCounter)
-		{
-			//Morning
-		case 0:
-			wantR = 0.1f;
-			wantG = 0.1f;
-			wantB = 0.1f;
-			wantA = 0.5f;
-			wantX = -0.5f;
-			wantY = 0.5f;
-			wantS = 8.0f;
-			wantBI = 0.1f * bmFactor;
-			break;
-			//Afternoon
-		case 1:
-			wantR = 0.5f;
-			wantG = 0.3f;
-			wantB = 0.5f;
-			wantA = 0.1f;
-			wantX = 0.5f;
-			wantY = 0.5f;
-			wantS = 4.0f;
-			wantBI = 0.145f * bmFactor;
-			break;
-			//Evening
-		case 2:
-			wantR = 0.8f;
-			wantG = 0.3f;
-			wantB = 0.5f;
-			wantA = 0.2f;
-			wantX = 0.5f;
-			wantY = -0.5f;
-			wantS = 6.0f;
-			wantBI = 0.12f * bmFactor;
-			break;
-			//Night
-		case 3:
-			wantR = 0.0f;
-			wantG = 0.0f;
-			wantB = 0.3f;
-			wantA = 0.5f;
-			wantX = -0.5f;
-			wantY = -0.5f;
-			wantS = 12.0f;
-			wantBI = 0.08f * bmFactor;
-			break;
-		}
-	}
-	tick++;
+	updateFogOfWarMask();
+	m_regularPass.bindFrameBuffer();
+	rendererManager->renderPass();
+	m_regularPass.unbindFrameBuffer();
+	rendererManager->renderFogOfWar(m_fogOfWarMask, m_regularPass);
 }

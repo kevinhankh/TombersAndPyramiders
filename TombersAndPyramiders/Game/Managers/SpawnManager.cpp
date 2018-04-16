@@ -17,6 +17,9 @@
 #include "GhostReceiverPilot.h"
 #include "OldTestScene.h"
 #include "EquipmentIncludes.h"
+#include "Camera.h"
+#include "DayNightCamera.h"
+#include "Light.h"
 
 std::shared_ptr<SpawnManager> SpawnManager::s_instance;
 
@@ -67,7 +70,8 @@ void SpawnManager::sendStartPacket()
 	//----------------------------------------------------------
 
 	NetworkedGameScene* scene = new NetworkedGameScene();
-	SceneManager::getInstance()->pushScene(scene);
+	SceneManager::getInstance()->pushScene(scene);	
+	
 
 	std::vector<time_t> mapSeeds;	
 
@@ -145,6 +149,7 @@ This is the type of character of YOU are when you are playing. It is a client ch
 std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(int id, float x, float y)
 {
 	std::shared_ptr<ClientCharacter> simpleCharacter = GameManager::getInstance()->createGameObjectWithId<ClientCharacter>(false, id, new PlayerPilot(), id);
+	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(6.0f);
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenShield>());
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenGreaves>());
@@ -163,6 +168,7 @@ This is the type of character for everyone else IF YOU ARE HOST. They take messa
 std::shared_ptr<HostCharacter> SpawnManager::generateHostCharacter (int id, float x, float y)
 {
 	std::shared_ptr<HostCharacter> simpleCharacter = GameManager::getInstance ()->createGameObjectWithId<HostCharacter> (false, id, new HostPilot (), id);
+	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(6.0f);
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenLongbow> ());
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenShield> ());
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenGreaves> ());
@@ -180,6 +186,7 @@ This is the type of character for everyone else if you are NOT host. They reciev
 std::shared_ptr<NetworkCharacter> SpawnManager::generateNetworkCharacter (int id, float x, float y)
 {
 	std::shared_ptr<NetworkCharacter> simpleCharacter = GameManager::getInstance ()->createGameObjectWithId<NetworkCharacter> (false, id, new HostPilot (), id);
+	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(6.0f);
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenLongbow> ());
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenShield> ());
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenGreaves> ());
@@ -226,6 +233,7 @@ std::shared_ptr<Character> SpawnManager::generatePlayerCharacter(float x, float 
 std::shared_ptr<Character> SpawnManager::generateAiCharacter(float x, float y)
 {
 	std::shared_ptr<Character> simpleAi = GameManager::getInstance()->createGameObject<Character>(false, new AiPilot(), beetle);
+	simpleAi->addComponent<Light>(simpleAi.get())->setColor(50, 255, 30)->setSize(3.0f);
 	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
 	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenChestplate>());
 	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenHelmet>());
@@ -298,6 +306,7 @@ std::shared_ptr<GhostCharacter> SpawnManager::generateNetworkGhost(float x, floa
 std::shared_ptr<GhostCharacter> SpawnManager::generateGhost(float x, float y)
 {
 	std::shared_ptr<GhostCharacter> ghost = GameManager::getInstance()->createGameObject<GhostCharacter>(false, new GhostPilot());
+	ghost->addComponent<Light>(ghost.get())->setColor(50, 150, 255)->setSize(3.0f);
 	ghost->getTransform()->setPosition(x, y);
 	ghost->getTransform()->setZ(2);
 	return ghost;

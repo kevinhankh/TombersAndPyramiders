@@ -7,9 +7,11 @@ class DayNightCamera : public Camera
 {
 private:
 	FrameBufferObject m_regularPass;
-	FrameBufferObject m_ambientLighting;
+	FrameBufferObject m_fogOfWarPass;
+	GLuint m_fogOfWarMask;
 
 public:
 	void virtual applyRenderFilters(SpriteRendererManager* rendererManager);
 	void virtual init();
+	void updateFogOfWarMask();
 };

@@ -13,6 +13,7 @@
 #include "WoodenShortsword.h"
 #include "GeneratorManager.h"
 #include "GameManager.h"
+#include "DayNightCamera.h"
 
 std::map<int, shared_ptr<Character>> players;
 std::shared_ptr<Character> Ai = nullptr;
@@ -28,7 +29,7 @@ NetworkedGameScene::NetworkedGameScene ()
 void NetworkedGameScene::onStart ()
 {
 	GameManager::getInstance()->resizeQuadTree(0, 0, 200, 200);
-
+	Camera::getActiveCamera()->setActiveCamera(GameManager::getInstance()->createGameObject<DayNightCamera>(true));
 
 	//time_t mapSeedID = time(NULL);
 	//srand(mapSeedID);

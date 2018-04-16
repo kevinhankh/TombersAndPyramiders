@@ -44,6 +44,9 @@ Shader* Shader::getShader(int shaderID)
 		case SHADER_PP_AMBIENTCOLOR:
 			shader = new Shader(BuildPath("Game/Assets/Shaders/ppPassThrough.vs").c_str(), BuildPath("Game/Assets/Shaders/ppAmbientColour.fs").c_str(), SHADER_PP_AMBIENTCOLOR);
 			break;
+		case SHADER_PP_FOGOFWAR:
+			shader = new Shader(BuildPath("Game/Assets/Shaders/fogOfWar.vs").c_str(), BuildPath("Game/Assets/Shaders/fogOfWar.fs").c_str(), SHADER_PP_FOGOFWAR);
+			break;
 		case SHADER_SHADOW_DEFAULT:
 			shader = new Shader(BuildPath("Game/Assets/Shaders/shadow.vs").c_str(), BuildPath("Game/Assets/Shaders/shadow.fs").c_str(), SHADER_SHADOW_DEFAULT);
 			break;
