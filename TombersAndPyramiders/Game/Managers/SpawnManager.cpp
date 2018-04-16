@@ -64,9 +64,9 @@ void startGameCallback(std::map<std::string, void*> payload)
 void SpawnManager::sendStartPacket()
 {
 	//---------------------------------------------------------- TODO-ERICK Comment out these lines before pushing.
-	OldTestScene* testScene = new OldTestScene();
-	SceneManager::getInstance()->pushScene(testScene);
-	return;
+	//OldTestScene* testScene = new OldTestScene();
+	//SceneManager::getInstance()->pushScene(testScene);
+	//return;
 	//----------------------------------------------------------
 
 	std::map<std::string, std::string> payload;
