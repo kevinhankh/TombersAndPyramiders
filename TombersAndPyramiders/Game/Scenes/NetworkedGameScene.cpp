@@ -192,7 +192,7 @@ void NetworkedGameScene::onStart ()
 
 
 
-	Camera::getActiveCamera ()->addComponent<CameraFollow> (Camera::getActiveCamera ().get ());
+	Camera::getActiveCamera ()->addComponent<CameraFollow> (Camera::getActiveCamera ().get ()); //players
 	AudioManager::getInstance ()->playMusic (MUSIC_LEVEL_1);
 }
 

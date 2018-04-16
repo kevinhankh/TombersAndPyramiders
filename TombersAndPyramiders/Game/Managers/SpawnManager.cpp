@@ -32,7 +32,7 @@ void startGameCallback(std::map<std::string, void*> payload)
 	//{
 		int mapSeedID = std::stoi (*(std::string*)payload["mapSeedID" + std::to_string (0)]);
 		srand (mapSeedID);
-		GeneratorManager::getInstance ()->generateLevel (28, 28, 2, 0);
+		GeneratorManager::getInstance ()->generateLevel (WORLD_WIDTH, WORLD_HEIGHT, 2, 0);
 	//}
 	GeneratorManager::getInstance ()->drawLevel (0);
 
