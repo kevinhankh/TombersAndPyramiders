@@ -17,14 +17,17 @@
 /*----------------------------------------------------------------------------------------
 	Static Fields
 ----------------------------------------------------------------------------------------*/
+const std::string BaseGreaves::WOODEN_GREAVES_ICON_IMAGE_NAME = "WoodenGreavesIcon.png";
 const float BaseGreaves::WOODEN_GREAVES_COOLDOWN_TIME = 1.0f;
 const float BaseGreaves::WOODEN_GREAVES_DASH_DURATION = 0.5f;
 const float BaseGreaves::WOODEN_GREAVES_DASH_SPEED = 40.0f;
 
+const std::string BaseGreaves::SILVER_GREAVES_ICON_IMAGE_NAME = "SilverGreavesIcon.png";
 const float BaseGreaves::SILVER_GREAVES_COOLDOWN_TIME = 0.9f;
 const float BaseGreaves::SILVER_GREAVES_DASH_DURATION = 0.6f;
 const float BaseGreaves::SILVER_GREAVES_DASH_SPEED = 40.0f;
 
+const std::string BaseGreaves::GOLD_GREAVES_ICON_IMAGE_NAME = "GoldGreavesIcon.png";
 const float BaseGreaves::GOLD_GREAVES_COOLDOWN_TIME = 0.8f;
 const float BaseGreaves::GOLD_GREAVES_DASH_DURATION = 0.7f;
 const float BaseGreaves::GOLD_GREAVES_DASH_SPEED = 40.0f;
@@ -32,13 +35,15 @@ const float BaseGreaves::GOLD_GREAVES_DASH_SPEED = 40.0f;
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
-BaseGreaves::BaseGreaves(float cooldownTime, float dashDuration, float dashSpeed) :
+BaseGreaves::BaseGreaves(std::string iconImageName, float cooldownTime, float dashDuration, float dashSpeed) :
 	m_cooldownTime{ cooldownTime }, 
 	m_dashDuration{ dashDuration },
 	m_dashSpeed{ dashSpeed },
 	m_timeUntilNextUse{ 0 },
 	m_isActive{ false }
-{}
+{
+	m_itemIcon = iconImageName;
+}
 
 /*----------------------------------------------------------------------------------------
 	Instance Methods
@@ -107,8 +112,9 @@ void BaseGreaves::effect(int ticks)
 	}
 }
 
-void BaseGreaves::setProperties(float cooldownTime, float dashDuration, float dashSpeed)
+void BaseGreaves::setProperties(std::string iconImageName, float cooldownTime, float dashDuration, float dashSpeed)
 {
+	m_itemIcon = iconImageName;
 	m_cooldownTime = cooldownTime;
 	m_dashDuration = dashDuration;
 	m_dashSpeed = dashSpeed;

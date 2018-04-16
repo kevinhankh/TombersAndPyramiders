@@ -26,14 +26,17 @@ class BaseShield : public BaseEquippableItem, public Updateable, public std::ena
 		Static Fields
     ----------------------------------------------------------------------------------------*/
 	public:
+		static const string WOODEN_SHIELD_ICON_NAME;
 		static const string WOODEN_SHIELD_IMAGE_NAME;
 		static const float WOODEN_SHIELD_DAMAGE_MULT;
 		static const float WOODEN_SHIELD_COOLDOWN_TIME;
 
+		static const string SILVER_SHIELD_ICON_NAME;
 		static const string SILVER_SHIELD_IMAGE_NAME;
 		static const float SILVER_SHIELD_DAMAGE_MULT;
 		static const float SILVER_SHIELD_COOLDOWN_TIME;
 
+		static const string GOLD_SHIELD_ICON_NAME;
 		static const string GOLD_SHIELD_IMAGE_NAME;
 		static const float GOLD_SHIELD_DAMAGE_MULT;
 		static const float GOLD_SHIELD_COOLDOWN_TIME;
@@ -56,7 +59,7 @@ class BaseShield : public BaseEquippableItem, public Updateable, public std::ena
         /** Default constructor. */
 		explicit BaseShield() = delete;
 
-		explicit BaseShield(string imageName, float damageMultiplier, float cooldownTime);
+		explicit BaseShield(string imageName, string iconName, float damageMultiplier, float cooldownTime);
 
 		virtual ~BaseShield() {};
 
@@ -73,7 +76,7 @@ class BaseShield : public BaseEquippableItem, public Updateable, public std::ena
 		virtual bool isBlocking();
 		virtual int calculateRealDamage(int damage);
 
-		virtual void setProperties(string imageName, float damageMultiplier, float cooldownTime);
+		virtual void setProperties(string imageName, string iconImageName, float damageMultiplier, float cooldownTime);
 
 	protected:
 		std::shared_ptr<BaseItem> addSubclassToInventory();
