@@ -63,6 +63,12 @@ void startGameCallback(std::map<std::string, void*> payload)
 
 void SpawnManager::sendStartPacket()
 {
+	//---------------------------------------------------------- TODO-ERICK Comment out these lines before pushing.
+	//OldTestScene* testScene = new OldTestScene();
+	//SceneManager::getInstance()->pushScene(testScene);
+	//return;
+	//----------------------------------------------------------
+
 	std::map<std::string, std::string> payload;
 
 	NetworkedGameScene* scene = new NetworkedGameScene();
@@ -146,7 +152,9 @@ std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(int id, f
 {
 	std::shared_ptr<ClientCharacter> simpleCharacter = GameManager::getInstance()->createGameObjectWithId<ClientCharacter>(false, id, new PlayerPilot(), id);
 	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(12.0f);
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseLongbow>(
+		BaseLongbow::WOODEN_LONGBOW_DAMAGE, BaseLongbow::WOODEN_LONGBOW_IMAGE_NAME,
+		BaseLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME, BaseLongbow::WOODEN_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION));
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenShield>());
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenGreaves>());
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenChestplate>());
@@ -165,7 +173,9 @@ std::shared_ptr<HostCharacter> SpawnManager::generateHostCharacter (int id, floa
 {
 	std::shared_ptr<HostCharacter> simpleCharacter = GameManager::getInstance ()->createGameObjectWithId<HostCharacter> (false, id, new HostPilot (), id);
 	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(12.0f);
-	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenLongbow> ());
+	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseLongbow>(
+		BaseLongbow::WOODEN_LONGBOW_DAMAGE, BaseLongbow::WOODEN_LONGBOW_IMAGE_NAME,
+		BaseLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME, BaseLongbow::WOODEN_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION));
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenShield> ());
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenGreaves> ());
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenChestplate> ());
@@ -183,7 +193,9 @@ std::shared_ptr<NetworkCharacter> SpawnManager::generateNetworkCharacter (int id
 {
 	std::shared_ptr<NetworkCharacter> simpleCharacter = GameManager::getInstance ()->createGameObjectWithId<NetworkCharacter> (false, id, new HostPilot (), id);
 	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(12.0f);
-	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenLongbow> ());
+	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseLongbow>(
+		BaseLongbow::WOODEN_LONGBOW_DAMAGE, BaseLongbow::WOODEN_LONGBOW_IMAGE_NAME,
+		BaseLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME, BaseLongbow::WOODEN_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION));
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenShield> ());
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenGreaves> ());
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenChestplate> ());
@@ -218,7 +230,9 @@ std	::shared_ptr<MovingSquare> SpawnManager::generateMovingSquare(float x, float
 std::shared_ptr<Character> SpawnManager::generatePlayerCharacter(float x, float y)
 {
 	std::shared_ptr<Character> simpleCharacter = GameManager::getInstance()->createGameObject<Character>(false, new PlayerPilot());
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenShortsword>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseShortsword>(
+		BaseShortsword::WOODEN_SHORTSWORD_DAMAGE, BaseShortsword::WOODEN_SHORTSWORD_IMAGE_NAME, 
+		BaseShortsword::WOODEN_SHORTSWORD_DESTROY_ON_COLLISION));
 	simpleCharacter->getTransform()->setPosition(x, y);
 	simpleCharacter->getTransform()->setScale(2);
 	simpleCharacter->getTransform()->renderRotation = false;
@@ -230,7 +244,9 @@ std::shared_ptr<Character> SpawnManager::generateAiCharacter(float x, float y)
 {
 	std::shared_ptr<Character> simpleAi = GameManager::getInstance()->createGameObject<Character>(false, new AiPilot(), beetle);
 	simpleAi->addComponent<Light>(simpleAi.get())->setColor(50, 255, 30)->setSize(3.0f);
-	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
+	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<BaseLongbow>(
+		BaseLongbow::WOODEN_LONGBOW_DAMAGE, BaseLongbow::WOODEN_LONGBOW_IMAGE_NAME,
+		BaseLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME, BaseLongbow::WOODEN_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION));
 	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenChestplate>());
 	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenHelmet>());
 	simpleAi->getTransform()->setPosition(x, y);
@@ -253,7 +269,9 @@ std::shared_ptr<Character> SpawnManager::generateAiCharacter(float x, float y)
 std::shared_ptr<Character> SpawnManager::generateDummyCharacter(float x, float y)
 {
 	std::shared_ptr<Character> simpleCharacter = GameManager::getInstance()->createGameObject<Character>(false, new DummyPilot());
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenShortsword>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseShortsword>(
+		BaseShortsword::WOODEN_SHORTSWORD_DAMAGE, BaseShortsword::WOODEN_SHORTSWORD_IMAGE_NAME, 
+		BaseShortsword::WOODEN_SHORTSWORD_DESTROY_ON_COLLISION));
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenChestplate>());
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenHelmet>());
 	simpleCharacter->getTransform()->setPosition(x, y);
