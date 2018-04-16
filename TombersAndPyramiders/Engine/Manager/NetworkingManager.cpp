@@ -459,7 +459,7 @@ void NetworkingManager::sendQueuedEventsTCP ()
 			--it;
 		}
 		else if (m_assignedID != it->first) {
-			send (it->first, new std::string (packet));
+			send (it->first, &packet);
 		}
 	}
 }
@@ -479,7 +479,7 @@ void NetworkingManager::sendQueuedEventsUDP ()
 	//Submit it
 	m_messagesToSendUDP.clear ();
 
-	sendUDP (new std::string (packet));
+	sendUDP (&packet);
 }
 
 void NetworkingManager::sendEventToReceiver(std::map<std::string, void*> data)
