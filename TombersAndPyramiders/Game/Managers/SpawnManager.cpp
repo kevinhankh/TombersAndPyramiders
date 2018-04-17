@@ -96,13 +96,13 @@ void SpawnManager::sendStartPacket()
 	int id = 0, x = 0, y = 0;
 	int room = Randomize::Random(0, GeneratorManager::getInstance()->levels[0]->rooms.size() - 2);
 
-	int aiID = 30000;
+	id = 30000;
 	for (int i = 0; i < 5; i++) {
 		x = ((Randomize::Random() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_width - 2) + 1) + GeneratorManager::getInstance()->levels[0]->rooms[room]->m_xCoord) * 5;
 		y = (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_yCoord - (Randomize::Random() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_height - 2) + 1)) * 5;
-		SpawnManager::getInstance()->generateAiCharacter(aiID, x, y, true);
+		SpawnManager::getInstance()->generateAiCharacter(id + i, x, y, true);
 
-		payload["aiSpawnID" + std::to_string (i)] = std::to_string (aiID++);
+		payload["aiSpawnID" + std::to_string (i)] = std::to_string (id + i);
 		payload["aiSpawnX" + std::to_string (i)] = std::to_string (x);
 		payload["aiSpawnY" + std::to_string (i)] = std::to_string (y);
 	}

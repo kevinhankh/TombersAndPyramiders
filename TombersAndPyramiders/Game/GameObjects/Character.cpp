@@ -270,9 +270,9 @@ bool Character::playHurtAnimation()
 }
 
 void Character::onNetworkEnd() {
-	auto receiver = getComponent<Receiver> ();
-	if (receiver != nullptr) {
-		SpawnManager::getInstance ()->generateNetworkGhost (getTransform ()->getX (), getTransform ()->getY (), receiver->netID, false);
+	auto sender = getComponent<Receiver> ();
+	if (sender != nullptr) {
+		std::cout << "super nice" << std::endl;
 	}
 	destroy (getId ());
 }
