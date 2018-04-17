@@ -148,17 +148,17 @@ void Room::draw()
 							if (type == 0)
 							{
 								//gold
-								SpawnManager::getInstance()->generateWorldItem(m_level * LEVEL_OFFSET + (m_xCoord * m_scale + xOffset + j * m_scale), m_yCoord * m_scale - yOffset - i * m_scale, std::make_shared<BaseLongbow>(BaseLongbow::GOLD_LONGBOW_DAMAGE, BaseLongbow::GOLD_LONGBOW_IMAGE_NAME, BaseLongbow::GOLD_LONGBOW_PROJECTILE_IMAGE_NAME, BaseLongbow::GOLD_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION));
+								SpawnManager::getInstance()->generateWorldItem(m_level * LEVEL_OFFSET + (m_xCoord * m_scale + xOffset + j * m_scale), m_yCoord * m_scale - yOffset - i * m_scale, std::make_shared<BaseLongbow>(BaseLongbow::GOLD_LONGBOW_DAMAGE, BaseLongbow::LONGBOW_CASTING_TIME, BaseLongbow::GOLD_LONGBOW_IMAGE_NAME, BaseLongbow::GOLD_LONGBOW_PROJECTILE_IMAGE_NAME, BaseLongbow::GOLD_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION));
 							}
 							else if (type < 4)
 							{
 								//silver
-								SpawnManager::getInstance()->generateWorldItem(m_level * LEVEL_OFFSET + (m_xCoord * m_scale + xOffset + j * m_scale), m_yCoord * m_scale - yOffset - i * m_scale, std::make_shared<BaseLongbow>(BaseLongbow::SILVER_LONGBOW_DAMAGE, BaseLongbow::SILVER_LONGBOW_IMAGE_NAME, BaseLongbow::SILVER_LONGBOW_PROJECTILE_IMAGE_NAME, BaseLongbow::SILVER_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION));
+								SpawnManager::getInstance()->generateWorldItem(m_level * LEVEL_OFFSET + (m_xCoord * m_scale + xOffset + j * m_scale), m_yCoord * m_scale - yOffset - i * m_scale, std::make_shared<BaseLongbow>(BaseLongbow::SILVER_LONGBOW_DAMAGE, BaseLongbow::LONGBOW_CASTING_TIME, BaseLongbow::SILVER_LONGBOW_IMAGE_NAME, BaseLongbow::SILVER_LONGBOW_PROJECTILE_IMAGE_NAME, BaseLongbow::SILVER_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION));
 							}
 							else
 							{
 								//wood
-								SpawnManager::getInstance()->generateWorldItem(m_level * LEVEL_OFFSET + (m_xCoord * m_scale + xOffset + j * m_scale), m_yCoord * m_scale - yOffset - i * m_scale, std::make_shared<BaseLongbow>(BaseLongbow::WOODEN_LONGBOW_DAMAGE, BaseLongbow::WOODEN_LONGBOW_IMAGE_NAME, BaseLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME, BaseLongbow::WOODEN_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION));
+								SpawnManager::getInstance()->generateWorldItem(m_level * LEVEL_OFFSET + (m_xCoord * m_scale + xOffset + j * m_scale), m_yCoord * m_scale - yOffset - i * m_scale, std::make_shared<BaseLongbow>(BaseLongbow::WOODEN_LONGBOW_DAMAGE, BaseLongbow::LONGBOW_CASTING_TIME, BaseLongbow::WOODEN_LONGBOW_IMAGE_NAME, BaseLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME, BaseLongbow::WOODEN_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION));
 							}
 							break;
 						case 3:
@@ -235,7 +235,7 @@ void Room::draw()
 		int y = Randomize::Random() % m_height / 2 + ceil(m_height / 4);
 		GeneratorManager::getInstance()->levels[m_level]->spawnX = x;
 		GeneratorManager::getInstance()->levels[m_level]->spawnY = y;
-		SpawnManager::getInstance()->generateMiscSquare(m_level * LEVEL_OFFSET + (m_xCoord * m_scale + 2 + x * m_scale), m_yCoord * m_scale - 2 - y * m_scale, 0, m_scale, "spiralStairs.png", true, 3.0f, 3.0f);
+		SpawnManager::getInstance()->generateMiscSquare(m_level * LEVEL_OFFSET + (m_xCoord * m_scale + 2 + x * m_scale), m_yCoord * m_scale - 2 - y * m_scale, 0, m_scale/5, "spawnPoint.png", true, 0.0f, 0.0f);
 	}
 }
 

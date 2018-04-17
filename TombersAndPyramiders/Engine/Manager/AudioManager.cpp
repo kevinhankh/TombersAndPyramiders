@@ -42,6 +42,7 @@ AudioManager::AudioManager()
 
 	m_musicFiles[MUSIC_MENU] = Mix_LoadMUS(BuildPath(PATH_MUSIC_MENU).c_str());
 	m_musicFiles[MUSIC_LEVEL_1] = Mix_LoadMUS(BuildPath(PATH_MUSIC_LEVEL_1).c_str());
+	m_musicFiles[MUSIC_GHOST] = Mix_LoadMUS(BuildPath(PATH_MUSIC_GHOST).c_str());
 	m_audioFiles[SFX_BOW] = Mix_LoadWAV(BuildPath(PATH_SFX_BOW).c_str());
 	m_audioFiles[SFX_HIT] = Mix_LoadWAV(BuildPath(PATH_SFX_HIT).c_str());
 	m_audioFiles[SFX_SWORD] = Mix_LoadWAV(BuildPath(PATH_SFX_SWORD).c_str());
@@ -49,6 +50,8 @@ AudioManager::AudioManager()
 	m_audioFiles[SFX_DASH] = Mix_LoadWAV(BuildPath(PATH_SFX_DASH).c_str());
 	m_audioFiles[SFX_DOOR] = Mix_LoadWAV(BuildPath(PATH_SFX_DASH).c_str());
 	m_audioFiles[SFX_BUTTON_HOVER] = Mix_LoadWAV(BuildPath(PATH_SFX_BUTTON_HOVER).c_str());
+	m_audioFiles[SFX_ITEM] = Mix_LoadWAV(BuildPath(PATH_SFX_ITEM).c_str());
+	m_audioFiles[SFX_TRAP] = Mix_LoadWAV(BuildPath(PATH_SFX_TRAP).c_str());
 	std::cout << Mix_GetError() << std::endl;
 	m_listener = nullptr;
 }

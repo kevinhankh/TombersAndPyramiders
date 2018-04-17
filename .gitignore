@@ -312,3 +312,5 @@ boost/
 
 # Release
 Release/
+
+out.txt
