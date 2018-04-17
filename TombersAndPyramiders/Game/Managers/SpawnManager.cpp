@@ -148,7 +148,7 @@ std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(int id, f
 	std::shared_ptr<ClientCharacter> simpleCharacter = GameManager::getInstance()->createGameObjectWithId<ClientCharacter>(false, id, new PlayerPilot(), id);
 	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
 	healthBar->setTrackingPlayer(simpleCharacter);
-	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(12.0f);
+	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(28.0f);
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenShield>());
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenGreaves>());
@@ -157,7 +157,7 @@ std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(int id, f
 	simpleCharacter->getTransform()->setPosition(x, y, 100);
 	simpleCharacter->getTransform()->setScale(2);
 	simpleCharacter->getTransform()->renderRotation = false;
-
+	m_clientPlayer = simpleCharacter;
 	return simpleCharacter;
 }
 
@@ -169,7 +169,7 @@ std::shared_ptr<HostCharacter> SpawnManager::generateHostCharacter (int id, floa
 	std::shared_ptr<HostCharacter> simpleCharacter = GameManager::getInstance ()->createGameObjectWithId<HostCharacter> (false, id, new HostPilot (), id);
 	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
 	healthBar->setTrackingPlayer(simpleCharacter);
-	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(12.0f);
+	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(24.0f);
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenLongbow> ());
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenShield> ());
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenGreaves> ());
@@ -189,7 +189,7 @@ std::shared_ptr<NetworkCharacter> SpawnManager::generateNetworkCharacter (int id
 	std::shared_ptr<NetworkCharacter> simpleCharacter = GameManager::getInstance ()->createGameObjectWithId<NetworkCharacter> (false, id, new HostPilot (), id);
 	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
 	healthBar->setTrackingPlayer(simpleCharacter);
-	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(12.0f);
+	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(24.0f);
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenLongbow> ());
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenShield> ());
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenGreaves> ());
@@ -328,6 +328,11 @@ std::shared_ptr<SingleDoor> SpawnManager::generateSingleDoor(float x, float y, D
 	door->getTransform()->setZ(1000);
 	door->getTransform()->setScale(10.0f);
 	return door;
+}
+
+std::shared_ptr<ClientCharacter> SpawnManager::getActivePlayer()
+{
+	return m_clientPlayer;
 }
 
 //std::shared_ptr<Wall> SpawnManager::generateWall(float x, float y, float scale)

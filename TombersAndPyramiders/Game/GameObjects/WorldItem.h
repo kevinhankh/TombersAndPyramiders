@@ -18,6 +18,6 @@ public:
 	std::shared_ptr<BaseItem> pickupItem(); //Destroys self
 
 	void onStart() {};
-	void onUpdate(int ticks) {}
+	void onUpdate(int ticks);
 	void onEnd() {};
 };

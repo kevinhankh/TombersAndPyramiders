@@ -5,7 +5,6 @@
 /*
 Message manager callback:
 
-
 */
 
 void updateHealthBarCallback(std::map<std::string, void*> data) {
@@ -19,7 +18,7 @@ void updateHealthBarCallback(std::map<std::string, void*> data) {
 HealthBar::HealthBar() : ComplexSprite(createSpriteInfo(), 0, 0, 1.0f, 2.0f)
 {
 	m_visible = true;
-	m_timeTilDissapear = 30000;
+	m_timeTilDissapear = 3000;
 	m_subscriptionID = 0;
 }
 
@@ -48,7 +47,6 @@ void HealthBar::onUpdate(int ticks)
 	if (m_playerToTrack != nullptr) {
 		getTransform()->setPosition(m_playerToTrack->getTransform()->getX(), m_playerToTrack->getTransform()->getY());
 	}
-	getTransform()->setRotation(getTransform()->getRotation() + 1.0f);
 }
 
 HealthBar::~HealthBar()
@@ -80,5 +78,5 @@ void HealthBar::updateHealth(float currentHealth, float maxHealth) {
 	}
 	setCurrentSpriteIndex(spriteIndex);
 	getTransform()->setScale(m_mainSize);
-	m_timeTilDissapear = 300;
+	m_timeTilDissapear = 600;
 }
