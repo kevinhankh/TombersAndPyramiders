@@ -346,12 +346,25 @@ void Character::updateInventory(bool addingItem, std::shared_ptr<BaseItem> item)
 {
 	if (addingItem)
 	{
-		AnimatedItem newEquippedItem = AnimatedItem(item->spriteInfo);
+		AnimatedItem newEquippedItem = AnimatedItem(item);
 		equippedItems.push_back(newEquippedItem);
 	}
 	else
 	{
+		int itemToDelete = -1;
+		for (int i = 0; i < equippedItems.size(); ++i)
+		{
+			if (equippedItems[i].m_derivedItem == item)
+			{
+				itemToDelete = i;
+			}
+		}
 
+		if (itemToDelete > -1)
+		{
+			equippedItems[itemToDelete].destroy(equippedItems[itemToDelete].getId());
+			equippedItems.erase(equippedItems.begin() + itemToDelete - 1);
+		}
 	}
 }
 
