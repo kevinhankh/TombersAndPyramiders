@@ -47,7 +47,7 @@ void AiPilot::onUpdate(int ticks)
 	switch (currentState)
 	{
 	case walk:
-		m_characterController->move(getMovement());
+		m_characterController->move(*(getMovement() * ((float)ticks / (float)1000)));
 		shouldFire();
 		//currentState = run;
 		break;

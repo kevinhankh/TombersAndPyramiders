@@ -48,7 +48,7 @@ void WoodenGreaves::effect(int ticks)
 	if (m_timeLeftInDash > 0)
 	{
 		auto dashRotation = owner()->getTransform()->getRotation();
-		auto dashAmount = ((float)ticks / 1000) * WOODEN_GREAVES_MAX_DASH_SPEED;
+		auto dashAmount = ((float)ticks / 1000.0f) * WOODEN_GREAVES_MAX_DASH_SPEED;
 		//auto lerpFactor = (WOODEN_GREAVES_DASH_DURATION - m_timeLeftInDash) / WOODEN_GREAVES_DASH_DURATION;
 		//dashAmount *= (1 - lerpFactor);
 

@@ -344,6 +344,10 @@ bool Character::playHurtAnimation()
 	return true;
 }
 
-void Character::onNetworkEnd() 
-{
+void Character::onNetworkEnd() {
+	auto sender = getComponent<Sender> ();
+	if (sender != nullptr) {
+		sender->sendDestroy ();
+	}
+	destroy (getId ());
 }
