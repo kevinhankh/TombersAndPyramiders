@@ -270,9 +270,9 @@ bool Character::playHurtAnimation()
 }
 
 void Character::onNetworkEnd() {
-	auto sender = getComponent<Receiver> ();
+	auto sender = getComponent<Sender> ();
 	if (sender != nullptr) {
-		std::cout << "super nice" << std::endl;
+		sender->sendDestroy ();
 	}
 	destroy (getId ());
 }
