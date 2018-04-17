@@ -309,3 +309,7 @@ MacRunner/
 
 # Boost
 boost/
+
+# Release
+Release/
+/Release/
