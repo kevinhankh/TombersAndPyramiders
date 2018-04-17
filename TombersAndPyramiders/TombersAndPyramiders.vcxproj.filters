@@ -116,6 +116,8 @@
     <ClCompile Include="Game\GameObjects\FogOfWarCamera.cpp" />
     <ClCompile Include="Game\GameObjects\GhostCamera.cpp" />
     <ClCompile Include="Engine\External\Randomize.cpp" />
+    <ClCompile Include="Game\GameObjects\HealthBar.cpp" />
+    <ClCompile Include="Game\GameObjects\PositionBasedPopup.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Component\AI\AI.h" />
@@ -244,6 +246,8 @@
     <ClInclude Include="Game\GameObjects\GhostCamera.h" />
     <ClInclude Include="Game\Assets\Shaders\grayscale.fs" />
     <ClInclude Include="Engine\External\Randomize.h" />
+    <ClInclude Include="Game\GameObjects\HealthBar.h" />
+    <ClInclude Include="Game\GameObjects\PositionBasedPopup.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Character.bmp" />

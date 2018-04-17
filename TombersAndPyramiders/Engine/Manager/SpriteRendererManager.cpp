@@ -601,7 +601,7 @@ void SpriteRendererManager::renderFogOfWar(GLuint fogOfWarMask, FrameBufferObjec
 	glBindVertexArray(m_VAO);
 	glEnableVertexAttribArray(0);
 	glDisable(GL_DEPTH_TEST);
-	glClearColor(56.0f / 255.0f, 38.0f / 255.0f, 12.0f / 255.0f, 0.0);
+	glClearColor(56.0f / 255.0f, 38.0f / 255.0f, 24.0f / 255.0f, 0.0);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);

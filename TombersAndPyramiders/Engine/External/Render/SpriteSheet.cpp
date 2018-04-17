@@ -116,6 +116,12 @@ int SpriteSheet::getCurrentIndex()
 	return m_currentFrame;
 }
 
+
+void SpriteSheet::setCurrentIndex(int currentIndex)
+{
+	m_currentFrame = currentIndex;
+}
+
 void SpriteSheet::changeAnimation(int minFrame, int maxFrame)
 {
 	m_minFrame = minFrame;

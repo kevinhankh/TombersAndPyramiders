@@ -44,7 +44,10 @@ public:
 
 	static std::shared_ptr<SpawnManager> getInstance();
 
+	std::shared_ptr<ClientCharacter> getActivePlayer();
+
 private:
 	static std::shared_ptr<SpawnManager> s_instance;
+	std::shared_ptr<ClientCharacter> m_clientPlayer;
 	int m_startPacketListenerID;
 };

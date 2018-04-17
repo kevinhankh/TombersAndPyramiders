@@ -22,6 +22,7 @@
 #include "Light.h"
 #include "GhostCamera.h"
 #include "Randomize.h"
+#include "HealthBar.h"
 
 std::shared_ptr<SpawnManager> SpawnManager::s_instance;
 
@@ -173,7 +174,9 @@ This is the type of character of YOU are when you are playing. It is a client ch
 std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(int id, float x, float y)
 {
 	std::shared_ptr<ClientCharacter> simpleCharacter = GameManager::getInstance()->createGameObjectWithId<ClientCharacter>(false, id, new PlayerPilot(), id);
-	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(12.0f);
+	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
+	healthBar->setTrackingPlayer(simpleCharacter);
+	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(24.0f);
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseLongbow>(
 		BaseLongbow::WOODEN_LONGBOW_DAMAGE, BaseLongbow::LONGBOW_CASTING_TIME, BaseLongbow::WOODEN_LONGBOW_IMAGE_NAME,
 		BaseLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME, BaseLongbow::WOODEN_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION));
@@ -190,7 +193,7 @@ std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(int id, f
 	simpleCharacter->getTransform()->setPosition(x, y, 100);
 	simpleCharacter->getTransform()->setScale(2);
 	simpleCharacter->getTransform()->renderRotation = false;
-
+	m_clientPlayer = simpleCharacter;
 	return simpleCharacter;
 }
 
@@ -200,7 +203,9 @@ This is the type of character for everyone else IF YOU ARE HOST. They take messa
 std::shared_ptr<HostCharacter> SpawnManager::generateHostCharacter (int id, float x, float y)
 {
 	std::shared_ptr<HostCharacter> simpleCharacter = GameManager::getInstance ()->createGameObjectWithId<HostCharacter> (false, id, new HostPilot (), id);
-	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(12.0f);
+	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
+	healthBar->setTrackingPlayer(simpleCharacter);
+	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(24.0f);
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseLongbow>(
 		BaseLongbow::WOODEN_LONGBOW_DAMAGE, BaseLongbow::LONGBOW_CASTING_TIME, BaseLongbow::WOODEN_LONGBOW_IMAGE_NAME,
 		BaseLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME, BaseLongbow::WOODEN_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION));
@@ -226,6 +231,8 @@ This is the type of character for everyone else if you are NOT host. They reciev
 std::shared_ptr<NetworkCharacter> SpawnManager::generateNetworkCharacter (int id, float x, float y)
 {
 	std::shared_ptr<NetworkCharacter> simpleCharacter = GameManager::getInstance ()->createGameObjectWithId<NetworkCharacter> (false, id, new HostPilot (), id);
+	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
+	healthBar->setTrackingPlayer(simpleCharacter);
 	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(12.0f);
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseLongbow>(
 		BaseLongbow::WOODEN_LONGBOW_DAMAGE, BaseLongbow::LONGBOW_CASTING_TIME, BaseLongbow::WOODEN_LONGBOW_IMAGE_NAME,
@@ -281,6 +288,8 @@ std	::shared_ptr<MovingSquare> SpawnManager::generateMovingSquare(float x, float
 std::shared_ptr<Character> SpawnManager::generatePlayerCharacter(float x, float y)
 {
 	std::shared_ptr<Character> simpleCharacter = GameManager::getInstance()->createGameObject<Character>(false, new PlayerPilot());
+	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
+	healthBar->setTrackingPlayer(simpleCharacter);
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseShortsword>(
 		BaseShortsword::WOODEN_SHORTSWORD_DAMAGE, BaseShortsword::WOODEN_SHORTSWORD_IMAGE_NAME, 
 		BaseShortsword::WOODEN_SHORTSWORD_DESTROY_ON_COLLISION));
@@ -297,6 +306,7 @@ All non hosts get AI with only listeners. All AI actions are determined by what 
 */
 std::shared_ptr<Character> SpawnManager::generateAiCharacter(int id, float x, float y, bool isHost)
 {
+
 	std::shared_ptr<Character> simpleAi;
 	if (isHost) {
 		simpleAi = GameManager::getInstance ()->createGameObjectWithId<Character> (false, id, new AiPilot (), beetle);
@@ -306,6 +316,9 @@ std::shared_ptr<Character> SpawnManager::generateAiCharacter(int id, float x, fl
 		simpleAi = GameManager::getInstance ()->createGameObjectWithId<Character> (false, id, new HostPilot (), beetle);
 		std::shared_ptr<Receiver> receiver = addComponent<Receiver> (simpleAi.get(), id);
 	}
+
+	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
+	healthBar->setTrackingPlayer(simpleAi);
 	simpleAi->addComponent<Light>(simpleAi.get())->setColor(50, 255, 30)->setSize(3.0f);
 	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<BaseLongbow>(
 		BaseLongbow::WOODEN_LONGBOW_DAMAGE, BaseLongbow::LONGBOW_CASTING_TIME, BaseLongbow::WOODEN_LONGBOW_IMAGE_NAME,
@@ -320,16 +333,6 @@ std::shared_ptr<Character> SpawnManager::generateAiCharacter(int id, float x, fl
 
 	return simpleAi;
 }
-/*std::shared_ptr<Character> SpawnManager::generateAiCharacter1(float x, float y)
-{
-	std::shared_ptr<Character> simpleAi = GameManager::getInstance()->createGameObject<Character>(false, new AiPilot());
-	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
-	simpleAi->getTransform()->setPosition(x, y);
-
-	return simpleAi;
-}*/
-
-
 
 std::shared_ptr<Character> SpawnManager::generateDummyCharacter(float x, float y)
 {
@@ -402,6 +405,11 @@ std::shared_ptr<SingleDoor> SpawnManager::generateSingleDoor(float x, float y, D
 	door->getTransform()->setZ(1000);
 	door->getTransform()->setScale(10.0f);
 	return door;
+}
+
+std::shared_ptr<ClientCharacter> SpawnManager::getActivePlayer()
+{
+	return m_clientPlayer;
 }
 
 //std::shared_ptr<Wall> SpawnManager::generateWall(float x, float y, float scale)

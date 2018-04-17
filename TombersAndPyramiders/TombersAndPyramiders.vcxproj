@@ -235,9 +235,11 @@
     <ClCompile Include="Game\GameObjects\GameObjectTemplate.cpp" />
     <ClCompile Include="Game\GameObjects\GhostCamera.cpp" />
     <ClCompile Include="Game\GameObjects\GhostCharacter.cpp" />
+    <ClCompile Include="Game\GameObjects\HealthBar.cpp" />
     <ClCompile Include="Game\GameObjects\HostCharacter.cpp" />
     <ClCompile Include="Game\GameObjects\NetworkCharacter.cpp" />
     <ClCompile Include="Game\GameObjects\Panel.cpp" />
+    <ClCompile Include="Game\GameObjects\PositionBasedPopup.cpp" />
     <ClCompile Include="Game\GameObjects\Projectile.cpp" />
     <ClCompile Include="Game\GameObjects\Boulder.cpp" />
     <ClCompile Include="Game\Scenes\LaunchScene.cpp" />
@@ -362,10 +364,12 @@
     <ClInclude Include="Game\GameObjects\GameObjectTemplate.h" />
     <ClInclude Include="Game\GameObjects\GhostCamera.h" />
     <ClInclude Include="Game\GameObjects\GhostCharacter.h" />
+    <ClInclude Include="Game\GameObjects\HealthBar.h" />
     <ClInclude Include="Game\GameObjects\HostCharacter.h" />
     <ClInclude Include="Game\GameObjects\NetworkCharacter.h" />
     <ClInclude Include="Game\GameObjects\Panel.h" />
     <ClInclude Include="Game\GameObjects\PlayerCharacter.h" />
+    <ClInclude Include="Game\GameObjects\PositionBasedPopup.h" />
     <ClInclude Include="Game\GameObjects\Projectile.h" />
     <ClInclude Include="Game\GameObjects\Boulder.h" />
     <ClInclude Include="Game\GameObjects\Doors\SingleDoor.h" />
