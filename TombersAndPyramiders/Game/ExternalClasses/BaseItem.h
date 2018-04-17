@@ -40,7 +40,7 @@ class BaseItem
     ----------------------------------------------------------------------------------------*/
     public:
         /** Default constructor. */
-        explicit BaseItem() = default;
+        explicit BaseItem();
 
 		virtual ~BaseItem() {};
 
@@ -63,6 +63,14 @@ class BaseItem
 			item is held by.
 		*/
 		virtual GameObject* owner();
+
+	/*----------------------------------------------------------------------------------------
+	Sprite/Animation Setup
+	----------------------------------------------------------------------------------------*/
+	public:
+		/**
+			Creates the data that need to be fed to ComplexSprite during setup.
+		*/
 
 	protected:
 		/**
