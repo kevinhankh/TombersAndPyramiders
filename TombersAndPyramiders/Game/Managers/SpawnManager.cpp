@@ -54,6 +54,13 @@ void startGameCallback(std::map<std::string, void*> payload)
 			SpawnManager::getInstance ()->generateNetworkCharacter(id, x, y);
 	}
 
+	for (int i = 0; i < 5; i++) {
+		id = std::stoi (*(std::string*)payload["aiSpawnID" + std::to_string (i)]);
+		x = std::stoi (*(std::string*)payload["aiSpawnX" + std::to_string (i)]);
+		y = std::stoi (*(std::string*)payload["aiSpawnY" + std::to_string (i)]);
+		SpawnManager::getInstance ()->generateAiCharacter (id, x, y, false);
+	}
+
 	//Added boulder for testing possession
 	SpawnManager::getInstance()->generateBoulder(std::stof(*(std::string*)payload["playerSpawnX" + std::to_string(0)]) + 3, std::stof(*(std::string*)payload["playerSpawnY" + std::to_string(0)]) + 1);
 
@@ -89,10 +96,15 @@ void SpawnManager::sendStartPacket()
 	int id = 0, x = 0, y = 0;
 	int room = Randomize::Random(0, GeneratorManager::getInstance()->levels[0]->rooms.size() - 2);
 
+	int aiID = 30000;
 	for (int i = 0; i < 5; i++) {
 		x = ((Randomize::Random() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_width - 2) + 1) + GeneratorManager::getInstance()->levels[0]->rooms[room]->m_xCoord) * 5;
 		y = (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_yCoord - (Randomize::Random() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_height - 2) + 1)) * 5;
-		SpawnManager::getInstance()->generateAiCharacter(x, y);
+		SpawnManager::getInstance()->generateAiCharacter(aiID, x, y, true);
+
+		payload["aiSpawnID" + std::to_string (i)] = std::to_string (aiID++);
+		payload["aiSpawnX" + std::to_string (i)] = std::to_string (x);
+		payload["aiSpawnY" + std::to_string (i)] = std::to_string (y);
 	}
 
 	payload["playerSpawns"] = std::to_string(NetworkingManager::getInstance()->m_clients.size());
@@ -258,9 +270,19 @@ std::shared_ptr<Character> SpawnManager::generatePlayerCharacter(float x, float 
 	return simpleCharacter;
 }
 
-std::shared_ptr<Character> SpawnManager::generateAiCharacter(float x, float y)
+/*
+ishost = are we the host client? If we are, pass true for this, and we will only have senders on the AI.
+All non hosts get AI with only listeners. All AI actions are determined by what the host client sees.
+*/
+std::shared_ptr<Character> SpawnManager::generateAiCharacter(int id, float x, float y, bool isHost)
 {
-	std::shared_ptr<Character> simpleAi = GameManager::getInstance()->createGameObject<Character>(false, new AiPilot(), beetle);
+	std::shared_ptr<Character> simpleAi = GameManager::getInstance()->createGameObjectWithId<Character>(false, id, new AiPilot(), beetle);
+	if (isHost) {
+		addComponent<Sender> (this, id);
+	}
+	else {
+		addComponent<Receiver> (this, id);
+	}
 	simpleAi->addComponent<Light>(simpleAi.get())->setColor(50, 255, 30)->setSize(3.0f);
 	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<BaseLongbow>(
 		BaseLongbow::WOODEN_LONGBOW_DAMAGE, BaseLongbow::WOODEN_LONGBOW_IMAGE_NAME,
