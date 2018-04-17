@@ -104,6 +104,8 @@ Vector2 BaseProjectileWeapon::getProjectileSpawnPoint()
 		owner()->getTransform()->getY() + m_projectileSpawnOffsetFromHolder.getY()
 	);
 
+	std::cout << "Rotation: " << owner()->getTransform()->getRotation() << std::endl;
+
 	spawnPoint.rotateFromOrigin(
 		Vector2(owner()->getTransform()->getX(), owner()->getTransform()->getY()),
 		owner()->getTransform()->getRotation()

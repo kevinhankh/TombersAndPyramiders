@@ -13,6 +13,7 @@
         "type": "shell",
         "command": "clang++",
         "args": [
+            "-w",
             "-std=c++14",
             "./TombersAndPyramiders/*.cpp",
             "./TombersAndPyramiders/Engine/*.cpp",
