@@ -2,7 +2,13 @@
     // See https://go.microsoft.com/fwlink/?LinkId=733558
     // for the documentation about the tasks.json format
     "version": "2.0.0",
-    "tasks": [{
+    "tasks": [
+        {
+            "taskName": "main",
+            "type": "shell",
+            "command": "mkdir ./MacRunner"
+        },
+        {
         "taskName": "main",
         "type": "shell",
         "command": "clang++",
@@ -26,6 +32,8 @@
             "./TombersAndPyramiders/Game/Components/*.cpp",
             "./TombersAndPyramiders/Game/ExternalClasses/*.cpp",
             "./TombersAndPyramiders/Game/ExternalClasses/Possession/*.cpp",
+            "./TombersAndPyramiders/Game/ExternalClasses/EquipmentGoldSet/*.cpp",
+            "./TombersAndPyramiders/Game/ExternalClasses/EquipmentSilverSet/*.cpp",
             "./TombersAndPyramiders/Game/GameObjects/*.cpp",
             "./TombersAndPyramiders/Game/GameObjects/Doors/*.cpp",
             "./TombersAndPyramiders/Game/Managers/*.cpp",
@@ -48,18 +56,23 @@
             "-I${workspaceRoot}/TombersAndPyramiders/Game/Components",
             "-I${workspaceRoot}/TombersAndPyramiders/Game/ExternalClasses",
             "-I${workspaceRoot}/TombersAndPyramiders/Game/ExternalClasses/Possession",
+            "-I${workspaceRoot}/TombersAndPyramiders/Game/ExternalClasses/EquipmentGoldSet",
+            "-I${workspaceRoot}/TombersAndPyramiders/Game/ExternalClasses/EquipmentSilverSet",
             "-I${workspaceRoot}/TombersAndPyramiders/Game/GameObjects",
             "-I${workspaceRoot}/TombersAndPyramiders/Game/GameObjects/Doors",
             "-I${workspaceRoot}/TombersAndPyramiders/Game/Managers",
             "-I${workspaceRoot}/TombersAndPyramiders/Game/Scenes",
-            "-framework OpenGL",
+            "-framework",
+            "OpenGL",
             "-lGLEW",
             "-lSDL2",
             "-lSDL2_image",
             "-lSDL2_net",
             "-lSDL2_mixer",
             "-g",
-            "-o MacRunner/runnable"
+            "-O3",
+            "-o",
+            "MacRunner/runnable"
         ],
         "group": {
             "kind": "build",

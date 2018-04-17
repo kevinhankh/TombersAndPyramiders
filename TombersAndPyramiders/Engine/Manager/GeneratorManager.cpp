@@ -3,6 +3,7 @@
 #include "GeneratorManager.h"
 #include <vector>
 #include "GameManager.h"
+#include "Randomize.h"
 
 GeneratorManager* GeneratorManager::s_instance;
 
@@ -51,7 +52,7 @@ void GeneratorManager::drawLevel(int level) {
 		levels[level]->corridors[i]->draw();
 	}
 
-	int exitRoom = rand() % levels[level]->rooms.size();
+	int exitRoom = Randomize::Random(0, levels[level]->rooms.size() - 1);
 	levels[level]->rooms[exitRoom]->m_exit = true;
 	for (int i = 0; i < levels[level]->rooms.size(); i++) {
 		levels[level]->rooms[i]->draw();

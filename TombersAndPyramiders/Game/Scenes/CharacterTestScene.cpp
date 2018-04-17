@@ -10,8 +10,8 @@
 #include <vector>
 #include "SpawnManager.h"
 #include <memory>
-#include <WoodenLongbow.h>
 #include "AudioManager.h"
+#include "EquipmentIncludes.h"
 
 using namespace std;
 
@@ -113,7 +113,9 @@ void CharacterTestScene::onStart()
 			}
 		}
 	}
-	SpawnManager::getInstance()->generateWorldItem(5, -5, std::make_shared<WoodenLongbow>());
+	SpawnManager::getInstance()->generateWorldItem(5, -5, std::make_shared<BaseLongbow>(
+		BaseLongbow::WOODEN_LONGBOW_DAMAGE, BaseLongbow::WOODEN_LONGBOW_IMAGE_NAME, 
+		BaseLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME, BaseLongbow::WOODEN_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION));
 
 	player = SpawnManager::getInstance()->generatePlayerCharacter(15, -10);
 	Ai = SpawnManager::getInstance()->generateAiCharacter(14, -18);

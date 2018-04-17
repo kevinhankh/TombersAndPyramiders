@@ -1,6 +1,5 @@
 {
-    "configurations": [
-        {
+    "configurations": [{
             "name": "Mac",
             "includePath": [
                 "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1",
@@ -29,6 +28,8 @@
                 "${workspaceRoot}/TombersAndPyramiders/Game/Components",
                 "${workspaceRoot}/TombersAndPyramiders/Game/ExternalClasses",
                 "${workspaceRoot}/TombersAndPyramiders/Game/ExternalClasses/Possession",
+                "${workspaceRoot}/TombersAndPyramiders/Game/ExternalClasses/EquipmentGoldSet",
+                "${workspaceRoot}/TombersAndPyramiders/Game/ExternalClasses/EquipmentSilverSet",
                 "${workspaceRoot}/TombersAndPyramiders/Game/GameObjects",
                 "${workspaceRoot}/TombersAndPyramiders/Game/GameObjects/Doors",
                 "${workspaceRoot}/TombersAndPyramiders/Game/Managers",
@@ -58,7 +59,10 @@
                 "${workspaceRoot}/MacLibraries/SDl2.framework",
                 "/System/Library/Frameworks",
                 "/Library/Frameworks"
-            ]
+            ],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
         },
         {
             "name": "Linux",
