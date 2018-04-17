@@ -101,7 +101,7 @@ void BaseGreaves::effect(int ticks)
 	if (m_timeLeftInDash > 0)
 	{
 		auto dashRotation = owner()->getTransform()->getRotation();
-		auto dashAmount = ((float)ticks / 1000) * m_dashSpeed;
+		auto dashAmount = ((float)ticks / 1000.0f) * m_dashSpeed;
 
 		auto dashDirection = Vector2(1, 0);
 		dashDirection.rotate(dashRotation);

@@ -112,6 +112,14 @@ class CharacterController : public BaseController, public Damageable
 		*/
 		virtual void takeDamage(int damage, bool isCriticalHit);
 
+		/**
+			Changes a character's movement speed
+		*/
+		void updateSpeed(Vector2 newSpeed)
+		{
+			m_movementSpeed = newSpeed;
+		}
+
 	protected:
 		/**
 			Called when the character's HP reaches zero.
