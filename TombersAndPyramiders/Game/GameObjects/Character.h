@@ -19,6 +19,8 @@
 #include "ComplexSprite.h"
 #include "BasePilot.h"
 #include <string>
+#include "AnimatedItem.h"
+#include "BaseItem.h"
 
 /*========================================================================================
 Character Types
@@ -76,6 +78,7 @@ class Character : public ComplexSprite
 		bool playMeleeAttackAnimation();
 		bool playRangeAttackAnimation();
 		bool playHurtAnimation();
+		void updateInventory(bool addingItem, std::shared_ptr<BaseItem> item);
 		virtual void onEnd () {};
 		virtual void onNetworkEnd ();
 
@@ -123,4 +126,6 @@ class Character : public ComplexSprite
 		std::string m_idleRight = "IdleRight";
 
 		std::shared_ptr<ComplexSpriteInfo> generateComplexSpriteInfo(CharacterType type = player);
+
+		std::vector<AnimatedItem> equippedItems;
 };
