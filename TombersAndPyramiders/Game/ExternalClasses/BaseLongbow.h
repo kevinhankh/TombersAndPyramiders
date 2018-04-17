@@ -32,9 +32,10 @@ class BaseLongbow : public BaseProjectileWeapon
 		static const float LONGBOW_PROJECTILE_X_VELOCITY;
 		static const float LONGBOW_PROJECTILE_Y_VELOCITY;
 		static const float LONGBOW_CRITICAL_HIT_CHANCE;
-		static const float LONGBOW_ATTACK_COOLDOWN_TIME;
 		
 	public:
+		static const float LONGBOW_CASTING_TIME;
+
 		static const int WOODEN_LONGBOW_DAMAGE;
 		static const std::string WOODEN_LONGBOW_IMAGE_NAME;
 		static const std::string WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME;
@@ -57,7 +58,8 @@ class BaseLongbow : public BaseProjectileWeapon
         /** Default constructor. */
         explicit BaseLongbow() = delete;
 
-		explicit BaseLongbow(int damage, std::string bowImageName, std::string projectileImageName, bool destroyProjectilesOnCollision);
+		explicit BaseLongbow(int damage, float castingTime, 
+			std::string bowImageName, std::string projectileImageName, bool destroyProjectilesOnCollision);
 
 		virtual ~BaseLongbow() {};
 
@@ -66,6 +68,6 @@ class BaseLongbow : public BaseProjectileWeapon
 		Instance Methods
     ----------------------------------------------------------------------------------------*/
     public:
-		void setProperties(int damage, std::string bowImageName, 
+		void setProperties(int damage, float castingTime, std::string bowImageName, 
 			std::string projectileImageName, bool destroyProjectilesOnCollision);
 };
