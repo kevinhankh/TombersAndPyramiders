@@ -24,7 +24,7 @@ private:
 public:
 	Button(float x, float y, float z, float width, float height, string type);
 	~Button();
-	std::shared_ptr<ComplexSpriteinfo> generateComplexSpriteInfo(string type);
+	std::shared_ptr<ComplexSpriteInfo> generateComplexSpriteInfo(string type);
 	void virtual OnClicked();
 	void OnHover();
 	bool CheckHovering();

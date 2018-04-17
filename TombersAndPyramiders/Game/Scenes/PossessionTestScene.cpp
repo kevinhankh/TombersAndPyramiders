@@ -129,7 +129,7 @@ void PossessionTestScene::onStart()
 	//auto ghostCharacter = SpawnManager::getInstance()->generateGhost(5, 0);
 	SpawnManager::getInstance()->generateSingleDoor(20, -5, Door::Direction::West, Door::Mode::Closed);
 	SpawnManager::getInstance()->generateBoulder(5, 0);
-	SpawnManager::getInstance()->generateAiCharacter(-10, 0);
+	//SpawnManager::getInstance()->generateAiCharacter(-10, 0);
 	//SpawnManager::getInstance()->generateAiCharacter(15, 5);
 
 	//SpawnManager::getInstance()->generateSingleDoor(-15, 0, Door::Direction::West, Door::Mode::Closed);

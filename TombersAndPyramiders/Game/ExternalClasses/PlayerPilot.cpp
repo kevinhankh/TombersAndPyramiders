@@ -47,11 +47,12 @@ void PlayerPilot::onStart ()
 
 void PlayerPilot::onUpdate (int ticks)
 {
+
 	if (m_characterController != nullptr)
 	{
 		/* Move the character. */
 		m_lastMoveVector = getMovement ();
-		m_characterController->move (m_lastMoveVector);
+		m_characterController->move (*(m_lastMoveVector * ((float)ticks / 1000.0f)));
 
 		/* TODO Make character face mouse position. */
 
@@ -65,6 +66,7 @@ void PlayerPilot::onUpdate (int ticks)
 				sender->sendAttack();
 			}
 		}
+
 		else
 		{
 			tryInvokeTrigger ();

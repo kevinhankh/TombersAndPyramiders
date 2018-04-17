@@ -23,11 +23,11 @@ Button::~Button()
 
 }
 
-std::shared_ptr<ComplexSpriteinfo> Button::generateComplexSpriteInfo(string type)
+std::shared_ptr<ComplexSpriteInfo> Button::generateComplexSpriteInfo(string type)
 {
-	std::shared_ptr<ComplexSpriteinfo> spriteInfo = std::make_shared<ComplexSpriteinfo>();
-	spriteInfo->addInfo(type + "Button.png", 1, 1);
-	spriteInfo->addInfo(type + "ButtonHover.png", 1, 1);
+	std::shared_ptr<ComplexSpriteInfo> spriteInfo = std::make_shared<ComplexSpriteInfo>();
+	spriteInfo->addSprite(type + "Button.png", "Button", 1, 1);
+	spriteInfo->addSprite(type + "ButtonHover.png", "ButtonHover", 1, 1);
 	return spriteInfo;
 }
 
@@ -35,7 +35,7 @@ void Button::OnClicked()
 {
 	if (m_type == "Start")
 	{
-		if (NetworkingManager::getInstance()->startGame()) // TODO Uncomment this before pushing
+		if (NetworkingManager::getInstance()->startGame()) // TODO-ERICK Uncomment this before pushing
 			SpawnManager::getInstance()->sendStartPacket();
 	}
 	else if (m_type == "Host")
@@ -72,7 +72,7 @@ void Button::onUpdate(int ticks) {
 		if (!m_isHovering)
 		{
 			m_isHovering = true;
-			changeSprite(BUTTON_HOVER);
+			changeSpriteSheet(BUTTON_HOVER);
 			OnHover();
 
 			if (m_type == "Info")
@@ -86,7 +86,7 @@ void Button::onUpdate(int ticks) {
 		if (m_isHovering)
 		{
 			m_isHovering = false;
-			changeSprite(BUTTON);
+			changeSpriteSheet(BUTTON);
 
 			if (m_type == "Info")
 			{

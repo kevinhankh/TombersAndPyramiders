@@ -22,15 +22,26 @@ HealthBar::HealthBar() : ComplexSprite(createSpriteInfo(), 0, 0, 1.0f, 2.0f)
 	m_subscriptionID = 0;
 }
 
-std::shared_ptr<ComplexSpriteinfo> HealthBar::createSpriteInfo()
+std::shared_ptr<ComplexSpriteInfo> HealthBar::createSpriteInfo()
 {
-	auto spriteInfo = std::make_shared<ComplexSpriteinfo>();
-	spriteInfo->addInfo("healthBarSheet.png", 10, 1);
+	auto spriteInfo = std::make_shared<ComplexSpriteInfo>();
+	spriteInfo->addSprite("healthBarSheet.png", "HealthBar", 10, 1);
+	spriteInfo->addAnimation("HealthBar", "8", 0, 0);
+	spriteInfo->addAnimation("HealthBar", "7", 1, 1);
+	spriteInfo->addAnimation("HealthBar", "6", 2, 2);
+	spriteInfo->addAnimation("HealthBar", "5", 3, 3);
+	spriteInfo->addAnimation("HealthBar", "4", 4, 4);
+	spriteInfo->addAnimation("HealthBar", "3", 5, 5);
+	spriteInfo->addAnimation("HealthBar", "2", 6, 6);
+	spriteInfo->addAnimation("HealthBar", "1", 7, 7);
+	spriteInfo->addAnimation("HealthBar", "0", 8, 8);
+
 	return spriteInfo;
 }
 
 void HealthBar::onStart()
 {
+	changeAnimation("8");
 }
 
 void HealthBar::onUpdate(int ticks)
@@ -51,6 +62,7 @@ void HealthBar::onUpdate(int ticks)
 
 HealthBar::~HealthBar()
 {
+	
 }
 
 void HealthBar::setTrackingPlayer(std::shared_ptr<GameObject> playerToTrack)
@@ -68,15 +80,32 @@ void HealthBar::setTrackingPlayer(std::shared_ptr<GameObject> playerToTrack)
 
 void HealthBar::updateHealth(float currentHealth, float maxHealth) {
 	float percent = currentHealth / maxHealth * 100;
-	int spriteIndex = 0;
+	std::string animationName;
+
 	//setCurrentSpriteIndex(0) is full, setCurrentSpriteIndex(9) is 0% health. hmm
-	int toCheck = 90;
-	for (int toCheck = 90; toCheck >= 0; toCheck -= 10) { //toCheck >= 0 or 10?
-		if (percent < toCheck) {
-			spriteIndex++;
-		}
+	if (percent >= 92) {
+		animationName = "Full";
+	} else if (percent >= 88) {
+		animationName = "8";
+	} else if (percent >= 77) {
+		animationName = "7";
+	} else if (percent >= 66) {
+		animationName = "6";
+	} else if (percent >= 55) {
+		animationName = "5";
+	} else if (percent >= 44) {
+		animationName = "4";
+	} else if (percent >= 33) {
+		animationName = "3";
+	} else if (percent >= 22) {
+		animationName = "2";
+	}  else if (percent >= 11) {
+		animationName = "1";
+	}  else {
+		animationName = "0";
 	}
-	setCurrentSpriteIndex(spriteIndex);
+	changeAnimation(animationName);
+	//setCurrentSpriteIndex(spriteIndex);
 	getTransform()->setScale(m_mainSize);
 	m_timeTilDissapear = 600;
 }

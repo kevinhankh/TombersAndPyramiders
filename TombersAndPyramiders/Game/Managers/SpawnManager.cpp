@@ -34,13 +34,14 @@ void startGameCallback(std::map<std::string, void*> payload)
 	NetworkedGameScene* scene = new NetworkedGameScene();
 	SceneManager::getInstance()->pushScene(scene);
 
-	//for (int i = 0; i < 1; i++)
-	//{
+	for (int i = 0; i < PYRAMID_HEIGHT; i++)
+	{
 		int mapSeedID = std::stoi (*(std::string*)payload["mapSeedID" + std::to_string (0)]);
 		Randomize::SetSeed(mapSeedID);
-		GeneratorManager::getInstance ()->generateLevel (28, 28, 2, 0);
-	//}
-	GeneratorManager::getInstance ()->drawLevel (0);
+		GeneratorManager::getInstance ()->generateLevel (WORLD_WIDTH, WORLD_HEIGHT, 2, i);
+		GeneratorManager::getInstance()->drawLevel(i);
+	}
+
 
 	int players = std::stoi(*(std::string*)payload["playerSpawns"]);
 
@@ -49,10 +50,23 @@ void startGameCallback(std::map<std::string, void*> payload)
 		id = std::stoi(*(std::string*)payload["playerSpawnIP" + std::to_string(i)]);
 		x = std::stof(*(std::string*)payload["playerSpawnX" + std::to_string(i)]);
 		y = std::stof(*(std::string*)payload["playerSpawnY" + std::to_string(i)]);
-		if (NetworkingManager::getInstance ()->isSelf (id))
-			scene->setCameraFollow (SpawnManager::getInstance ()->generatePlayerCharacter (id, x, y));
+		if (NetworkingManager::getInstance()->isSelf(id))
+		{
+			std::shared_ptr<Character> generatedCharacter = SpawnManager::getInstance()->generatePlayerCharacter(id, x, y);
+			scene->setCameraFollow(generatedCharacter);
+			SpawnManager::getInstance()->allPlayers.push_back(generatedCharacter);
+		}
 		else
-			SpawnManager::getInstance ()->generateNetworkCharacter(id, x, y);
+		{
+			SpawnManager::getInstance()->allPlayers.push_back(SpawnManager::getInstance()->generateNetworkCharacter(id, x, y));
+		}
+	}
+
+	for (int i = 0; i < 5 * PYRAMID_HEIGHT; i++) {
+		id = std::stoi (*(std::string*)payload["aiSpawnID" + std::to_string (i)]);
+		x = std::stoi (*(std::string*)payload["aiSpawnX" + std::to_string (i)]);
+		y = std::stoi (*(std::string*)payload["aiSpawnY" + std::to_string (i)]);
+		SpawnManager::getInstance ()->generateAiCharacter (id, x, y, false);
 	}
 
 	//Added boulder for testing possession
@@ -64,6 +78,12 @@ void startGameCallback(std::map<std::string, void*> payload)
 
 void SpawnManager::sendStartPacket()
 {
+	//---------------------------------------------------------- TODO-ERICK Comment out these lines before pushing.
+	//OldTestScene* testScene = new OldTestScene();
+	//SceneManager::getInstance()->pushScene(testScene);
+	//return;
+	//----------------------------------------------------------
+
 	std::map<std::string, std::string> payload;
 
 	NetworkedGameScene* scene = new NetworkedGameScene();
@@ -72,35 +92,43 @@ void SpawnManager::sendStartPacket()
 
 	std::vector<time_t> mapSeeds;	
 
-	//for (int i = 0; i < 1; i++)
-	//{
-		time_t seed = time (NULL);
+	int id = 30000, x = 0, y = 0;
+	for (int i = 0; i < PYRAMID_HEIGHT; i++)
+	{
+		time_t seed = time(NULL);
 		Randomize::SetSeed(seed);
-		GeneratorManager::getInstance ()->generateLevel (28, 28, 2, 0);
-		payload["mapSeedID" + std::to_string (0)] = std::to_string (seed);
-	//}
-	GeneratorManager::getInstance ()->drawLevel (0);
+		GeneratorManager::getInstance()->generateLevel(WORLD_WIDTH, WORLD_HEIGHT, 2, i);
+		payload["mapSeedID" + std::to_string(0)] = std::to_string(seed);
+		GeneratorManager::getInstance()->drawLevel(i);
 
-	int id = 0, x = 0, y = 0;
-	int room = Randomize::Random(0, GeneratorManager::getInstance()->levels[0]->rooms.size() - 2);
+		int room = Randomize::Random(0, GeneratorManager::getInstance()->levels[i]->rooms.size() - 2);
 
-	for (int i = 0; i < 5; i++) {
-		x = ((Randomize::Random() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_width - 2) + 1) + GeneratorManager::getInstance()->levels[0]->rooms[room]->m_xCoord) * 5;
-		y = (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_yCoord - (Randomize::Random() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_height - 2) + 1)) * 5;
-		SpawnManager::getInstance()->generateAiCharacter(x, y);
+		for (int j = 0; j < 5; j++) {
+			x = ((Randomize::Random() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_width - 2) + 1) + GeneratorManager::getInstance()->levels[0]->rooms[room]->m_xCoord) * 5;
+			y = (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_yCoord - (Randomize::Random() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_height - 2) + 1)) * 5;
+			x += i * LEVEL_OFFSET;
+			SpawnManager::getInstance ()->generateAiCharacter (id, x, y, true);
+
+			payload["aiSpawnID" + std::to_string (i)] = std::to_string (id++);
+			payload["aiSpawnX" + std::to_string (i)] = std::to_string (x);
+			payload["aiSpawnY" + std::to_string (i)] = std::to_string (y);
+		}
 	}
+
 
 	payload["playerSpawns"] = std::to_string(NetworkingManager::getInstance()->m_clients.size());
 
-	id = 0, x = 0, y = 0;
-	room = Randomize::Random(0, GeneratorManager::getInstance()->levels[0]->rooms.size()-2);
+	int room = Randomize::Random(0, GeneratorManager::getInstance()->levels[0]->rooms.size() - 2);
 	x = ((Randomize::Random() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_width - 2) + 1) + GeneratorManager::getInstance()->levels[0]->rooms[room]->m_xCoord) * 5;
 	y = (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_yCoord - (Randomize::Random(0, GeneratorManager::getInstance()->levels[0]->rooms[room]->m_height - 3) + 1)) * 5;
 
 	payload["playerSpawnIP0"] = std::to_string(id);
 	payload["playerSpawnX0"] = std::to_string(x);
 	payload["playerSpawnY0"] = std::to_string(y);
-	scene->setCameraFollow(SpawnManager::getInstance()->generatePlayerCharacter(id, x, y));
+
+	std::shared_ptr<Character> generatedCharacter = SpawnManager::getInstance()->generatePlayerCharacter(id, x, y);
+	scene->setCameraFollow(generatedCharacter);
+	SpawnManager::getInstance()->allPlayers.push_back(generatedCharacter);
 
 	int i = 1;
 	for (auto it = ++NetworkingManager::getInstance()->m_clients.begin(); it != NetworkingManager::getInstance()->m_clients.end(); it++) {
@@ -110,7 +138,7 @@ void SpawnManager::sendStartPacket()
 		payload["playerSpawnIP" + std::to_string(i)] = std::to_string(id);
 		payload["playerSpawnX" + std::to_string(i)] = std::to_string(x);
 		payload["playerSpawnY" + std::to_string(i)] = std::to_string(y);
-		SpawnManager::getInstance()->generateHostCharacter(id, x, y);
+		allPlayers.push_back(SpawnManager::getInstance()->generateHostCharacter(id, x, y));
 		i++;
 	}
 
@@ -149,11 +177,19 @@ std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(int id, f
 	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
 	healthBar->setTrackingPlayer(simpleCharacter);
 	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(24.0f);
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenShield>());
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenGreaves>());
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenChestplate>());
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenHelmet>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseLongbow>(
+		BaseLongbow::WOODEN_LONGBOW_DAMAGE, BaseLongbow::WOODEN_LONGBOW_IMAGE_NAME,
+		BaseLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME, BaseLongbow::WOODEN_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION));
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseShield>(
+		BaseShield::WOODEN_SHIELD_IMAGE_NAME, BaseShield::WOODEN_SHIELD_ICON_NAME, BaseShield::WOODEN_SHIELD_DAMAGE_MULT, 
+		BaseShield::WOODEN_SHIELD_COOLDOWN_TIME));
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseGreaves>(
+		BaseGreaves::WOODEN_GREAVES_ICON_IMAGE_NAME, BaseGreaves::WOODEN_GREAVES_COOLDOWN_TIME, BaseGreaves::WOODEN_GREAVES_DASH_DURATION, 
+		BaseGreaves::WOODEN_GREAVES_DASH_SPEED));
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseChestplate>(
+		BaseChestplate::WOODEN_CHESTPLATE_ICON_IMAGE_NAME, BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseHelmet>(
+		BaseHelmet::WOODEN_HELMET_ICON_IMAGE, BaseHelmet::WOODEN_HELMET_CRITICAL_RESIST_CHANCE));
 	simpleCharacter->getTransform()->setPosition(x, y, 100);
 	simpleCharacter->getTransform()->setScale(2);
 	simpleCharacter->getTransform()->renderRotation = false;
@@ -170,11 +206,19 @@ std::shared_ptr<HostCharacter> SpawnManager::generateHostCharacter (int id, floa
 	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
 	healthBar->setTrackingPlayer(simpleCharacter);
 	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(24.0f);
-	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenLongbow> ());
-	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenShield> ());
-	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenGreaves> ());
-	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenChestplate> ());
-	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenHelmet> ());
+	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseLongbow>(
+		BaseLongbow::WOODEN_LONGBOW_DAMAGE, BaseLongbow::WOODEN_LONGBOW_IMAGE_NAME,
+		BaseLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME, BaseLongbow::WOODEN_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION));
+	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseShield>(
+		BaseShield::WOODEN_SHIELD_IMAGE_NAME, BaseShield::WOODEN_SHIELD_ICON_NAME, BaseShield::WOODEN_SHIELD_DAMAGE_MULT,
+		BaseShield::WOODEN_SHIELD_COOLDOWN_TIME));
+	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseGreaves>(
+		BaseGreaves::WOODEN_GREAVES_ICON_IMAGE_NAME, BaseGreaves::WOODEN_GREAVES_COOLDOWN_TIME, BaseGreaves::WOODEN_GREAVES_DASH_DURATION,
+		BaseGreaves::WOODEN_GREAVES_DASH_SPEED));
+	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseChestplate>(
+		BaseChestplate::WOODEN_CHESTPLATE_ICON_IMAGE_NAME, BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));
+	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseHelmet>(
+		BaseHelmet::WOODEN_HELMET_ICON_IMAGE, BaseHelmet::WOODEN_HELMET_CRITICAL_RESIST_CHANCE));
 	simpleCharacter->getTransform ()->setPosition (x, y, 100);
 	simpleCharacter->getTransform()->setScale(2);
 	simpleCharacter->getTransform()->renderRotation = false;
@@ -189,12 +233,20 @@ std::shared_ptr<NetworkCharacter> SpawnManager::generateNetworkCharacter (int id
 	std::shared_ptr<NetworkCharacter> simpleCharacter = GameManager::getInstance ()->createGameObjectWithId<NetworkCharacter> (false, id, new HostPilot (), id);
 	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
 	healthBar->setTrackingPlayer(simpleCharacter);
-	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(24.0f);
-	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenLongbow> ());
-	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenShield> ());
-	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenGreaves> ());
-	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenChestplate> ());
-	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<WoodenHelmet> ());
+	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(12.0f);
+	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseLongbow>(
+		BaseLongbow::WOODEN_LONGBOW_DAMAGE, BaseLongbow::WOODEN_LONGBOW_IMAGE_NAME,
+		BaseLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME, BaseLongbow::WOODEN_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION));
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseShield>(
+		BaseShield::WOODEN_SHIELD_IMAGE_NAME, BaseShield::WOODEN_SHIELD_ICON_NAME, BaseShield::WOODEN_SHIELD_DAMAGE_MULT,
+		BaseShield::WOODEN_SHIELD_COOLDOWN_TIME));
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseGreaves>(
+		BaseGreaves::WOODEN_GREAVES_ICON_IMAGE_NAME, BaseGreaves::WOODEN_GREAVES_COOLDOWN_TIME, BaseGreaves::WOODEN_GREAVES_DASH_DURATION,
+		BaseGreaves::WOODEN_GREAVES_DASH_SPEED));
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseChestplate>(
+		BaseChestplate::WOODEN_CHESTPLATE_ICON_IMAGE_NAME, BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseHelmet>(
+		BaseHelmet::WOODEN_HELMET_ICON_IMAGE, BaseHelmet::WOODEN_HELMET_CRITICAL_RESIST_CHANCE));
 	simpleCharacter->getTransform()->setPosition(x, y, 100);
 	simpleCharacter->getTransform()->setScale(2);
 	simpleCharacter->getTransform()->renderRotation = false;
@@ -215,6 +267,17 @@ std::shared_ptr<MiscSquare> SpawnManager::generateMiscSquare(float x, float y, f
 	return miscSquare;
 }
 
+//overload of original misc square generate with collider offset params
+std::shared_ptr<MiscSquare> SpawnManager::generateMiscSquare(float x, float y, float z, float scale, string spriteName, bool hasCollider, float colliderSize_x, float colliderSize_y, float colliderOffset_x, float colliderOffset_y)
+{
+	std::shared_ptr<MiscSquare> miscSquare = GameManager::getInstance()->createGameObject<MiscSquare>(false, spriteName, hasCollider, colliderSize_x, colliderSize_y);
+	miscSquare->getComponent<BoxCollider>()->setXOffset(colliderOffset_x);
+	miscSquare->getComponent<BoxCollider>()->setYOffset(colliderOffset_y);
+	miscSquare->getTransform()->setPosition(x, y, z);
+	miscSquare->getTransform()->setScale(scale);
+	return miscSquare;
+}
+
 std	::shared_ptr<MovingSquare> SpawnManager::generateMovingSquare(float x, float y)
 {
 	std::shared_ptr<MovingSquare> movingSquare = GameManager::getInstance()->createGameObject<MovingSquare>(false);
@@ -227,7 +290,9 @@ std::shared_ptr<Character> SpawnManager::generatePlayerCharacter(float x, float 
 	std::shared_ptr<Character> simpleCharacter = GameManager::getInstance()->createGameObject<Character>(false, new PlayerPilot());
 	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
 	healthBar->setTrackingPlayer(simpleCharacter);
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenShortsword>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseShortsword>(
+		BaseShortsword::WOODEN_SHORTSWORD_DAMAGE, BaseShortsword::WOODEN_SHORTSWORD_IMAGE_NAME, 
+		BaseShortsword::WOODEN_SHORTSWORD_DESTROY_ON_COLLISION));
 	simpleCharacter->getTransform()->setPosition(x, y);
 	simpleCharacter->getTransform()->setScale(2);
 	simpleCharacter->getTransform()->renderRotation = false;
@@ -235,38 +300,50 @@ std::shared_ptr<Character> SpawnManager::generatePlayerCharacter(float x, float 
 	return simpleCharacter;
 }
 
-std::shared_ptr<Character> SpawnManager::generateAiCharacter(float x, float y)
+/*
+ishost = are we the host client? If we are, pass true for this, and we will only have senders on the AI.
+All non hosts get AI with only listeners. All AI actions are determined by what the host client sees.
+*/
+std::shared_ptr<Character> SpawnManager::generateAiCharacter(int id, float x, float y, bool isHost)
 {
-	std::shared_ptr<Character> simpleAi = GameManager::getInstance()->createGameObject<Character>(false, new AiPilot(), beetle);
+
+	std::shared_ptr<Character> simpleAi;
+	if (isHost) {
+		simpleAi = GameManager::getInstance ()->createGameObjectWithId<Character> (false, id, new AiPilot (), beetle);
+		std::shared_ptr<Sender> sender = addComponent<Sender> (simpleAi.get(), id);
+	}
+	else {
+		simpleAi = GameManager::getInstance ()->createGameObjectWithId<Character> (false, id, new HostPilot (), beetle);
+		std::shared_ptr<Receiver> receiver = addComponent<Receiver> (simpleAi.get(), id);
+	}
+
 	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
 	healthBar->setTrackingPlayer(simpleAi);
-	simpleAi->addComponent<Light>(simpleAi.get())->setColor(50, 255, 30)->setSize(6.0f);
-	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
-	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenChestplate>());
-	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenHelmet>());
+	simpleAi->addComponent<Light>(simpleAi.get())->setColor(50, 255, 30)->setSize(3.0f);
+	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<BaseLongbow>(
+		BaseLongbow::WOODEN_LONGBOW_DAMAGE, BaseLongbow::WOODEN_LONGBOW_IMAGE_NAME,
+		BaseLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME, BaseLongbow::WOODEN_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION));
+	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<BaseChestplate>(
+		BaseChestplate::WOODEN_CHESTPLATE_ICON_IMAGE_NAME, BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));
+	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<BaseHelmet>(
+		BaseHelmet::WOODEN_HELMET_ICON_IMAGE, BaseHelmet::WOODEN_HELMET_CRITICAL_RESIST_CHANCE));
 	simpleAi->getTransform()->setPosition(x, y);
 	simpleAi->getTransform()->renderRotation = false;
 	simpleAi->getTransform()->setScale(2);
 
 	return simpleAi;
 }
-/*std::shared_ptr<Character> SpawnManager::generateAiCharacter1(float x, float y)
-{
-	std::shared_ptr<Character> simpleAi = GameManager::getInstance()->createGameObject<Character>(false, new AiPilot());
-	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<WoodenLongbow>());
-	simpleAi->getTransform()->setPosition(x, y);
-
-	return simpleAi;
-}*/
-
-
 
 std::shared_ptr<Character> SpawnManager::generateDummyCharacter(float x, float y)
 {
 	std::shared_ptr<Character> simpleCharacter = GameManager::getInstance()->createGameObject<Character>(false, new DummyPilot());
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenShortsword>());
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenChestplate>());
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<WoodenHelmet>());
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseShortsword>(
+		BaseShortsword::WOODEN_SHORTSWORD_DAMAGE, BaseShortsword::WOODEN_SHORTSWORD_IMAGE_NAME, 
+		BaseShortsword::WOODEN_SHORTSWORD_DESTROY_ON_COLLISION));
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseChestplate>(
+		BaseChestplate::WOODEN_CHESTPLATE_ICON_IMAGE_NAME, BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));
+	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseHelmet>(
+		BaseHelmet::WOODEN_HELMET_ICON_IMAGE, BaseHelmet::WOODEN_HELMET_CRITICAL_RESIST_CHANCE));
 	simpleCharacter->getTransform()->setPosition(x, y);
 	simpleCharacter->getTransform()->renderRotation = false;
 

@@ -10,13 +10,13 @@
 #include "CameraFollow.h"
 #include "NetworkingManager.h"
 #include <memory>
-#include "WoodenShortsword.h"
 #include "GeneratorManager.h"
 #include "GameManager.h"
 #include "FogOfWarCamera.h"
 #include "GhostCamera.h"
 #include "InputManager.h"
 #include "MainMenuScene.h"
+#include "EquipmentIncludes.h"
 
 bool menuVisible = false;
 std::shared_ptr<SimpleSprite> escapeMenu = nullptr;
@@ -28,11 +28,20 @@ NetworkedGameScene::NetworkedGameScene ()
 
 void NetworkedGameScene::onStart ()
 {
-	GameManager::getInstance()->resizeQuadTree(0, 0, 200, 200);
+
+	GameManager::getInstance()->resizeQuadTree(0, 0, PYRAMID_HEIGHT * LEVEL_OFFSET * 2, 200);
+
 	Camera::getActiveCamera()->setActiveCamera(GameManager::getInstance()->createGameObject<FogOfWarCamera>(true));
-	SpawnManager::getInstance()->generateMiscSquare(25, -25, -100, 200, "ControlsBlank.png", false);
-	SpawnManager::getInstance()->generateWorldItem(5, -5, std::make_shared<WoodenShortsword>());
-	Camera::getActiveCamera ()->addComponent<CameraFollow> (Camera::getActiveCamera ().get ());
+
+	//SpawnManager::getInstance()->generateMiscSquare(25, -25, -100, 200, "ControlsBlank.png", false);
+
+	SpawnManager::getInstance()->generateMiscSquare(25, -25, -100, 1000, "sandBG.png", false);
+	SpawnManager::getInstance()->generateWorldItem(5, -5, std::make_shared<BaseShortsword>(
+		BaseShortsword::WOODEN_SHORTSWORD_DAMAGE, BaseShortsword::WOODEN_SHORTSWORD_IMAGE_NAME,
+		BaseShortsword::WOODEN_SHORTSWORD_DESTROY_ON_COLLISION));
+
+
+	Camera::getActiveCamera ()->addComponent<CameraFollow> (Camera::getActiveCamera ().get ()); //players
 	AudioManager::getInstance ()->playMusic (MUSIC_LEVEL_1);
 }
 

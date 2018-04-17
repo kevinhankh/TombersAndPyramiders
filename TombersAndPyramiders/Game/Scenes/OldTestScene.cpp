@@ -103,12 +103,14 @@ void OldTestScene::onStart()
 		}
 	}
 
-	SpawnManager::getInstance()->generateWorldItem(5, -5, std::make_shared<GoldShortsword>());
+	SpawnManager::getInstance()->generateWorldItem(5, -5, std::make_shared<BaseShortsword>(
+		BaseShortsword::WOODEN_SHORTSWORD_DAMAGE, BaseShortsword::WOODEN_SHORTSWORD_IMAGE_NAME, 
+		BaseShortsword::WOODEN_SHORTSWORD_DESTROY_ON_COLLISION));
 
-	AiA = SpawnManager::getInstance()->generateAiCharacter(14, -15);
-	AiB = SpawnManager::getInstance()->generateAiCharacter(44, -20);
-	AiC = SpawnManager::getInstance()->generateAiCharacter(54, -40);
-	AiD = SpawnManager::getInstance()->generateAiCharacter(14, -35);
+	//AiA = SpawnManager::getInstance()->generateAiCharacter(14, -15);
+	//AiB = SpawnManager::getInstance()->generateAiCharacter(44, -20);
+	//AiC = SpawnManager::getInstance()->generateAiCharacter(54, -40);
+	//AiD = SpawnManager::getInstance()->generateAiCharacter(14, -35);
 
 	SpawnManager::getInstance()->generateSingleDoor(10, -10, Door::Direction::West, Door::Mode::Closed);
 

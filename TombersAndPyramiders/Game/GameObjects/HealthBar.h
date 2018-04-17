@@ -15,7 +15,7 @@ private:
 	float m_mainSize;
 	int m_subscriptionID;
 
-	std::shared_ptr<ComplexSpriteinfo> createSpriteInfo();
+	std::shared_ptr<ComplexSpriteInfo> createSpriteInfo();
 
 public:
 	HealthBar();
