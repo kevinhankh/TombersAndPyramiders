@@ -49,10 +49,16 @@ void startGameCallback(std::map<std::string, void*> payload)
 		id = std::stoi(*(std::string*)payload["playerSpawnIP" + std::to_string(i)]);
 		x = std::stof(*(std::string*)payload["playerSpawnX" + std::to_string(i)]);
 		y = std::stof(*(std::string*)payload["playerSpawnY" + std::to_string(i)]);
-		if (NetworkingManager::getInstance ()->isSelf (id))
-			scene->setCameraFollow (SpawnManager::getInstance ()->generatePlayerCharacter (id, x, y));
+		if (NetworkingManager::getInstance()->isSelf(id))
+		{
+			std::shared_ptr<Character> generatedCharacter = SpawnManager::getInstance()->generatePlayerCharacter(id, x, y);
+			scene->setCameraFollow(generatedCharacter);
+			SpawnManager::getInstance()->allPlayers.push_back(generatedCharacter);
+		}
 		else
-			SpawnManager::getInstance ()->generateNetworkCharacter(id, x, y);
+		{
+			SpawnManager::getInstance()->allPlayers.push_back(SpawnManager::getInstance()->generateNetworkCharacter(id, x, y));
+		}
 	}
 
 	for (int i = 0; i < 5 * PYRAMID_HEIGHT; i++) {
@@ -118,7 +124,10 @@ void SpawnManager::sendStartPacket()
 	payload["playerSpawnIP0"] = std::to_string(id);
 	payload["playerSpawnX0"] = std::to_string(x);
 	payload["playerSpawnY0"] = std::to_string(y);
-	scene->setCameraFollow(SpawnManager::getInstance()->generatePlayerCharacter(id, x, y));
+
+	std::shared_ptr<Character> generatedCharacter = SpawnManager::getInstance()->generatePlayerCharacter(id, x, y);
+	scene->setCameraFollow(generatedCharacter);
+	SpawnManager::getInstance()->allPlayers.push_back(generatedCharacter);
 
 	int i = 1;
 	for (auto it = ++NetworkingManager::getInstance()->m_clients.begin(); it != NetworkingManager::getInstance()->m_clients.end(); it++) {
@@ -128,7 +137,7 @@ void SpawnManager::sendStartPacket()
 		payload["playerSpawnIP" + std::to_string(i)] = std::to_string(id);
 		payload["playerSpawnX" + std::to_string(i)] = std::to_string(x);
 		payload["playerSpawnY" + std::to_string(i)] = std::to_string(y);
-		SpawnManager::getInstance()->generateHostCharacter(id, x, y);
+		allPlayers.push_back(SpawnManager::getInstance()->generateHostCharacter(id, x, y));
 		i++;
 	}
 

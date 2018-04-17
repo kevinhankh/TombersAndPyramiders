@@ -32,12 +32,11 @@ public:
 	std::shared_ptr<GhostCharacter> generateNetworkGhost(float x, float y, int netId, bool isPlayer);
 	std::shared_ptr<Boulder> generateBoulder(float x, float y); 
 	std::shared_ptr<SingleDoor> generateSingleDoor(float x, float y, Door::Direction direction, Door::Mode startState);
-
+	std::vector<shared_ptr<Character>> allPlayers;
 
 	std::shared_ptr<HostCharacter> generateHostCharacter(int id, float x, float y);
 	std::shared_ptr<ClientCharacter> generatePlayerCharacter (int id, float x, float y);
 	std::shared_ptr<NetworkCharacter> generateNetworkCharacter (int id, float x, float y);
-
 
 	void sendStartPacket();
 	void listenForStartPacket ();

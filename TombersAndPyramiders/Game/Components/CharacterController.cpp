@@ -118,10 +118,12 @@ void CharacterController::useWeapon()
 			std::shared_ptr<BaseMeleeWeapon> melee = dynamic_pointer_cast<BaseMeleeWeapon>(weapon);
 			if (melee != nullptr) {
 				m_character->playMeleeAttackAnimation();
+			//	m_characterController->playMeleeAttackAnimation();
 				m_audioSource->playSFX(SFX_SWORD);
 			}
 			else {
 				m_character->playRangeAttackAnimation();
+			//	m_characterController->playRangeAttackAnimation();
 				m_audioSource->playSFX(SFX_BOW);
 			}
 		}
