@@ -33,13 +33,14 @@ void startGameCallback(std::map<std::string, void*> payload)
 	NetworkedGameScene* scene = new NetworkedGameScene();
 	SceneManager::getInstance()->pushScene(scene);
 
-	//for (int i = 0; i < 1; i++)
-	//{
+	for (int i = 0; i < PYRAMID_HEIGHT; i++)
+	{
 		int mapSeedID = std::stoi (*(std::string*)payload["mapSeedID" + std::to_string (0)]);
 		Randomize::SetSeed(mapSeedID);
-		GeneratorManager::getInstance ()->generateLevel (28, 28, 2, 0);
-	//}
-	GeneratorManager::getInstance ()->drawLevel (0);
+		GeneratorManager::getInstance ()->generateLevel (WORLD_WIDTH, WORLD_HEIGHT, 2, i);
+		GeneratorManager::getInstance()->drawLevel(i);
+	}
+
 
 	int players = std::stoi(*(std::string*)payload["playerSpawns"]);
 
@@ -54,7 +55,7 @@ void startGameCallback(std::map<std::string, void*> payload)
 			SpawnManager::getInstance ()->generateNetworkCharacter(id, x, y);
 	}
 
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < 5 * PYRAMID_HEIGHT; i++) {
 		id = std::stoi (*(std::string*)payload["aiSpawnID" + std::to_string (i)]);
 		x = std::stoi (*(std::string*)payload["aiSpawnX" + std::to_string (i)]);
 		y = std::stoi (*(std::string*)payload["aiSpawnY" + std::to_string (i)]);
@@ -84,33 +85,33 @@ void SpawnManager::sendStartPacket()
 
 	std::vector<time_t> mapSeeds;	
 
-	//for (int i = 0; i < 1; i++)
-	//{
-		time_t seed = time (NULL);
+	int id = 30000, x = 0, y = 0;
+	for (int i = 0; i < PYRAMID_HEIGHT; i++)
+	{
+		time_t seed = time(NULL);
 		Randomize::SetSeed(seed);
-		GeneratorManager::getInstance ()->generateLevel (28, 28, 2, 0);
-		payload["mapSeedID" + std::to_string (0)] = std::to_string (seed);
-	//}
-	GeneratorManager::getInstance ()->drawLevel (0);
+		GeneratorManager::getInstance()->generateLevel(WORLD_WIDTH, WORLD_HEIGHT, 2, i);
+		payload["mapSeedID" + std::to_string(0)] = std::to_string(seed);
+		GeneratorManager::getInstance()->drawLevel(i);
 
-	int id = 0, x = 0, y = 0;
-	int room = Randomize::Random(0, GeneratorManager::getInstance()->levels[0]->rooms.size() - 2);
+		int room = Randomize::Random(0, GeneratorManager::getInstance()->levels[i]->rooms.size() - 2);
 
-	id = 30000;
-	for (int i = 0; i < 5; i++) {
-		x = ((Randomize::Random() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_width - 2) + 1) + GeneratorManager::getInstance()->levels[0]->rooms[room]->m_xCoord) * 5;
-		y = (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_yCoord - (Randomize::Random() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_height - 2) + 1)) * 5;
-		SpawnManager::getInstance()->generateAiCharacter(id + i, x, y, true);
+		for (int j = 0; j < 5; j++) {
+			x = ((Randomize::Random() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_width - 2) + 1) + GeneratorManager::getInstance()->levels[0]->rooms[room]->m_xCoord) * 5;
+			y = (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_yCoord - (Randomize::Random() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_height - 2) + 1)) * 5;
+			x += i * LEVEL_OFFSET;
+			SpawnManager::getInstance ()->generateAiCharacter (id, x, y, true);
 
-		payload["aiSpawnID" + std::to_string (i)] = std::to_string (id + i);
-		payload["aiSpawnX" + std::to_string (i)] = std::to_string (x);
-		payload["aiSpawnY" + std::to_string (i)] = std::to_string (y);
+			payload["aiSpawnID" + std::to_string (i)] = std::to_string (id++);
+			payload["aiSpawnX" + std::to_string (i)] = std::to_string (x);
+			payload["aiSpawnY" + std::to_string (i)] = std::to_string (y);
+		}
 	}
+
 
 	payload["playerSpawns"] = std::to_string(NetworkingManager::getInstance()->m_clients.size());
 
-	id = 0, x = 0, y = 0;
-	room = Randomize::Random(0, GeneratorManager::getInstance()->levels[0]->rooms.size()-2);
+	int room = Randomize::Random(0, GeneratorManager::getInstance()->levels[0]->rooms.size() - 2);
 	x = ((Randomize::Random() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_width - 2) + 1) + GeneratorManager::getInstance()->levels[0]->rooms[room]->m_xCoord) * 5;
 	y = (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_yCoord - (Randomize::Random(0, GeneratorManager::getInstance()->levels[0]->rooms[room]->m_height - 3) + 1)) * 5;
 
@@ -245,6 +246,17 @@ SpawnManager::~SpawnManager()
 std::shared_ptr<MiscSquare> SpawnManager::generateMiscSquare(float x, float y, float z, float scale, string spriteName, bool hasCollider, float colliderSize_x, float colliderSize_y)
 {
 	std::shared_ptr<MiscSquare> miscSquare = GameManager::getInstance()->createGameObject<MiscSquare>(false, spriteName, hasCollider, colliderSize_x, colliderSize_y);
+	miscSquare->getTransform()->setPosition(x, y, z);
+	miscSquare->getTransform()->setScale(scale);
+	return miscSquare;
+}
+
+//overload of original misc square generate with collider offset params
+std::shared_ptr<MiscSquare> SpawnManager::generateMiscSquare(float x, float y, float z, float scale, string spriteName, bool hasCollider, float colliderSize_x, float colliderSize_y, float colliderOffset_x, float colliderOffset_y)
+{
+	std::shared_ptr<MiscSquare> miscSquare = GameManager::getInstance()->createGameObject<MiscSquare>(false, spriteName, hasCollider, colliderSize_x, colliderSize_y);
+	miscSquare->getComponent<BoxCollider>()->setXOffset(colliderOffset_x);
+	miscSquare->getComponent<BoxCollider>()->setYOffset(colliderOffset_y);
 	miscSquare->getTransform()->setPosition(x, y, z);
 	miscSquare->getTransform()->setScale(scale);
 	return miscSquare;

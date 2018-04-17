@@ -19,6 +19,7 @@ class SpawnManager : public GameObject
 public:
 	SpawnManager();
 	~SpawnManager();
+	std::shared_ptr<MiscSquare> SpawnManager::generateMiscSquare(float x, float y, float z, float scale, string spriteName, bool hasCollider, float colliderSize_x, float colliderSize_y, float colliderOffset_x, float colliderOffset_y);
 	std::shared_ptr<MiscSquare> generateMiscSquare(float x, float y, float z, float scale, string spriteName, bool hasCollider, float colliderSize_x = 5, float colliderSize_y = 5);
 	//std::shared_ptr<Wall> generateWall(float x, float y, float scale);
 	//std::shared_ptr<MiscSquare> generateMiscSquare(float x, float y, float scale);
