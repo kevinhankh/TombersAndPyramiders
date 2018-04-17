@@ -17,6 +17,8 @@
 #include "InputManager.h"
 #include "MainMenuScene.h"
 #include "EquipmentIncludes.h"
+#include "PhysicsManager.h"
+#include "Camera.h"
 
 bool menuVisible = false;
 std::shared_ptr<SimpleSprite> escapeMenu = nullptr;
@@ -77,6 +79,11 @@ void NetworkedGameScene::onUpdate (int ticks)
 		}
 		else if (InputManager::getInstance()->getKeyState(SDLK_RETURN) == InputManager::KeyAction::PRESSED)
 		{
+			PhysicsManager::getInstance()->purge();
+			SpriteRendererManager::getInstance()->purge();
+			NetworkingManager::getInstance()->closeClient();
+			NetworkingManager::getInstance()->closeUDP();
+			Camera::getActiveCamera()->setActiveCamera(GameManager::getInstance()->createGameObject<Camera>(true));
 			SceneManager::getInstance()->pushScene(new MainMenuScene());
 			//Return to menu
 		}
