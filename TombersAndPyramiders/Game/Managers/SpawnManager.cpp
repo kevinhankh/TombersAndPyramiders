@@ -279,11 +279,11 @@ std::shared_ptr<Character> SpawnManager::generateAiCharacter(int id, float x, fl
 	std::shared_ptr<Character> simpleAi;
 	if (isHost) {
 		simpleAi = GameManager::getInstance ()->createGameObjectWithId<Character> (false, id, new AiPilot (), beetle);
-		addComponent<Sender> (this, id);
+		std::shared_ptr<Sender> sender = addComponent<Sender> (simpleAi.get(), id);
 	}
 	else {
 		simpleAi = GameManager::getInstance ()->createGameObjectWithId<Character> (false, id, new HostPilot (), beetle);
-		addComponent<Receiver> (this, id);
+		std::shared_ptr<Receiver> receiver = addComponent<Receiver> (simpleAi.get(), id);
 	}
 	simpleAi->addComponent<Light>(simpleAi.get())->setColor(50, 255, 30)->setSize(3.0f);
 	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<BaseLongbow>(
