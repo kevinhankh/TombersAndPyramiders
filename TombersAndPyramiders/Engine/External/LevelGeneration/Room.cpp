@@ -2,8 +2,9 @@
 #include "SpawnManager.h"
 #include "Randomize.h"
 #include "EquipmentIncludes.h"
+#include "GeneratorManager.h"
 
-Room::Room(int width, int height, int xPosition, int yPosition, bool exit, int level) : m_width(width), m_height(height), m_xCoord(xPosition), m_yCoord(yPosition), m_exit(exit), m_level(level),
+Room::Room(int width, int height, int xPosition, int yPosition, bool exit, bool spawn, int level) : m_width(width), m_height(height), m_xCoord(xPosition), m_yCoord(yPosition), m_exit(exit), m_spawn(spawn), m_level(level),
 		ComplexSprite(generateComplexSpriteInfo(), 0, -2, 10, 5)
 {
 	m_scale = 5;
@@ -92,13 +93,21 @@ void Room::draw()
 				{
 					//floor
 					SpawnManager::getInstance()->generateMiscSquare(m_level * LEVEL_OFFSET + (m_xCoord * m_scale + 2 + j * m_scale), m_yCoord * m_scale - 2 - i * m_scale, -1, m_scale, "stoneTile_Edge.png", false);
-
+					//10% chance to spawn an item in every floor tile
 					if (Randomize::Random(0, 9) == 0)
 					{
+						//item type all even chance
 						int seed = Randomize::Random(0, 5);
-						int type = Randomize::Random(0, 9);
+
+						//item spawn offsets
 						int xOffset = Randomize::Random(0, 4);
 						int yOffset = Randomize::Random(0, 4);
+						
+						//10% gold chance
+						//30% silver chance
+						//60% wood chance
+						int type = Randomize::Random(0, 9);
+
 						switch (seed)
 						{
 						case 0:
@@ -211,12 +220,22 @@ void Room::draw()
 		}
 	}
 	if (m_exit) {
+
 		//draw stairs
 
 		int x = Randomize::Random() % m_width/2 + ceil(m_width/4);
 		int y = Randomize::Random() % m_height/2 + ceil(m_height/4);
-		SpawnManager::getInstance()->generateMiscSquare(m_xCoord * m_scale + 2 + x * m_scale, m_yCoord * m_scale - 2 - y * m_scale, 0, m_scale, "spiralStairs.png", true, 3.0f, 3.0f);
+		SpawnManager::getInstance()->generateMiscSquare(m_level * LEVEL_OFFSET + (m_xCoord * m_scale + 2 + x * m_scale), m_yCoord * m_scale - 2 - y * m_scale, 0, m_scale, "spiralStairs.png", true, 3.0f, 3.0f);
 
+	}
+	if (m_spawn)
+	{
+		//draw spawn point
+		int x = Randomize::Random() % m_width / 2 + ceil(m_width / 4);
+		int y = Randomize::Random() % m_height / 2 + ceil(m_height / 4);
+		GeneratorManager::getInstance()->levels[m_level]->spawnX = x;
+		GeneratorManager::getInstance()->levels[m_level]->spawnY = y;
+		SpawnManager::getInstance()->generateMiscSquare(m_level * LEVEL_OFFSET + (m_xCoord * m_scale + 2 + x * m_scale), m_yCoord * m_scale - 2 - y * m_scale, 0, m_scale, "spiralStairs.png", true, 3.0f, 3.0f);
 	}
 }
 
