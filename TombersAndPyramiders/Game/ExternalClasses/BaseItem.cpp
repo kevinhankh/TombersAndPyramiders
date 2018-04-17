@@ -44,3 +44,15 @@ std::string BaseItem::getItemIcon()
 {
 	return m_itemIcon;
 }
+
+/*----------------------------------------------------------------------------------------
+Sprite/Animation Setup
+----------------------------------------------------------------------------------------*/
+void BaseItem::addSprite(std::string filePath, std::string spriteName, int rows, int columns)
+{
+	spriteInfo->addSprite(filePath, spriteName, rows, columns);
+}
+void BaseItem::addAnimation(std::string spriteName, std::string animationName, int frameStart, int frameEnd)
+{
+	spriteInfo->addAnimation(spriteName, animationName, frameStart, frameEnd);
+}

@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnimatedItem.cpp" />
     <ClCompile Include="Engine\Component\AI\AI.cpp" />
     <ClCompile Include="Engine\Component\AI\AILearning.cpp" />
     <ClCompile Include="Engine\Component\AI\NeuralNet.cpp" />
@@ -257,6 +258,7 @@
     <ClCompile Include="Game\GameObjects\Monster.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimatedItem.h" />
     <ClInclude Include="Engine\Component\AI\AI.h" />
     <ClInclude Include="Engine\Component\AI\AILearning.h" />
     <ClInclude Include="Engine\Component\AI\NeuralNet.h" />

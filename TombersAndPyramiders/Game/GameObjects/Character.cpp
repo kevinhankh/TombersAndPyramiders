@@ -227,7 +227,6 @@ bool Character::playRunAnimation()
 	return false;
 }
 
-
 // Changes the sprite animation to idling
 bool Character::endRunAnimation()
 {
@@ -256,7 +255,6 @@ bool Character::endRunAnimation()
 	}
 	return false;
 }
-
 
 // Changes the sprite animation to the melee attack for one animation then returns back to idle
 bool Character::playMeleeAttackAnimation()
@@ -343,6 +341,20 @@ bool Character::playHurtAnimation()
 
 	return true;
 }
+
+void Character::updateInventory(bool addingItem, std::shared_ptr<BaseItem> item)
+{
+	if (addingItem)
+	{
+		AnimatedItem newEquippedItem = AnimatedItem(item->spriteInfo);
+		equippedItems.push_back(newEquippedItem);
+	}
+	else
+	{
+
+	}
+}
+
 
 void Character::onNetworkEnd() {
 	auto sender = getComponent<Sender> ();
