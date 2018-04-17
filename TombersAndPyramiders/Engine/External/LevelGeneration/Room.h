@@ -3,7 +3,7 @@
 
 class Room : public ComplexSprite {
 private:
-	std::shared_ptr<ComplexSpriteinfo> generateComplexSpriteInfo();
+	std::shared_ptr<ComplexSpriteInfo> generateComplexSpriteInfo();
 public:
 	int m_xCoord;
 	int m_yCoord;
