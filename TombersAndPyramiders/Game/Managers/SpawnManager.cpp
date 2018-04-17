@@ -276,11 +276,13 @@ All non hosts get AI with only listeners. All AI actions are determined by what 
 */
 std::shared_ptr<Character> SpawnManager::generateAiCharacter(int id, float x, float y, bool isHost)
 {
-	std::shared_ptr<Character> simpleAi = GameManager::getInstance()->createGameObjectWithId<Character>(false, id, new AiPilot(), beetle);
+	std::shared_ptr<Character> simpleAi;
 	if (isHost) {
+		simpleAi = GameManager::getInstance ()->createGameObjectWithId<Character> (false, id, new AiPilot (), beetle);
 		addComponent<Sender> (this, id);
 	}
 	else {
+		simpleAi = GameManager::getInstance ()->createGameObjectWithId<Character> (false, id, new HostPilot (), beetle);
 		addComponent<Receiver> (this, id);
 	}
 	simpleAi->addComponent<Light>(simpleAi.get())->setColor(50, 255, 30)->setSize(3.0f);
