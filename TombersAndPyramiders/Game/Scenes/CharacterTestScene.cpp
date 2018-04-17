@@ -114,7 +114,7 @@ void CharacterTestScene::onStart()
 		}
 	}
 	SpawnManager::getInstance()->generateWorldItem(5, -5, std::make_shared<BaseLongbow>(
-		BaseLongbow::WOODEN_LONGBOW_DAMAGE, BaseLongbow::WOODEN_LONGBOW_IMAGE_NAME, 
+		BaseLongbow::WOODEN_LONGBOW_DAMAGE, BaseLongbow::LONGBOW_CASTING_TIME, BaseLongbow::WOODEN_LONGBOW_IMAGE_NAME,
 		BaseLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME, BaseLongbow::WOODEN_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION));
 
 	player = SpawnManager::getInstance()->generatePlayerCharacter(15, -10);
