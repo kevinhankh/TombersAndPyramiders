@@ -48,7 +48,7 @@ void SilverGreaves::effect(int ticks)
 	if (m_timeLeftInDash > 0)
 	{
 		auto dashRotation = owner()->getTransform()->getRotation();
-		auto dashAmount = ((float)ticks / 1000) * SILVER_GREAVES_MAX_DASH_SPEED;
+		auto dashAmount = ((float)ticks / 1000.0f) * SILVER_GREAVES_MAX_DASH_SPEED;
 		//auto lerpFactor = (SILVER_GREAVES_DASH_DURATION - m_timeLeftInDash) / SILVER_GREAVES_DASH_DURATION;
 		//dashAmount *= (1 - lerpFactor);
 
