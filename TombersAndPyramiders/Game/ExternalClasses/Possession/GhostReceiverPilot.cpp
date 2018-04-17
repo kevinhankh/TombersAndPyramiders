@@ -117,7 +117,7 @@ void GhostReceiverPilot::onUpdate(int ticks)
 	GhostController* ghostControllerRaw = dynamic_cast<GhostController*>(m_controller);
 	if (ghostControllerRaw != nullptr && m_updatesSinceNewMovement < m_updatesUntilInvalid)
 	{
-		ghostControllerRaw->move(m_lastNetworkVector);
+		ghostControllerRaw->move(*(m_lastNetworkVector * ((float)ticks / 1000.0f)));
 		m_updatesSinceNewMovement++;
 	}
 }

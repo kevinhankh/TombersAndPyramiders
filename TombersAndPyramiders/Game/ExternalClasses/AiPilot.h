@@ -6,7 +6,8 @@
 #include "Vector2.h"
 #include "Inventory.h"
 #include "Character.h"
-#include "SpawnManager.h"
+ #include "SpawnManager.h"
+
 class CharacterController;
 class Vector2;
 class AiPilot : public BasePilot

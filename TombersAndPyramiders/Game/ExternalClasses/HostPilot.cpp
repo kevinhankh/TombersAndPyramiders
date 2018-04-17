@@ -23,7 +23,7 @@ void HostPilot::onUpdate(int ticks)
 	
 	if (m_characterController != nullptr && updatesSinceNewMovement < updatesUntilInvalid)
 	{
-		m_characterController->move(getMovement());
+		m_characterController->move(*(getMovement() * ((float)ticks / 1000.0f)));
 		updatesSinceNewMovement++;
 	}
 	/*

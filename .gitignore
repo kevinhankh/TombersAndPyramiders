@@ -306,3 +306,9 @@ __pycache__/
 OpenCover/
 
 MacRunner/
+
+# Boost
+boost/
+
+# Release
+Release/

@@ -13,8 +13,8 @@
 #define SFX_BUTTON_HOVER 8
 
 //Audio file paths
-#define PATH_MUSIC_MENU "Game/Assets/Audio/SpectralSands.mp3"
-#define PATH_MUSIC_LEVEL_1 "Game/Assets/Audio/MystifyingTombs.mp3"
+#define PATH_MUSIC_MENU "Game/Assets/Audio/SpectralSands.ogg"
+#define PATH_MUSIC_LEVEL_1 "Game/Assets/Audio/MystifyingTombs.ogg"
 
 #define PATH_SFX_HIT "Game/Assets/Audio/Hit.wav"
 #define PATH_SFX_SWORD "Game/Assets/Audio/Sword.wav"

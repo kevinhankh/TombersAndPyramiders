@@ -1,9 +1,28 @@
 #pragma
 #include "AiPilot.h"
 #include <cmath>
+
 int attackNumber = 0;
 int randomNumber = 0;
 int attackCount = 0;
+
+
+//bool AiPilot::checkRange()
+//{
+//	attackNumber = attackNumber % 6;
+//	attackCount = attackCount + 1;
+//	if (attackCount == 120)
+//	{
+//		attackNumber = Randomize::Random();
+//		attackCount = 0;
+//	}
+//	if (attackNumber == 1)
+//	{
+//		currentState = attack;
+//		//attackNumber = rand();
+//	}
+//
+//}
 
 void AiPilot::setController(BaseController* controller)
 {
@@ -15,7 +34,6 @@ void AiPilot::setController(BaseController* controller)
 void AiPilot::onStart()
 {
 	currentState = walk;
-	srand(time(NULL));
 	//currentState = run;
 }
 
@@ -58,6 +76,7 @@ void AiPilot::onUpdate(int ticks)
 	switch (currentState)
 	{
 	case walk:
+
 		if (target == nullptr)
 		{
 			m_characterController->move(getRandomMovement());
@@ -70,7 +89,11 @@ void AiPilot::onUpdate(int ticks)
 				currentState = attack;
 			}
 		}
+
+		m_characterController->move(*(getMovement() * ((float)ticks / (float)1000)));
+		checkRange();
 		break;
+
 	case attack:
 		m_characterController->move(stopMovement());
 		m_characterController->useWeapon();
@@ -160,6 +183,7 @@ Vector2 AiPilot::getRandomMovement()
 	if (coun == 30)
 	{
 		randomNumber = rand() % 11;
+		randomNumber = Randomize::Random(0, 21);
 		coun = 0;
 	}
 	if (randomNumber == 1)

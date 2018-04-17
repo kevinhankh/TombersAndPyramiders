@@ -42,7 +42,7 @@
 	Static Fields
 ----------------------------------------------------------------------------------------*/
 const int CharacterController::DEFAULT_CHARACTER_MAX_HP = 100;
-const Vector2 CharacterController::DEFAULT_CHARACTER_MOVEMENT_SPEED = Vector2(0.15, 0.15);
+const Vector2 CharacterController::DEFAULT_CHARACTER_MOVEMENT_SPEED = Vector2(3, 3);
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
@@ -266,7 +266,7 @@ void CharacterController::updateGreaves(int ticks)
 void CharacterController::death()
 {
 	// If we are the player, spawn our ghost
-	bool isPlayableCharacter = dynamic_cast<PlayerPilot*>(m_pilot.get()) != nullptr;
+ 	bool isPlayableCharacter = dynamic_cast<PlayerPilot*>(m_pilot.get()) != nullptr;
 
 	if (isPlayableCharacter) {
 		//If we have a sender, we have a sending ID
@@ -278,6 +278,7 @@ void CharacterController::death()
 	}
 
 	m_character->onEnd();
+	m_character->onNetworkEnd ();
 }
 
 std::shared_ptr<WorldItem> CharacterController::trySwapItem()

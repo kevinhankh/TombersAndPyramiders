@@ -48,7 +48,7 @@ void GoldGreaves::effect(int ticks)
 	if (m_timeLeftInDash > 0)
 	{
 		auto dashRotation = owner()->getTransform()->getRotation();
-		auto dashAmount = ((float)ticks / 1000) * GOLD_GREAVES_MAX_DASH_SPEED;
+		auto dashAmount = ((float)ticks / 1000.0f) * GOLD_GREAVES_MAX_DASH_SPEED;
 		//auto lerpFactor = (GOLD_GREAVES_DASH_DURATION - m_timeLeftInDash) / GOLD_GREAVES_DASH_DURATION;
 		//dashAmount *= (1 - lerpFactor);
 

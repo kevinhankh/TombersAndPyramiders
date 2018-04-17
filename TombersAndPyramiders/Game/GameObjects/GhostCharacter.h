@@ -29,5 +29,5 @@ private:
 
 	float m_sizeChange;
 
-	std::shared_ptr<ComplexSpriteinfo> createSpriteInfo();
+	std::shared_ptr<ComplexSpriteInfo> createSpriteInfo();
 };
