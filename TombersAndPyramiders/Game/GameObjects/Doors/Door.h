@@ -25,4 +25,5 @@ protected:
 
 private:
 	Mode m_mode;
+	bool m_popupActive;
 };

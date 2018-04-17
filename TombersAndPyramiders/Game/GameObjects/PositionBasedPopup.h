@@ -9,7 +9,7 @@ private:
 	std::shared_ptr<GameObject> m_dependant;
 
 public:
-	PositionBasedPopup(float x, float y, float maxDistance, std::shared_ptr<GameObject> dependant);
+	PositionBasedPopup(float x, float y, float maxDistance, std::shared_ptr<GameObject> dependant, std::string imageName);
 	~PositionBasedPopup();
 
 	void onStart();

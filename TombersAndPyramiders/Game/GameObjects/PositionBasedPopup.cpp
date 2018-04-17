@@ -1,6 +1,6 @@
 #include "PositionBasedPopup.h"
 
-PositionBasedPopup::PositionBasedPopup(float x, float y, float maxDistance, std::shared_ptr<GameObject> dependant) : SimpleSprite("table.png", x, y)
+PositionBasedPopup::PositionBasedPopup(float x, float y, float maxDistance, std::shared_ptr<GameObject> dependant, std::string imageName) : SimpleSprite(imageName, x, y, 1000000, 6.0f)
 {
 	m_maxDistance = maxDistance;
 	m_dependant = dependant;
@@ -20,15 +20,13 @@ void PositionBasedPopup::onUpdate(int ticks)
 {
 	if (m_dependant != nullptr)
 	{
-		if (getTransform()->getDistance(m_dependant->getTransform()) < m_maxDistance)
+		if (getTransform()->getDistance(m_dependant->getTransform()) > m_maxDistance)
 		{
-			std::cout << "DESTROYED" << std::endl;
 			destroy(getId());
 		}
 	}
 	else
 	{
-		std::cout << "DESTROYED" << std::endl;
 		destroy(getId());
 	}
 }

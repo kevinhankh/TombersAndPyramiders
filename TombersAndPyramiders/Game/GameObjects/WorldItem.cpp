@@ -6,6 +6,8 @@
 WorldItem::WorldItem(std::shared_ptr<BaseItem> item, float x, float y) : SimpleSprite(item->getItemIcon(), x, y)
 {
 	m_item = item;
+	m_popupActive = false;
+	
 	//Add component: BoxCollider and detect collision
 }
 
@@ -21,10 +23,14 @@ void WorldItem::onUpdate(int ticks)
 	if (character != nullptr) 
 	{
 		auto distance = getTransform()->getDistance(character->getTransform());
-		if (distance < 4.0f)
+		if (distance < 4.0f && !m_popupActive)
 		{
-			GameManager::getInstance()->createGameObject<PositionBasedPopup>(false, getTransform()->getX(), getTransform()->getY(), 4.0f, character);
+			m_popupActive = true;
+			GameManager::getInstance()->createGameObject<PositionBasedPopup>(false, getTransform()->getX(), getTransform()->getY(), 4.0f, character, "popupPickup.png");
 			//Create Popup to destroy when this & player are 4> distance apart
+		}
+		else if (distance > 4.0f) {
+			m_popupActive = false;
 		}
 	}
 }
