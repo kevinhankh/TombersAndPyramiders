@@ -1,6 +1,7 @@
 #pragma
 #include "AiPilot.h"
 #include <cmath>
+#include "Randomize.h"
 
 int attackNumber = 0;
 int randomNumber = 0;
