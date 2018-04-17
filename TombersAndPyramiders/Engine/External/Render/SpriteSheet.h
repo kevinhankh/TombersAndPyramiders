@@ -38,5 +38,6 @@ public:
 	int getRowCount();
 	int getColumnCount();
 	int getCurrentIndex();
+	void setCurrentIndex(int currentIndex);
 	void changeAnimation(int minFrame, int maxFrame);
 };

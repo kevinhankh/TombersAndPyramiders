@@ -37,6 +37,8 @@
 #include "NetworkCharacter.h"
 #include "PlayerPilot.h"
 #include "Receiver.h"
+#include "MessageManager.h"
+#include <sstream>
 
 /*----------------------------------------------------------------------------------------
 	Static Fields
@@ -237,6 +239,14 @@ void CharacterController::takeDamage(int damage, bool isCriticalHit)
 		s->sendHurt (Damageable::getHealth());
 	m_character->playHurtAnimation();
 	m_audioSource->playSFX(SFX_HIT);
+	std::stringstream eventName;
+	eventName << gameObject->getId() << "|HURT";
+	map<std::string, void*> eventPayload;
+	auto health = std::to_string(m_health);
+	auto maxHealth = std::to_string(m_maxHealth);
+	eventPayload["currentHealth"] = &health;
+	eventPayload["maxHealth"] = &maxHealth;
+	MessageManager::sendEvent(eventName.str(), eventPayload);
 }
 
 void CharacterController::updateWeapon(int ticks)
