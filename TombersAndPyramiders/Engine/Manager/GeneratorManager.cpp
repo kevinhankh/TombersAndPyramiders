@@ -58,7 +58,7 @@ void GeneratorManager::drawLevel(int level) {
 	}
 
 	//draw/spawn items
-
+	
 }
 
 void GeneratorManager::recordRoom(std::shared_ptr<Room> r)

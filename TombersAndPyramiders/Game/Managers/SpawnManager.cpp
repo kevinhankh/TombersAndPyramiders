@@ -79,22 +79,23 @@ void SpawnManager::sendStartPacket()
 		GeneratorManager::getInstance ()->generateLevel (WORLD_WIDTH, WORLD_HEIGHT, 2, i);
 		payload["mapSeedID" + std::to_string (0)] = std::to_string (seed);
 		GeneratorManager::getInstance()->drawLevel(i);
+
+		int id = 0, x = 0, y = 0;
+		int room = rand() % (GeneratorManager::getInstance()->levels[i]->rooms.size() - 1);
+
+		for (int j = 0; j < 5; j++) {
+			x = ((rand() % (GeneratorManager::getInstance()->levels[i]->rooms[room]->m_width - 2) + 1) + GeneratorManager::getInstance()->levels[i]->rooms[room]->m_xCoord) * 5;
+			y = (GeneratorManager::getInstance()->levels[i]->rooms[room]->m_yCoord - (rand() % (GeneratorManager::getInstance()->levels[i]->rooms[room]->m_height - 2) + 1)) * 5;
+			SpawnManager::getInstance()->generateAiCharacter(x + i * LEVEL_OFFSET, y);
+		}
+
 	}
 
-
-	int id = 0, x = 0, y = 0;
-	int room = rand() % (GeneratorManager::getInstance()->levels[0]->rooms.size() - 1);
-
-	for (int i = 0; i < 5; i++) {
-		x = ((rand() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_width - 2) + 1) + GeneratorManager::getInstance()->levels[0]->rooms[room]->m_xCoord) * 5;
-		y = (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_yCoord - (rand() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_height - 2) + 1)) * 5;
-		SpawnManager::getInstance()->generateAiCharacter(x, y);
-	}
 
 	payload["playerSpawns"] = std::to_string(NetworkingManager::getInstance()->m_clients.size());
 
-	id = 0, x = 0, y = 0;
-	room = rand() % (GeneratorManager::getInstance()->levels[0]->rooms.size()-1);
+	int id = 0, x = 0, y = 0;
+	int room = rand() % (GeneratorManager::getInstance()->levels[0]->rooms.size()-1);
 	x = ((rand() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_width - 2) + 1) + GeneratorManager::getInstance()->levels[0]->rooms[room]->m_xCoord) * 5;
 	y = (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_yCoord - (rand() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_height - 2) + 1)) * 5;
 
