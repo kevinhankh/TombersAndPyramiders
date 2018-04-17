@@ -168,9 +168,6 @@ public:
 	void setFPS(int fps);
 	void updateFrames(float delta);
 	void nextFrame();
-	//void changeSprite(int spriteIndexInComplexInfo);
-	//int getCurrentSprite();
-	//void changeSprite(int spriteIndexInComplexInfo, int returnSprite);
 	bool changeSpriteSheet(int spriteIndexInComplexInfo);
 	bool changeSpriteSheet(std::string spriteName);
 	bool changeSpriteSheet(int spriteIndexInComplexInfo, int returnSprite);
