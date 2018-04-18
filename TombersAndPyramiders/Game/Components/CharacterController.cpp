@@ -283,7 +283,7 @@ void CharacterController::takeDamage(int damage, bool isCriticalHit)
 	m_character->playHurtAnimation();
 	m_audioSource->playSFX(SFX_HIT);
 	std::stringstream eventName;
-	eventName << gameObject->getId() << "|HURT";
+	eventName << gameObject->getId() << "|HEALTHBAR";
 	map<std::string, void*> eventPayload;
 	auto health = std::to_string(m_health);
 	auto maxHealth = std::to_string(m_maxHealth);
