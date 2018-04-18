@@ -24,7 +24,7 @@ void FogOfWarCamera::updateFogOfWarMask()
 	unsigned char bytes[gameWidth * gameHeight * 4] = { 0 };
 	for(int i = 0; i < gameWidth * gameHeight * 4; i += 4) 
 	{
-		bytes[i + 3] = 240;
+		bytes[i + 3] = 235;
 	}
 
 	auto objectsInBounds = GameManager::getInstance()->getObjectsInBounds(getTransform()->getX(), getTransform()->getY(), getGameWidth(), getGameHeight());
@@ -66,7 +66,8 @@ void FogOfWarCamera::updateFogOfWarMask()
 						int pos = ((screenY + y) * gameWidth + (screenX) + x) * 4;
 						if (pos >= 0 && pos < gameWidth * gameHeight * 4) {
 							int culmulativeDist = abs(x) + abs(y);
-							if (culmulativeDist < lightRadiusPixels) {
+							double hyp = sqrt(x*x + y*y);
+							if (hyp < lightRadiusPixels) {
 								bytes[pos] = std::max(bytes[pos], r);
 								bytes[pos + 1] = std::max(bytes[pos + 1], g);
 								bytes[pos + 2] = std::max(bytes[pos + 2], b);
