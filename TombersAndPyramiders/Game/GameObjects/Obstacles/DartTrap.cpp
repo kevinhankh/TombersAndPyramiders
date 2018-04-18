@@ -61,5 +61,5 @@ void DartTrap::shoot() {
 			dir * 90,
 			1,
 			velX, velY,
-			.5);
+			3);
 }

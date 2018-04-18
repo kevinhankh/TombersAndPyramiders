@@ -13,7 +13,10 @@ void ObstaclePilot::onUpdate(int ticks)
 	timePassed += ticks;
 	if (timePassed >= nextUpdate) {
 		auto ob = dynamic_cast<ObstacleController *>(m_controller);
-		ob->trigger();
+		if (ob != nullptr)
+		{
+			ob->trigger();
+		}
 		timePassed -= nextUpdate;
 	}
 }
