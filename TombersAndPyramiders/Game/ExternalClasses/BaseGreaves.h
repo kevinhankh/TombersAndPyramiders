@@ -83,4 +83,9 @@ class BaseGreaves : public BaseEquippableItem, public Updateable, public std::en
 		std::shared_ptr<BaseItem> addSubclassToInventory();
 
 		virtual void updateEffect(int ticks);
+
+		/*----------------------------------------------------------------------------------------
+		| Setup Sprites and Animations
+		----------------------------------------------------------------------------------------*/
+		void setupSprites();
 };

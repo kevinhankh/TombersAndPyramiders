@@ -127,5 +127,9 @@ class Character : public ComplexSprite
 
 		std::shared_ptr<ComplexSpriteInfo> generateComplexSpriteInfo(CharacterType type = player);
 
-		std::vector<AnimatedItem> equippedItems;
+		std::vector<std::shared_ptr<AnimatedItem>> equippedItems;
+		void updateInventoryAnimations(std::string animationName, std::string spriteName = "", std::string animationTo = "");
+
+	protected:
+		virtual void updateInventoryPositions(int ticks);
 };
