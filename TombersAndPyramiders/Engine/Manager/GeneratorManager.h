@@ -28,6 +28,7 @@ public:
 	int worldMatrix[WORLD_WIDTH][WORLD_HEIGHT];
 	std::vector<std::shared_ptr<Level>> levels;
 	static GeneratorManager* getInstance();
+	void reset();
 	void generateLevel(int width, int height, int detailLevel, int level);
 	void drawLevel(int level);
 	void recordRoom(std::shared_ptr<Room> r);

@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0D909B57-AFD6-44B4-B192-3F9AD4D73850}</ProjectGuid>
     <RootNamespace>PyramidPanic</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -243,6 +243,8 @@
     <ClCompile Include="Game\GameObjects\PositionBasedPopup.cpp" />
     <ClCompile Include="Game\GameObjects\Projectile.cpp" />
     <ClCompile Include="Game\GameObjects\Boulder.cpp" />
+    <ClCompile Include="Game\GameObjects\SpinningEffect.cpp" />
+    <ClCompile Include="Game\GameObjects\Throne.cpp" />
     <ClCompile Include="Game\Scenes\LaunchScene.cpp" />
     <ClCompile Include="Game\Scenes\MainMenuScene.cpp" />
     <ClCompile Include="Game\Scenes\NetworkedGameScene.cpp" />
@@ -375,6 +377,8 @@
     <ClInclude Include="Game\GameObjects\Projectile.h" />
     <ClInclude Include="Game\GameObjects\Boulder.h" />
     <ClInclude Include="Game\GameObjects\Doors\SingleDoor.h" />
+    <ClInclude Include="Game\GameObjects\SpinningEffect.h" />
+    <ClInclude Include="Game\GameObjects\Throne.h" />
     <ClInclude Include="Game\Scenes\LaunchScene.h" />
     <ClInclude Include="Game\Scenes\MainMenuScene.h" />
     <ClInclude Include="Game\Scenes\NetworkedGameScene.h" />
