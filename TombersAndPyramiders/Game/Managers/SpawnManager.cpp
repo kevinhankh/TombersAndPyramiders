@@ -106,7 +106,7 @@ void SpawnManager::sendStartPacket()
 		time_t seed = time(NULL);
 		Randomize::SetSeed(seed);
 		GeneratorManager::getInstance()->generateLevel(WORLD_WIDTH, WORLD_HEIGHT, 2, i);
-		payload["mapSeedID" + std::to_string(0)] = std::to_string(seed);
+		payload["mapSeedID" + std::to_string(i)] = std::to_string(seed);
 		GeneratorManager::getInstance()->drawLevel(i);
 
 		//ai spawns
@@ -118,10 +118,10 @@ void SpawnManager::sendStartPacket()
 			x += i * LEVEL_OFFSET;
 			SpawnManager::getInstance ()->generateAiCharacter (id, x, y, true);
 
-			payload["aiSpawnID" + std::to_string (i)] = std::to_string (id++);
-			payload["aiSpawnX" + std::to_string (i)] = std::to_string (x);
-			payload["aiSpawnY" + std::to_string (i)] = std::to_string (y);
-
+			payload["aiSpawnID" + std::to_string (j + (5 * i))] = std::to_string (id++);
+			payload["aiSpawnX" + std::to_string (j + (5 * i))] = std::to_string (x);
+			payload["aiSpawnY" + std::to_string (j + (5 * i))] = std::to_string (y);
+			std::cout << payload["aiSpawnID" + std::to_string(j + (5 * i))] << " " << payload["aiSpawnX" + std::to_string(j + (5 * i))] << " " << payload["aiSpawnY" + std::to_string(j + (5 * i))] << std::endl;
 			//SpawnManager::getInstance()->generateBossAiCharacter(id, x, y, false);
 
 		}
@@ -223,14 +223,6 @@ std::shared_ptr<HostCharacter> SpawnManager::generateHostCharacter (int id, floa
 	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
 	healthBar->setTrackingPlayer(simpleCharacter);
 	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(14.0f);
-	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseShield>(
-		BaseShield::WOODEN_SHIELD_IMAGE_NAME, BaseShield::WOODEN_SHIELD_ICON_NAME, BaseShield::WOODEN_SHIELD_DAMAGE_MULT,
-		BaseShield::WOODEN_SHIELD_COOLDOWN_TIME));
-	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseGreaves>(
-		BaseGreaves::WOODEN_GREAVES_ICON_IMAGE_NAME, BaseGreaves::WOODEN_GREAVES_COOLDOWN_TIME, BaseGreaves::WOODEN_GREAVES_DASH_DURATION,
-		BaseGreaves::WOODEN_GREAVES_DASH_SPEED));
-	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseChestplate>(
-		BaseChestplate::WOODEN_CHESTPLATE_ICON_IMAGE_NAME, BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));
 	//simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseHelmet>(
 	//	BaseHelmet::WOODEN_HELMET_ICON_IMAGE, BaseHelmet::WOODEN_HELMET_CRITICAL_RESIST_CHANCE));
 	simpleCharacter->getTransform ()->setPosition (x, y, 100);
@@ -248,14 +240,6 @@ std::shared_ptr<NetworkCharacter> SpawnManager::generateNetworkCharacter (int id
 	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
 	healthBar->setTrackingPlayer(simpleCharacter);
 	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(14.0f);
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseShield>(
-		BaseShield::WOODEN_SHIELD_IMAGE_NAME, BaseShield::WOODEN_SHIELD_ICON_NAME, BaseShield::WOODEN_SHIELD_DAMAGE_MULT,
-		BaseShield::WOODEN_SHIELD_COOLDOWN_TIME));
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseGreaves>(
-		BaseGreaves::WOODEN_GREAVES_ICON_IMAGE_NAME, BaseGreaves::WOODEN_GREAVES_COOLDOWN_TIME, BaseGreaves::WOODEN_GREAVES_DASH_DURATION,
-		BaseGreaves::WOODEN_GREAVES_DASH_SPEED));
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseChestplate>(
-		BaseChestplate::WOODEN_CHESTPLATE_ICON_IMAGE_NAME, BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));
 	//simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseHelmet>(
 	//	BaseHelmet::WOODEN_HELMET_ICON_IMAGE, BaseHelmet::WOODEN_HELMET_CRITICAL_RESIST_CHANCE));
 	simpleCharacter->getTransform()->setPosition(x, y, 100);
