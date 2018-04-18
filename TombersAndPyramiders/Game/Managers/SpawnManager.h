@@ -27,6 +27,7 @@ public:
 	std::shared_ptr<MovingSquare> generateMovingSquare(float x, float y);
 	std::shared_ptr<Character> generatePlayerCharacter(float x, float y);
 	std::shared_ptr<Character> generateAiCharacter (int id, float x, float y, bool isHost = false);
+	//std::shared_ptr<Character> generateBossAiCharacter(int id, float x, float y, bool isHost = false);
 	std::shared_ptr<WorldItem> generateWorldItem(float x, float y, std::shared_ptr<BaseItem> item);
 	std::shared_ptr<Character> generateDummyCharacter(float x, float y);
 	std::shared_ptr<GhostCharacter> generateGhost(float x, float y);
