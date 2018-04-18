@@ -48,23 +48,23 @@ void FogOfWarCamera::updateFogOfWarMask()
 				float dist = getTransform()->getDistance(lightTransform);
 				
 				float t = 1 - std::min( std::max( dist / (getGameHeight() / 2.0f), 0.0f ), 1.0f);
-				unsigned char r = lerp(t, 0.0f, lightR);
-				unsigned char g = lerp(t, 0.0f, lightG);
-				unsigned char b = lerp(t, 0.0f, lightB);
-				unsigned char a = lerp(t, 255.0f, 0.0f);
-				if (t < 0.3f) {
-					r = lerp((1 - t), r, 0.0f);
-					g = lerp((1 - t), g, 0.0f);
-					b = lerp((1 - t), b, 0.0f);
-					a = lerp((1 - t), a, 255.0f);
-				}
+				unsigned char r = lightR;//lerp(t, 0.0f, lightR);
+				unsigned char g = lightG;//lerp(t, 0.0f, lightG);
+				unsigned char b = lightB;//lerp(t, 0.0f, lightB);
+				unsigned char a = 120;//lerp(t, 255.0f, 0.0f);
+				//if (t < 0.4f) {
+				//	r = lerp((1 - t), r, 0.0f);
+				//	g = lerp((1 - t), g, 0.0f);
+				//	b = lerp((1 - t), b, 0.0f);
+				//	a = lerp((1 - t), a, 235.0f);
+				//}
 				
 				int lightRadiusPixels = lightSizePixels / 2.0f;
 				
 				for(int x = -lightRadiusPixels; x < lightRadiusPixels; x++ ) {
 					for(int y = -lightRadiusPixels; y < lightRadiusPixels; y++) {
 						int pos = ((screenY + y) * gameWidth + (screenX) + x) * 4;
-						if (pos >= 0 && pos < gameWidth * gameHeight * 4) {
+						if (pos >= 0 && pos < gameWidth * gameHeight * 4 - 3) {
 							int culmulativeDist = abs(x) + abs(y);
 							double hyp = sqrt(x*x + y*y);
 							if (hyp < lightRadiusPixels) {

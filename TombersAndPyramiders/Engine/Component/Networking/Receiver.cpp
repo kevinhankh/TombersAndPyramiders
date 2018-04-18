@@ -7,6 +7,11 @@
 #include "GhostController.h"
 #include "GhostReceiverPilot.h"
 #include "GhostCharacter.h"
+#include "PhysicsManager.h"
+#include "SpriteRendererManager.h"
+#include "Camera.h"
+#include "SceneManager.h"
+#include "MainMenuScene.h"
 
 Receiver::Receiver(GameObject* gameObject, int netID) : Component(gameObject)
 {
@@ -136,6 +141,18 @@ Receiver::Receiver(GameObject* gameObject, int netID) : Component(gameObject)
 			}
 			//We are a ghost not a character. We may or may not need to do movement equivalency
 		}
+	}, this);
+
+	this->m_onUpdateID = Subscribe("ENDGAME", [](std::map<std::string, void*> data) -> void
+	{
+		float netID = std::stoi(*(std::string*)data["ID"]);
+		if (NetworkingManager::getInstance()->isSelf(netID))
+			return;
+        PhysicsManager::getInstance()->purge();
+        SpriteRendererManager::getInstance()->purge();
+        NetworkingManager::getInstance()->hardReset();
+        Camera::getActiveCamera()->setActiveCamera(GameManager::getInstance()->createGameObject<Camera>(true));
+        SceneManager::getInstance()->pushScene(new MainMenuScene());
 	}, this);
 }
 

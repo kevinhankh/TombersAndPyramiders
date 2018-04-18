@@ -74,6 +74,8 @@ class BaseItem
 		std::shared_ptr<ComplexSpriteInfo> spriteInfo;
 		void addSprite(std::string filePath, std::string spriteName, int columns, int rows);
 		void addAnimation(std::string spriteName, std::string animationName, int frameStart, int frameEnd);
+		virtual void setupSprites();
+		float m_zIndex;
 
 	protected:
 		/**
