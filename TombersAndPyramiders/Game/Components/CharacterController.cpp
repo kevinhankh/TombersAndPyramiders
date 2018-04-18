@@ -150,6 +150,10 @@ bool CharacterController::tryInvokeTrigger()
 		{
 			possessable = (*it)->getComponent<BasePossessableController>();
 			invokable = dynamic_pointer_cast<Invokable>(possessable);
+			if (invokable == nullptr) 
+			{
+				invokable = dynamic_pointer_cast<Invokable>(*it);
+			}
 		}
 
 		if (invokable != nullptr || possessable != nullptr)
@@ -165,6 +169,7 @@ bool CharacterController::tryInvokeTrigger()
 
 	if (closest != nullptr)
 	{
+		m_audioSource->playSFX(SFX_DOOR);
 		closest->trigger();
 		return true;
 	}
@@ -303,7 +308,7 @@ std::shared_ptr<WorldItem> CharacterController::trySwapItem()
 			if (worldItem != nullptr) 
 			{
 				std::shared_ptr<BaseItem> extractedItem = worldItem->pickupItem();
-
+				m_audioSource->playSFX(SFX_ITEM);
 				std::shared_ptr<BaseItem> removedItem = m_inventory->addItem(extractedItem);
 				if (removedItem != nullptr) {
 					return SpawnManager::getInstance()->generateWorldItem(worldItem->getTransform()->getX(), worldItem->getTransform()->getY(), removedItem);

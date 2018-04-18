@@ -81,8 +81,7 @@ void NetworkedGameScene::onUpdate (int ticks)
 		{
 			PhysicsManager::getInstance()->purge();
 			SpriteRendererManager::getInstance()->purge();
-			NetworkingManager::getInstance()->closeClient();
-			NetworkingManager::getInstance()->closeUDP();
+			NetworkingManager::getInstance()->hardReset();
 			Camera::getActiveCamera()->setActiveCamera(GameManager::getInstance()->createGameObject<Camera>(true));
 			SceneManager::getInstance()->pushScene(new MainMenuScene());
 			//Return to menu
