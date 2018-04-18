@@ -55,6 +55,7 @@ void startGameCallback(std::map<std::string, void*> payload)
 			std::shared_ptr<Character> generatedCharacter = SpawnManager::getInstance()->generatePlayerCharacter(id, x, y);
 			scene->setCameraFollow(generatedCharacter);
 			SpawnManager::getInstance()->allPlayers.push_back(generatedCharacter);
+		
 		}
 		else
 		{
@@ -67,7 +68,11 @@ void startGameCallback(std::map<std::string, void*> payload)
 		x = std::stoi (*(std::string*)payload["aiSpawnX" + std::to_string (i)]);
 		y = std::stoi (*(std::string*)payload["aiSpawnY" + std::to_string (i)]);
 		SpawnManager::getInstance ()->generateAiCharacter (id, x, y, false);
+
+	//	SpawnManager::getInstance()->generateBossAiCharacter(id, x, y, false);
+		
 	}
+	
 
 	//Added boulder for testing possession
 	SpawnManager::getInstance()->generateBoulder(std::stof(*(std::string*)payload["playerSpawnX" + std::to_string(0)]) + 3, std::stof(*(std::string*)payload["playerSpawnY" + std::to_string(0)]) + 1);
@@ -112,6 +117,9 @@ void SpawnManager::sendStartPacket()
 			payload["aiSpawnID" + std::to_string (i)] = std::to_string (id++);
 			payload["aiSpawnX" + std::to_string (i)] = std::to_string (x);
 			payload["aiSpawnY" + std::to_string (i)] = std::to_string (y);
+
+			//SpawnManager::getInstance()->generateBossAiCharacter(id, x, y, false);
+
 		}
 	}
 
@@ -333,6 +341,36 @@ std::shared_ptr<Character> SpawnManager::generateAiCharacter(int id, float x, fl
 
 	return simpleAi;
 }
+
+/*std::shared_ptr<Character> SpawnManager::generateBossAiCharacter(int id, float x, float y, bool isHost)
+{
+
+	std::shared_ptr<Character> BossAi;
+	if (isHost) {
+		BossAi = GameManager::getInstance()->createGameObjectWithId<Character>(false, id, new AiPilot(), beetle);
+		std::shared_ptr<Sender> sender = addComponent<Sender>(BossAi.get(), id);
+	}
+	else {
+		BossAi = GameManager::getInstance()->createGameObjectWithId<Character>(false, id, new HostPilot(), beetle);
+		std::shared_ptr<Receiver> receiver = addComponent<Receiver>(BossAi.get(), id);
+	}
+
+	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
+	healthBar->setTrackingPlayer(BossAi);
+	BossAi->addComponent<Light>(BossAi.get())->setColor(50, 255, 30)->setSize(3.0f);
+	BossAi->getComponent<Inventory>()->addItem(std::make_shared<BaseLongbow>(
+		BaseLongbow::WOODEN_LONGBOW_DAMAGE, BaseLongbow::LONGBOW_CASTING_TIME, BaseLongbow::WOODEN_LONGBOW_IMAGE_NAME,
+		BaseLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME, BaseLongbow::WOODEN_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION));
+	BossAi->getComponent<Inventory>()->addItem(std::make_shared<BaseChestplate>(
+		BaseChestplate::WOODEN_CHESTPLATE_ICON_IMAGE_NAME, BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));
+	BossAi->getComponent<Inventory>()->addItem(std::make_shared<BaseHelmet>(
+		BaseHelmet::WOODEN_HELMET_ICON_IMAGE, BaseHelmet::WOODEN_HELMET_CRITICAL_RESIST_CHANCE));
+	BossAi->getTransform()->setPosition(x, y);
+	BossAi->getTransform()->renderRotation = false;
+	BossAi->getTransform()->setScale(4);
+
+	return BossAi;
+}*/
 
 std::shared_ptr<Character> SpawnManager::generateDummyCharacter(float x, float y)
 {

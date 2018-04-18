@@ -8,6 +8,12 @@
 #include "Character.h"
  #include "SpawnManager.h"
 
+#define SPEED_LEFT -0.01f
+#define SPEED_RIGHT 0.01f
+#define SPEED_UP 0.01f
+#define SPEED_DOWN -0.01f
+#define SPEED 0.01f
+
 class CharacterController;
 class Vector2;
 class AiPilot : public BasePilot
@@ -20,7 +26,7 @@ private:
 
 public:
 	bool checkRange();
-	bool checkPlayerStatus();
+	//bool checkPlayerStatus();
 	enum state
 	{
 		walk = 0,
@@ -35,8 +41,8 @@ public:
 	void onEnd() {};
 	
 	void CheckingTimer();
-	float engageDistance = 12;
-	float disengageDistance = 17;
+	float engageDistance = 15;
+	float disengageDistance = 20;
 	float stopDistance = 3;
 	float TimePassed = 0.0;
 

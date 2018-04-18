@@ -305,6 +305,7 @@ void CharacterController::death()
 			SceneManager::getInstance()->getCurrentScene()->setCameraFollow(newGhost);
 		}
 	}
+	m_character->getTransform()->setX(-222222222);
 
 	m_character->onEnd();
 	m_character->onNetworkEnd ();
