@@ -61,6 +61,10 @@ class BaseChestplate : public BaseEquippableItem, public std::enable_shared_from
 	protected:
 		std::shared_ptr<BaseItem> addSubclassToInventory();
 
-	private:
+	/*----------------------------------------------------------------------------------------
+	| Setup Sprites and Animations
+	----------------------------------------------------------------------------------------*/
+	protected:
+		void setupSprites();
 
 };

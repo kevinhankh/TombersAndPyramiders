@@ -40,6 +40,7 @@ Instance Methods
 void HostCharacter::onUpdate(int ticks)
 {
 	updateFrames(ticks);
+	updateInventoryPositions(ticks);
 }
 
 void HostCharacter::onNetworkEnd () {
