@@ -38,7 +38,7 @@ void startGameCallback(std::map<std::string, void*> payload)
 	{
 		int mapSeedID = std::stoi (*(std::string*)payload["mapSeedID" + std::to_string (0)]);
 		Randomize::SetSeed(mapSeedID);
-		GeneratorManager::getInstance ()->generateLevel (WORLD_WIDTH, WORLD_HEIGHT, 1, i);
+		GeneratorManager::getInstance ()->generateLevel (WORLD_WIDTH, WORLD_HEIGHT, 2, i);
 		GeneratorManager::getInstance()->drawLevel(i);
 	}
 
@@ -97,7 +97,7 @@ void SpawnManager::sendStartPacket()
 	{
 		time_t seed = time(NULL);
 		Randomize::SetSeed(seed);
-		GeneratorManager::getInstance()->generateLevel(WORLD_WIDTH, WORLD_HEIGHT, 1, i);
+		GeneratorManager::getInstance()->generateLevel(WORLD_WIDTH, WORLD_HEIGHT, 2, i);
 		payload["mapSeedID" + std::to_string(0)] = std::to_string(seed);
 		GeneratorManager::getInstance()->drawLevel(i);
 
