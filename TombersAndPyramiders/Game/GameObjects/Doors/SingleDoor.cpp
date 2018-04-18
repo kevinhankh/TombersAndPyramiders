@@ -10,16 +10,16 @@ Vector2* SingleDoor::createColliderOffset(Direction direction, float scale)
 	switch(direction)
 	{
 	case Door::West:
-		offset = new Vector2(5.0f, 3.0f);
+		offset = new Vector2(7.0f, 3.0f);
 		break;
 	case Door::East:
-		offset = new Vector2(5.0f, 3.0f);
+		offset = new Vector2(7.0f, 3.0f);
 		break;
 	case Door::North:
-		offset = new Vector2(1.0f, 5.0f);
+		offset = new Vector2(1.0f, 7.0f);
 		break;
 	case Door::South:
-		offset = new Vector2(1.0f, 5.0f);
+		offset = new Vector2(1.0f, 7.0f);
 		break;
 	default:
 		throw "ERROR::SingleDoor::createColliderOffset:: Not a valid direciton";

@@ -5,8 +5,8 @@
 const int SCREEN_WIDTH = 1024;
 const int SCREEN_HEIGHT = 768;
 
-const int WORLD_WIDTH = 18;
-const int WORLD_HEIGHT = 18;
+const int WORLD_WIDTH = 30;
+const int WORLD_HEIGHT = 30;
 const int PYRAMID_HEIGHT = 3;
 const int LEVEL_OFFSET = 250;
 

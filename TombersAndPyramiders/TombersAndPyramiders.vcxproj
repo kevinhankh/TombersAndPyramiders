@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0D909B57-AFD6-44B4-B192-3F9AD4D73850}</ProjectGuid>
     <RootNamespace>PyramidPanic</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -85,7 +85,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)TombersAndPyramiders;$(SolutionDir)TombersAndPyramiders\Game\Managers;$(SolutionDir)TombersAndPyramiders\Game\GameObjects\Doors;$(SolutionDir)TombersAndPyramiders\Game\GameObjects;$(SolutionDir)TombersAndPyramiders\Game\ExternalClasses\Invokable;$(SolutionDir)TombersAndPyramiders\Game\ExternalClasses\Possession;$(SolutionDir)TombersAndPyramiders\Game\ExternalClasses\EquipmentGoldSet;$(SolutionDir)TombersAndPyramiders\Game\ExternalClasses\EquipmentSilverSet;$(SolutionDir)TombersAndPyramiders\Game\ExternalClasses;$(SolutionDir)TombersAndPyramiders\Game\Scenes;$(SolutionDir)TombersAndPyramiders\Game\Scenes\MenuScenes;$(SolutionDir)TombersAndPyramiders\Game\Scenes\GameScenes;$(SolutionDir)TombersAndPyramiders\Game\Components;$(SolutionDir)TombersAndPyramiders\Game\GameObjects\Projectile;$(SolutionDir)TombersAndPyramiders\Game;$(SolutionDir)TombersAndPyramiders\Engine\Component\Collision;$(SolutionDir)TombersAndPyramiders\Engine\Component\Networking;$(SolutionDir)TombersAndPyramiders\Engine\Component\Transform;$(SolutionDir)TombersAndPyramiders\Engine\Component\Physics;$(SolutionDir)TombersAndPyramiders\Engine\Component\Audio;$(SolutionDir)TombersAndPyramiders\Engine\Component\Render;$(SolutionDir)TombersAndPyramiders\Engine\External\Render;$(SolutionDir)TombersAndPyramiders\Engine\External\LevelGeneration;$(SolutionDir)TombersAndPyramiders\Engine\External\Math;$(SolutionDir)TombersAndPyramiders\Engine\External;$(SolutionDir)TombersAndPyramiders\Engine\Component;$(SolutionDir)TombersAndPyramiders\Engine\GameObjects;$(SolutionDir)TombersAndPyramiders\Engine\Manager;$(SolutionDir)TombersAndPyramiders\Engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TombersAndPyramiders;$(SolutionDir)TombersAndPyramiders\Game\Managers;$(SolutionDir)TombersAndPyramiders\Game\GameObjects\Obstacles;$(SolutionDir)TombersAndPyramiders\Game\GameObjects\Doors;$(SolutionDir)TombersAndPyramiders\Game\GameObjects;$(SolutionDir)TombersAndPyramiders\Game\ExternalClasses\Invokable;$(SolutionDir)TombersAndPyramiders\Game\ExternalClasses\Possession;$(SolutionDir)TombersAndPyramiders\Game\ExternalClasses\EquipmentGoldSet;$(SolutionDir)TombersAndPyramiders\Game\ExternalClasses\EquipmentSilverSet;$(SolutionDir)TombersAndPyramiders\Game\ExternalClasses;$(SolutionDir)TombersAndPyramiders\Game\Scenes;$(SolutionDir)TombersAndPyramiders\Game\Scenes\MenuScenes;$(SolutionDir)TombersAndPyramiders\Game\Scenes\GameScenes;$(SolutionDir)TombersAndPyramiders\Game\Components;$(SolutionDir)TombersAndPyramiders\Game\GameObjects\Projectile;$(SolutionDir)TombersAndPyramiders\Game;$(SolutionDir)TombersAndPyramiders\Engine\Component\Collision;$(SolutionDir)TombersAndPyramiders\Engine\Component\Networking;$(SolutionDir)TombersAndPyramiders\Engine\Component\Transform;$(SolutionDir)TombersAndPyramiders\Engine\Component\Physics;$(SolutionDir)TombersAndPyramiders\Engine\Component\Audio;$(SolutionDir)TombersAndPyramiders\Engine\Component\Render;$(SolutionDir)TombersAndPyramiders\Engine\External\Render;$(SolutionDir)TombersAndPyramiders\Engine\External\LevelGeneration;$(SolutionDir)TombersAndPyramiders\Engine\External\Math;$(SolutionDir)TombersAndPyramiders\Engine\External;$(SolutionDir)TombersAndPyramiders\Engine\Component;$(SolutionDir)TombersAndPyramiders\Engine\GameObjects;$(SolutionDir)TombersAndPyramiders\Engine\Manager;$(SolutionDir)TombersAndPyramiders\Engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
@@ -168,6 +168,8 @@
     <ClCompile Include="Engine\External\Render\SpriteSheet.cpp" />
     <ClCompile Include="Engine\GameObjects\Camera.cpp" />
     <ClCompile Include="Engine\GameObjects\ComplexSprite.cpp" />
+    <ClCompile Include="Game\Components\ObstacleController.cpp" />
+    <ClCompile Include="Game\ExternalClasses\ObstaclePilot.cpp" />
     <ClCompile Include="Game\GameObjects\FogOfWarCamera.cpp" />
     <ClCompile Include="Engine\GameObjects\SimpleSprite.cpp" />
     <ClCompile Include="Engine\GameObjects\Tiles\ConnectorTile.cpp" />
@@ -239,6 +241,9 @@
     <ClCompile Include="Game\GameObjects\HealthBar.cpp" />
     <ClCompile Include="Game\GameObjects\HostCharacter.cpp" />
     <ClCompile Include="Game\GameObjects\NetworkCharacter.cpp" />
+    <ClCompile Include="Game\GameObjects\Obstacles\DartTrap.cpp" />
+    <ClCompile Include="Game\GameObjects\Obstacles\Obstacle.cpp" />
+    <ClCompile Include="Game\GameObjects\Obstacles\Spikes.cpp" />
     <ClCompile Include="Game\GameObjects\Panel.cpp" />
     <ClCompile Include="Game\GameObjects\PositionBasedPopup.cpp" />
     <ClCompile Include="Game\GameObjects\Projectile.cpp" />
@@ -295,6 +300,9 @@
     <ClInclude Include="Engine\GameObjects\Camera.h" />
     <ClInclude Include="Engine\GameObjects\ComplexSprite.h" />
     <ClInclude Include="Game\Assets\Shaders\grayscale.fs" />
+    <ClInclude Include="Game\Components\ObstacleController.h" />
+    <ClInclude Include="Game\ExternalClasses\ObstaclePilot.h" />
+    <ClInclude Include="Game\ExternalClasses\TimeInterval.h" />
     <ClInclude Include="Game\GameObjects\FogOfWarCamera.h" />
     <ClInclude Include="Engine\GameObjects\SimpleSprite.h" />
     <ClInclude Include="Engine\GameObjects\Tiles\ConnectorTile.h" />
@@ -371,6 +379,9 @@
     <ClInclude Include="Game\GameObjects\HealthBar.h" />
     <ClInclude Include="Game\GameObjects\HostCharacter.h" />
     <ClInclude Include="Game\GameObjects\NetworkCharacter.h" />
+    <ClInclude Include="Game\GameObjects\Obstacles\DartTrap.h" />
+    <ClInclude Include="Game\GameObjects\Obstacles\Obstacle.h" />
+    <ClInclude Include="Game\GameObjects\Obstacles\Spikes.h" />
     <ClInclude Include="Game\GameObjects\Panel.h" />
     <ClInclude Include="Game\GameObjects\PlayerCharacter.h" />
     <ClInclude Include="Game\GameObjects\PositionBasedPopup.h" />
