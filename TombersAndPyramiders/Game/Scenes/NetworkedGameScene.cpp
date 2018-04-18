@@ -37,7 +37,7 @@ void NetworkedGameScene::onStart ()
 
 	SpawnManager::getInstance()->generateMiscSquare(25, -25, -100, 1000, "ControlsBlank.png", false);
 
-	//SpawnManager::getInstance()->generateMiscSquare(25, -25, -100, 1000, "sandBG.png", false);
+	SpawnManager::getInstance()->generateMiscSquare(25, -25, -100, 1000, "sandBG.png", false);
 	SpawnManager::getInstance()->generateWorldItem(5, -5, std::make_shared<BaseShortsword>(
 		BaseShortsword::WOODEN_SHORTSWORD_DAMAGE, BaseShortsword::WOODEN_SHORTSWORD_IMAGE_NAME,
 		BaseShortsword::WOODEN_SHORTSWORD_DESTROY_ON_COLLISION));

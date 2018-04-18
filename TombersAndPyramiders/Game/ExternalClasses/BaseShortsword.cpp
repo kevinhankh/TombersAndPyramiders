@@ -46,7 +46,7 @@ BaseShortsword::BaseShortsword(int damage, string imageName, bool destroyOnColli
 	m_damagingRegion->getComponent<BoxCollider>()->setDisabled(true);
 	m_damagingRegion->getTransform()->setScale(0);
 	BaseItem::m_itemIcon = imageName;
-	setupSprites();
+	setupSprites(imageName);
 	m_zIndex = 102;
 }
 
@@ -66,27 +66,77 @@ void BaseShortsword::setProperties(int damage, string imageName, bool destroyOnC
 /*----------------------------------------------------------------------------------------
 | Setup Sprites and Animations
 ----------------------------------------------------------------------------------------*/
-void BaseShortsword::setupSprites()
+void BaseShortsword::setupSprites(std::string identifier)
 {
 	spriteInfo = std::make_shared<ComplexSpriteInfo>();
 
-	addSprite("Player/Attack/Melee/sword.png", "walk", 6, 4);
-	addAnimation("walk", "WalkUp", 0, 0);
-	addAnimation("walk", "WalkLeft", 6, 6);
-	addAnimation("walk", "WalkDown", 12, 12);
-	addAnimation("walk", "WalkRight", 18, 18);
-	addAnimation("walk", "IdleUp", 0, 0);
-	addAnimation("walk", "IdleLeft", 6, 6);
-	addAnimation("walk", "IdleDown", 12, 12);
-	addAnimation("walk", "IdleRight", 18, 18);
+	if (identifier == BaseShortsword::WOODEN_SHORTSWORD_IMAGE_NAME)
+	{
+		addSprite("Player/Attack/Melee/sword.png", "walk", 6, 4);
+		addAnimation("walk", "WalkUp", 0, 0);
+		addAnimation("walk", "WalkLeft", 6, 6);
+		addAnimation("walk", "WalkDown", 12, 12);
+		addAnimation("walk", "WalkRight", 18, 18);
+		addAnimation("walk", "IdleUp", 0, 0);
+		addAnimation("walk", "IdleLeft", 6, 6);
+		addAnimation("walk", "IdleDown", 12, 12);
+		addAnimation("walk", "IdleRight", 18, 18);
 
-	addSprite("Player/Attack/Melee/sword.png", "slash", 6, 4);
-	addAnimation("slash", "SlashUp", 1, 5);
-	addAnimation("slash", "SlashLeft", 7, 11);
-	addAnimation("slash", "SlashDown", 13, 17);
-	addAnimation("slash", "SlashRight", 19, 23);
-	addAnimation("slash", "IdleUp", 0, 0);
-	addAnimation("slash", "IdleLeft", 6, 6);
-	addAnimation("slash", "IdleDown", 12, 12);
-	addAnimation("slash", "IdleRight", 18, 18);
+		addSprite("Player/Attack/Melee/sword.png", "slash", 6, 4);
+		addAnimation("slash", "SlashUp", 1, 5);
+		addAnimation("slash", "SlashLeft", 7, 11);
+		addAnimation("slash", "SlashDown", 13, 17);
+		addAnimation("slash", "SlashRight", 19, 23);
+		addAnimation("slash", "IdleUp", 0, 0);
+		addAnimation("slash", "IdleLeft", 6, 6);
+		addAnimation("slash", "IdleDown", 12, 12);
+		addAnimation("slash", "IdleRight", 18, 18);
+	}
+	else if (identifier == BaseShortsword::SILVER_SHORTSWORD_IMAGE_NAME)
+	{
+		addSprite("Player/Attack/Melee/sword.png", "walk", 6, 4);
+		addAnimation("walk", "WalkUp", 0, 0);
+		addAnimation("walk", "WalkLeft", 6, 6);
+		addAnimation("walk", "WalkDown", 12, 12);
+		addAnimation("walk", "WalkRight", 18, 18);
+		addAnimation("walk", "IdleUp", 0, 0);
+		addAnimation("walk", "IdleLeft", 6, 6);
+		addAnimation("walk", "IdleDown", 12, 12);
+		addAnimation("walk", "IdleRight", 18, 18);
+
+		addSprite("Player/Attack/Melee/sword.png", "slash", 6, 4);
+		addAnimation("slash", "SlashUp", 1, 5);
+		addAnimation("slash", "SlashLeft", 7, 11);
+		addAnimation("slash", "SlashDown", 13, 17);
+		addAnimation("slash", "SlashRight", 19, 23);
+		addAnimation("slash", "IdleUp", 0, 0);
+		addAnimation("slash", "IdleLeft", 6, 6);
+		addAnimation("slash", "IdleDown", 12, 12);
+		addAnimation("slash", "IdleRight", 18, 18);
+	}
+	else if (identifier == BaseShortsword::GOLD_SHORTSWORD_IMAGE_NAME)
+	{
+		spriteInfo = std::make_shared<ComplexSpriteInfo>();
+
+		addSprite("Player/Attack/Melee/sword_gold.png", "walk", 6, 4);
+		addAnimation("walk", "WalkUp", 0, 0);
+		addAnimation("walk", "WalkLeft", 6, 6);
+		addAnimation("walk", "WalkDown", 12, 12);
+		addAnimation("walk", "WalkRight", 18, 18);
+		addAnimation("walk", "IdleUp", 0, 0);
+		addAnimation("walk", "IdleLeft", 6, 6);
+		addAnimation("walk", "IdleDown", 12, 12);
+		addAnimation("walk", "IdleRight", 18, 18);
+
+		addSprite("Player/Attack/Melee/sword_gold.png", "slash", 6, 4);
+		addAnimation("slash", "SlashUp", 1, 5);
+		addAnimation("slash", "SlashLeft", 7, 11);
+		addAnimation("slash", "SlashDown", 13, 17);
+		addAnimation("slash", "SlashRight", 19, 23);
+		addAnimation("slash", "IdleUp", 0, 0);
+		addAnimation("slash", "IdleLeft", 6, 6);
+		addAnimation("slash", "IdleDown", 12, 12);
+		addAnimation("slash", "IdleRight", 18, 18);
+	}
+
 }

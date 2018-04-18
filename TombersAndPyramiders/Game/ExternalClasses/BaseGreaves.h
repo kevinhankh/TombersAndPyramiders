@@ -87,5 +87,5 @@ class BaseGreaves : public BaseEquippableItem, public Updateable, public std::en
 		/*----------------------------------------------------------------------------------------
 		| Setup Sprites and Animations
 		----------------------------------------------------------------------------------------*/
-		void setupSprites();
+		void setupSprites(std::string identifier);
 };
