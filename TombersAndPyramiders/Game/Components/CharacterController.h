@@ -38,6 +38,7 @@ class CharacterController : public BaseController, public Damageable
 	public:
 		static const int DEFAULT_CHARACTER_MAX_HP;
 		static const Vector2 DEFAULT_CHARACTER_MOVEMENT_SPEED;
+		int level;
 
 	private:
 		Inventory* m_inventory;
@@ -87,6 +88,11 @@ class CharacterController : public BaseController, public Damageable
 			Tries to trigger around the player the closest available thing, returning true if something triggered
 		*/
 		bool tryInvokeTrigger();
+
+		/**
+			Tries to enter next level
+		*/
+		void tryNextLevel();
 
 		/*
 			Uses the character's shield this frame.
