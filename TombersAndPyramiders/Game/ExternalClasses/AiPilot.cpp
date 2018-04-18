@@ -183,7 +183,6 @@ Vector2 AiPilot::getRandomMovement()
 	coun++;
 	if (coun == 30)
 	{
-		randomNumber = rand() % 11;
 		randomNumber = Randomize::Random(0, 21);
 		coun = 0;
 	}

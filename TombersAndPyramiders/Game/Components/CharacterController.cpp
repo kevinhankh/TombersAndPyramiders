@@ -38,6 +38,7 @@
 #include "PlayerPilot.h"
 #include "Receiver.h"
 #include "MessageManager.h"
+#include "GeneratorManager.h"
 #include <sstream>
 
 /*----------------------------------------------------------------------------------------
@@ -72,6 +73,7 @@ CharacterController::CharacterController(GameObject* parentGameobject, Inventory
 	{
 		m_audioListener = gameObject->addComponent<AudioListener>(gameObject);
 	}
+	level = 0;
 }
 
 /*----------------------------------------------------------------------------------------
@@ -169,6 +171,23 @@ bool CharacterController::tryInvokeTrigger()
 		return true;
 	}
 	return false;
+}
+
+void CharacterController::tryNextLevel()
+{
+	// check if player within certain distance of staircase on this level
+	int stairX = GeneratorManager::getInstance()->levels[level]->stairX;
+	int stairY = GeneratorManager::getInstance()->levels[level]->stairY;
+	int distance = sqrt((stairX - this->getGameObject()->getTransform()->getX()) * (stairX - this->getGameObject()->getTransform()->getX()) + (stairY - this->getGameObject()->getTransform()->getY()) * (stairY - this->getGameObject()->getTransform()->getY()));
+	
+	if (distance < 3 && level+1 < PYRAMID_HEIGHT)
+	{
+		int x = GeneratorManager::getInstance()->levels[level+1]->spawnX;
+		int y = GeneratorManager::getInstance()->levels[level+1]->spawnY;
+		this->getGameObject()->getTransform()->setPosition(x,y);
+		level++;
+	}
+
 }
 
 

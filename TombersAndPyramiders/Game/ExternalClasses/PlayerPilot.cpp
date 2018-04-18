@@ -70,6 +70,7 @@ void PlayerPilot::onUpdate (int ticks)
 		else
 		{
 			tryInvokeTrigger ();
+			tryNextLevel();
 		}
 	}
 	/* Use shield. */
@@ -102,6 +103,14 @@ void PlayerPilot::onUpdate (int ticks)
 		else {
 			m_characterController->trySwapItem ();
 		}
+	}
+}
+
+void PlayerPilot::tryNextLevel()
+{
+	if (InputManager::getInstance()->onKeyPressed(SDLK_z))
+	{
+		m_characterController->tryNextLevel();
 	}
 }
 
