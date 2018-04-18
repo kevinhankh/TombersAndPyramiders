@@ -98,10 +98,10 @@ std::shared_ptr<ComplexSpriteInfo> Character::generateComplexSpriteInfo(Characte
 		spriteInfo->addAnimation(walk, "IdleDown", 18, 18);
 		spriteInfo->addAnimation(walk, "IdleRight", 27, 27);
 
-		spriteInfo->addAnimation(slash, "SlashUp", 1, 5);
-		spriteInfo->addAnimation(slash, "SlashLeft", 7, 11);
-		spriteInfo->addAnimation(slash, "SlashDown", 13, 17);
-		spriteInfo->addAnimation(slash, "SlashRight", 19, 23);
+		spriteInfo->addAnimation(slash, "SlashUp", 0, 5);
+		spriteInfo->addAnimation(slash, "SlashLeft", 6, 11);
+		spriteInfo->addAnimation(slash, "SlashDown", 12, 17);
+		spriteInfo->addAnimation(slash, "SlashRight", 18, 23);
 		spriteInfo->addAnimation(slash, "IdleUp", 0, 0);
 		spriteInfo->addAnimation(slash, "IdleLeft", 6, 6);
 		spriteInfo->addAnimation(slash, "IdleDown", 12, 12);
@@ -407,7 +407,7 @@ void Character::updateInventory(bool addingItem, std::shared_ptr<BaseItem> item)
 		if (itemToDelete > -1)
 		{
 			equippedItems[itemToDelete]->destroy(equippedItems[itemToDelete]->getId());
-			equippedItems.erase(equippedItems.begin() + itemToDelete - 1);
+			equippedItems.erase(equippedItems.begin() + itemToDelete);
 		}
 	}
 }
@@ -419,8 +419,8 @@ void Character::updateInventoryPositions(int ticks)
 		equippedItems[i]->getTransform()->setPosition(getTransform()->getX(), getTransform()->getY());
 		equippedItems[i]->getTransform()->setZ(equippedItems[i]->m_derivedItem->m_zIndex);
 
-		//equippedItems[i]->updateFrames(ticks);
-		equippedItems[i]->nextFrame();
+		equippedItems[i]->updateFrames(ticks);
+		//equippedItems[i]->nextFrame();
 	}
 }
 

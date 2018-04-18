@@ -119,6 +119,10 @@
     <ClCompile Include="AnimatedItem.cpp" />
     <ClCompile Include="Game\GameObjects\HealthBar.cpp" />
     <ClCompile Include="Game\GameObjects\PositionBasedPopup.cpp" />
+<<<<<<< HEAD
+    <ClCompile Include="Game\GameObjects\Throne.cpp" />
+    <ClCompile Include="Game\GameObjects\SpinningEffect.cpp" />
+=======
     <ClCompile Include="Game\GameObjects\SpinningEffect.cpp" />
     <ClCompile Include="Game\GameObjects\Throne.cpp" />
     <ClCompile Include="Game\ExternalClasses\ObstaclePilot.cpp" />
@@ -126,6 +130,7 @@
     <ClCompile Include="Game\GameObjects\Obstacles\Obstacle.cpp" />
     <ClCompile Include="Game\GameObjects\Obstacles\Spikes.cpp" />
     <ClCompile Include="Game\Components\ObstacleController.cpp" />
+>>>>>>> 0225ee20358b6c123ca0a974c66bbd4802f9d3a5
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Component\AI\AI.h" />
@@ -257,6 +262,10 @@
     <ClInclude Include="AnimatedItem.h" />
     <ClInclude Include="Game\GameObjects\HealthBar.h" />
     <ClInclude Include="Game\GameObjects\PositionBasedPopup.h" />
+<<<<<<< HEAD
+    <ClInclude Include="Game\GameObjects\Throne.h" />
+    <ClInclude Include="Game\GameObjects\SpinningEffect.h" />
+=======
     <ClInclude Include="Game\GameObjects\SpinningEffect.h" />
     <ClInclude Include="Game\GameObjects\Throne.h" />
     <ClInclude Include="Game\ExternalClasses\ObstaclePilot.h" />
@@ -265,6 +274,7 @@
     <ClInclude Include="Game\GameObjects\Obstacles\Obstacle.h" />
     <ClInclude Include="Game\GameObjects\Obstacles\Spikes.h" />
     <ClInclude Include="Game\Components\ObstacleController.h" />
+>>>>>>> 0225ee20358b6c123ca0a974c66bbd4802f9d3a5
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Character.bmp" />
