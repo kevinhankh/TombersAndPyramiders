@@ -52,22 +52,22 @@ void Room::draw()
 				if (i == 0 && j == 0)
 				{
 					// top left corner
-					SpawnManager::getInstance()->generateMiscSquare(m_level * LEVEL_OFFSET + (m_xCoord * m_scale + 2 + j * m_scale), m_yCoord * m_scale - 2 - i * m_scale, -1, m_scale, "wallTopLeft_EdgeShift.png", true);
+					SpawnManager::getInstance()->generateMiscSquare(m_level * LEVEL_OFFSET + (m_xCoord * m_scale + 2 + j * m_scale), m_yCoord * m_scale - 2 - i * m_scale, -1, m_scale, "wallTopLeft_EdgeShift.png", false);
 				}
 				else if (i == 0 && j == m_width - 1)
 				{
 					//top right corner
-					SpawnManager::getInstance()->generateMiscSquare(m_level * LEVEL_OFFSET + (m_xCoord * m_scale + 2 + j * m_scale), m_yCoord * m_scale - 2 - i * m_scale, -1, m_scale, "wallTopRight_EdgeShift.png", true);
+					SpawnManager::getInstance()->generateMiscSquare(m_level * LEVEL_OFFSET + (m_xCoord * m_scale + 2 + j * m_scale), m_yCoord * m_scale - 2 - i * m_scale, -1, m_scale, "wallTopRight_EdgeShift.png", false);
 				}
 				else if (i == m_height - 1 && j == 0)
 				{
 					//bottom left corner
-					SpawnManager::getInstance()->generateMiscSquare(m_level * LEVEL_OFFSET + (m_xCoord * m_scale + 2 + j * m_scale), m_yCoord * m_scale - 2 - i * m_scale, 2000, m_scale, "wallBottomLeftShift.png", true);
+					SpawnManager::getInstance()->generateMiscSquare(m_level * LEVEL_OFFSET + (m_xCoord * m_scale + 2 + j * m_scale), m_yCoord * m_scale - 2 - i * m_scale, 2000, m_scale, "wallBottomLeftShift.png", false);
 				}
 				else if (i == m_height - 1 && j == m_width - 1)
 				{
 					//bottom right corner
-					SpawnManager::getInstance()->generateMiscSquare(m_level * LEVEL_OFFSET + (m_xCoord * m_scale + 2 + j * m_scale), m_yCoord * m_scale - 2 - i * m_scale, 2000, m_scale, "wallBottomRightShift.png", true);
+					SpawnManager::getInstance()->generateMiscSquare(m_level * LEVEL_OFFSET + (m_xCoord * m_scale + 2 + j * m_scale), m_yCoord * m_scale - 2 - i * m_scale, 2000, m_scale, "wallBottomRightShift.png", false);
 				}
 				else if (i == 0)
 				{

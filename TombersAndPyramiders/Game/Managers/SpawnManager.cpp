@@ -40,6 +40,7 @@ void startGameCallback(std::map<std::string, void*> payload)
 		Randomize::SetSeed(mapSeedID);
 		GeneratorManager::getInstance ()->generateLevel (WORLD_WIDTH, WORLD_HEIGHT, 2, i);
 		GeneratorManager::getInstance()->drawLevel(i);
+		GeneratorManager::getInstance()->reset();
 	}
 
 

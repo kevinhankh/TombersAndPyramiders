@@ -34,6 +34,17 @@ GeneratorManager::GeneratorManager()
 	}
 }
 
+void GeneratorManager::reset()
+{
+	for (int i = 0; i < WORLD_WIDTH; i++)
+	{
+		for (int j = 0; j < WORLD_HEIGHT; j++)
+		{
+			worldMatrix[i][j] = -1;
+		}
+	}
+}
+
 void GeneratorManager::generateLevel(int width, int height, int detailLevel, int level) 
 {
 	std::shared_ptr<Level> temp = std::make_shared<Level>();
@@ -175,6 +186,7 @@ void GeneratorManager::recordCorridor(std::shared_ptr<Corridor> c)
 			{
 				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 8;
 			}
+			/*
 			else if ((temp == 5) && ((j == 0 && i != 0 && i != c->m_height - 1) || (j == c->m_width - 1 && i != 0 && i != c->m_height - 1) || (i == c->m_height - 1 && j != 0 && j != c->m_width - 1)))
 			{
 				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 0;
@@ -190,7 +202,7 @@ void GeneratorManager::recordCorridor(std::shared_ptr<Corridor> c)
 			else if ((temp == 8) && ((i == 0 && j != 0 && j != c->m_width - 1) || (j == c->m_width - 1 && i != 0 && i != c->m_height - 1) || (i == c->m_height - 1 && j != 0 && j != c->m_width - 1)))
 			{
 				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 0;
-			}
+			}*/
 			else if (temp == -1 && (i == 0 && j != 0 && j != c->m_width - 1))
 			{
 				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 5;
