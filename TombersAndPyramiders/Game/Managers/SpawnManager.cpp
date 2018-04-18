@@ -103,7 +103,7 @@ void SpawnManager::sendStartPacket()
 		time_t seed = time(NULL);
 		Randomize::SetSeed(seed);
 		GeneratorManager::getInstance()->generateLevel(WORLD_WIDTH, WORLD_HEIGHT, 2, i);
-		payload["mapSeedID" + std::to_string(0)] = std::to_string(seed);
+		payload["mapSeedID" + std::to_string(i)] = std::to_string(seed);
 		GeneratorManager::getInstance()->drawLevel(i);
 
 		//ai spawns
@@ -115,10 +115,10 @@ void SpawnManager::sendStartPacket()
 			x += i * LEVEL_OFFSET;
 			SpawnManager::getInstance ()->generateAiCharacter (id, x, y, true);
 
-			payload["aiSpawnID" + std::to_string (i)] = std::to_string (id++);
-			payload["aiSpawnX" + std::to_string (i)] = std::to_string (x);
-			payload["aiSpawnY" + std::to_string (i)] = std::to_string (y);
-
+			payload["aiSpawnID" + std::to_string (j + (5 * i))] = std::to_string (id++);
+			payload["aiSpawnX" + std::to_string (j + (5 * i))] = std::to_string (x);
+			payload["aiSpawnY" + std::to_string (j + (5 * i))] = std::to_string (y);
+			std::cout << payload["aiSpawnID" + std::to_string(j + (5 * i))] << " " << payload["aiSpawnX" + std::to_string(j + (5 * i))] << " " << payload["aiSpawnY" + std::to_string(j + (5 * i))] << std::endl;
 			//SpawnManager::getInstance()->generateBossAiCharacter(id, x, y, false);
 
 		}
