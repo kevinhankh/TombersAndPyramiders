@@ -69,12 +69,12 @@ void HealthBar::setTrackingPlayer(std::shared_ptr<GameObject> playerToTrack)
 {
 	if (m_subscriptionID != 0) {
 		std::stringstream oldEvent;
-		oldEvent << m_playerToTrack->getId() << "|HURT";
+		oldEvent << m_playerToTrack->getId() << "|HEALTHBAR";
 		MessageManager::unSubscribe(oldEvent.str(), m_subscriptionID);
 	}
 	m_playerToTrack = playerToTrack;
 	std::stringstream newEvent;
-	newEvent << m_playerToTrack->getId() << "|HURT";
+	newEvent << m_playerToTrack->getId() << "|HEALTHBAR";
 	m_subscriptionID = MessageManager::subscribe(newEvent.str(), updateHealthBarCallback, this);
 }
 
