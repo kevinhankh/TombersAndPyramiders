@@ -125,6 +125,17 @@ void SpawnManager::sendStartPacket()
 			//SpawnManager::getInstance()->generateBossAiCharacter(id, x, y, false);
 
 		}
+
+		for (int r = 0; r < GeneratorManager::getInstance()->levels[i]->rooms.size(); r++) {
+			for (int am = 0; am < 6; am++) {
+				x = ((Randomize::Random() % (GeneratorManager::getInstance()->levels[i]->rooms[r]->m_width - 3) + 1) + GeneratorManager::getInstance()->levels[i]->rooms[r]->m_xCoord) * 5;
+				y = (GeneratorManager::getInstance()->levels[i]->rooms[r]->m_yCoord - (Randomize::Random() % (GeneratorManager::getInstance()->levels[i]->rooms[r]->m_height - 3) + 1)) * 5;
+				SpawnManager::getInstance()->generateSpikes(x + Randomize::Random(0, 4), y + Randomize::Random(0, 4));
+				if (am > 3) {
+					SpawnManager::getInstance()->generateDartTrap(x + (Randomize::Random(0, 4) - 2), y + (Randomize::Random(0, 4) - 2), (DartTrap::Direction)Randomize::Random(0, 3));
+				}
+			}
+		}
 	}
 
 
@@ -147,6 +158,7 @@ void SpawnManager::sendStartPacket()
 		id = it->first;
 		x = ((Randomize::Random(0, GeneratorManager::getInstance()->levels[0]->rooms[room]->m_width - 3) + 1) + GeneratorManager::getInstance()->levels[0]->rooms[room]->m_xCoord)*5;
 		y = (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_yCoord - (Randomize::Random(0, GeneratorManager::getInstance()->levels[0]->rooms[room]->m_height - 3) + 1))*5;
+
 		payload["playerSpawnIP" + std::to_string(i)] = std::to_string(id);
 		payload["playerSpawnX" + std::to_string(i)] = std::to_string(x);
 		payload["playerSpawnY" + std::to_string(i)] = std::to_string(y);
@@ -155,7 +167,7 @@ void SpawnManager::sendStartPacket()
 	}
 
 	//Added boulder for testing possession
-	SpawnManager::getInstance()->generateBoulder(std::stof(payload["playerSpawnX" + std::to_string(0)]) + 3, std::stof(payload["playerSpawnY" + std::to_string(0)]) + 1);
+	SpawnManager::getInstance()->generateBoulder(std::stof(payload["playerSpawnX" + std::to_string(0)]) - 2, std::stof(payload["playerSpawnY" + std::to_string(0)]) + 4);
 
 	NetworkingManager::getInstance()->prepareMessageForSendingTCP(0, "STARTGAME", payload);
 }
@@ -385,6 +397,23 @@ std::shared_ptr<Boulder> SpawnManager::generateBoulder(float x, float y)
 	boulder->getTransform()->setPosition(x, y);
 	boulder->getTransform()->setZ(2);
 	return boulder;
+}
+
+std::shared_ptr<Spikes> SpawnManager::generateSpikes(float x, float y)
+{
+	std::shared_ptr<Spikes> spikes = GameManager::getInstance()->createGameObject<Spikes>(false, Spikes::Direction::North, Spikes::Mode::Enabled, x, y, 2);
+	spikes->getTransform()->setPosition(x, y);
+	spikes->getTransform()->setZ(2);
+	return spikes;
+}
+
+std::shared_ptr<DartTrap> SpawnManager::generateDartTrap(float x, float y, DartTrap::Direction direction)
+{
+	std::shared_ptr<DartTrap> dartTrap = GameManager::getInstance()->createGameObject<DartTrap>(false, direction, DartTrap::Mode::Enabled, x, y, 2);
+	dartTrap->getTransform()->setPosition(x, y);
+	dartTrap->getTransform()->setZ(2);
+	dartTrap->getTransform()->setRotation(direction * 90);
+	return dartTrap;
 }
 
 std::shared_ptr<GhostCharacter> SpawnManager::generateNetworkGhost(float x, float y, int netId, bool isPlayer)
