@@ -103,6 +103,7 @@ void SpawnManager::sendStartPacket()
 		payload["mapSeedID" + std::to_string(0)] = std::to_string(seed);
 		GeneratorManager::getInstance()->drawLevel(i);
 
+		//ai spawns
 		int room = Randomize::Random(0, GeneratorManager::getInstance()->levels[i]->rooms.size() - 2);
 
 		for (int j = 0; j < 5; j++) {

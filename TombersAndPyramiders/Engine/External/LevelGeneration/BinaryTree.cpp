@@ -115,7 +115,7 @@ void BinaryTree::partition(int depth, std::shared_ptr<BTNode> node)
 		{
 			xOffset = Randomize::Random() % (node->m_boundsWidth - roomWidth);
 		}
-		node->room = std::make_shared<Room>(roomWidth, roomHeight, node->m_cornerX + xOffset, node->m_cornerY - yOffset, false, m_level);
+		node->room = std::make_shared<Room>(roomWidth, roomHeight, node->m_cornerX + xOffset, node->m_cornerY - yOffset, false, false, m_level);
 		GeneratorManager::getInstance()->levels[m_level]->rooms.push_back(node->room);
 		GeneratorManager::getInstance()->recordRoom(node->room);
 		return;
