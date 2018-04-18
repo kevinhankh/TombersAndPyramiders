@@ -65,6 +65,6 @@ class BaseChestplate : public BaseEquippableItem, public std::enable_shared_from
 	| Setup Sprites and Animations
 	----------------------------------------------------------------------------------------*/
 	protected:
-		void setupSprites();
+		void setupSprites(std::string identifier);
 
 };

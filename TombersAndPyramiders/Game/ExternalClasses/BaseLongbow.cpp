@@ -60,7 +60,7 @@ BaseLongbow::BaseLongbow(int damage, float castingTime,
 	else
 	{
 		m_zIndex = 102;
-		setupSprites();
+		setupSprites(bowImageName);
 	}
 }
 
@@ -79,8 +79,110 @@ void BaseLongbow::setProperties(int damage, float castingTime, std::string bowIm
 /*----------------------------------------------------------------------------------------
 | Setup Sprites and Animations
 ----------------------------------------------------------------------------------------*/
-void BaseLongbow::setupSprites()
+void BaseLongbow::setupSprites(std::string identifier)
 {
+	//spriteInfo = std::make_shared<ComplexSpriteInfo>();
+
+	//if (identifier == BaseLongbow::WOODEN_LONGBOW_IMAGE_NAME)
+	//{
+	//	addSprite("Player/Atlas/bow.png", "walk", 13, 21);
+	//	addSprite("Player/Atlas/bow.png", "shoot", 13, 21);
+	//	addSprite("Player/Atlas/bow.png", "slash", 13, 21);
+
+	//	addAnimation("walk", "WalkUp", 104, 112);
+	//	addAnimation("walk", "WalkLeft", 117, 125);
+	//	addAnimation("walk", "WalkDown", 130, 138);
+	//	addAnimation("walk", "WalkRight", 143, 151);
+	//	addAnimation("walk", "IdleUp", 104, 104);
+	//	addAnimation("walk", "IdleLeft", 117, 117);
+	//	addAnimation("walk", "IdleDown", 130, 130);
+	//	addAnimation("walk", "IdleRight", 143, 143);
+
+	//	addAnimation("shoot", "ShootUp", 208, 220);
+	//	addAnimation("shoot", "ShootLeft", 221, 233);
+	//	addAnimation("shoot", "ShootDown", 234, 246);
+	//	addAnimation("shoot", "ShootRight", 247, 259);
+	//	addAnimation("shoot", "IdleUp", 208, 208);
+	//	addAnimation("shoot", "IdleLeft", 221, 221);
+	//	addAnimation("shoot", "IdleDown", 234, 234);
+	//	addAnimation("shoot", "IdleRight", 247, 247);
+
+	//	addAnimation("slash", "SlashUp", 156, 161);
+	//	addAnimation("slash", "SlashLeft", 169, 174);
+	//	addAnimation("slash", "SlashDown", 182, 187);
+	//	addAnimation("slash", "SlashRight", 195, 200);
+	//	addAnimation("slash", "IdleUp", 156, 156);
+	//	addAnimation("slash", "IdleLeft", 169, 169);
+	//	addAnimation("slash", "IdleDown", 182, 182);
+	//	addAnimation("slash", "IdleRight", 195, 195);
+	//}
+	//else if (identifier == BaseLongbow::SILVER_LONGBOW_IMAGE_NAME)
+	//{
+	//	addSprite("Player/Atlas/bow_silver.png", "walk", 13, 21);
+	//	addSprite("Player/Atlas/bow_silver.png", "shoot", 13, 21);
+	//	addSprite("Player/Atlas/bow_silver.png", "slash", 13, 21);
+
+	//	addAnimation("walk", "WalkUp", 104, 112);
+	//	addAnimation("walk", "WalkLeft", 117, 125);
+	//	addAnimation("walk", "WalkDown", 130, 138);
+	//	addAnimation("walk", "WalkRight", 143, 151);
+	//	addAnimation("walk", "IdleUp", 104, 104);
+	//	addAnimation("walk", "IdleLeft", 117, 117);
+	//	addAnimation("walk", "IdleDown", 130, 130);
+	//	addAnimation("walk", "IdleRight", 143, 143);
+
+	//	addAnimation("shoot", "ShootUp", 208, 220);
+	//	addAnimation("shoot", "ShootLeft", 221, 233);
+	//	addAnimation("shoot", "ShootDown", 234, 246);
+	//	addAnimation("shoot", "ShootRight", 247, 259);
+	//	addAnimation("shoot", "IdleUp", 208, 208);
+	//	addAnimation("shoot", "IdleLeft", 221, 221);
+	//	addAnimation("shoot", "IdleDown", 234, 234);
+	//	addAnimation("shoot", "IdleRight", 247, 247);
+
+	//	addAnimation("slash", "SlashUp", 156, 161);
+	//	addAnimation("slash", "SlashLeft", 169, 174);
+	//	addAnimation("slash", "SlashDown", 182, 187);
+	//	addAnimation("slash", "SlashRight", 195, 200);
+	//	addAnimation("slash", "IdleUp", 156, 156);
+	//	addAnimation("slash", "IdleLeft", 169, 169);
+	//	addAnimation("slash", "IdleDown", 182, 182);
+	//	addAnimation("slash", "IdleRight", 195, 195);
+	//}
+	//else if (identifier == BaseLongbow::GOLD_LONGBOW_IMAGE_NAME)
+	//{
+	//	addSprite("Player/Atlas/bow_gold.png", "walk", 13, 21);
+	//	addSprite("Player/Atlas/bow_gold.png", "shoot", 13, 21);
+	//	addSprite("Player/Atlas/bow_gold.png", "slash", 13, 21);
+
+	//	addAnimation("walk", "WalkUp", 104, 112);
+	//	addAnimation("walk", "WalkLeft", 117, 125);
+	//	addAnimation("walk", "WalkDown", 130, 138);
+	//	addAnimation("walk", "WalkRight", 143, 151);
+	//	addAnimation("walk", "IdleUp", 104, 104);
+	//	addAnimation("walk", "IdleLeft", 117, 117);
+	//	addAnimation("walk", "IdleDown", 130, 130);
+	//	addAnimation("walk", "IdleRight", 143, 143);
+
+	//	addAnimation("shoot", "ShootUp", 208, 220);
+	//	addAnimation("shoot", "ShootLeft", 221, 233);
+	//	addAnimation("shoot", "ShootDown", 234, 246);
+	//	addAnimation("shoot", "ShootRight", 247, 259);
+	//	addAnimation("shoot", "IdleUp", 208, 208);
+	//	addAnimation("shoot", "IdleLeft", 221, 221);
+	//	addAnimation("shoot", "IdleDown", 234, 234);
+	//	addAnimation("shoot", "IdleRight", 247, 247);
+
+	//	addAnimation("slash", "SlashUp", 156, 161);
+	//	addAnimation("slash", "SlashLeft", 169, 174);
+	//	addAnimation("slash", "SlashDown", 182, 187);
+	//	addAnimation("slash", "SlashRight", 195, 200);
+	//	addAnimation("slash", "IdleUp", 156, 156);
+	//	addAnimation("slash", "IdleLeft", 169, 169);
+	//	addAnimation("slash", "IdleDown", 182, 182);
+	//	addAnimation("slash", "IdleRight", 195, 195);
+	//}
+
 	spriteInfo = std::make_shared<ComplexSpriteInfo>();
 
 	addSprite("Player/Walk/bow.png", "walk", 9, 4);

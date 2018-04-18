@@ -75,5 +75,5 @@ class BaseLongbow : public BaseProjectileWeapon
 	| Setup Sprites and Animations
 	----------------------------------------------------------------------------------------*/
 	private:
-		void setupSprites();
+		void setupSprites(std::string identifier);
 };
