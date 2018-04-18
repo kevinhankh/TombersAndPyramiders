@@ -173,6 +173,7 @@ This is the type of character of YOU are when you are playing. It is a client ch
 */
 std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(int id, float x, float y)
 {
+	generateThrown(x + 2, y + 2);
 	std::shared_ptr<ClientCharacter> simpleCharacter = GameManager::getInstance()->createGameObjectWithId<ClientCharacter>(false, id, new PlayerPilot(), id);
 	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
 	healthBar->setTrackingPlayer(simpleCharacter);
@@ -410,6 +411,13 @@ std::shared_ptr<SingleDoor> SpawnManager::generateSingleDoor(float x, float y, D
 std::shared_ptr<ClientCharacter> SpawnManager::getActivePlayer()
 {
 	return m_clientPlayer;
+}
+
+std::shared_ptr<Thrown> SpawnManager::generateThrown(float x, float y)
+{
+	std::shared_ptr<Thrown> thrown = GameManager::getInstance()->createGameObject<Thrown>(false);
+	thrown->getTransform()->setPosition(x, y);
+	return thrown;
 }
 
 //std::shared_ptr<Wall> SpawnManager::generateWall(float x, float y, float scale)

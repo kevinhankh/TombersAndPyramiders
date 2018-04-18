@@ -13,6 +13,7 @@
 #include "GhostCharacter.h"
 #include "Boulder.h"
 #include "SingleDoor.h"
+#include "Thrown.h"
 
 class SpawnManager : public GameObject
 {
@@ -37,6 +38,7 @@ public:
 	std::shared_ptr<HostCharacter> generateHostCharacter(int id, float x, float y);
 	std::shared_ptr<ClientCharacter> generatePlayerCharacter (int id, float x, float y);
 	std::shared_ptr<NetworkCharacter> generateNetworkCharacter (int id, float x, float y);
+	std::shared_ptr<Thrown> generateThrown(float x, float y);
 
 	void sendStartPacket();
 	void listenForStartPacket ();
