@@ -48,8 +48,8 @@ void DartTrap::setState(Mode mode)
 }
 
 void DartTrap::shoot() {
-    int velX = (dir % 2 == 0) ? (dir == 0 ? 40 : -40) : 0; 
-    int velY = (dir % 2 == 1) ? (dir == 1 ? -40 : 40) : 0; 
+    int velX = (dir % 2 == 0) ? (dir == 0 ? 15 : -15) : 0; 
+    int velY = (dir % 2 == 1) ? (dir == 1 ? -15 : 15) : 0; 
 		GameManager::getInstance()->createGameObject<Projectile>(
 			false,
 			10,

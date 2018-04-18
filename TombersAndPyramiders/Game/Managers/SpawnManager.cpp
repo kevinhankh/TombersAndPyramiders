@@ -124,6 +124,17 @@ void SpawnManager::sendStartPacket()
 			//SpawnManager::getInstance()->generateBossAiCharacter(id, x, y, false);
 
 		}
+
+		for (int r = 0; r < GeneratorManager::getInstance()->levels[i]->rooms.size(); r++) {
+			for (int am = 0; am < 6; am++) {
+				x = ((Randomize::Random() % (GeneratorManager::getInstance()->levels[i]->rooms[r]->m_width - 3) + 1) + GeneratorManager::getInstance()->levels[i]->rooms[r]->m_xCoord) * 5;
+				y = (GeneratorManager::getInstance()->levels[i]->rooms[r]->m_yCoord - (Randomize::Random() % (GeneratorManager::getInstance()->levels[i]->rooms[r]->m_height - 3) + 1)) * 5;
+				SpawnManager::getInstance()->generateSpikes(x + Randomize::Random(0, 4), y + Randomize::Random(0, 4));
+				if (am > 3) {
+					SpawnManager::getInstance()->generateDartTrap(x + (Randomize::Random(0, 4) - 2), y + (Randomize::Random(0, 4) - 2), (DartTrap::Direction)Randomize::Random(0, 3));
+				}
+			}
+		}
 	}
 
 
@@ -146,6 +157,7 @@ void SpawnManager::sendStartPacket()
 		id = it->first;
 		x = ((Randomize::Random(0, GeneratorManager::getInstance()->levels[0]->rooms[room]->m_width - 3) + 1) + GeneratorManager::getInstance()->levels[0]->rooms[room]->m_xCoord)*5;
 		y = (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_yCoord - (Randomize::Random(0, GeneratorManager::getInstance()->levels[0]->rooms[room]->m_height - 3) + 1))*5;
+
 		payload["playerSpawnIP" + std::to_string(i)] = std::to_string(id);
 		payload["playerSpawnX" + std::to_string(i)] = std::to_string(x);
 		payload["playerSpawnY" + std::to_string(i)] = std::to_string(y);
@@ -155,13 +167,6 @@ void SpawnManager::sendStartPacket()
 
 	//Added boulder for testing possession
 	SpawnManager::getInstance()->generateBoulder(std::stof(payload["playerSpawnX" + std::to_string(0)]) - 2, std::stof(payload["playerSpawnY" + std::to_string(0)]) + 4);
-
-	SpawnManager::getInstance()->generateDartTrap(std::stof(payload["playerSpawnX" + std::to_string(0)]) + 4, std::stof(payload["playerSpawnY" + std::to_string(0)]) + 3, (DartTrap::Direction)Randomize::Random(0, 3));
-	SpawnManager::getInstance()->generateDartTrap(std::stof(payload["playerSpawnX" + std::to_string(0)]) + 6, std::stof(payload["playerSpawnY" + std::to_string(0)]) + 2, (DartTrap::Direction)Randomize::Random(0, 3));
-	SpawnManager::getInstance()->generateDartTrap(std::stof(payload["playerSpawnX" + std::to_string(0)]) + 8, std::stof(payload["playerSpawnY" + std::to_string(0)]) + 1, (DartTrap::Direction)Randomize::Random(0, 3));
-	SpawnManager::getInstance()->generateDartTrap(std::stof(payload["playerSpawnX" + std::to_string(0)]) + 10, std::stof(payload["playerSpawnY" + std::to_string(0)]), (DartTrap::Direction)Randomize::Random(0, 3));
-	SpawnManager::getInstance()->generateDartTrap(std::stof(payload["playerSpawnX" + std::to_string(0)]) + 12, std::stof(payload["playerSpawnY" + std::to_string(0)]) - 1, (DartTrap::Direction)Randomize::Random(0, 3));
-	SpawnManager::getInstance()->generateSpikes(std::stof(payload["playerSpawnX" + std::to_string(0)]), std::stof(payload["playerSpawnY" + std::to_string(0)]) - 2);
 
 	NetworkingManager::getInstance()->prepareMessageForSendingTCP(0, "STARTGAME", payload);
 }
@@ -236,7 +241,7 @@ std::shared_ptr<HostCharacter> SpawnManager::generateHostCharacter (int id, floa
 		BaseGreaves::WOODEN_GREAVES_ICON_IMAGE_NAME, BaseGreaves::WOODEN_GREAVES_COOLDOWN_TIME, BaseGreaves::WOODEN_GREAVES_DASH_DURATION,
 		BaseGreaves::WOODEN_GREAVES_DASH_SPEED));
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseChestplate>(
-		BaseChestplate::WOODEN_CHESTPLATE_ICON_IMAGE_NAME, BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));*/
+		BaseChestplate::WOODEN_CHESTPLATE_ICON_IMAGE_NAME, BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));
 	//simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseHelmet>(
 	//	BaseHelmet::WOODEN_HELMET_ICON_IMAGE, BaseHelmet::WOODEN_HELMET_CRITICAL_RESIST_CHANCE));
 	simpleCharacter->getTransform ()->setPosition (x, y, 100);
@@ -261,7 +266,7 @@ std::shared_ptr<NetworkCharacter> SpawnManager::generateNetworkCharacter (int id
 		BaseGreaves::WOODEN_GREAVES_ICON_IMAGE_NAME, BaseGreaves::WOODEN_GREAVES_COOLDOWN_TIME, BaseGreaves::WOODEN_GREAVES_DASH_DURATION,
 		BaseGreaves::WOODEN_GREAVES_DASH_SPEED));
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseChestplate>(
-		BaseChestplate::WOODEN_CHESTPLATE_ICON_IMAGE_NAME, BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));*/
+		BaseChestplate::WOODEN_CHESTPLATE_ICON_IMAGE_NAME, BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));
 	//simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseHelmet>(
 	//	BaseHelmet::WOODEN_HELMET_ICON_IMAGE, BaseHelmet::WOODEN_HELMET_CRITICAL_RESIST_CHANCE));
 	simpleCharacter->getTransform()->setPosition(x, y, 100);

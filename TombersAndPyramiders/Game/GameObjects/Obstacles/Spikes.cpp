@@ -4,7 +4,6 @@
 #include "GameManager.h"
 
 Spikes::Spikes(Direction direction, Mode mode, float startX, float startY, float scale) : Obstacle(createSpriteInfo(), createColliderOffset(direction, scale), direction, mode, startX, startY, scale) {
-    //addComponent<BoxCollider>(this, scale * 0.4f, scale * 0.4f);
     m_damagingRegion = GameManager::getInstance()->createGameObject<DamagingRegion>(false, 20, "Ghost.png", scale, scale, 0, false, startX, startY, 0);
 }
 
