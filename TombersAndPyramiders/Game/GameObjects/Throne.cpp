@@ -12,6 +12,7 @@
 #include "MainMenuScene.h"
 #include "MessageManager.h"
 #include "CharacterController.h"
+#include "Sender.h"
 
 Throne::Throne() : ComplexSprite(createSpriteInfo(), 0, 0)
 {
@@ -51,7 +52,7 @@ void Throne::trigger()
     getTransform()->setZ(1000);
     character->getTransform()->setZ(1001);
     character->getComponent<CharacterController>()->m_audioSource->playSFX(SFX_THRONE);
-    //send WinGame packet
+	character->getComponent<Sender>()->sendEndGame();
 }
 
 void Throne::onStart() 
