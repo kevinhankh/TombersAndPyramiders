@@ -25,18 +25,18 @@ const float BaseLongbow::LONGBOW_CRITICAL_HIT_CHANCE = 0.05f;
 const float BaseLongbow::LONGBOW_CASTING_TIME = 0.5f;
 
 const int BaseLongbow::WOODEN_LONGBOW_DAMAGE = 20;
-const std::string BaseLongbow::WOODEN_LONGBOW_IMAGE_NAME = "WoodenLongbow.png";
-const std::string BaseLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME = "TempWoodenArrow.png";
+const std::string BaseLongbow::WOODEN_LONGBOW_IMAGE_NAME = "bowIcon.png";
+const std::string BaseLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME = "arrow.png";
 const bool BaseLongbow::WOODEN_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION = true;
 
 const int BaseLongbow::SILVER_LONGBOW_DAMAGE = 35;
-const std::string BaseLongbow::SILVER_LONGBOW_IMAGE_NAME = "SilverLongbow.png";
-const std::string BaseLongbow::SILVER_LONGBOW_PROJECTILE_IMAGE_NAME = "TempSilverArrow.png";
+const std::string BaseLongbow::SILVER_LONGBOW_IMAGE_NAME = "bowSilverIcon.png";
+const std::string BaseLongbow::SILVER_LONGBOW_PROJECTILE_IMAGE_NAME = "arrowSilver.png";
 const bool BaseLongbow::SILVER_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION = true;
 
 const int BaseLongbow::GOLD_LONGBOW_DAMAGE = 50;
-const std::string BaseLongbow::GOLD_LONGBOW_IMAGE_NAME = "GoldLongbow.png";
-const std::string BaseLongbow::GOLD_LONGBOW_PROJECTILE_IMAGE_NAME = "TempGoldArrow.png";
+const std::string BaseLongbow::GOLD_LONGBOW_IMAGE_NAME = "bowGoldIcon.png";
+const std::string BaseLongbow::GOLD_LONGBOW_PROJECTILE_IMAGE_NAME = "arrowGold.png";
 const bool BaseLongbow::GOLD_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION = false;
 
 /*----------------------------------------------------------------------------------------

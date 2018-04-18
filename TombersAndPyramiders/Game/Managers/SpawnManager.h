@@ -13,8 +13,8 @@
 #include "GhostCharacter.h"
 #include "Boulder.h"
 #include "SingleDoor.h"
-#include "Spikes.h"
-#include "DartTrap.h"
+#include "Obstacles/Spikes.h"
+#include "Obstacles/DartTrap.h"
 #include "Throne.h"
 
 class SpawnManager : public GameObject

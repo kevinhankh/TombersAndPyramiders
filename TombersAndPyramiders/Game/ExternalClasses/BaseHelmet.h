@@ -61,5 +61,5 @@ class BaseHelmet : public BaseEquippableItem, public std::enable_shared_from_thi
 		| Setup Sprites and Animations
 		----------------------------------------------------------------------------------------*/
 	protected:
-		void setupSprites();
+		void setupSprites(std::string identifier);
 };
