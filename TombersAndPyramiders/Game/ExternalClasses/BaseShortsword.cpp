@@ -24,22 +24,22 @@ const float BaseShortsword::SHORTSWORD_CRITICAL_HIT_CHANCE = 0.05f;
 const float BaseShortsword::SHORTSWORD_ATTACK_COOLDOWN_TIME = 0.5f;
 
 const int BaseShortsword::WOODEN_SHORTSWORD_DAMAGE = 20;
-const string BaseShortsword::WOODEN_SHORTSWORD_IMAGE_NAME = "empty.png";
+const string BaseShortsword::WOODEN_SHORTSWORD_IMAGE_NAME = "shortswordIcon.png";
 const bool BaseShortsword::WOODEN_SHORTSWORD_DESTROY_ON_COLLISION = false;
 
 const int BaseShortsword::SILVER_SHORTSWORD_DAMAGE = 35;
-const string BaseShortsword::SILVER_SHORTSWORD_IMAGE_NAME = "TempSilverShortsword.png";
+const string BaseShortsword::SILVER_SHORTSWORD_IMAGE_NAME = "shortswordIcon.png";
 const bool BaseShortsword::SILVER_SHORTSWORD_DESTROY_ON_COLLISION = false;
 
 const int BaseShortsword::GOLD_SHORTSWORD_DAMAGE = 50;
-const string BaseShortsword::GOLD_SHORTSWORD_IMAGE_NAME = "TempGoldShortsword.png";
+const string BaseShortsword::GOLD_SHORTSWORD_IMAGE_NAME = "shortswordGoldIcon.png";
 const bool BaseShortsword::GOLD_SHORTSWORD_DESTROY_ON_COLLISION = false;
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
 ----------------------------------------------------------------------------------------*/
 BaseShortsword::BaseShortsword(int damage, string imageName, bool destroyOnCollision) :
-	BaseMeleeWeapon{ damage, imageName, SHORTSWORD_COLLIDER_WIDTH, SHORTSWORD_COLLIDER_HEIGHT, 
+	BaseMeleeWeapon{ damage, "empty.png", SHORTSWORD_COLLIDER_WIDTH, SHORTSWORD_COLLIDER_HEIGHT, 
 	destroyOnCollision, SHORTSWORD_CRITICAL_HIT_CHANCE, SHORTSWORD_ATTACK_COOLDOWN_TIME,
 	SHORTSWORD_X_OFFSET_FROM_HOLDER, SHORTSWORD_Y_OFFSET_FROM_HOLDER, SHORTSWORD_COLLIDER_SCALE }
 {

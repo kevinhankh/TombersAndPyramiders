@@ -17,20 +17,20 @@
 /*----------------------------------------------------------------------------------------
 	Static Fields
 ----------------------------------------------------------------------------------------*/
-const std::string BaseGreaves::WOODEN_GREAVES_ICON_IMAGE_NAME = "WoodenGreavesIcon.png";
+const std::string BaseGreaves::WOODEN_GREAVES_ICON_IMAGE_NAME = "greavesIcon.png";
 const float BaseGreaves::WOODEN_GREAVES_COOLDOWN_TIME = 1.0f;
 const float BaseGreaves::WOODEN_GREAVES_DASH_DURATION = 0.5f;
 const float BaseGreaves::WOODEN_GREAVES_DASH_SPEED = 5.0f;
 
-const std::string BaseGreaves::SILVER_GREAVES_ICON_IMAGE_NAME = "SilverGreavesIcon.png";
+const std::string BaseGreaves::SILVER_GREAVES_ICON_IMAGE_NAME = "greavesSilverIcon.png";
 const float BaseGreaves::SILVER_GREAVES_COOLDOWN_TIME = 0.9f;
 const float BaseGreaves::SILVER_GREAVES_DASH_DURATION = 0.6f;
-const float BaseGreaves::SILVER_GREAVES_DASH_SPEED = 40.0f;
+const float BaseGreaves::SILVER_GREAVES_DASH_SPEED = 6.0f;
 
-const std::string BaseGreaves::GOLD_GREAVES_ICON_IMAGE_NAME = "GoldGreavesIcon.png";
+const std::string BaseGreaves::GOLD_GREAVES_ICON_IMAGE_NAME = "greavesGoldIcon.png";
 const float BaseGreaves::GOLD_GREAVES_COOLDOWN_TIME = 0.8f;
 const float BaseGreaves::GOLD_GREAVES_DASH_DURATION = 0.7f;
-const float BaseGreaves::GOLD_GREAVES_DASH_SPEED = 40.0f;
+const float BaseGreaves::GOLD_GREAVES_DASH_SPEED = 7.0f;
 
 /*----------------------------------------------------------------------------------------
 	Resource Management

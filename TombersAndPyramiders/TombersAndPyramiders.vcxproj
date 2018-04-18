@@ -243,6 +243,8 @@
     <ClCompile Include="Game\GameObjects\PositionBasedPopup.cpp" />
     <ClCompile Include="Game\GameObjects\Projectile.cpp" />
     <ClCompile Include="Game\GameObjects\Boulder.cpp" />
+    <ClCompile Include="Game\GameObjects\SpinningEffect.cpp" />
+    <ClCompile Include="Game\GameObjects\Throne.cpp" />
     <ClCompile Include="Game\Scenes\LaunchScene.cpp" />
     <ClCompile Include="Game\Scenes\MainMenuScene.cpp" />
     <ClCompile Include="Game\Scenes\NetworkedGameScene.cpp" />
@@ -375,6 +377,8 @@
     <ClInclude Include="Game\GameObjects\Projectile.h" />
     <ClInclude Include="Game\GameObjects\Boulder.h" />
     <ClInclude Include="Game\GameObjects\Doors\SingleDoor.h" />
+    <ClInclude Include="Game\GameObjects\SpinningEffect.h" />
+    <ClInclude Include="Game\GameObjects\Throne.h" />
     <ClInclude Include="Game\Scenes\LaunchScene.h" />
     <ClInclude Include="Game\Scenes\MainMenuScene.h" />
     <ClInclude Include="Game\Scenes\NetworkedGameScene.h" />
