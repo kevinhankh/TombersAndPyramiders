@@ -39,6 +39,8 @@ void BinaryTree::fixRooms(std::vector<std::shared_ptr<Corridor>> corridors, std:
 						//add coord set to room so door drawn there and adjacent walls become corners
 						rooms[j]->doorsX.push_back(corridors[i]->m_xCoord + 1);
 						rooms[j]->doorsY.push_back(corridors[i]->m_yCoord - k);
+						GeneratorManager::getInstance()->worldMatrix[corridors[i]->m_xCoord + 1 + WORLD_WIDTH / 2][-(corridors[i]->m_yCoord - WORLD_HEIGHT / 2) + k] = 11;
+					//	GeneratorManager::getInstance()->worldMatrix[rooms[j]->m_xCoord + WORLD_WIDTH / 2 + corridors[i]->m_xCoord + 1][-(rooms[j]->m_yCoord - WORLD_HEIGHT / 2) + corridors[i]->m_yCoord - k] = 11;
 					}
 				}
 			}
@@ -51,6 +53,9 @@ void BinaryTree::fixRooms(std::vector<std::shared_ptr<Corridor>> corridors, std:
 						//add coord set to room so door drawn there and adjacent walls become corners
 						rooms[j]->doorsX.push_back(corridors[i]->m_xCoord + k);
 						rooms[j]->doorsY.push_back(corridors[i]->m_yCoord - 1);
+						GeneratorManager::getInstance()->worldMatrix[corridors[i]->m_xCoord + k + WORLD_WIDTH / 2][-(corridors[i]->m_yCoord - WORLD_HEIGHT / 2) + 1] = 11;
+					//	GeneratorManager::getInstance()->worldMatrix[rooms[j]->m_xCoord + WORLD_WIDTH / 2 + corridors[i]->m_xCoord + k][-(rooms[j]->m_yCoord - WORLD_HEIGHT / 2) + corridors[i]->m_yCoord - 1] = 11;
+
 					}
 				}
 			}
