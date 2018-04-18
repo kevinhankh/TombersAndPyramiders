@@ -11,12 +11,15 @@ public:
 	int m_height;
 	int m_scale;
 	int m_level;
+	int m_spawnX;
+	int m_spawnY;
 	bool m_exit;
+	bool m_spawn;
 
 	std::vector<int> doorsX;
 	std::vector<int> doorsY;
 
-	Room(int width, int height, int xCoord, int yCoord, bool exit, int level);
+	Room(int width, int height, int xCoord, int yCoord, bool exit, bool spawn, int level);
 	void draw();
 
 };
