@@ -15,6 +15,7 @@
 #include "SingleDoor.h"
 #include "Spikes.h"
 #include "DartTrap.h"
+#include "Throne.h"
 
 class SpawnManager : public GameObject
 {
@@ -28,6 +29,7 @@ public:
 	std::shared_ptr<MovingSquare> generateMovingSquare(float x, float y);
 	std::shared_ptr<Character> generatePlayerCharacter(float x, float y);
 	std::shared_ptr<Character> generateAiCharacter (int id, float x, float y, bool isHost = false);
+	//std::shared_ptr<Character> generateBossAiCharacter(int id, float x, float y, bool isHost = false);
 	std::shared_ptr<WorldItem> generateWorldItem(float x, float y, std::shared_ptr<BaseItem> item);
 	std::shared_ptr<Character> generateDummyCharacter(float x, float y);
 	std::shared_ptr<GhostCharacter> generateGhost(float x, float y);
@@ -41,6 +43,7 @@ public:
 	std::shared_ptr<HostCharacter> generateHostCharacter(int id, float x, float y);
 	std::shared_ptr<ClientCharacter> generatePlayerCharacter (int id, float x, float y);
 	std::shared_ptr<NetworkCharacter> generateNetworkCharacter (int id, float x, float y);
+	std::shared_ptr<Throne> generateThrone(float x, float y);
 
 	void sendStartPacket();
 	void listenForStartPacket ();

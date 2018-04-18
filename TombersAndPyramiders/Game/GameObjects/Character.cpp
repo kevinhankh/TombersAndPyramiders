@@ -29,7 +29,10 @@ Character::Character(BasePilot* basePilot, CharacterType type) :
 	Inventory* inventory = addComponent<Inventory>(this).get();
 	addComponent<CharacterController>(this, inventory, basePilot);
 
-	switch (type)
+	m_walk = "walk";
+	m_shoot = "shoot";
+	m_slash = "slash";
+	/*switch (type)
 	{
 	case player:
 		m_walk = "male_walk";
@@ -41,7 +44,7 @@ Character::Character(BasePilot* basePilot, CharacterType type) :
 		m_shoot = "beetle_shoot";
 		m_slash = "beetle_slash";
 		break;
-	}
+	}*/
 
 	currentState = IDLE_UP;
 	changeSpriteSheet(m_walk);
@@ -64,6 +67,7 @@ Character::Character(BasePilot* basePilot, CharacterType type) :
 void Character::onUpdate(int ticks)
 {
 	updateFrames(ticks);
+	updateInventoryPositions(ticks);
 }
 
 // Private generation logic for describing the sprite sheet relationships for this player
@@ -71,19 +75,19 @@ std::shared_ptr<ComplexSpriteInfo> Character::generateComplexSpriteInfo(Characte
 {
 	std::shared_ptr<ComplexSpriteInfo> spriteInfo = std::make_shared<ComplexSpriteInfo>();
 
-	std::string walk = std::string("");
-	std::string shoot = std::string("");
-	std::string slash = std::string("");
+	std::string walk = std::string("walk");
+	std::string shoot = std::string("shoot");
+	std::string slash = std::string("slash");
 	switch (type)
 	{
 	case player:
-		spriteInfo->addSprite("Player/Walk/male_walk.png", "male_walk", 9, 4);
-		spriteInfo->addSprite("Player/Attack/Melee/male_melee_slash.png", "male_melee_slash", 6, 4);
-		spriteInfo->addSprite("Player/Attack/Bow/male_bow.png", "male_bow", 13, 4);
+		spriteInfo->addSprite("Player/Walk/male_walk.png", "walk", 9, 4);
+		spriteInfo->addSprite("Player/Attack/Melee/male_melee_slash.png", "slash", 6, 4);
+		spriteInfo->addSprite("Player/Attack/Bow/male_bow.png", "shoot", 13, 4);
 
-		walk = std::string("male_walk");
-		shoot = std::string("male_bow");
-		slash = std::string("male_melee_slash");
+		//walk = std::string("male_walk");
+		//shoot = std::string("male_bow");
+		//slash = std::string("male_melee_slash");
 
 		spriteInfo->addAnimation(walk, "WalkUp", 1, 8);
 		spriteInfo->addAnimation(walk, "WalkLeft", 10, 17);
@@ -113,13 +117,13 @@ std::shared_ptr<ComplexSpriteInfo> Character::generateComplexSpriteInfo(Characte
 		spriteInfo->addAnimation(shoot, "IdleRight", 39, 39);
 		break;
 	case beetle:
-		spriteInfo->addSprite("Enemies/beetle_walk.png", "beetle_walk", 3, 4);
-		spriteInfo->addSprite("Enemies/beetle_walk.png", "beetle_shoot", 3, 4);
-		spriteInfo->addSprite("Enemies/beetle_walk.png", "beetle_slash", 3, 4);
+		spriteInfo->addSprite("Enemies/beetle_walk.png", "walk", 3, 4);
+		spriteInfo->addSprite("Enemies/beetle_walk.png", "slash", 3, 4);
+		spriteInfo->addSprite("Enemies/beetle_walk.png", "shoot", 3, 4);
 
-		walk = "beetle_walk";
-		shoot = "beetle_shoot";
-		slash = "beetle_slash";
+		//walk = "beetle_walk";
+		//shoot = "beetle_shoot";
+		//slash = "beetle_slash";
 
 		spriteInfo->addAnimation(walk, "WalkUp", 0, 2);
 		spriteInfo->addAnimation(walk, "WalkLeft", 3, 5);
@@ -199,6 +203,7 @@ bool Character::playRunAnimation()
 	{
 		changeSpriteSheet(m_walk);
 		changeAnimation(m_walkRight);
+		updateInventoryAnimations(m_walkRight, m_walk);
 		currentState = WALK_RIGHT;
 		return true;
 	}
@@ -206,6 +211,7 @@ bool Character::playRunAnimation()
 	{
 		changeSpriteSheet(m_walk);
 		changeAnimation(m_walkDown);
+		updateInventoryAnimations(m_walkDown, m_walk);
 		currentState = WALK_DOWN;
 		return true;
 	}
@@ -213,6 +219,7 @@ bool Character::playRunAnimation()
 	{
 		changeSpriteSheet(m_walk);
 		changeAnimation(m_walkLeft);
+		updateInventoryAnimations(m_walkLeft, m_walk);
 		currentState = WALK_LEFT;
 		return true;
 	}
@@ -220,6 +227,7 @@ bool Character::playRunAnimation()
 	{
 		changeSpriteSheet(m_walk);
 		changeAnimation(m_walkUp);
+		updateInventoryAnimations(m_walkUp, m_walk);
 		currentState = WALK_UP;
 		return true;
 	}
@@ -235,21 +243,25 @@ bool Character::endRunAnimation()
 		case WALK_UP:
 			changeSpriteSheet(m_walk);
 			changeAnimation(m_idleUp);
+			updateInventoryAnimations(m_idleUp, m_walk);
 			currentState = IDLE_UP;
 			return true;
 		case WALK_RIGHT:
 			changeSpriteSheet(m_walk);
 			changeAnimation(m_idleRight); 
+			updateInventoryAnimations(m_idleRight, m_walk);
 			currentState = IDLE_RIGHT;
 			return true;
 		case WALK_DOWN:
 			changeSpriteSheet(m_walk);
 			changeAnimation(m_idleDown); 
+			updateInventoryAnimations(m_idleDown, m_walk);
 			currentState = IDLE_DOWN;
 			return true;
 		case WALK_LEFT:
 			changeSpriteSheet(m_walk);
 			changeAnimation(m_idleLeft); 
+			updateInventoryAnimations(m_idleLeft, m_walk);
 			currentState = IDLE_LEFT;
 			return true;
 	}
@@ -264,24 +276,28 @@ bool Character::playMeleeAttackAnimation()
 	{
 		changeSpriteSheet(m_slash);
 		changeAnimation(m_slashRight, m_idleRight);
+		updateInventoryAnimations(m_slashRight, m_slash, m_idleRight);
 		currentState = IDLE_RIGHT;
 	}
 	else if (rotation < 180)
 	{
 		changeSpriteSheet(m_slash);
 		changeAnimation(m_slashDown, m_idleDown);
+		updateInventoryAnimations(m_slashDown, m_slash, m_idleDown);
 		currentState = IDLE_DOWN;
 	}
 	else if (rotation < 270)
 	{
 		changeSpriteSheet(m_slash);
 		changeAnimation(m_slashLeft, m_idleLeft);
+		updateInventoryAnimations(m_slashLeft, m_slash, m_idleLeft);
 		currentState = IDLE_LEFT;
 	}
 	else
 	{
 		changeSpriteSheet(m_slash);
 		changeAnimation(m_slashUp, m_idleUp);
+		updateInventoryAnimations(m_slashUp, m_slash, m_idleUp);
 		currentState = IDLE_UP;
 	}
 	return true;
@@ -295,24 +311,28 @@ bool Character::playRangeAttackAnimation()
 	{
 		changeSpriteSheet(m_shoot);
 		changeAnimation(m_shootRight, m_idleRight);
+		updateInventoryAnimations(m_shootRight, m_shoot, m_idleRight);
 		currentState = IDLE_RIGHT;
 	}
 	else if (rotation < 180)
 	{
 		changeSpriteSheet(m_shoot);
 		changeAnimation(m_shootDown, m_idleDown);
+		updateInventoryAnimations(m_shootDown, m_shoot, m_idleDown);
 		currentState = IDLE_DOWN;
 	}
 	else if (rotation < 270)
 	{
 		changeSpriteSheet(m_shoot);
 		changeAnimation(m_shootLeft, m_idleLeft);
+		updateInventoryAnimations(m_shootLeft, m_shoot, m_idleLeft);
 		currentState = IDLE_LEFT;
 	}
 	else
 	{
 		changeSpriteSheet(m_shoot);
 		changeAnimation(m_shootUp, m_idleUp);
+		updateInventoryAnimations(m_shootUp, m_shoot, m_idleUp);
 		currentState = IDLE_UP;
 	}
 
@@ -342,19 +362,43 @@ bool Character::playHurtAnimation()
 	return true;
 }
 
+void Character::updateInventoryAnimations(std::string animationName, std::string spriteName, std::string animationToReturnTo)
+{
+	for (int i = 0; i < equippedItems.size(); ++i)
+	{
+		if (spriteName != "")
+		{
+			bool success = equippedItems[i]->changeSpriteSheet(spriteName);
+		}
+
+		if (animationToReturnTo != "")
+		{
+			bool success = equippedItems[i]->changeAnimation(animationName, animationToReturnTo);
+		}
+		else
+		{
+			bool success = equippedItems[i]->changeAnimation(animationName);
+		}
+	}
+}
+
 void Character::updateInventory(bool addingItem, std::shared_ptr<BaseItem> item)
 {
 	if (addingItem)
 	{
-		AnimatedItem newEquippedItem = AnimatedItem(item);
-		equippedItems.push_back(newEquippedItem);
+		if (item->spriteInfo != nullptr)
+		{
+			std::shared_ptr<AnimatedItem> newEquippedItem = GameManager::getInstance()->createGameObject<AnimatedItem>(false, item);
+			newEquippedItem->getTransform()->setScale(2);
+			equippedItems.push_back(newEquippedItem);
+		}
 	}
 	else
 	{
 		int itemToDelete = -1;
 		for (int i = 0; i < equippedItems.size(); ++i)
 		{
-			if (equippedItems[i].m_derivedItem == item)
+			if (equippedItems[i]->m_derivedItem == item)
 			{
 				itemToDelete = i;
 			}
@@ -362,12 +406,23 @@ void Character::updateInventory(bool addingItem, std::shared_ptr<BaseItem> item)
 
 		if (itemToDelete > -1)
 		{
-			equippedItems[itemToDelete].destroy(equippedItems[itemToDelete].getId());
+			equippedItems[itemToDelete]->destroy(equippedItems[itemToDelete]->getId());
 			equippedItems.erase(equippedItems.begin() + itemToDelete - 1);
 		}
 	}
 }
 
+void Character::updateInventoryPositions(int ticks)
+{
+	for (int i = 0; i < equippedItems.size(); ++i)
+	{
+		equippedItems[i]->getTransform()->setPosition(getTransform()->getX(), getTransform()->getY());
+		equippedItems[i]->getTransform()->setZ(equippedItems[i]->m_derivedItem->m_zIndex);
+
+		//equippedItems[i]->updateFrames(ticks);
+		equippedItems[i]->nextFrame();
+	}
+}
 
 void Character::onNetworkEnd() {
 	auto sender = getComponent<Sender> ();

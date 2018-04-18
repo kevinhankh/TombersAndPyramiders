@@ -47,7 +47,6 @@ void PlayerPilot::onStart ()
 
 void PlayerPilot::onUpdate (int ticks)
 {
-
 	if (m_characterController != nullptr)
 	{
 		/* Move the character. */
@@ -70,6 +69,7 @@ void PlayerPilot::onUpdate (int ticks)
 		else
 		{
 			tryInvokeTrigger ();
+			tryNextLevel();
 		}
 	}
 	/* Use shield. */
@@ -105,10 +105,19 @@ void PlayerPilot::onUpdate (int ticks)
 	}
 }
 
+void PlayerPilot::tryNextLevel()
+{
+	if (InputManager::getInstance()->onKeyPressed(SDLK_z))
+	{
+		m_characterController->tryNextLevel();
+	}
+}
+
 void PlayerPilot::tryInvokeTrigger ()
 {
 	if (InputManager::getInstance ()->onKeyPressed (SDLK_z))
 	{
+		std::cout << "void PlayerPilot::tryInvokeTrigger () - 2"<< std::endl;
 		if (m_characterController->tryInvokeTrigger()) {
 			auto sender = m_characterController->getGameObject()->getComponent<Sender>();
 			if (sender != nullptr)

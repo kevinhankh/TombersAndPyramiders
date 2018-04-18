@@ -63,6 +63,7 @@ void AiPilot::CheckingTimer()
 			{
 				target = nullptr;
 				currentState = walk;
+			
 			}
 		}
 	}
@@ -81,16 +82,20 @@ void AiPilot::onUpdate(int ticks)
 		if (target == nullptr)
 		{
 			m_characterController->move(getRandomMovement());
-		}
-		else
-		{
-			m_characterController->move(getMovement());
-			if (checkRange() == true)
+			if (checkRange() == false)
 			{
 				currentState = attack;
 			}
 		}
-
+		else
+	/*	{
+			m_characterController->move(getMovement());
+			if (checkRange() == true)
+			{
+				currentState = melee;
+			}
+		}
+		*/
 		m_characterController->move(*(getMovement() * ((float)ticks / (float)1000)));
 		checkRange();
 		break;
@@ -103,7 +108,16 @@ void AiPilot::onUpdate(int ticks)
 			currentState = walk;
 		}
 		break;
-	}
+
+	/*case melee:
+		m_characterController->move(stopMovement());
+		m_characterController->useWeaponMelee();
+		if (checkRange() == false)
+		{
+			currentState = walk;
+		}
+		break;*/
+}
 }
 
 bool AiPilot::checkRange()
@@ -157,19 +171,19 @@ Vector2 AiPilot::getMovement()
 		
 		if (x < 0)
 		{
-			x = -0.7;
+			x = -0.3;
 		}
 		if (x > 0)
 		{
-			x = 0.7;
+			x = 0.3;
 		}
 		if (y < 0)
 		{
-			y = -0.7;
+			y = -0.3;
 		}
 		if (y > 0)
 		{
-			y = 0.7;
+			y = 0.3;
 		}
 		movement.setX(x);
 		movement.setY(y);
@@ -183,46 +197,47 @@ Vector2 AiPilot::getRandomMovement()
 	coun++;
 	if (coun == 30)
 	{
-		randomNumber = rand() % 11;
+
+		//randomNumber = rand() % 11;
 		randomNumber = Randomize::Random(0, 21);
 		coun = 0;
 	}
 	if (randomNumber == 1)
 	{
-		movement.setX(-0.8f);
+		movement.setX(-0.02f);
 	}
 	else if (randomNumber == 2)
 	{
-		movement.setX(0.8f);
+		movement.setX(0.02f);
 	}
 	else if (randomNumber == 3)
 	{
-		movement.setY(0.8f);
-		movement.setX(0.6f);
+		movement.setY(0.02f);
+		movement.setX(0.01f);
 	}
 	else if (randomNumber == 4 )
 	{
-		movement.setY(-0.8f);
-		movement.setX(0.6f);
+		movement.setY(-0.02f);
+		movement.setX(0.01f);
 	}
 	if (randomNumber == 5 )
 	{
-		movement.setX(-0.8f);
-		movement.setY(-0.6f);
+		movement.setX(-0.02f);
+		movement.setY(-0.01f);
 	}
 	else if (randomNumber == 6)
 	{
-		movement.setX(0.8f);
-		movement.setY(-0.6f);
+		movement.setX(0.02f);
+		movement.setY(-0.01f);
 	}
 	else if (randomNumber == 7)
 	{
-		movement.setY(0.8f);
+		movement.setY(0.02f);
 		movement.setX(0);
 	}
 	else if (randomNumber == 8)
 	{
-		movement.setY(-0.8f);
+		movement.setY(-0.02f);
 		movement.setX(0);
 	}
 

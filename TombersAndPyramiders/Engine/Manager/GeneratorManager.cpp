@@ -54,12 +54,15 @@ void GeneratorManager::drawLevel(int level) {
 
 	int exitRoom = Randomize::Random(0, levels[level]->rooms.size() - 1);
 	levels[level]->rooms[exitRoom]->m_exit = true;
-	for (int i = 0; i < levels[level]->rooms.size(); i++) {
-		levels[level]->rooms[i]->draw();
+
+	if (level != 0) {
+		int spawnRoom = Randomize::Random(0, levels[level]->rooms.size() - 1);
+		levels[level]->rooms[spawnRoom]->m_spawn = true;
 	}
 
-	//draw/spawn items
-	
+	for (int i = 0; i < levels[level]->rooms.size(); i++) {
+		levels[level]->rooms[i]->draw();
+	}	
 }
 
 void GeneratorManager::recordRoom(std::shared_ptr<Room> r)

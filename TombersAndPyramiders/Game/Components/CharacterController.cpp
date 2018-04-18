@@ -38,6 +38,7 @@
 #include "PlayerPilot.h"
 #include "Receiver.h"
 #include "MessageManager.h"
+#include "GeneratorManager.h"
 #include <sstream>
 
 /*----------------------------------------------------------------------------------------
@@ -72,6 +73,7 @@ CharacterController::CharacterController(GameObject* parentGameobject, Inventory
 	{
 		m_audioListener = gameObject->addComponent<AudioListener>(gameObject);
 	}
+	level = 0;
 }
 
 /*----------------------------------------------------------------------------------------
@@ -132,6 +134,25 @@ void CharacterController::useWeapon()
 	}
 }
 
+void CharacterController::useWeaponMelee()
+{
+	std::shared_ptr<BaseWeapon> weapon = m_inventory->getWeapon();
+
+	if (weapon != nullptr )
+	{
+		if (weapon->use())
+		{
+			std::shared_ptr<BaseMeleeWeapon> melee = dynamic_pointer_cast<BaseMeleeWeapon>(weapon);
+			if (melee != nullptr) {
+				m_character->playMeleeAttackAnimation();
+				//	m_characterController->playMeleeAttackAnimation();
+				m_audioSource->playSFX(SFX_SWORD);
+			}
+		}
+	}
+}
+
+
 bool CharacterController::tryInvokeTrigger()
 {
 	auto transform = getGameObject()->getTransform();
@@ -150,6 +171,10 @@ bool CharacterController::tryInvokeTrigger()
 		{
 			possessable = (*it)->getComponent<BasePossessableController>();
 			invokable = dynamic_pointer_cast<Invokable>(possessable);
+			if (invokable == nullptr) 
+			{
+				invokable = dynamic_pointer_cast<Invokable>(*it);
+			}
 		}
 
 		if (invokable != nullptr || possessable != nullptr)
@@ -165,10 +190,28 @@ bool CharacterController::tryInvokeTrigger()
 
 	if (closest != nullptr)
 	{
+		m_audioSource->playSFX(SFX_DOOR);
 		closest->trigger();
 		return true;
 	}
 	return false;
+}
+
+void CharacterController::tryNextLevel()
+{
+	// check if player within certain distance of staircase on this level
+	int stairX = GeneratorManager::getInstance()->levels[level]->stairX;
+	int stairY = GeneratorManager::getInstance()->levels[level]->stairY;
+	int distance = sqrt((stairX - this->getGameObject()->getTransform()->getX()) * (stairX - this->getGameObject()->getTransform()->getX()) + (stairY - this->getGameObject()->getTransform()->getY()) * (stairY - this->getGameObject()->getTransform()->getY()));
+	
+	if (distance < 3 && level+1 < PYRAMID_HEIGHT)
+	{
+		int x = GeneratorManager::getInstance()->levels[level+1]->spawnX;
+		int y = GeneratorManager::getInstance()->levels[level+1]->spawnY;
+		this->getGameObject()->getTransform()->setPosition(x,y);
+		level++;
+	}
+
 }
 
 
@@ -286,6 +329,7 @@ void CharacterController::death()
 			SceneManager::getInstance()->getCurrentScene()->setCameraFollow(newGhost);
 		}
 	}
+	m_character->getTransform()->setX(-222222222);
 
 	m_character->onEnd();
 	m_character->onNetworkEnd ();
@@ -303,7 +347,7 @@ std::shared_ptr<WorldItem> CharacterController::trySwapItem()
 			if (worldItem != nullptr) 
 			{
 				std::shared_ptr<BaseItem> extractedItem = worldItem->pickupItem();
-
+				m_audioSource->playSFX(SFX_ITEM);
 				std::shared_ptr<BaseItem> removedItem = m_inventory->addItem(extractedItem);
 				if (removedItem != nullptr) {
 					return SpawnManager::getInstance()->generateWorldItem(worldItem->getTransform()->getX(), worldItem->getTransform()->getY(), removedItem);

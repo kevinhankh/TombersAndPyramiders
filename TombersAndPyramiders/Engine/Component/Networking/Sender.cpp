@@ -29,6 +29,13 @@ void Sender::sendDestroy()
 	sendNetworkMessage("DESTROY", payload);
 }
 
+void Sender::sendEndGame()
+{
+	std::map<std::string, std::string> payload;
+	payload["ID"] = std::to_string(gameObject->getId());
+	sendNetworkMessage("ENDGAME", payload);
+}
+
 void Sender::sendUpdate()
 {
 	if (!NetworkingManager::getInstance ()->inGame ())

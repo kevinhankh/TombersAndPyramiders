@@ -17,6 +17,8 @@
 #include "InputManager.h"
 #include "MainMenuScene.h"
 #include "EquipmentIncludes.h"
+#include "PhysicsManager.h"
+#include "Camera.h"
 
 bool menuVisible = false;
 std::shared_ptr<SimpleSprite> escapeMenu = nullptr;
@@ -33,9 +35,9 @@ void NetworkedGameScene::onStart ()
 
 	Camera::getActiveCamera()->setActiveCamera(GameManager::getInstance()->createGameObject<FogOfWarCamera>(true));
 
-	//SpawnManager::getInstance()->generateMiscSquare(25, -25, -100, 200, "ControlsBlank.png", false);
+	SpawnManager::getInstance()->generateMiscSquare(25, -25, -100, 1000, "ControlsBlank.png", false);
 
-	SpawnManager::getInstance()->generateMiscSquare(25, -25, -100, 1000, "sandBG.png", false);
+	//SpawnManager::getInstance()->generateMiscSquare(25, -25, -100, 1000, "sandBG.png", false);
 	SpawnManager::getInstance()->generateWorldItem(5, -5, std::make_shared<BaseShortsword>(
 		BaseShortsword::WOODEN_SHORTSWORD_DAMAGE, BaseShortsword::WOODEN_SHORTSWORD_IMAGE_NAME,
 		BaseShortsword::WOODEN_SHORTSWORD_DESTROY_ON_COLLISION));
@@ -77,6 +79,10 @@ void NetworkedGameScene::onUpdate (int ticks)
 		}
 		else if (InputManager::getInstance()->getKeyState(SDLK_RETURN) == InputManager::KeyAction::PRESSED)
 		{
+			PhysicsManager::getInstance()->purge();
+			SpriteRendererManager::getInstance()->purge();
+			NetworkingManager::getInstance()->hardReset();
+			Camera::getActiveCamera()->setActiveCamera(GameManager::getInstance()->createGameObject<Camera>(true));
 			SceneManager::getInstance()->pushScene(new MainMenuScene());
 			//Return to menu
 		}

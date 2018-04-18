@@ -11,6 +11,13 @@ NetworkingManager* NetworkingManager::getInstance()
 	return s_instance;
 }
 
+void NetworkingManager::hardReset()
+{
+	closeClient();
+	closeUDP();
+	s_instance = new NetworkingManager();
+}
+
 NetworkingManager::NetworkingManager()
 {
 	SDLNet_Init();

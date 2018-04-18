@@ -14,6 +14,7 @@
 #define SFX_BUTTON_HOVER 16
 #define SFX_ITEM 17
 #define SFX_TRAP 18
+#define SFX_THRONE 19
 
 //Audio file paths
 #ifdef __APPLE__
@@ -36,3 +37,4 @@
 #define PATH_SFX_BUTTON_HOVER "Game/Assets/Audio/Torch.wav"
 #define PATH_SFX_ITEM "Game/Assets/Audio/Item.wav"
 #define PATH_SFX_TRAP "Game/Assets/Audio/Trap.wav"
+#define PATH_SFX_THRONE "Game/Assets/Audio/Throne.wav"

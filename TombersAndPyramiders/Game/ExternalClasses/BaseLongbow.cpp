@@ -52,6 +52,16 @@ BaseLongbow::BaseLongbow(int damage, float castingTime,
 	LONGBOW_PROJECTILE_LIFESPAN }
 {
 	m_itemIcon = bowImageName;
+
+	if (projectileImageName == "beetle_spit.png")
+	{
+		m_zIndex = -100;
+	}
+	else
+	{
+		m_zIndex = 102;
+		setupSprites();
+	}
 }
 
 /*----------------------------------------------------------------------------------------
@@ -64,4 +74,32 @@ void BaseLongbow::setProperties(int damage, float castingTime, std::string bowIm
 	m_itemIcon = bowImageName;
 	m_projectileImageName = projectileImageName;
 	m_destroyProjectilesOnCollision = destroyProjectilesOnCollision;
+}
+
+/*----------------------------------------------------------------------------------------
+| Setup Sprites and Animations
+----------------------------------------------------------------------------------------*/
+void BaseLongbow::setupSprites()
+{
+	spriteInfo = std::make_shared<ComplexSpriteInfo>();
+
+	addSprite("Player/Walk/bow.png", "walk", 9, 4);
+	addAnimation("walk", "WalkUp", 1, 8);
+	addAnimation("walk", "WalkLeft", 10, 17);
+	addAnimation("walk", "WalkDown", 19, 26);
+	addAnimation("walk", "WalkRight", 28, 35);
+	addAnimation("walk", "IdleUp", 0, 0);
+	addAnimation("walk", "IdleLeft", 9, 9);
+	addAnimation("walk", "IdleDown", 18, 18);
+	addAnimation("walk", "IdleRight", 27, 27);
+
+	addSprite("Player/Attack/Bow/bow.png", "shoot", 13, 4);
+	addAnimation("shoot", "ShootUp", 1, 12);
+	addAnimation("shoot", "ShootLeft", 14, 25);
+	addAnimation("shoot", "ShootDown", 27, 38);
+	addAnimation("shoot", "ShootRight", 40, 51);
+	addAnimation("shoot", "IdleUp", 0, 0);
+	addAnimation("shoot", "IdleLeft", 13, 13);
+	addAnimation("shoot", "IdleDown", 26, 26);
+	addAnimation("shoot", "IdleRight", 39, 39);
 }

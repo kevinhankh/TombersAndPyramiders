@@ -45,6 +45,7 @@ std::shared_ptr<BaseWeapon> Inventory::getWeapon()
 	return m_weapon;
 }
 
+
 std::shared_ptr<BaseShield> Inventory::getShield()
 {
 	return m_shield;
@@ -75,6 +76,8 @@ std::shared_ptr<BaseWeapon> Inventory::setWeapon(std::shared_ptr<BaseWeapon> wea
 	m_weapon->setOwnerId(gameObject->getId());
 	return old;
 }
+
+
 
 std::shared_ptr<BaseShield> Inventory::setShield(std::shared_ptr<BaseShield> shield)
 {
@@ -111,7 +114,9 @@ std::shared_ptr<BaseItem> Inventory::addItem(std::shared_ptr<BaseItem> item)
 {
 	auto itemRemoved = item->addToInventory(this);
 
-	auto owner = gameObject->getComponent<Character>();
+	auto owner = (Character *)getGameObject();
+
+	//Character *owner = dynamic_cast<Character*>(getGameObject());
 	if (owner != nullptr)
 	{
 		owner->updateInventory(false, itemRemoved);

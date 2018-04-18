@@ -59,4 +59,9 @@ class BaseShortsword : public BaseMeleeWeapon
     ----------------------------------------------------------------------------------------*/
     public:
 		void setProperties(int damage, string imageName, bool destroyOnCollision);
+
+	/*----------------------------------------------------------------------------------------
+	| Setup Sprites and Animations
+	----------------------------------------------------------------------------------------*/
+		void setupSprites();
 };
