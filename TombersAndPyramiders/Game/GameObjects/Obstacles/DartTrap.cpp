@@ -27,3 +27,19 @@ std::shared_ptr<ComplexSpriteInfo> DartTrap::createSpriteInfo(Direction directio
 	}
 	return spriteInfo;
 }
+
+void DartTrap::setState(Mode mode)
+{
+	m_mode = mode;
+	switch (m_mode)
+	{
+	case Obstacle::Enabled:
+		changeSpriteSheet(Disabled);
+		break;
+	case Obstacle::Disabled:
+		changeSpriteSheet(Enabled);
+		break;
+	default:
+		break;
+	}
+}

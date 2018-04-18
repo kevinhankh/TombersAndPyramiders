@@ -3,13 +3,11 @@
 #include "ObstaclePilot.h"
 #include "DummyPilot.h"
 
-Obstacle::Obstacle(std::shared_ptr<ComplexSpriteInfo> spriteInfo, Vector2* colliderOffset, Direction direction, Mode mode, float x, float y, float scale) : ComplexSprite(spriteInfo, x, y)
+Obstacle::Obstacle(std::shared_ptr<ComplexSpriteInfo> spriteInfo, Vector2* colliderOffset, Direction direction, Mode mode, float x, float y, float scale) : ComplexSprite(spriteInfo, x, y, 1, scale)
 {
-	getTransform()->setScale(scale);
 	m_mode = mode;
 	changeSpriteSheet(mode);
 	addComponentAsParent<ObstacleController, BasePossessableController>(this, new ObstaclePilot(std::make_shared<TimeInterval>()));
-	addComponent<BoxCollider>(this, colliderOffset->getX(), colliderOffset->getY()); //Offset of colliderOffset->getX(), colliderOffset->getY() when offset added
 	delete colliderOffset;
 }
 
@@ -18,25 +16,30 @@ void Obstacle::onUpdate(int ticks)
 	updateFrames(ticks);
 }
 
-void Obstacle::setState(Mode mode)
-{
-	m_mode = mode;
-	switch (m_mode)
-	{
-	case Obstacle::Enabled:
-		changeSpriteSheet(Disabled);
-		getComponent<BoxCollider>()->setDisabled(false);
-		break;
-	case Obstacle::Disabled:
-		changeSpriteSheet(Enabled);
-		getComponent<BoxCollider>()->setDisabled(true);
-		break;
-	default:
-		break;
-	}
-}
-
 Obstacle::Mode Obstacle::getState()
 {
 	return m_mode;
+}
+
+Vector2* Obstacle::createColliderOffset(Direction direction, float scale)
+{
+	Vector2* offset;
+	switch(direction)
+	{
+	case West:
+		offset = new Vector2(0.0f, 0.0f);
+		break;
+	case East:
+		offset = new Vector2(0.0f, 0.0f);
+		break;
+	case North:
+		offset = new Vector2(0.0f, 0.0f);
+		break;
+	case South:
+		offset = new Vector2(0.0f, 0.0f);
+		break;
+	default:
+		throw "ERROR::SingleDoor::createColliderOffset:: Not a valid direciton";
+	}
+	return offset;
 }

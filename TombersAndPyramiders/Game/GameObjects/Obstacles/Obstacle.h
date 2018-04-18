@@ -17,11 +17,11 @@ public:
 	void onEnd() {};
 
 	Mode getState(); 
-	void setState(Mode mode);
+	virtual void setState(Mode mode) = 0;
 
 protected:
 	std::shared_ptr<ComplexSpriteInfo> createSpriteInfo(Direction direction) {};
-	Vector2* createColliderOffset(Direction direction, float scale) {};
+	Vector2* createColliderOffset(Direction direction, float scale);
 
 private:
 	Mode m_mode;

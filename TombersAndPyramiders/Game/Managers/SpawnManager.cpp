@@ -143,10 +143,10 @@ void SpawnManager::sendStartPacket()
 	}
 
 	//Added boulder for testing possession
-	//SpawnManager::getInstance()->generateBoulder(std::stof(payload["playerSpawnX" + std::to_string(0)]) + 3, std::stof(payload["playerSpawnY" + std::to_string(0)]) + 1);
+	SpawnManager::getInstance()->generateBoulder(std::stof(payload["playerSpawnX" + std::to_string(0)]) - 2, std::stof(payload["playerSpawnY" + std::to_string(0)]) + 4);
 
-	SpawnManager::getInstance()->generateDartTrap(std::stof(payload["playerSpawnX" + std::to_string(0)]) + 2, std::stof(payload["playerSpawnY" + std::to_string(0)]) + 2, (DartTrap::Direction)Randomize::Random(0, 3));
-	SpawnManager::getInstance()->generateSpikes(std::stof(payload["playerSpawnX" + std::to_string(0)]) + 1, std::stof(payload["playerSpawnY" + std::to_string(0)]) + 3);
+	SpawnManager::getInstance()->generateDartTrap(std::stof(payload["playerSpawnX" + std::to_string(0)]) + 4, std::stof(payload["playerSpawnY" + std::to_string(0)]), (DartTrap::Direction)Randomize::Random(0, 3));
+	SpawnManager::getInstance()->generateSpikes(std::stof(payload["playerSpawnX" + std::to_string(0)]), std::stof(payload["playerSpawnY" + std::to_string(0)]) - 2);
 
 	NetworkingManager::getInstance()->prepareMessageForSendingTCP(0, "STARTGAME", payload);
 }
@@ -371,22 +371,18 @@ std::shared_ptr<Boulder> SpawnManager::generateBoulder(float x, float y)
 
 std::shared_ptr<Spikes> SpawnManager::generateSpikes(float x, float y)
 {
-	std::shared_ptr<Spikes> spikes = GameManager::getInstance()->createGameObject<Spikes>(false, Spikes::Direction::North, Spikes::Mode::Enabled, x, y, 1);
+	std::shared_ptr<Spikes> spikes = GameManager::getInstance()->createGameObject<Spikes>(false, Spikes::Direction::North, Spikes::Mode::Enabled, x, y, 2);
 	spikes->getTransform()->setPosition(x, y);
 	spikes->getTransform()->setZ(2);
-	auto boxCollider = spikes->addComponent<BoxCollider>(spikes.get(), 1, 1);
-	spikes->addComponent<Rigidbody>(spikes.get(), boxCollider.get());
 	return spikes;
 }
 
 std::shared_ptr<DartTrap> SpawnManager::generateDartTrap(float x, float y, DartTrap::Direction direction)
 {
-	std::shared_ptr<DartTrap> dartTrap = GameManager::getInstance()->createGameObject<DartTrap>(false, direction, DartTrap::Mode::Enabled, x, y, 1);
+	std::shared_ptr<DartTrap> dartTrap = GameManager::getInstance()->createGameObject<DartTrap>(false, direction, DartTrap::Mode::Enabled, x, y, 2);
 	dartTrap->getTransform()->setPosition(x, y);
 	dartTrap->getTransform()->setZ(2);
 	dartTrap->getTransform()->setRotation(direction * 90);
-	auto boxCollider = dartTrap->addComponent<BoxCollider>(dartTrap.get(), 1, 1);
-	dartTrap->addComponent<Rigidbody>(dartTrap.get(), boxCollider.get());
 	return dartTrap;
 }
 
