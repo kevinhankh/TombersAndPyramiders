@@ -104,8 +104,8 @@ void SpawnManager::sendStartPacket()
 		int room = Randomize::Random(0, GeneratorManager::getInstance()->levels[i]->rooms.size() - 2);
 
 		for (int j = 0; j < 5; j++) {
-			x = ((Randomize::Random() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_width - 2) + 1) + GeneratorManager::getInstance()->levels[0]->rooms[room]->m_xCoord) * 5;
-			y = (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_yCoord - (Randomize::Random() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_height - 2) + 1)) * 5;
+			x = ((Randomize::Random() % (GeneratorManager::getInstance()->levels[i]->rooms[room]->m_width - 2) + 1) + GeneratorManager::getInstance()->levels[i]->rooms[room]->m_xCoord) * 5;
+			y = (GeneratorManager::getInstance()->levels[i]->rooms[room]->m_yCoord - (Randomize::Random() % (GeneratorManager::getInstance()->levels[i]->rooms[room]->m_height - 2) + 1)) * 5;
 			x += i * LEVEL_OFFSET;
 			SpawnManager::getInstance ()->generateAiCharacter (id, x, y, true);
 
@@ -145,7 +145,11 @@ void SpawnManager::sendStartPacket()
 	//Added boulder for testing possession
 	SpawnManager::getInstance()->generateBoulder(std::stof(payload["playerSpawnX" + std::to_string(0)]) - 2, std::stof(payload["playerSpawnY" + std::to_string(0)]) + 4);
 
-	SpawnManager::getInstance()->generateDartTrap(std::stof(payload["playerSpawnX" + std::to_string(0)]) + 4, std::stof(payload["playerSpawnY" + std::to_string(0)]), (DartTrap::Direction)Randomize::Random(0, 3));
+	SpawnManager::getInstance()->generateDartTrap(std::stof(payload["playerSpawnX" + std::to_string(0)]) + 4, std::stof(payload["playerSpawnY" + std::to_string(0)]) + 3, (DartTrap::Direction)Randomize::Random(0, 3));
+	SpawnManager::getInstance()->generateDartTrap(std::stof(payload["playerSpawnX" + std::to_string(0)]) + 6, std::stof(payload["playerSpawnY" + std::to_string(0)]) + 2, (DartTrap::Direction)Randomize::Random(0, 3));
+	SpawnManager::getInstance()->generateDartTrap(std::stof(payload["playerSpawnX" + std::to_string(0)]) + 8, std::stof(payload["playerSpawnY" + std::to_string(0)]) + 1, (DartTrap::Direction)Randomize::Random(0, 3));
+	SpawnManager::getInstance()->generateDartTrap(std::stof(payload["playerSpawnX" + std::to_string(0)]) + 10, std::stof(payload["playerSpawnY" + std::to_string(0)]), (DartTrap::Direction)Randomize::Random(0, 3));
+	SpawnManager::getInstance()->generateDartTrap(std::stof(payload["playerSpawnX" + std::to_string(0)]) + 12, std::stof(payload["playerSpawnY" + std::to_string(0)]) - 1, (DartTrap::Direction)Randomize::Random(0, 3));
 	SpawnManager::getInstance()->generateSpikes(std::stof(payload["playerSpawnX" + std::to_string(0)]), std::stof(payload["playerSpawnY" + std::to_string(0)]) - 2);
 
 	NetworkingManager::getInstance()->prepareMessageForSendingTCP(0, "STARTGAME", payload);

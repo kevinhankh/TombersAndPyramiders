@@ -1,5 +1,7 @@
 #include "DartTrap.h"
 #include <memory>
+#include "Projectile.h"
+#include "GameManager.h"
 
 std::shared_ptr<ComplexSpriteInfo> DartTrap::createSpriteInfo(Direction direction)
 {
@@ -37,9 +39,27 @@ void DartTrap::setState(Mode mode)
 		changeSpriteSheet(Disabled);
 		break;
 	case Obstacle::Disabled:
+        shoot();
 		changeSpriteSheet(Enabled);
 		break;
 	default:
 		break;
 	}
+}
+
+void DartTrap::shoot() {
+    int velX = (dir % 2 == 0) ? (dir == 0 ? 40 : -40) : 0; 
+    int velY = (dir % 2 == 1) ? (dir == 1 ? -40 : 40) : 0; 
+		GameManager::getInstance()->createGameObject<Projectile>(
+			false,
+			10,
+			"TempWoodenArrow.png",
+			.5, .5,
+			dir * 90,
+			true,
+			x, y,
+			dir * 90,
+			1,
+			velX, velY,
+			.5);
 }

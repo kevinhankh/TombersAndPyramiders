@@ -7,6 +7,7 @@ class TimeInterval {
     public:
     TimeInterval() {
         times[0] = {1000};
+        count = 1;
     }
 
     TimeInterval(int timeCount, int timers[]) {

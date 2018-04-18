@@ -11,11 +11,10 @@ void ObstaclePilot::onStart()
 void ObstaclePilot::onUpdate(int ticks)
 {
 	timePassed += ticks;
-	if (timer != nullptr && timePassed >= timer->getCurrentTime()) {
+	if (timePassed >= nextUpdate) {
 		auto ob = dynamic_cast<ObstacleController *>(m_controller);
 		ob->trigger();
-		timePassed -= timer->getCurrentTime();
-		timer->getNextTime(timePassed);
+		timePassed -= nextUpdate;
 	}
 }
 

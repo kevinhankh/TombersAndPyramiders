@@ -1,7 +1,7 @@
 #include "ObstacleController.h"
 #include "Obstacle.h"
 
-ObstacleController::ObstacleController(GameObject* parentGameobject, BasePilot* pilot) : BasePossessableController(parentGameobject, pilot)
+ObstacleController::ObstacleController(GameObject* parentGameobject, ObstaclePilot* pilot) : BasePossessableController(parentGameobject, pilot)
 {
 
 }

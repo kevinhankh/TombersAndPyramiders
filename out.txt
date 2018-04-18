@@ -1,84 +1,761 @@
 Networking Join Directed to IP 127.0.0.1:9999
 1280
 
-0x7fa6ebc34e68
-16
-0x7fa6ebc36498
-16
-0x7fa6ebc34e68
-16
 Hosting server.
 ---- 1
 Client: 0 IP: 0
-0x7fa6ebf71738
-16
 Server start game!
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
 CompontentTemplate Constructor Invoked
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+2 2 2 2 2 0 0 2 2 2 2 2 2 2 2 2 2 0 
+2 1 1 1 2 0 0 2 1 1 1 1 1 1 1 1 2 0 
+2 1 1 1 2 0 0 2 1 1 1 1 1 1 1 1 2 0 
+2 1 1 1 2 0 0 2 1 1 1 1 1 1 1 1 2 0 
+2 1 1 1 2 0 0 2 1 1 1 1 1 1 1 1 2 0 
+2 1 1 1 5 8 8 5 1 1 1 1 1 1 1 1 2 0 
+2 1 1 1 7 7 7 7 1 1 1 1 1 1 1 1 2 0 
+2 2 2 5 5 8 8 5 5 5 7 5 2 2 2 2 2 0 
+0 0 0 0 0 0 0 0 0 8 7 8 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 8 7 8 0 0 0 0 0 0 
+2 2 2 2 2 2 0 2 2 5 7 5 2 2 2 2 2 0 
+2 1 1 1 1 2 0 2 1 1 1 1 1 1 1 1 2 0 
+2 1 1 1 1 2 0 2 1 1 1 1 1 1 1 1 2 0 
+2 1 1 1 1 2 0 2 1 1 1 1 1 1 1 1 2 0 
+2 1 1 1 1 5 8 5 1 1 1 1 1 1 1 1 2 0 
+2 1 1 1 1 7 7 7 1 1 1 1 1 1 1 1 2 0 
+2 2 2 5 5 5 8 5 5 5 5 2 2 2 2 2 2 0 
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-2 2 2 2 0 2 2 2 2 0 2 2 2 2 2 2 2 0 
-2 1 1 2 0 2 1 1 2 0 2 1 1 1 1 1 2 0 
-2 1 1 2 0 2 1 1 2 0 2 1 1 1 1 1 2 0 
-2 1 1 2 0 2 1 1 2 0 2 1 1 1 1 1 2 0 
-2 1 1 2 0 2 1 1 2 0 2 1 1 1 1 1 5 0 
-2 1 1 2 0 2 1 1 2 0 2 1 1 1 1 1 5 0 
-2 1 1 2 0 2 1 1 2 0 2 1 1 1 1 1 5 0 
-2 1 1 2 0 2 1 1 2 0 2 1 1 1 1 1 5 0 
-2 1 1 5 8 5 1 1 5 8 5 5 5 5 5 7 5 0 
-2 1 1 7 7 5 1 1 7 7 7 7 7 8 8 7 8 0 
-2 1 1 5 8 5 1 1 5 8 5 5 5 5 5 7 5 0 
-2 1 1 2 0 2 1 1 2 0 2 1 1 1 1 1 5 0 
-2 1 1 2 0 2 1 1 2 0 2 1 1 1 1 1 2 0 
-2 1 1 2 0 2 1 1 2 0 2 1 1 1 1 1 2 0 
-2 2 2 2 0 2 1 1 2 0 2 1 1 1 1 1 2 0 
-0 0 0 0 0 2 2 2 2 0 2 2 2 2 2 2 2 0 
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
--9 8
-4 15
--4 8
-4 16
-1 8
-7 9
-1 -2
-7 6
-Event subbed: 30000|HURT
-Event subbed: 30001|HURT
-Event subbed: 30002|HURT
-Event subbed: 30003|HURT
-Event subbed: 30004|HURT
-2 2 2 2 2 0 2 2 2 2 2 2 2 2 2 2 2 0 
-2 1 1 1 2 2 2 1 1 1 1 1 1 1 1 1 2 0 
-2 1 1 1 2 2 2 1 1 1 1 1 1 1 1 1 2 0 
-2 1 1 1 2 2 2 1 1 1 1 1 1 1 1 1 2 0 
-2 1 1 1 5 5 5 1 1 1 1 1 1 1 1 1 5 8 
-2 1 1 1 7 7 7 1 1 1 1 1 1 1 1 1 7 7 
-2 1 1 1 5 5 5 1 1 1 1 1 1 1 1 1 5 8 
-2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 
-2 1 1 2 0 2 1 1 2 0 2 1 1 1 1 1 5 0 
-2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 7 5 0 
-2 1 1 1 1 1 1 1 1 1 1 1 1 1 2 7 8 0 
-2 1 1 1 1 1 1 1 1 1 1 1 1 1 2 7 5 0 
-2 2 2 2 2 2 2 2 2 5 7 5 2 2 2 1 5 0 
-2 1 1 2 0 2 1 1 2 8 7 1 1 1 1 1 2 0 
-2 2 2 2 2 2 2 2 2 5 5 5 2 2 2 2 2 0 
-2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 0 
-0 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 0 
-0 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
 -9 9
 5 8
--3 9
-11 8
--9 0
-15 4
--8 -5
-16 4
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+-2 9
+10 8
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+-9 -1
+6 7
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+-2 -1
+10 7
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Event subbed: 30000|HURT
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Event subbed: 30001|HURT
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Event subbed: 30002|HURT
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Event subbed: 30003|HURT
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Event subbed: 30004|HURT
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+2 2 2 2 2 2 0 2 2 2 2 2 2 2 2 2 2 0 
+2 1 1 1 1 2 0 2 1 1 1 1 1 1 1 1 2 0 
+2 1 1 1 1 2 0 2 1 1 1 1 1 1 1 1 2 0 
+2 1 1 1 1 5 8 5 1 1 1 1 1 1 1 1 2 0 
+2 1 1 1 1 7 7 7 1 1 1 1 1 1 1 1 2 0 
+2 2 2 5 5 5 7 5 5 5 7 5 2 2 2 2 2 0 
+2 1 1 1 7 7 7 7 1 1 1 1 1 1 1 1 2 0 
+2 2 2 2 2 2 2 5 2 5 7 5 2 2 2 2 2 0 
+2 1 1 1 1 1 2 0 2 1 1 1 1 1 1 2 0 0 
+2 1 1 1 1 1 2 0 2 1 1 1 1 1 1 2 0 0 
+2 1 1 1 1 1 2 2 2 1 1 1 1 1 1 2 2 0 
+2 1 1 1 1 1 2 2 2 1 1 1 1 1 1 2 2 0 
+2 1 1 1 1 1 5 5 5 1 1 1 1 1 1 2 2 0 
+2 1 1 1 1 1 7 7 7 1 1 1 1 1 1 2 2 0 
+2 1 1 1 1 1 5 5 5 1 1 1 1 1 1 2 2 0 
+2 1 1 1 1 1 2 7 2 2 2 2 2 2 2 2 2 0 
+2 2 2 2 2 2 2 5 5 5 5 2 2 2 2 2 2 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+-9 9
+6 6
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+-2 9
+10 6
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+-9 2
+7 10
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+-1 2
+8 9
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
 Event subbed: 30005|HURT
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
 Event subbed: 30006|HURT
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
 Event subbed: 30007|HURT
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
 Event subbed: 30008|HURT
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
 Event subbed: 30009|HURT
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
 Event subbed: 30010|SWAPPEDITEM
+Couldn't bind to local port
 Event subbed: 30010|HURT
-CompontentTemplate Constructor Invoked
-CompontentTemplate Constructor Invoked
-GhostCharacter::onStart
-GhostCharacter::onStart
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+Couldn't bind to local port
+Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port
+SDL ERROR: Couldn't bind to local port

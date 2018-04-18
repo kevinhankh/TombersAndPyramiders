@@ -13,6 +13,5 @@ class Spikes : public Obstacle
 	void setState(Mode mode);
 
 	private:
-	Mode m_mode;
 	std::shared_ptr<DamagingRegion> m_damagingRegion;
 };

@@ -7,7 +7,8 @@ Obstacle::Obstacle(std::shared_ptr<ComplexSpriteInfo> spriteInfo, Vector2* colli
 {
 	m_mode = mode;
 	changeSpriteSheet(mode);
-	addComponentAsParent<ObstacleController, BasePossessableController>(this, new ObstaclePilot(std::make_shared<TimeInterval>()));
+	int temp[4] = {1000, 500, 1500, 500};
+	addComponentAsParent<ObstacleController, BasePossessableController>(this, new ObstaclePilot());
 	delete colliderOffset;
 }
 

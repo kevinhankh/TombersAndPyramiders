@@ -6,7 +6,7 @@
 class Obstacle : public ComplexSprite
 {
 public:
-	enum Direction { East, South, West, North }; //in same rotation direction as getRotation for transforms.
+	enum Direction { East = 0, South = 1, West = 2, North = 3 }; //in same rotation direction as getRotation for transforms.
 	enum Mode { Enabled = 0, Disabled = 1};
 
 
@@ -22,7 +22,7 @@ public:
 protected:
 	std::shared_ptr<ComplexSpriteInfo> createSpriteInfo(Direction direction) {};
 	Vector2* createColliderOffset(Direction direction, float scale);
+	Mode m_mode;
 
 private:
-	Mode m_mode;
 };

@@ -8,11 +8,10 @@ class ObstaclePilot : public BasePilot
 {
 private:
 	int timePassed = 0;
-	std::shared_ptr<TimeInterval> timer;
-
+	int nextUpdate = 1000;
 public:
-	ObstaclePilot(std::shared_ptr<TimeInterval> t) {
-		timer = t;
+	ObstaclePilot() {
+		
 	};
 	void onStart();
 	void onUpdate(int ticks);
