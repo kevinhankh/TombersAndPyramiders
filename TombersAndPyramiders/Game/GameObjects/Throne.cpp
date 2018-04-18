@@ -11,6 +11,7 @@
 #include "SceneManager.h"
 #include "MainMenuScene.h"
 #include "MessageManager.h"
+#include "CharacterController.h"
 
 Throne::Throne() : ComplexSprite(createSpriteInfo(), 0, 0)
 {
@@ -49,6 +50,7 @@ void Throne::trigger()
     GameManager::getInstance()->createGameObject<SpinningEffect>(false)->getTransform()->setPosition(getTransform()->getX(), getTransform()->getY());
     getTransform()->setZ(1000);
     character->getTransform()->setZ(1001);
+    character->getComponent<CharacterController>()->m_audioSource->playSFX(SFX_THRONE);
     //send WinGame packet
 }
 

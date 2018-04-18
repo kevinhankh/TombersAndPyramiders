@@ -38,13 +38,13 @@ class CharacterController : public BaseController, public Damageable
 	public:
 		static const int DEFAULT_CHARACTER_MAX_HP;
 		static const Vector2 DEFAULT_CHARACTER_MOVEMENT_SPEED;
+		std::shared_ptr<AudioSource> m_audioSource;
 
 	private:
 		Inventory* m_inventory;
 		Vector2 m_movementSpeed;
 		std::shared_ptr<Rigidbody> m_rigidbody;
 		std::shared_ptr<BoxCollider> m_boxCollider;
-		std::shared_ptr<AudioSource> m_audioSource;
 		std::shared_ptr<AudioListener> m_audioListener;
 		std::shared_ptr<Character> m_character;
     /*----------------------------------------------------------------------------------------

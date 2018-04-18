@@ -52,6 +52,7 @@ AudioManager::AudioManager()
 	m_audioFiles[SFX_BUTTON_HOVER] = Mix_LoadWAV(BuildPath(PATH_SFX_BUTTON_HOVER).c_str());
 	m_audioFiles[SFX_ITEM] = Mix_LoadWAV(BuildPath(PATH_SFX_ITEM).c_str());
 	m_audioFiles[SFX_TRAP] = Mix_LoadWAV(BuildPath(PATH_SFX_TRAP).c_str());
+	m_audioFiles[SFX_THRONE] = Mix_LoadWAV(BuildPath(PATH_SFX_THRONE).c_str());
 	std::cout << Mix_GetError() << std::endl;
 	m_listener = nullptr;
 }
