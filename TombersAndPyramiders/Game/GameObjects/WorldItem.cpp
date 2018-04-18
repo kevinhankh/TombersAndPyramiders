@@ -13,6 +13,7 @@ WorldItem::WorldItem(std::shared_ptr<BaseItem> item, float x, float y) : SimpleS
 
 std::shared_ptr<BaseItem> WorldItem::pickupItem()
 {
+	
 	destroy(getId());
 	return m_item;
 }

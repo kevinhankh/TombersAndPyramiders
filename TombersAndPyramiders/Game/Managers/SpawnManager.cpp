@@ -23,6 +23,8 @@
 #include "GhostCamera.h"
 #include "Randomize.h"
 #include "HealthBar.h"
+#include "Throne.h"
+#include "AudioManager.h"
 
 std::shared_ptr<SpawnManager> SpawnManager::s_instance;
 
@@ -182,6 +184,7 @@ This is the type of character of YOU are when you are playing. It is a client ch
 */
 std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(int id, float x, float y)
 {
+	generateThrone(x + 2, y + 2);
 	std::shared_ptr<ClientCharacter> simpleCharacter = GameManager::getInstance()->createGameObjectWithId<ClientCharacter>(false, id, new PlayerPilot(), id);
 
 	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
@@ -218,10 +221,7 @@ std::shared_ptr<HostCharacter> SpawnManager::generateHostCharacter (int id, floa
 	std::shared_ptr<HostCharacter> simpleCharacter = GameManager::getInstance ()->createGameObjectWithId<HostCharacter> (false, id, new HostPilot (), id);
 	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
 	healthBar->setTrackingPlayer(simpleCharacter);
-	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(24.0f);
-	/*simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseShortsword>(
-		BaseShortsword::WOODEN_SHORTSWORD_DAMAGE, BaseShortsword::WOODEN_SHORTSWORD_IMAGE_NAME,
-		BaseShortsword::WOODEN_SHORTSWORD_DESTROY_ON_COLLISION));
+	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(14.0f);
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseShield>(
 		BaseShield::WOODEN_SHIELD_IMAGE_NAME, BaseShield::WOODEN_SHIELD_ICON_NAME, BaseShield::WOODEN_SHIELD_DAMAGE_MULT,
 		BaseShield::WOODEN_SHIELD_COOLDOWN_TIME));
@@ -246,10 +246,7 @@ std::shared_ptr<NetworkCharacter> SpawnManager::generateNetworkCharacter (int id
 	std::shared_ptr<NetworkCharacter> simpleCharacter = GameManager::getInstance ()->createGameObjectWithId<NetworkCharacter> (false, id, new HostPilot (), id);
 	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
 	healthBar->setTrackingPlayer(simpleCharacter);
-	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(12.0f);
-	/*simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseShortsword>(
-		BaseShortsword::WOODEN_SHORTSWORD_DAMAGE, BaseShortsword::WOODEN_SHORTSWORD_IMAGE_NAME,
-		BaseShortsword::WOODEN_SHORTSWORD_DESTROY_ON_COLLISION));
+	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(14.0f);
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseShield>(
 		BaseShield::WOODEN_SHIELD_IMAGE_NAME, BaseShield::WOODEN_SHIELD_ICON_NAME, BaseShield::WOODEN_SHIELD_DAMAGE_MULT,
 		BaseShield::WOODEN_SHIELD_COOLDOWN_TIME));
@@ -332,7 +329,7 @@ std::shared_ptr<Character> SpawnManager::generateAiCharacter(int id, float x, fl
 
 	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
 	healthBar->setTrackingPlayer(simpleAi);
-	simpleAi->addComponent<Light>(simpleAi.get())->setColor(50, 255, 30)->setSize(3.0f);
+	simpleAi->addComponent<Light>(simpleAi.get())->setColor(50, 255, 30)->setSize(4.0f);
 	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<BaseLongbow>(
 		BaseLongbow::WOODEN_LONGBOW_DAMAGE, BaseLongbow::LONGBOW_CASTING_TIME, BaseLongbow::WOODEN_LONGBOW_IMAGE_NAME,
 		"beetle_spit.png", BaseLongbow::WOODEN_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION));
@@ -419,6 +416,7 @@ std::shared_ptr<GhostCharacter> SpawnManager::generateNetworkGhost(float x, floa
 		ghost->addComponent<Sender>(ghost.get(), netId);
 		Camera::getActiveCamera()->setActiveCamera(GameManager::getInstance()->createGameObject<GhostCamera>(true));
 		Camera::getActiveCamera()->addComponent<CameraFollow>(Camera::getActiveCamera().get());
+		AudioManager::getInstance()->playMusic(MUSIC_GHOST);
 	}
 	else {
 		ghost->addComponent<Receiver>(ghost.get(), netId);
@@ -449,6 +447,13 @@ std::shared_ptr<SingleDoor> SpawnManager::generateSingleDoor(float x, float y, D
 std::shared_ptr<ClientCharacter> SpawnManager::getActivePlayer()
 {
 	return m_clientPlayer;
+}
+
+std::shared_ptr<Throne> SpawnManager::generateThrone(float x, float y)
+{
+	std::shared_ptr<Throne> throne = GameManager::getInstance()->createGameObject<Throne>(false);
+	throne->getTransform()->setPosition(x, y);
+	return throne;
 }
 
 //std::shared_ptr<Wall> SpawnManager::generateWall(float x, float y, float scale)
