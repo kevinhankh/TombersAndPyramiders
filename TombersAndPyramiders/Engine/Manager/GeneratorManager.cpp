@@ -29,7 +29,18 @@ GeneratorManager::GeneratorManager()
 	{
 		for (int j = 0; j < WORLD_HEIGHT; j++)
 		{
-			worldMatrix[i][j] = 0;
+			worldMatrix[i][j] = -1;
+		}
+	}
+}
+
+void GeneratorManager::reset()
+{
+	for (int i = 0; i < WORLD_WIDTH; i++)
+	{
+		for (int j = 0; j < WORLD_HEIGHT; j++)
+		{
+			worldMatrix[i][j] = -1;
 		}
 	}
 }
@@ -71,12 +82,49 @@ void GeneratorManager::recordRoom(std::shared_ptr<Room> r)
 	{
 		for (int j = 0; j < r->m_width; j++)
 		{
-			if (j == 0 || j == r->m_width - 1 || i == 0 || i == r->m_height - 1) 
+			if (i == 0 && j == 0)
 			{
+				// top left corner
+				worldMatrix[r->m_xCoord + WORLD_WIDTH / 2 + j][-(r->m_yCoord - WORLD_HEIGHT / 2) + i] = 9;
+			}
+			else if (i == 0 && j == r->m_width - 1)
+			{
+				//top right corner
+				worldMatrix[r->m_xCoord + WORLD_WIDTH / 2 + j][-(r->m_yCoord - WORLD_HEIGHT / 2) + i] = 9;
+			}
+			else if (i == r->m_height - 1 && j == 0)
+			{
+				//bottom left corner
+				worldMatrix[r->m_xCoord + WORLD_WIDTH / 2 + j][-(r->m_yCoord - WORLD_HEIGHT / 2) + i] = 9;
+			}
+			else if (i == r->m_height - 1 && j == r->m_width - 1)
+			{
+				//bottom right corner
+				worldMatrix[r->m_xCoord + WORLD_WIDTH / 2 + j][-(r->m_yCoord - WORLD_HEIGHT / 2) + i] = 9;
+			}
+			else if (i == 0)
+			{
+				//top wall
+				worldMatrix[r->m_xCoord + WORLD_WIDTH / 2 + j][-(r->m_yCoord - WORLD_HEIGHT / 2) + i] = 1;
+			}
+			else if (j == 0)
+			{
+				//left wall
+				worldMatrix[r->m_xCoord + WORLD_WIDTH / 2 + j][-(r->m_yCoord - WORLD_HEIGHT / 2) + i] = 4;
+			}
+			else if (i == r->m_height - 1)
+			{
+				//bottom wall
+				worldMatrix[r->m_xCoord + WORLD_WIDTH / 2 + j][-(r->m_yCoord - WORLD_HEIGHT / 2) + i] = 3;
+			}
+			else if (j == r->m_width - 1)
+			{
+				//right wall
 				worldMatrix[r->m_xCoord + WORLD_WIDTH / 2 + j][-(r->m_yCoord - WORLD_HEIGHT / 2) + i] = 2;
 			}
-			else {
-				worldMatrix[r->m_xCoord + WORLD_WIDTH / 2 + j][-(r->m_yCoord - WORLD_HEIGHT / 2) + i] = 1;
+			else
+			{
+				worldMatrix[r->m_xCoord + WORLD_WIDTH / 2 + j][-(r->m_yCoord - WORLD_HEIGHT / 2) + i] = 0;
 			}
 		}
 	}
@@ -89,30 +137,95 @@ void GeneratorManager::recordCorridor(std::shared_ptr<Corridor> c)
 		for (int j = 0; j < c->m_width; j++)
 		{
 			int temp = worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i];
-			if (temp == 2 && ((i == 0 && j != 0 && j != c->m_width - 1) || (j == 0 && i != 0 && i != c->m_height - 1) || (j == c->m_width - 1 && i != 0 && i != c->m_height - 1) || (i == c->m_height - 1 && j != 0 && j != c->m_width - 1)))
-				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 5;
-			else if (temp == 2 && ((i == 0 && j == c->m_width - 1) || (j == 0 && i == c->m_height - 1) || (i == 0 && j == 0) || (j == c->m_width - 1 && i == c->m_height - 1)))
+			if ((temp == 2 || temp == 1 || temp == 3 || temp == 4 || temp == 9) && (i == 0 && j != 0 && j != c->m_width - 1))
+			{
+				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 12;
+			}
+			else if((temp == 2 || temp == 1 || temp == 3 || temp == 4 || temp == 9) && (j == 0 && i != 0 && i != c->m_height - 1)){
+				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 15;
+			}
+			else if ((temp == 2 || temp == 1 || temp == 3 || temp == 4 || temp == 9) && (j == c->m_width - 1 && i != 0 && i != c->m_height - 1)) {
+				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 13;
+			}
+			else if ((temp == 2 || temp == 1 || temp == 3 || temp == 4 || temp == 9) && (i == c->m_height - 1 && j != 0 && j != c->m_width - 1)) {
+				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 14;
+			}			
+			else if ((temp == 2 || temp == 4 || temp == 1 || temp == 3 || temp == 9) && ((i == 0 && j == c->m_width - 1) || (i == 0 && j == 0)) && c->m_height == 3)
+			{
+				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 12;
+			}
+			else if ((temp == 2 || temp == 4 || temp == 1 || temp == 3 || temp == 9) && ((j == 0 && i == c->m_height - 1) || (j == c->m_width - 1 && i == c->m_height - 1)) && c->m_height == 3)
+			{
+				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 14;
+			}
+			else if ((temp == 1 || temp == 3 || temp == 2 || temp == 4 || temp == 9) && ((j == 0 && i == c->m_height - 1) || (i == 0 && j == 0)) && c->m_width == 3)
+			{
+				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 15;
+			}
+			else if ((temp == 1 || temp == 3 || temp == 2 || temp == 4 || temp == 9) && ((i == 0 && j == c->m_width - 1) || (j == c->m_width - 1 && i == c->m_height - 1)) && c->m_width == 3)
+			{
+				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 13;
+			}
+			else if (temp == 1 || temp == 2 || temp == 3 || temp == 4)
+			{
+				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 0;
+			}
+			else if ((temp == 10) && ((j == 0 && i != 0 && i != c->m_height - 1) || (j == c->m_width - 1 && i != 0 && i != c->m_height - 1) || (i == c->m_height - 1 && j != 0 && j != c->m_width - 1)))
 			{
 				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 5;
 			}
-			else if (temp == 2)
+			else if ((temp == 10) && ((i == 0 && j != 0 && j != c->m_width - 1) || (j == 0 && i != 0 && i != c->m_height - 1) || (i == c->m_height - 1 && j != 0 && j != c->m_width - 1)))
 			{
-				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 7;
-			}else if ((temp == 8 || temp == 9) && ((i == 0 && j != 0 && j != c->m_width - 1) || (j == 0 && i != 0 && i != c->m_height - 1) || (j == c->m_width - 1 && i != 0 && i != c->m_height - 1) || (i == c->m_height - 1 && j != 0 && j != c->m_width - 1)))
+				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 6;
+			}
+			else if ((temp == 10) && ((i == 0 && j != 0 && j != c->m_width - 1) || (j == 0 && i != 0 && i != c->m_height - 1) || (j == c->m_width - 1 && i != 0 && i != c->m_height - 1)))
 			{
 				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 7;
 			}
-			else if (temp == 0 && ((i == 0 && j != 0 && j != c->m_width - 1) || (j == 0 && i != 0 && i != c->m_height - 1) || (j == c->m_width - 1 && i != 0 && i != c->m_height - 1) || (i == c->m_height - 1 && j != 0 && j != c->m_width - 1)))
+			else if ((temp == 10) && ((i == 0 && j != 0 && j != c->m_width - 1) || (j == c->m_width - 1 && i != 0 && i != c->m_height - 1) || (i == c->m_height - 1 && j != 0 && j != c->m_width - 1)))
 			{
 				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 8;
 			}
-			else if (temp == 0 && ((i == 0 && j == c->m_width - 1) || (j == 0 && i == c->m_height - 1) || (i == 0 && j == 0) || (j == c->m_width - 1 && i == c->m_height - 1) ))
+			/*
+			else if ((temp == 5) && ((j == 0 && i != 0 && i != c->m_height - 1) || (j == c->m_width - 1 && i != 0 && i != c->m_height - 1) || (i == c->m_height - 1 && j != 0 && j != c->m_width - 1)))
 			{
-				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 9;
+				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 0;
 			}
-			else if (temp == 0) 
+			else if ((temp == 6) && ((i == 0 && j != 0 && j != c->m_width - 1) || (j == 0 && i != 0 && i != c->m_height - 1) || (i == c->m_height - 1 && j != 0 && j != c->m_width - 1)))
+			{
+				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 0;
+			}
+			else if ((temp == 7) && ((i == 0 && j != 0 && j != c->m_width - 1) || (j == 0 && i != 0 && i != c->m_height - 1) || (j == c->m_width - 1 && i != 0 && i != c->m_height - 1)))
+			{
+				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 0;
+			}
+			else if ((temp == 8) && ((i == 0 && j != 0 && j != c->m_width - 1) || (j == c->m_width - 1 && i != 0 && i != c->m_height - 1) || (i == c->m_height - 1 && j != 0 && j != c->m_width - 1)))
+			{
+				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 0;
+			}*/
+			else if (temp == -1 && (i == 0 && j != 0 && j != c->m_width - 1))
+			{
+				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 5;
+			}
+			else if (temp == -1 && (j == 0 && i != 0 && i != c->m_height - 1))
+			{
+				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 8;
+			}
+			else if (temp == -1 && (j == c->m_width - 1 && i != 0 && i != c->m_height - 1))
+			{
+				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 6;
+			}
+			else if (temp == -1 && (i == c->m_height - 1 && j != 0 && j != c->m_width - 1))
 			{
 				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 7;
+			}
+			else if (temp == -1 && ((i == 0 && j == c->m_width - 1) || (j == 0 && i == c->m_height - 1) || (i == 0 && j == 0) || (j == c->m_width - 1 && i == c->m_height - 1) ))
+			{
+				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 10;
+			}
+			else if (temp == -1) 
+			{
+				worldMatrix[c->m_xCoord + WORLD_WIDTH / 2 + j][-(c->m_yCoord - WORLD_HEIGHT / 2) + i] = 0;
 			}
 		}
 	}

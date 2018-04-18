@@ -119,6 +119,8 @@
     <ClCompile Include="AnimatedItem.cpp" />
     <ClCompile Include="Game\GameObjects\HealthBar.cpp" />
     <ClCompile Include="Game\GameObjects\PositionBasedPopup.cpp" />
+    <ClCompile Include="Game\GameObjects\SpinningEffect.cpp" />
+    <ClCompile Include="Game\GameObjects\Throne.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Component\AI\AI.h" />
@@ -250,6 +252,8 @@
     <ClInclude Include="AnimatedItem.h" />
     <ClInclude Include="Game\GameObjects\HealthBar.h" />
     <ClInclude Include="Game\GameObjects\PositionBasedPopup.h" />
+    <ClInclude Include="Game\GameObjects\SpinningEffect.h" />
+    <ClInclude Include="Game\GameObjects\Throne.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Character.bmp" />

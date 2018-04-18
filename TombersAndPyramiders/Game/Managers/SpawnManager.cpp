@@ -42,6 +42,7 @@ void startGameCallback(std::map<std::string, void*> payload)
 		Randomize::SetSeed(mapSeedID);
 		GeneratorManager::getInstance ()->generateLevel (WORLD_WIDTH, WORLD_HEIGHT, 2, i);
 		GeneratorManager::getInstance()->drawLevel(i);
+		GeneratorManager::getInstance()->reset();
 	}
 
 
@@ -112,8 +113,8 @@ void SpawnManager::sendStartPacket()
 		int room = Randomize::Random(0, GeneratorManager::getInstance()->levels[i]->rooms.size() - 2);
 
 		for (int j = 0; j < 5; j++) {
-			x = ((Randomize::Random() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_width - 2) + 1) + GeneratorManager::getInstance()->levels[0]->rooms[room]->m_xCoord) * 5;
-			y = (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_yCoord - (Randomize::Random() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_height - 2) + 1)) * 5;
+			x = ((Randomize::Random() % (GeneratorManager::getInstance()->levels[i]->rooms[room]->m_width - 2) + 1) + GeneratorManager::getInstance()->levels[i]->rooms[room]->m_xCoord) * 5;
+			y = (GeneratorManager::getInstance()->levels[i]->rooms[room]->m_yCoord - (Randomize::Random() % (GeneratorManager::getInstance()->levels[i]->rooms[room]->m_height - 2) + 1)) * 5;
 			x += i * LEVEL_OFFSET;
 			SpawnManager::getInstance ()->generateAiCharacter (id, x, y, true);
 
@@ -229,7 +230,7 @@ std::shared_ptr<HostCharacter> SpawnManager::generateHostCharacter (int id, floa
 		BaseGreaves::WOODEN_GREAVES_ICON_IMAGE_NAME, BaseGreaves::WOODEN_GREAVES_COOLDOWN_TIME, BaseGreaves::WOODEN_GREAVES_DASH_DURATION,
 		BaseGreaves::WOODEN_GREAVES_DASH_SPEED));
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseChestplate>(
-		BaseChestplate::WOODEN_CHESTPLATE_ICON_IMAGE_NAME, BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));*/
+		BaseChestplate::WOODEN_CHESTPLATE_ICON_IMAGE_NAME, BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));
 	//simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseHelmet>(
 	//	BaseHelmet::WOODEN_HELMET_ICON_IMAGE, BaseHelmet::WOODEN_HELMET_CRITICAL_RESIST_CHANCE));
 	simpleCharacter->getTransform ()->setPosition (x, y, 100);
@@ -254,7 +255,7 @@ std::shared_ptr<NetworkCharacter> SpawnManager::generateNetworkCharacter (int id
 		BaseGreaves::WOODEN_GREAVES_ICON_IMAGE_NAME, BaseGreaves::WOODEN_GREAVES_COOLDOWN_TIME, BaseGreaves::WOODEN_GREAVES_DASH_DURATION,
 		BaseGreaves::WOODEN_GREAVES_DASH_SPEED));
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseChestplate>(
-		BaseChestplate::WOODEN_CHESTPLATE_ICON_IMAGE_NAME, BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));*/
+		BaseChestplate::WOODEN_CHESTPLATE_ICON_IMAGE_NAME, BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));
 	//simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseHelmet>(
 	//	BaseHelmet::WOODEN_HELMET_ICON_IMAGE, BaseHelmet::WOODEN_HELMET_CRITICAL_RESIST_CHANCE));
 	simpleCharacter->getTransform()->setPosition(x, y, 100);
