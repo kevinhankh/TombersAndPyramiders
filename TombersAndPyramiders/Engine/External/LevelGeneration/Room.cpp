@@ -224,8 +224,14 @@ void Room::draw()
 		//draw stairs
 		int x = Randomize::Random() % m_width/2 + ceil(m_width/4);
 		int y = Randomize::Random() % m_height/2 + ceil(m_height/4);
-		SpawnManager::getInstance()->generateMiscSquare(m_level * LEVEL_OFFSET + (m_xCoord * m_scale + 2 + x * m_scale), m_yCoord * m_scale - 2 - y * m_scale, 0, m_scale, "spiralStairs.png", true, 3.0f, 3.0f);
-
+		if (m_level == PYRAMID_HEIGHT - 1) {
+			SpawnManager::getInstance()->generateThrone(m_level * LEVEL_OFFSET + (m_xCoord * m_scale + 2 + x * m_scale), m_yCoord * m_scale - 2 - y * m_scale);
+		}
+		else
+		{
+			SpawnManager::getInstance()->generateMiscSquare(m_level * LEVEL_OFFSET + (m_xCoord * m_scale + 2 + x * m_scale), m_yCoord * m_scale - 2 - y * m_scale, 0, m_scale, "spiralStairs.png", true, 3.0f, 3.0f);
+		}
+	
 		GeneratorManager::getInstance()->levels[m_level]->stairX = m_level * LEVEL_OFFSET + (m_xCoord * m_scale + 2 + x * m_scale);
 		GeneratorManager::getInstance()->levels[m_level]->stairY = m_yCoord * m_scale - 2 - y * m_scale;
 
