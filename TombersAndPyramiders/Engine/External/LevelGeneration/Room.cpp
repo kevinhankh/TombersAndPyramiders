@@ -219,13 +219,15 @@ void Room::draw()
 			
 		}
 	}
-	if (m_exit) {
-
+	if (m_exit) 
+	{
 		//draw stairs
-
 		int x = Randomize::Random() % m_width/2 + ceil(m_width/4);
 		int y = Randomize::Random() % m_height/2 + ceil(m_height/4);
 		SpawnManager::getInstance()->generateMiscSquare(m_level * LEVEL_OFFSET + (m_xCoord * m_scale + 2 + x * m_scale), m_yCoord * m_scale - 2 - y * m_scale, 0, m_scale, "spiralStairs.png", true, 3.0f, 3.0f);
+
+		GeneratorManager::getInstance()->levels[m_level]->stairX = m_level * LEVEL_OFFSET + (m_xCoord * m_scale + 2 + x * m_scale);
+		GeneratorManager::getInstance()->levels[m_level]->stairY = m_yCoord * m_scale - 2 - y * m_scale;
 
 	}
 	if (m_spawn)
@@ -233,9 +235,10 @@ void Room::draw()
 		//draw spawn point
 		int x = Randomize::Random() % m_width / 2 + ceil(m_width / 4);
 		int y = Randomize::Random() % m_height / 2 + ceil(m_height / 4);
-		GeneratorManager::getInstance()->levels[m_level]->spawnX = x;
-		GeneratorManager::getInstance()->levels[m_level]->spawnY = y;
-		SpawnManager::getInstance()->generateMiscSquare(m_level * LEVEL_OFFSET + (m_xCoord * m_scale + 2 + x * m_scale), m_yCoord * m_scale - 2 - y * m_scale, 0, m_scale/5, "spawnPoint.png", true, 0.0f, 0.0f);
+		SpawnManager::getInstance()->generateMiscSquare(m_level * LEVEL_OFFSET + (m_xCoord * m_scale + 2 + x * m_scale), m_yCoord * m_scale - 2 - y * m_scale, 0, m_scale/5, "spawnPoint.png", false, 0.0f, 0.0f);
+
+		GeneratorManager::getInstance()->levels[m_level]->spawnX = m_level * LEVEL_OFFSET + (m_xCoord * m_scale + 2 + x * m_scale);
+		GeneratorManager::getInstance()->levels[m_level]->spawnY = m_yCoord * m_scale - 2 - y * m_scale;
 	}
 }
 

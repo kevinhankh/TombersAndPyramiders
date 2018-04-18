@@ -20,6 +20,8 @@ public:
 		std::vector<std::shared_ptr<Doorway>> doorways;
 		int spawnX;
 		int spawnY;
+		int stairX;
+		int stairY;
 		Level() {};
 	};
 	
