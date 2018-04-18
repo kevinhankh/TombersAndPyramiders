@@ -130,6 +130,25 @@ void CharacterController::useWeapon()
 	}
 }
 
+void CharacterController::useWeaponMelee()
+{
+	std::shared_ptr<BaseWeapon> weapon = m_inventory->getWeapon();
+
+	if (weapon != nullptr )
+	{
+		if (weapon->use())
+		{
+			std::shared_ptr<BaseMeleeWeapon> melee = dynamic_pointer_cast<BaseMeleeWeapon>(weapon);
+			if (melee != nullptr) {
+				m_character->playMeleeAttackAnimation();
+				//	m_characterController->playMeleeAttackAnimation();
+				m_audioSource->playSFX(SFX_SWORD);
+			}
+		}
+	}
+}
+
+
 bool CharacterController::tryInvokeTrigger()
 {
 	auto transform = getGameObject()->getTransform();

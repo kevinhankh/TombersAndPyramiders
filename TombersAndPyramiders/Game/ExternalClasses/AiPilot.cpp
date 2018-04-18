@@ -62,6 +62,7 @@ void AiPilot::CheckingTimer()
 			{
 				target = nullptr;
 				currentState = walk;
+			
 			}
 		}
 	}
@@ -80,13 +81,17 @@ void AiPilot::onUpdate(int ticks)
 		if (target == nullptr)
 		{
 			m_characterController->move(getRandomMovement());
+			if (checkRange() == false)
+			{
+				currentState = attack;
+			}
 		}
 		else
 		{
 			m_characterController->move(getMovement());
 			if (checkRange() == true)
 			{
-				currentState = attack;
+				currentState = melee;
 			}
 		}
 
@@ -102,7 +107,16 @@ void AiPilot::onUpdate(int ticks)
 			currentState = walk;
 		}
 		break;
-	}
+
+	case melee:
+		m_characterController->move(stopMovement());
+		m_characterController->useWeaponMelee();
+		if (checkRange() == false)
+		{
+			currentState = walk;
+		}
+		break;
+}
 }
 
 bool AiPilot::checkRange()
@@ -183,7 +197,7 @@ Vector2 AiPilot::getRandomMovement()
 	if (coun == 30)
 	{
 		randomNumber = rand() % 11;
-		randomNumber = Randomize::Random(0, 21);
+		//randomNumber = Randomize::Random(0, 21);
 		coun = 0;
 	}
 	if (randomNumber == 1)

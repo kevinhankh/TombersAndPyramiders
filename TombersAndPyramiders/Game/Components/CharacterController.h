@@ -81,6 +81,7 @@ class CharacterController : public BaseController, public Damageable
 			Uses the character's weapon this frame.
 		*/
 		void useWeapon();
+		void useWeaponMelee();
 
 		/**
 			Tries to trigger around the player the closest available thing, returning true if something triggered

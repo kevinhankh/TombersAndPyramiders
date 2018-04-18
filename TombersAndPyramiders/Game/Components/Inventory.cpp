@@ -44,6 +44,7 @@ std::shared_ptr<BaseWeapon> Inventory::getWeapon()
 	return m_weapon;
 }
 
+
 std::shared_ptr<BaseShield> Inventory::getShield()
 {
 	return m_shield;
@@ -74,6 +75,8 @@ std::shared_ptr<BaseWeapon> Inventory::setWeapon(std::shared_ptr<BaseWeapon> wea
 	m_weapon->setOwnerId(gameObject->getId());
 	return old;
 }
+
+
 
 std::shared_ptr<BaseShield> Inventory::setShield(std::shared_ptr<BaseShield> shield)
 {

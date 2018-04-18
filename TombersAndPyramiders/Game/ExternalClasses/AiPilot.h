@@ -25,7 +25,7 @@ public:
 	{
 		walk = 0,
 		attack = 1,
-		run = 2
+		melee = 2
 	}currentState;
 
 	explicit AiPilot() = default;
