@@ -18,6 +18,7 @@
 #include "BaseChestplate.h"
 #include "BaseGreaves.h"
 #include "GameObject.h"
+#include "Character.h"
 
 /*----------------------------------------------------------------------------------------
 	Resource Management
@@ -111,7 +112,16 @@ std::shared_ptr<BaseGreaves> Inventory::setGreaves(std::shared_ptr<BaseGreaves> 
 ----------------------------------------------------------------------------------------*/
 std::shared_ptr<BaseItem> Inventory::addItem(std::shared_ptr<BaseItem> item)
 {
-	return item->addToInventory(this);
+	auto itemRemoved = item->addToInventory(this);
+
+	auto owner = gameObject->getComponent<Character>();
+	if (owner != nullptr)
+	{
+		owner->updateInventory(false, itemRemoved);
+		owner->updateInventory(true, item);
+	}
+
+	return itemRemoved;
 }
 
 
