@@ -121,6 +121,11 @@
     <ClCompile Include="Game\GameObjects\PositionBasedPopup.cpp" />
     <ClCompile Include="Game\GameObjects\SpinningEffect.cpp" />
     <ClCompile Include="Game\GameObjects\Throne.cpp" />
+    <ClCompile Include="Game\ExternalClasses\ObstaclePilot.cpp" />
+    <ClCompile Include="Game\GameObjects\Obstacles\DartTrap.cpp" />
+    <ClCompile Include="Game\GameObjects\Obstacles\Obstacle.cpp" />
+    <ClCompile Include="Game\GameObjects\Obstacles\Spikes.cpp" />
+    <ClCompile Include="Game\Components\ObstacleController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Component\AI\AI.h" />
@@ -254,6 +259,12 @@
     <ClInclude Include="Game\GameObjects\PositionBasedPopup.h" />
     <ClInclude Include="Game\GameObjects\SpinningEffect.h" />
     <ClInclude Include="Game\GameObjects\Throne.h" />
+    <ClInclude Include="Game\ExternalClasses\ObstaclePilot.h" />
+    <ClInclude Include="Game\ExternalClasses\TimeInterval.h" />
+    <ClInclude Include="Game\GameObjects\Obstacles\DartTrap.h" />
+    <ClInclude Include="Game\GameObjects\Obstacles\Obstacle.h" />
+    <ClInclude Include="Game\GameObjects\Obstacles\Spikes.h" />
+    <ClInclude Include="Game\Components\ObstacleController.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Character.bmp" />
