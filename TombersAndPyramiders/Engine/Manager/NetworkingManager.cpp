@@ -309,8 +309,7 @@ void NetworkingManager::pollMessagesThreadTCP(int id)
 	int result;
 	char msg[MAXLEN_TCP];
 
-	do
-	{ 
+	while (m_socket != NULL) { 
 		if (m_clients.find(id) != m_clients.end())
 			result = SDLNet_TCP_Recv(m_clients[id].second, msg, MAXLEN_TCP);
 		else if (m_socket != NULL)
@@ -327,7 +326,7 @@ void NetworkingManager::pollMessagesThreadTCP(int id)
 		std::string newMsg = msg;
 		//std::cout << "RECIEVING: " << msg << std::endl;
 		m_messageQueue->push(newMsg);
-	} while (result > 0);
+	};
 	if (isHost ()) {
 		closeClientAsHost (id);
 	}
@@ -466,7 +465,7 @@ void NetworkingManager::sendQueuedEventsTCP ()
 			--it;
 		}
 		else if (m_assignedID != it->first) {
-			send (it->first, &packet);
+			send(it->first, new std::string(packet));
 		}
 	}
 }
@@ -485,8 +484,7 @@ void NetworkingManager::sendQueuedEventsUDP ()
 	packet += "]";
 	//Submit it
 	m_messagesToSendUDP.clear ();
-
-	sendUDP (&packet);
+	sendUDP(new std::string(packet));
 }
 
 void NetworkingManager::sendEventToReceiver(std::map<std::string, void*> data)
