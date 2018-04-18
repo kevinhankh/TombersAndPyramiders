@@ -56,4 +56,10 @@ class BaseHelmet : public BaseEquippableItem, public std::enable_shared_from_thi
 
 	protected:
 		std::shared_ptr<BaseItem> addSubclassToInventory();
+
+		/*----------------------------------------------------------------------------------------
+		| Setup Sprites and Animations
+		----------------------------------------------------------------------------------------*/
+	protected:
+		void setupSprites();
 };

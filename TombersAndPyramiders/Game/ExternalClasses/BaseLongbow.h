@@ -70,4 +70,10 @@ class BaseLongbow : public BaseProjectileWeapon
     public:
 		void setProperties(int damage, float castingTime, std::string bowImageName, 
 			std::string projectileImageName, bool destroyProjectilesOnCollision);
+
+	/*----------------------------------------------------------------------------------------
+	| Setup Sprites and Animations
+	----------------------------------------------------------------------------------------*/
+	private:
+		void setupSprites();
 };

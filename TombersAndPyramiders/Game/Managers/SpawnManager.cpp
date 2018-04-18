@@ -183,22 +183,26 @@ This is the type of character of YOU are when you are playing. It is a client ch
 std::shared_ptr<ClientCharacter> SpawnManager::generatePlayerCharacter(int id, float x, float y)
 {
 	std::shared_ptr<ClientCharacter> simpleCharacter = GameManager::getInstance()->createGameObjectWithId<ClientCharacter>(false, id, new PlayerPilot(), id);
+
 	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
 	healthBar->setTrackingPlayer(simpleCharacter);
 	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(24.0f);
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseLongbow>(
+	//simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseShortsword>(
+	//	BaseShortsword::WOODEN_SHORTSWORD_DAMAGE, BaseShortsword::WOODEN_SHORTSWORD_IMAGE_NAME,
+	//	BaseShortsword::WOODEN_SHORTSWORD_DESTROY_ON_COLLISION));
+	/*simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseLongbow>(
 		BaseLongbow::WOODEN_LONGBOW_DAMAGE, BaseLongbow::LONGBOW_CASTING_TIME, BaseLongbow::WOODEN_LONGBOW_IMAGE_NAME,
-		BaseLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME, BaseLongbow::WOODEN_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION));
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseShield>(
+		BaseLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME, BaseLongbow::WOODEN_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION));*/
+	/*simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseShield>(
 		BaseShield::WOODEN_SHIELD_IMAGE_NAME, BaseShield::WOODEN_SHIELD_ICON_NAME, BaseShield::WOODEN_SHIELD_DAMAGE_MULT, 
 		BaseShield::WOODEN_SHIELD_COOLDOWN_TIME));
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseGreaves>(
 		BaseGreaves::WOODEN_GREAVES_ICON_IMAGE_NAME, BaseGreaves::WOODEN_GREAVES_COOLDOWN_TIME, BaseGreaves::WOODEN_GREAVES_DASH_DURATION, 
 		BaseGreaves::WOODEN_GREAVES_DASH_SPEED));
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseChestplate>(
-		BaseChestplate::WOODEN_CHESTPLATE_ICON_IMAGE_NAME, BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseHelmet>(
-		BaseHelmet::WOODEN_HELMET_ICON_IMAGE, BaseHelmet::WOODEN_HELMET_CRITICAL_RESIST_CHANCE));
+		BaseChestplate::WOODEN_CHESTPLATE_ICON_IMAGE_NAME, BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));*/
+	//simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseHelmet>(
+	//	BaseHelmet::WOODEN_HELMET_ICON_IMAGE, BaseHelmet::WOODEN_HELMET_CRITICAL_RESIST_CHANCE));
 	simpleCharacter->getTransform()->setPosition(x, y, 100);
 	simpleCharacter->getTransform()->setScale(2);
 	simpleCharacter->getTransform()->renderRotation = false;
@@ -215,9 +219,9 @@ std::shared_ptr<HostCharacter> SpawnManager::generateHostCharacter (int id, floa
 	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
 	healthBar->setTrackingPlayer(simpleCharacter);
 	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(24.0f);
-	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseLongbow>(
-		BaseLongbow::WOODEN_LONGBOW_DAMAGE, BaseLongbow::LONGBOW_CASTING_TIME, BaseLongbow::WOODEN_LONGBOW_IMAGE_NAME,
-		BaseLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME, BaseLongbow::WOODEN_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION));
+	/*simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseShortsword>(
+		BaseShortsword::WOODEN_SHORTSWORD_DAMAGE, BaseShortsword::WOODEN_SHORTSWORD_IMAGE_NAME,
+		BaseShortsword::WOODEN_SHORTSWORD_DESTROY_ON_COLLISION));
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseShield>(
 		BaseShield::WOODEN_SHIELD_IMAGE_NAME, BaseShield::WOODEN_SHIELD_ICON_NAME, BaseShield::WOODEN_SHIELD_DAMAGE_MULT,
 		BaseShield::WOODEN_SHIELD_COOLDOWN_TIME));
@@ -225,9 +229,9 @@ std::shared_ptr<HostCharacter> SpawnManager::generateHostCharacter (int id, floa
 		BaseGreaves::WOODEN_GREAVES_ICON_IMAGE_NAME, BaseGreaves::WOODEN_GREAVES_COOLDOWN_TIME, BaseGreaves::WOODEN_GREAVES_DASH_DURATION,
 		BaseGreaves::WOODEN_GREAVES_DASH_SPEED));
 	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseChestplate>(
-		BaseChestplate::WOODEN_CHESTPLATE_ICON_IMAGE_NAME, BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));
-	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseHelmet>(
-		BaseHelmet::WOODEN_HELMET_ICON_IMAGE, BaseHelmet::WOODEN_HELMET_CRITICAL_RESIST_CHANCE));
+		BaseChestplate::WOODEN_CHESTPLATE_ICON_IMAGE_NAME, BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));*/
+	//simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseHelmet>(
+	//	BaseHelmet::WOODEN_HELMET_ICON_IMAGE, BaseHelmet::WOODEN_HELMET_CRITICAL_RESIST_CHANCE));
 	simpleCharacter->getTransform ()->setPosition (x, y, 100);
 	simpleCharacter->getTransform()->setScale(2);
 	simpleCharacter->getTransform()->renderRotation = false;
@@ -243,9 +247,9 @@ std::shared_ptr<NetworkCharacter> SpawnManager::generateNetworkCharacter (int id
 	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
 	healthBar->setTrackingPlayer(simpleCharacter);
 	simpleCharacter->addComponent<Light>(simpleCharacter.get())->setColor(255, 50, 50)->setSize(12.0f);
-	simpleCharacter->getComponent<Inventory> ()->addItem (std::make_shared<BaseLongbow>(
-		BaseLongbow::WOODEN_LONGBOW_DAMAGE, BaseLongbow::LONGBOW_CASTING_TIME, BaseLongbow::WOODEN_LONGBOW_IMAGE_NAME,
-		BaseLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME, BaseLongbow::WOODEN_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION));
+	/*simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseShortsword>(
+		BaseShortsword::WOODEN_SHORTSWORD_DAMAGE, BaseShortsword::WOODEN_SHORTSWORD_IMAGE_NAME,
+		BaseShortsword::WOODEN_SHORTSWORD_DESTROY_ON_COLLISION));
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseShield>(
 		BaseShield::WOODEN_SHIELD_IMAGE_NAME, BaseShield::WOODEN_SHIELD_ICON_NAME, BaseShield::WOODEN_SHIELD_DAMAGE_MULT,
 		BaseShield::WOODEN_SHIELD_COOLDOWN_TIME));
@@ -253,9 +257,9 @@ std::shared_ptr<NetworkCharacter> SpawnManager::generateNetworkCharacter (int id
 		BaseGreaves::WOODEN_GREAVES_ICON_IMAGE_NAME, BaseGreaves::WOODEN_GREAVES_COOLDOWN_TIME, BaseGreaves::WOODEN_GREAVES_DASH_DURATION,
 		BaseGreaves::WOODEN_GREAVES_DASH_SPEED));
 	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseChestplate>(
-		BaseChestplate::WOODEN_CHESTPLATE_ICON_IMAGE_NAME, BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseHelmet>(
-		BaseHelmet::WOODEN_HELMET_ICON_IMAGE, BaseHelmet::WOODEN_HELMET_CRITICAL_RESIST_CHANCE));
+		BaseChestplate::WOODEN_CHESTPLATE_ICON_IMAGE_NAME, BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));*/
+	//simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseHelmet>(
+	//	BaseHelmet::WOODEN_HELMET_ICON_IMAGE, BaseHelmet::WOODEN_HELMET_CRITICAL_RESIST_CHANCE));
 	simpleCharacter->getTransform()->setPosition(x, y, 100);
 	simpleCharacter->getTransform()->setScale(2);
 	simpleCharacter->getTransform()->renderRotation = false;
@@ -299,9 +303,9 @@ std::shared_ptr<Character> SpawnManager::generatePlayerCharacter(float x, float 
 	std::shared_ptr<Character> simpleCharacter = GameManager::getInstance()->createGameObject<Character>(false, new PlayerPilot());
 	auto healthBar = GameManager::getInstance()->createGameObject<HealthBar>(false);
 	healthBar->setTrackingPlayer(simpleCharacter);
-	simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseShortsword>(
-		BaseShortsword::WOODEN_SHORTSWORD_DAMAGE, BaseShortsword::WOODEN_SHORTSWORD_IMAGE_NAME, 
-		BaseShortsword::WOODEN_SHORTSWORD_DESTROY_ON_COLLISION));
+	//simpleCharacter->getComponent<Inventory>()->addItem(std::make_shared<BaseShortsword>(
+	//	BaseShortsword::WOODEN_SHORTSWORD_DAMAGE, BaseShortsword::WOODEN_SHORTSWORD_IMAGE_NAME, 
+	//	BaseShortsword::WOODEN_SHORTSWORD_DESTROY_ON_COLLISION));
 	simpleCharacter->getTransform()->setPosition(x, y);
 	simpleCharacter->getTransform()->setScale(2);
 	simpleCharacter->getTransform()->renderRotation = false;
@@ -331,11 +335,7 @@ std::shared_ptr<Character> SpawnManager::generateAiCharacter(int id, float x, fl
 	simpleAi->addComponent<Light>(simpleAi.get())->setColor(50, 255, 30)->setSize(3.0f);
 	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<BaseLongbow>(
 		BaseLongbow::WOODEN_LONGBOW_DAMAGE, BaseLongbow::LONGBOW_CASTING_TIME, BaseLongbow::WOODEN_LONGBOW_IMAGE_NAME,
-		BaseLongbow::WOODEN_LONGBOW_PROJECTILE_IMAGE_NAME, BaseLongbow::WOODEN_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION));
-	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<BaseChestplate>(
-		BaseChestplate::WOODEN_CHESTPLATE_ICON_IMAGE_NAME, BaseChestplate::WOODEN_CHESTPLATE_DAMAGE_MULTIPLIER));
-	simpleAi->getComponent<Inventory>()->addItem(std::make_shared<BaseHelmet>(
-		BaseHelmet::WOODEN_HELMET_ICON_IMAGE, BaseHelmet::WOODEN_HELMET_CRITICAL_RESIST_CHANCE));
+		"beetle_spit.png", BaseLongbow::WOODEN_LONGBOW_DESTROY_PROJECTILES_ON_COLLISION));
 	simpleAi->getTransform()->setPosition(x, y);
 	simpleAi->getTransform()->renderRotation = false;
 	simpleAi->getTransform()->setScale(2);

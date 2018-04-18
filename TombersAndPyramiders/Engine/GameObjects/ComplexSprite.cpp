@@ -173,7 +173,7 @@ bool ComplexSprite::changeAnimation(int animationIndex, int animationIndexToRetu
 		int endFrame = m_spriteInfo->m_animations[m_currentSpriteSheetIndex][m_currentAnimationIndex].m_endFrameIndex;
 		int startFrame = m_spriteInfo->m_animations[m_currentSpriteSheetIndex][m_currentAnimationIndex].m_startFrameIndex;
 
-		m_framesTilReturn = endFrame - startFrame;
+  		m_framesTilReturn = endFrame - startFrame;
 	}
 
 	updateSpriteSheetAnimation(m_currentAnimationIndex);

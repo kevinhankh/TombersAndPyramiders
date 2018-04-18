@@ -114,7 +114,9 @@ std::shared_ptr<BaseItem> Inventory::addItem(std::shared_ptr<BaseItem> item)
 {
 	auto itemRemoved = item->addToInventory(this);
 
-	auto owner = gameObject->getComponent<Character>();
+	auto owner = (Character *)getGameObject();
+
+	//Character *owner = dynamic_cast<Character*>(getGameObject());
 	if (owner != nullptr)
 	{
 		owner->updateInventory(false, itemRemoved);

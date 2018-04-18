@@ -56,3 +56,7 @@ void BaseItem::addAnimation(std::string spriteName, std::string animationName, i
 {
 	spriteInfo->addAnimation(spriteName, animationName, frameStart, frameEnd);
 }
+void BaseItem::setupSprites()
+{
+	spriteInfo = std::make_shared<ComplexSpriteInfo>();
+}
