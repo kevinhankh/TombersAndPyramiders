@@ -38,7 +38,7 @@ void startGameCallback(std::map<std::string, void*> payload)
 	{
 		int mapSeedID = std::stoi (*(std::string*)payload["mapSeedID" + std::to_string (0)]);
 		Randomize::SetSeed(mapSeedID);
-		GeneratorManager::getInstance ()->generateLevel (WORLD_WIDTH, WORLD_HEIGHT, 2, i);
+		GeneratorManager::getInstance ()->generateLevel (WORLD_WIDTH, WORLD_HEIGHT, 1, i);
 		GeneratorManager::getInstance()->drawLevel(i);
 	}
 
@@ -97,7 +97,7 @@ void SpawnManager::sendStartPacket()
 	{
 		time_t seed = time(NULL);
 		Randomize::SetSeed(seed);
-		GeneratorManager::getInstance()->generateLevel(WORLD_WIDTH, WORLD_HEIGHT, 2, i);
+		GeneratorManager::getInstance()->generateLevel(WORLD_WIDTH, WORLD_HEIGHT, 1, i);
 		payload["mapSeedID" + std::to_string(0)] = std::to_string(seed);
 		GeneratorManager::getInstance()->drawLevel(i);
 
@@ -105,8 +105,8 @@ void SpawnManager::sendStartPacket()
 		int room = Randomize::Random(0, GeneratorManager::getInstance()->levels[i]->rooms.size() - 2);
 
 		for (int j = 0; j < 5; j++) {
-			x = ((Randomize::Random() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_width - 2) + 1) + GeneratorManager::getInstance()->levels[0]->rooms[room]->m_xCoord) * 5;
-			y = (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_yCoord - (Randomize::Random() % (GeneratorManager::getInstance()->levels[0]->rooms[room]->m_height - 2) + 1)) * 5;
+			x = ((Randomize::Random() % (GeneratorManager::getInstance()->levels[i]->rooms[room]->m_width - 2) + 1) + GeneratorManager::getInstance()->levels[i]->rooms[room]->m_xCoord) * 5;
+			y = (GeneratorManager::getInstance()->levels[i]->rooms[room]->m_yCoord - (Randomize::Random() % (GeneratorManager::getInstance()->levels[i]->rooms[room]->m_height - 2) + 1)) * 5;
 			x += i * LEVEL_OFFSET;
 			SpawnManager::getInstance ()->generateAiCharacter (id, x, y, true);
 
