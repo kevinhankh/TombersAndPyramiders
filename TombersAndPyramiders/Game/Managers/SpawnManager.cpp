@@ -144,6 +144,9 @@ void SpawnManager::sendStartPacket()
 	//Added boulder for testing possession
 	SpawnManager::getInstance()->generateBoulder(std::stof(payload["playerSpawnX" + std::to_string(0)]) + 3, std::stof(payload["playerSpawnY" + std::to_string(0)]) + 1);
 
+	SpawnManager::getInstance()->generateDartTrap(std::stof(payload["playerSpawnX" + std::to_string(0)]) + 1, std::stof(payload["playerSpawnY" + std::to_string(0)]) + 1, (DartTrap::Direction)Randomize::Random(0, 3));
+	SpawnManager::getInstance()->generateSpikes(std::stof(payload["playerSpawnX" + std::to_string(0)]) + 2, std::stof(payload["playerSpawnY" + std::to_string(0)]) + 1);
+
 	NetworkingManager::getInstance()->prepareMessageForSendingTCP(0, "STARTGAME", payload);
 }
 
@@ -361,6 +364,23 @@ std::shared_ptr<Boulder> SpawnManager::generateBoulder(float x, float y)
 	boulder->getTransform()->setPosition(x, y);
 	boulder->getTransform()->setZ(2);
 	return boulder;
+}
+
+std::shared_ptr<Spikes> SpawnManager::generateSpikes(float x, float y)
+{
+	std::shared_ptr<Spikes> spikes = GameManager::getInstance()->createGameObject<Spikes>(false, Spikes::Direction::North, Spikes::Mode::Enabled, x, y, 1);
+	spikes->getTransform()->setPosition(x, y);
+	spikes->getTransform()->setZ(2);
+	return spikes;
+}
+
+std::shared_ptr<DartTrap> SpawnManager::generateDartTrap(float x, float y, DartTrap::Direction direction)
+{
+	std::shared_ptr<DartTrap> dartTrap = GameManager::getInstance()->createGameObject<DartTrap>(false, direction, DartTrap::Mode::Enabled, x, y, 1);
+	dartTrap->getTransform()->setPosition(x, y);
+	dartTrap->getTransform()->setZ(2);
+	dartTrap->getTransform()->setRotation(direction * 90);
+	return dartTrap;
 }
 
 std::shared_ptr<GhostCharacter> SpawnManager::generateNetworkGhost(float x, float y, int netId, bool isPlayer)

@@ -18,6 +18,6 @@ int Randomize::Random (int min, int max) {
 }
 
 float Randomize::RandomFloat (int min, int max) {
-	boost::random::uniform_int_distribution<> dist (min, max);
-	return (float)dist (gen) / (float)MAX_INT;
+	boost::random::uniform_int_distribution<> dist (min, MAX_INT);
+	return ((float)dist (gen) / (float)MAX_INT) * max;
 }

@@ -1,182 +1,67 @@
 Networking Join Directed to IP 127.0.0.1:9999
 1280
 
-0x7febdec46578
+0x7fcb80526d98
+8
+0x7fcb8064f348
 8
 Hosting server.
 ---- 1
 Client: 0 IP: 0
-0x7febdec460c8
+0x7fcb8064df88
 8
 Server start game!
 CompontentTemplate Constructor Invoked
-0 2 2 2 2 2 2 2 2 0 2 2 2 2 2 2 2 0 
-0 2 1 1 1 1 1 1 2 0 2 1 1 1 1 1 2 0 
-0 2 1 1 1 1 1 1 2 0 2 1 1 1 1 1 2 0 
-0 2 1 1 1 1 1 1 2 0 2 1 1 1 1 1 5 0 
-0 2 2 2 2 5 7 5 2 0 2 2 2 2 5 7 5 0 
-0 0 0 0 0 8 7 8 0 0 0 0 0 0 8 7 8 0 
-2 2 2 2 2 5 7 5 0 0 2 2 2 2 5 7 5 0 
-2 1 1 1 1 1 1 5 0 0 2 1 1 1 1 1 5 0 
-2 1 1 1 1 1 1 5 0 0 2 1 1 1 1 1 5 0 
-2 1 1 1 1 1 1 5 8 8 5 1 1 1 1 1 5 0 
-2 1 1 1 1 1 1 7 7 7 7 1 1 1 1 1 5 0 
-2 1 1 1 1 1 1 5 8 8 5 1 1 1 1 1 5 0 
-2 1 1 1 1 1 1 2 0 0 2 1 1 1 1 1 2 0 
-2 1 1 1 1 1 1 2 0 0 2 1 1 1 1 1 2 0 
-2 1 1 1 1 1 1 2 0 0 2 1 1 1 1 1 2 0 
-2 2 2 2 2 2 2 2 0 0 2 1 1 1 1 1 2 0 
-0 0 0 0 0 0 0 0 0 0 2 2 2 2 2 2 2 0 
+2 2 2 2 2 2 0 0 2 2 2 2 2 2 2 2 2 0 
+2 1 1 1 1 2 0 0 2 1 1 1 1 1 1 1 2 0 
+2 1 1 1 1 2 0 0 2 1 1 1 1 1 1 1 2 0 
+2 1 1 1 1 5 0 0 2 1 1 1 1 1 1 1 2 0 
+2 1 1 1 1 5 0 0 2 1 1 1 1 1 1 1 2 0 
+2 2 2 5 7 5 0 0 2 1 1 1 1 1 1 1 2 0 
+0 0 0 8 7 8 0 0 2 1 1 1 1 1 1 1 2 0 
+2 2 2 5 7 5 0 0 2 1 1 1 1 1 1 1 2 0 
+2 1 1 1 1 5 0 0 2 2 2 2 5 7 5 2 2 0 
+2 1 1 1 1 5 8 8 8 8 9 0 8 7 8 0 0 0 
+2 1 1 1 1 7 7 7 7 7 8 0 8 7 8 0 0 0 
+2 1 1 1 1 5 8 5 5 5 5 2 5 7 5 2 2 0 
+2 1 1 1 1 2 0 2 1 1 1 1 1 1 1 1 2 0 
+2 1 1 1 1 2 0 2 1 1 1 1 1 1 1 1 2 0 
+2 1 1 1 1 2 0 2 1 1 1 1 1 1 1 1 2 0 
+2 2 2 2 2 2 0 2 1 1 1 1 1 1 1 1 2 0 
+0 0 0 0 0 0 0 2 2 2 2 2 2 2 2 2 2 0 
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
--8 9
-8 5
--9 3
-8 10
-1 9
-7 5
-1 3
-7 11
-0 2 2 2 2 2 2 2 2 0 2 2 2 2 2 2 2 0 
-0 2 1 1 1 1 1 1 2 0 2 1 1 1 1 1 2 0 
-0 2 1 1 1 1 1 1 2 0 2 1 1 1 1 1 2 0 
-0 2 1 1 1 1 1 1 2 0 2 1 1 1 1 1 5 0 
-0 2 2 2 2 5 7 5 2 0 2 2 2 2 5 7 5 0 
-0 0 0 0 0 7 7 7 0 0 0 0 0 0 7 7 7 0 
-2 2 2 2 2 5 7 5 0 0 2 2 2 2 5 7 5 0 
-2 1 1 1 1 1 1 5 0 0 2 1 1 1 1 1 5 0 
-2 1 1 1 1 1 1 5 0 0 2 1 1 1 1 1 5 0 
-2 1 1 1 1 1 1 5 7 7 5 1 1 1 1 1 5 0 
-2 1 1 1 1 1 1 7 7 7 7 1 1 1 1 1 5 0 
-2 1 1 1 1 1 1 5 7 7 5 1 1 1 1 1 5 0 
-2 1 1 1 1 1 1 2 0 0 2 1 1 1 1 1 2 0 
-2 1 1 1 1 1 1 2 0 0 2 1 1 1 1 1 2 0 
-2 1 1 1 1 1 1 2 0 0 2 1 1 1 1 1 2 0 
-2 2 2 2 2 2 2 2 0 0 2 1 1 1 1 1 2 0 
-0 0 0 0 0 0 0 0 0 0 2 2 2 2 2 2 2 0 
+-9 9
+6 6
+-9 2
+6 9
+-1 9
+9 9
+-2 -2
+10 6
+2 2 2 2 2 2 0 0 2 2 2 2 2 2 2 2 2 0 
+2 1 1 1 2 2 2 2 2 2 2 2 2 1 2 2 2 2 
+2 1 1 1 2 2 2 1 1 1 1 1 2 1 2 1 1 2 
+2 1 1 1 2 5 2 1 1 1 1 1 2 1 2 1 1 2 
+2 1 1 1 2 5 2 1 1 1 1 1 2 1 2 1 1 2 
+2 1 1 1 5 5 2 1 1 1 1 1 2 1 2 1 1 2 
+2 1 1 1 7 7 2 1 1 1 1 1 2 1 2 1 1 2 
+2 1 1 1 7 5 2 1 1 1 1 1 2 1 2 1 1 2 
+2 1 1 1 7 5 2 1 1 1 1 1 2 7 2 1 1 2 
+2 2 2 5 5 5 5 1 1 1 1 1 5 7 5 1 1 2 
+2 1 1 1 1 7 7 1 1 1 1 1 7 7 7 1 1 2 
+2 2 2 5 5 5 5 1 1 1 1 1 5 7 5 1 1 2 
+2 1 1 1 5 5 2 1 1 1 1 1 2 1 2 1 1 2 
+2 1 1 1 2 2 2 1 1 1 1 1 2 1 2 1 1 2 
+2 1 1 1 2 2 2 1 1 1 1 1 2 1 2 1 1 2 
+2 1 1 1 2 2 2 2 2 2 2 2 2 1 2 2 2 2 
+2 2 2 2 2 0 0 2 2 2 2 2 2 2 2 2 2 0 
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
--8 9
-8 5
--9 3
-8 10
-1 9
-7 5
-1 3
-7 11
+-9 9
+5 10
+-9 -2
+5 6
+-3 8
+7 15
+5 8
+4 15
 Event subbed: 30010|SWAPPEDITEM
-Rotation: 90
-Rotation: 270
-Rotation: 270
-Rotation: 270
-Rotation: 135
-Rotation: 225
-Rotation: 225
-Rotation: 225
-Rotation: 225
-Rotation: 225
-Rotation: 315
-Rotation: 45
-Rotation: 45
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 45
-Rotation: 135
-Rotation: 135
-CompontentTemplate Constructor Invoked
-GhostCharacter::onStart
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 135
-Rotation: 225
-Rotation: 135
-Rotation: 225
-Rotation: 135
-Rotation: 225
-Rotation: 135
-Rotation: 225
